@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Trocchi&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet.photon.css">
+        <link rel="stylesheet" href="css/styles-panel.css">
+
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+    <!--===========================================================================================================================================-->
+<!-- Buscador por CLAVE -->
+<div class="ui-search" style="position:absolute; z-index:1000; top:12px; left:12px; display:flex; gap:6px; align-items:center; background:rgba(255,255,255,.9); padding:8px 10px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.08);">
+  <input id="claveSearch" type="search" placeholder="Buscar por CLAVE…" list="claveOptions"
+    style="width:220px; padding:6px 10px; border-radius:8px; border:1px solid #d1d5db; outline:none;">
+  <datalist id="claveOptions"></datalist>
+  <button id="claveGo" type="button" style="padding:6px 10px; border-radius:8px; border:0; background:#638838;
+; color:white; cursor:pointer;">Buscar</button>
+</div>
+
+    <!--===========================================================================================================================================-->
+        
+        <div id="map">
+        </div>
+        <div id="featurePanel" class="ui-panel hidden" role="dialog" aria-label="Ficha de predio">
+        <button class="ui-close" id="panelCloseBtn" aria-label="Cerrar">×</button>
+        <div id="featurePanelContent"></div>
+        </div>
+
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.photon.js"></script>
+        <script src="data/TOTORACOCHA_1.js"></script>
+        <script src="data/PRIMERODEMAYO_2.js"></script>
+        <script src="data/ORDOEZLASO_3.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+        
+        
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            if (__selectedLayer === e.target) return;
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString' || e.target.feature.geometry.type === 'MultiLineString') {
+            highlightLayer.setStyle({
+                color: '#ffff00',
+            });
+            } else {
+            highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+            });
+            }
+        }
+        var map = L.map('map', {
+        zoomControl:false, maxZoom:28, minZoom:14
+        }).fitBounds([[-2.908626027397235,-79.04784062706698],[-2.8875146284421516,-79.01489480969526]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        // remove popup's row if "visible-with-data"
+        function removeEmptyRowsFromPopupContent(content, feature) {
+        var tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+        var rows = tempDiv.querySelectorAll('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var td = rows[i].querySelector('td.visible-with-data');
+            var key = td ? td.id : '';
+            if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+            rows[i].parentNode.removeChild(rows[i]);
+            }
+        }
+        return tempDiv.innerHTML;
+        }
+        // modify popup if contains media
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            var imgTd = tempDiv.querySelector('td img');
+            if (imgTd) {
+                var src = imgTd.getAttribute('src');
+                if (/\.(jpg|jpeg|png|gif|bmp|webp|avif)$/i.test(src)) {
+                    popup._contentNode.classList.add('media');
+                    setTimeout(function() {
+                        popup.update();
+                    }, 10);
+                } else if (/\.(mp3|wav|ogg|aac)$/i.test(src)) {
+                    var audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.src = src;
+                    imgTd.parentNode.replaceChild(audio, imgTd);
+                    popup._contentNode.classList.add('media');
+                    setTimeout(function() {
+                        popup.setContent(tempDiv.innerHTML);
+                        popup.update();
+                    }, 10);
+                } else if (/\.(mp4|webm|ogg|mov)$/i.test(src)) {
+                    var video = document.createElement('video');
+                    video.controls = true;
+                    video.src = src;
+                    video.style.width = "400px";
+                    video.style.height = "300px";
+                    video.style.maxHeight = "60vh";
+                    video.style.maxWidth = "60vw";
+                    imgTd.parentNode.replaceChild(video, imgTd);
+                    popup._contentNode.classList.add('media');
+                    // Aggiorna il popup quando il video carica i metadati
+                    video.addEventListener('loadedmetadata', function() {
+                        popup.update();
+                    });
+                    setTimeout(function() {
+                        popup.setContent(tempDiv.innerHTML);
+                        popup.update();
+                    }, 10);
+                } else {
+                    popup._contentNode.classList.remove('media');
+                }
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_Positronretina_0');
+        map.getPane('pane_Positronretina_0').style.zIndex = 400;
+        var layer_Positronretina_0 = L.tileLayer('https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+            pane: 'pane_Positronretina_0',
+            opacity: 1.0,
+            attribution: '<a href="https://cartodb.com/basemaps/">Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 5,
+            maxNativeZoom: 20
+        });
+        layer_Positronretina_0;
+        map.addLayer(layer_Positronretina_0);
+
+        var __selectedLayer = null;
+
+// Devuelve el/los elementos SVG del layer (soporta MultiPolygon)
+function getLayerElements(layer){
+  var el = (typeof layer.getElement === 'function') ? layer.getElement() : layer._path;
+  if (!el) return [];
+  // Para multipolígonos, Leaflet genera un <g> con varios <path>
+  if (el.tagName && el.tagName.toLowerCase() === 'g') {
+    return Array.from(el.querySelectorAll('path.leaflet-interactive'));
+  }
+  return [el];
+}
+
+function markSelected(layer){
+  // Trae al frente para que el borde no quede oculto
+  if (typeof layer.bringToFront === 'function') layer.bringToFront();
+  // Aumenta peso/color (fallback por si el navegador ignora CSS en algún caso)
+  if (typeof layer.setStyle === 'function') {
+    layer.setStyle({ weight: 3, color: '#2563eb', fillOpacity: 0.85 });
+  }
+  // Añade clase a cada path
+  getLayerElements(layer).forEach(function(p){ if (p) p.classList.add('feature-selected'); });
+}
+
+function unmarkSelected(layer){
+  if (!layer) return;
+  // Reset de estilo de la capa padre (como hacía tu mouseout)
+  for (var i in layer._eventParents) {
+    if (typeof layer._eventParents[i].resetStyle === 'function') {
+      layer._eventParents[i].resetStyle(layer);
+    }
+  }
+  // Quita clase en todos los paths
+  getLayerElements(layer).forEach(function(p){ if (p) p.classList.remove('feature-selected'); });
+}
+
+function selectLayer(layer){
+  if (__selectedLayer && __selectedLayer !== layer) {
+    unmarkSelected(__selectedLayer);
+  }
+  __selectedLayer = layer;
+  markSelected(layer);
+}
+
+// Cerrar panel también limpia selección
+function closeFeaturePanel(){
+  var panel = document.getElementById('featurePanel');
+  if (panel) panel.classList.add('hidden');
+  if (__selectedLayer) {
+    unmarkSelected(__selectedLayer);
+    __selectedLayer = null;
+  }
+}
+
+// Conecta botón cerrar y tecla ESC una sola vez
+(function wireCloseOnce(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('panelCloseBtn');
+    if (btn && !btn._wired){
+      btn._wired = true;
+      btn.addEventListener('click', closeFeaturePanel);
+      document.addEventListener('keydown', function(ev){
+        if (ev.key === 'Escape') closeFeaturePanel();
+      });
+    }
+  });
+})();
+
+        //============================================================================TOTORACHOCHA========================================================================================
+        function pop_TOTORACOCHA_1(feature, layer) {
+  // Hover highlight (igual que antes)
+    layer.on({
+    mouseout: function(e){
+        for (var i in e.target._eventParents) {
+            if (typeof e.target._eventParents[i].resetStyle === 'function') {
+            e.target._eventParents[i].resetStyle(e.target);
+            }
+        }
+        if (__selectedLayer === e.target) {
+      markSelected(e.target);
+        }
+    },
+    mouseover: highlightFeature,
+    });
+
+  // -------- Helpers para HTML ----------
+    function val(k){
+  var v = feature.properties[k];
+  return (v !== null && v !== undefined) ? String(v) : '';
+}
+
+function badge(k, label, suffix){
+  var value = val(k);
+  var cls = value ? '' : ' is-empty';
+
+  // Si hay valor y sufijo, se lo pegamos
+  if (value && suffix) {
+    value = value + ' ' + suffix;
+  }
+
+  var labelHTML = label
+    ? '<span class="key mono">' + label + ':</span>'
+    : '';
+
+  return '<div class="badge' + cls + '">' +
+           labelHTML +
+           '<span>' + value + '</span>' +
+         '</div>';
+}
+
+
+    function buildPanelHTML() {
+  return `
+    <div class="popup-card">
+      <div class="popup-title">Totoracocha</div>
+
+      <details class="section" data-section="datos" open>
+        <summary><span>Datos usuario</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div class="field">Explicacion</div>
+          <div class="badge">
+            <span class="key mono">Predio:</span>
+            <strong>${val('CLAVE')}</strong>
+          </div>
+
+          <div class="grid" style="margin-top:8px">
+            ${badge('RES_01', 'Número de paneles')}
+            ${badge('RES_02', 'Inversión', '$')}
+            ${badge('RES_03', 'Periodo de retorno', 'años')}
+            ${badge('RES_04', 'Ahorro anual', '$')}
+          </div>
+        </div>
+      </details>
+
+      <details class="section" data-section="bateria">
+        <summary><span>bateria</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div class="grid">
+            ${badge('RES_05', 'Número de paneles')}
+            ${badge('RES_06', 'Inversión', '$')}
+            ${badge('RES_07', 'Periodo de retorno', 'años')}
+            ${badge('RES_08', 'Ahorro anual', '$')}
+          </div>
+        </div>
+      </details>
+
+      
+      <details class="section" data-section="grafico" open>
+        <summary><span>Grafico</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+            <button id="chartPrev" type="button" aria-label="Anterior">◄</button>
+            <div id="chartRangeLabel" class="mono">Enero–Febrero</div>
+            <button id="chartNext" type="button" aria-label="Siguiente">►</button>
+          </div>
+          <div style="height:260px">
+            <canvas id="energyChart"></canvas>
+          </div>
+          <div class="field" style="margin-top:8px">
+            Series: <strong>Consumo</strong>, <strong>Energía máxima</strong>, <strong>Energía recomendada</strong>
+          </div>
+        </div>
+      </details>
+    </div>`;
+}
+
+// ====== CHART.JS: datos y paginación por 2 meses ======
+var __totoChart = null;
+var __totoStart = 0; // 0:Ene/Feb, 2:Mar/Abr, ... 10:Nov/Dic
+
+function monthsSpec(p){
+  // p = feature.properties
+  return [
+    {label:'Enero',     sum:'SUM_C_ENER', emax:'E_M_ENE',  erec:'E_R_ENE'},
+    {label:'Febrero',   sum:'SUM_C_FEBR', emax:'E_M_FEB',  erec:'E_R_FEB'},
+    {label:'Marzo',     sum:'SUM_C_MARZ', emax:'E_M_MAR',  erec:'E_R_MAR'},
+    {label:'Abril',     sum:'SUM_C_ABRI', emax:'E_M_ABR',  erec:'E_R_ABR'},
+    {label:'Mayo',      sum:'SUM_C_MAYO', emax:'E_M_MAY',  erec:'E_R_MAY'},
+    {label:'Junio',     sum:'SUM_C_JUNI', emax:'E_M_JUN',  erec:'E_R_JUN'},
+    {label:'Julio',     sum:'SUM_C_JULI', emax:'E_M_JUL',  erec:'E_R_JUL'},
+    {label:'Agosto',    sum:'SUM_C_AGOS', emax:'E_M_AGO',  erec:'E_R_AGO'},
+    {label:'Septiembre',sum:'SUM_C_SEP',  emax:'E_M_SEP',  erec:'E_R_SEP'},
+    {label:'Octubre',   sum:'SUM_C_OCTU', emax:'E_M_OCT',  erec:'E_R_OCT'},
+    {label:'Noviembre', sum:'SUM_C_NOVI', emax:'E_M_NOV',  erec:'E_R_NOV'},
+    {label:'Diciembre', sum:'SUM_C_DIC',  emax:'E_M_DIC',  erec:'E_R_DIC'}
+  ].map(m => ({
+    label: m.label,
+    sum : Number(p[m.sum]  ?? 0),
+    emax: Number(p[m.emax] ?? 0),
+    erec: Number(p[m.erec] ?? 0)
+  }));
+}
+
+function buildSlice(all, start){
+  const slice = all.slice(start, start+2);
+  return {
+    labels: slice.map(m => m.label),
+    consumo: slice.map(m => m.sum),
+    emax: slice.map(m => m.emax),
+    erec: slice.map(m => m.erec)
+  };
+}
+
+function renderChart(slice){
+  const ctx = document.getElementById('energyChart');
+  if (!ctx) return;
+
+  if (__totoChart) { __totoChart.destroy(); }
+
+  __totoChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: slice.labels,
+      datasets: [
+        {
+          label: 'Consumo',
+          data: slice.consumo,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',   // rojo
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Energía máxima',
+          data: slice.emax,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',   // azul
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Energía recomendada',
+          data: slice.erec,
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',   // turquesa
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'top' },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        x: { ticks: { autoSkip: false } },
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  // Etiqueta de rango
+  const range = document.getElementById('chartRangeLabel');
+  if (range) range.textContent = slice.labels.join(' – ');
+}
+
+function initChartForFeature(){
+  const all = monthsSpec(feature.properties || {});
+  // Asegura que el start sea par y entre 0..10
+  __totoStart = Math.min(10, Math.max(0, __totoStart - (__totoStart%2)));
+  renderChart(buildSlice(all, __totoStart));
+
+  // Controles
+  const prev = document.getElementById('chartPrev');
+  const next = document.getElementById('chartNext');
+
+  function shift(dir){
+    const maxStart = 10; // (12-2)
+    __totoStart = Math.min(maxStart, Math.max(0, __totoStart + (dir*2)));
+    renderChart(buildSlice(all, __totoStart));
+  }
+  if (prev && !prev._wired){ prev._wired = true; prev.addEventListener('click', () => shift(-1)); }
+  if (next && !next._wired){ next._wired = true; next.addEventListener('click', () => shift(+1)); }
+}
+
+
+
+
+
+
+  // -------- Panel open/close wiring ----------
+    function openPanel(html){
+        var panel = document.getElementById('featurePanel');
+        var content = document.getElementById('featurePanelContent');
+        content.innerHTML = html;
+        panel.classList.remove('hidden');
+
+    // Acordeón exclusivo
+    var groups = panel.querySelectorAll('details.section');
+    groups.forEach(function(d){
+    d.addEventListener('toggle', function(){
+        if (d.open) groups.forEach(function(o){ if (o!==d) o.removeAttribute('open'); });
+        var chev = d.querySelector('.chev');
+        if (chev) chev.style.transform = d.open ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+    });
+    // Asegurar "Datos usuario" abierto
+    var datos = panel.querySelector('details[data-section="datos"]');
+    if (datos && !datos.open) datos.setAttribute('open','');
+    }
+    layer.off('click');
+    layer.on('click', function(){
+    selectLayer(layer);
+  openPanel(buildPanelHTML());
+  // Espera a que el DOM del panel exista y luego crea el gráfico
+  setTimeout(initChartForFeature, 0);
+    // Opcional: centrar un poco el polígono
+    // map.panTo(layer.getBounds().getCenter(), { animate: true, duration: 0.25 });
+  });
+
+    function closePanel(){
+    var panel = document.getElementById('featurePanel');
+    if (panel) panel.classList.add('hidden');
+    }
+
+  // Botón cerrar y tecla ESC (una sola vez)
+    (function ensureCloseWiring(){
+    var btn = document.getElementById('panelCloseBtn');
+    if (btn && !btn._wired){
+      btn._wired = true;
+      btn.addEventListener('click', function(){ 
+        document.getElementById('featurePanel').classList.add('hidden'); 
+      });
+      document.addEventListener('keydown', function(ev){
+        if (ev.key === 'Escape') { 
+          document.getElementById('featurePanel').classList.add('hidden'); 
+        }
+      });
+    }
+  })();
+
+  // En vez de bindPopup: abrimos el panel en click
+  layer.on('click', function(){
+    openPanel(buildPanelHTML());
+  });
+}
+
+
+        function style_TOTORACOCHA_1_0() {
+            return {
+                pane: 'pane_TOTORACOCHA_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,158,23,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_TOTORACOCHA_1');
+        map.getPane('pane_TOTORACOCHA_1').style.zIndex = 401;
+        map.getPane('pane_TOTORACOCHA_1').style['mix-blend-mode'] = 'normal';
+        var layer_TOTORACOCHA_1 = new L.geoJson(json_TOTORACOCHA_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TOTORACOCHA_1',
+            layerName: 'layer_TOTORACOCHA_1',
+            pane: 'pane_TOTORACOCHA_1',
+            onEachFeature: pop_TOTORACOCHA_1,
+            style: style_TOTORACOCHA_1_0,
+        });
+        bounds_group.addLayer(layer_TOTORACOCHA_1);
+        map.addLayer(layer_TOTORACOCHA_1);
+        
+        //============================================================================PRIMERODEMAYO_2========================================================================================
+
+        function pop_PRIMERODEMAYO_2(feature, layer) {
+  // Hover highlight (igual que antes)
+    layer.on({
+    mouseout: function(e){
+        for (var i in e.target._eventParents) {
+            if (typeof e.target._eventParents[i].resetStyle === 'function') {
+            e.target._eventParents[i].resetStyle(e.target);
+            }
+        }
+        if (__selectedLayer === e.target) {
+      markSelected(e.target);
+        }
+    },
+    mouseover: highlightFeature,
+    });
+
+  // -------- Helpers para HTML ----------
+    function val(k){
+  var v = feature.properties[k];
+  return (v !== null && v !== undefined) ? String(v) : '';
+}
+
+function badge(k, label, suffix){
+  var value = val(k);
+  var cls = value ? '' : ' is-empty';
+
+  // Si hay valor y sufijo, se lo pegamos
+  if (value && suffix) {
+    value = value + ' ' + suffix;
+  }
+
+  var labelHTML = label
+    ? '<span class="key mono">' + label + ':</span>'
+    : '';
+
+  return '<div class="badge' + cls + '">' +
+           labelHTML +
+           '<span>' + value + '</span>' +
+         '</div>';
+}
+
+
+    function buildPanelHTML() {
+  return `
+    <div class="popup-card">
+      <div class="popup-title">Primero de Mayo</div>
+
+      <details class="section" data-section="datos" open>
+        <summary><span>Datos usuario</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div class="field">Explicacion</div>
+          <div class="badge">
+            <span class="key mono">Predio:</span>
+            <strong>${val('CLAVE')}</strong>
+          </div>
+
+          <div class="grid" style="margin-top:8px">
+            ${badge('RES_01', 'Número de paneles')}
+            ${badge('RES_02', 'Inversión', '$')}
+            ${badge('RES_03', 'Periodo de retorno', 'años')}
+            ${badge('RES_04', 'Ahorro anual', '$')}
+          </div>
+        </div>
+      </details>
+
+      <details class="section" data-section="bateria">
+        <summary><span>bateria</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div class="grid">
+            ${badge('RES_05', 'Número de paneles')}
+            ${badge('RES_06', 'Inversión', '$')}
+            ${badge('RES_07', 'Periodo de retorno', 'años')}
+            ${badge('RES_08', 'Ahorro anual', '$')}
+          </div>
+        </div>
+      </details>
+      <!-- === NUEVO: GRAFICO (Chart.js) === -->
+      <details class="section" data-section="grafico" open>
+        <summary><span>Grafico</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+            <button id="chartPrev" type="button" aria-label="Anterior">◄</button>
+            <div id="chartRangeLabel" class="mono">Enero–Febrero</div>
+            <button id="chartNext" type="button" aria-label="Siguiente">►</button>
+          </div>
+          <div style="height:260px">
+            <canvas id="energyChart"></canvas>
+          </div>
+          <div class="field" style="margin-top:8px">
+            Series: <strong>Consumo</strong>, <strong>Energía máxima</strong>, <strong>Energía recomendada</strong>
+          </div>
+        </div>
+      </details>
+    </div>`;
+    
+}
+
+// ====== CHART.JS: datos y paginación por 2 meses (Primero de Mayo) ======
+var __pmChart = null;
+var __pmStart = 0; // 0:Ene/Feb, 2:Mar/Abr, ... 10:Nov/Dic
+
+function monthsSpecPM(p){
+  return [
+    {label:'Enero',     sum:'SUM_C_ENER', emax:'E_M_ENE',  erec:'E_R_ENE'},
+    {label:'Febrero',   sum:'SUM_C_FEBR', emax:'E_M_FEB',  erec:'E_R_FEB'},
+    {label:'Marzo',     sum:'SUM_C_MARZ', emax:'E_M_MAR',  erec:'E_R_MAR'},
+    {label:'Abril',     sum:'SUM_C_ABRI', emax:'E_M_ABR',  erec:'E_R_ABR'},
+    {label:'Mayo',      sum:'SUM_C_MAYO', emax:'E_M_MAY',  erec:'E_R_MAY'},
+    {label:'Junio',     sum:'SUM_C_JUNI', emax:'E_M_JUN',  erec:'E_R_JUN'},
+    {label:'Julio',     sum:'SUM_C_JULI', emax:'E_M_JUL',  erec:'E_R_JUL'},
+    {label:'Agosto',    sum:'SUM_C_AGOS', emax:'E_M_AGO',  erec:'E_R_AGO'},
+    {label:'Septiembre',sum:'SUM_C_SEP',  emax:'E_M_SEP',  erec:'E_R_SEP'},
+    {label:'Octubre',   sum:'SUM_C_OCTU', emax:'E_M_OCT',  erec:'E_R_OCT'},
+    {label:'Noviembre', sum:'SUM_C_NOVI', emax:'E_M_NOV',  erec:'E_R_NOV'},
+    {label:'Diciembre', sum:'SUM_C_DIC',  emax:'E_M_DIC',  erec:'E_R_DIC'}
+  ].map(m => ({
+    label: m.label,
+    sum : Number(p[m.sum]  ?? 0),
+    emax: Number(p[m.emax] ?? 0),
+    erec: Number(p[m.erec] ?? 0)
+  }));
+}
+
+function buildSlicePM(all, start){
+  const slice = all.slice(start, start+2);
+  return {
+    labels:  slice.map(m => m.label),
+    consumo: slice.map(m => m.sum),
+    emax:    slice.map(m => m.emax),
+    erec:    slice.map(m => m.erec)
+  };
+}
+
+function renderChartPM(slice){
+  const ctx = document.getElementById('energyChart');
+  if (!ctx) return;
+
+  if (__pmChart) { __pmChart.destroy(); }
+
+  __pmChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: slice.labels,
+      datasets: [
+        {
+          label: 'Consumo',
+          data: slice.consumo,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',   // rojo
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Energía máxima',
+          data: slice.emax,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',   // azul
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Energía recomendada',
+          data: slice.erec,
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',   // turquesa
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'top' },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        x: { ticks: { autoSkip: false } },
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  const range = document.getElementById('chartRangeLabel');
+  if (range) range.textContent = slice.labels.join(' – ');
+}
+
+function initChartForFeaturePM(){
+  const all = monthsSpecPM(feature.properties || {});
+  __pmStart = Math.min(10, Math.max(0, __pmStart - (__pmStart % 2)));
+  renderChartPM(buildSlicePM(all, __pmStart));
+
+  const prev = document.getElementById('chartPrev');
+  const next = document.getElementById('chartNext');
+
+  function shift(dir){
+    const maxStart = 10;
+    __pmStart = Math.min(maxStart, Math.max(0, __pmStart + (dir*2)));
+    renderChartPM(buildSlicePM(all, __pmStart));
+  }
+  if (prev && !prev._wired){ prev._wired = true; prev.addEventListener('click', () => shift(-1)); }
+  if (next && !next._wired){ next._wired = true; next.addEventListener('click', () => shift(+1)); }
+}
+
+        
+
+  // -------- Panel open/close wiring ----------
+    function openPanel(html){
+        var panel = document.getElementById('featurePanel');
+        var content = document.getElementById('featurePanelContent');
+        content.innerHTML = html;
+        panel.classList.remove('hidden');
+
+    // Acordeón exclusivo
+    var groups = panel.querySelectorAll('details.section');
+    groups.forEach(function(d){
+    d.addEventListener('toggle', function(){
+        if (d.open) groups.forEach(function(o){ if (o!==d) o.removeAttribute('open'); });
+        var chev = d.querySelector('.chev');
+        if (chev) chev.style.transform = d.open ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+    });
+    // Asegurar "Datos usuario" abierto
+    var datos = panel.querySelector('details[data-section="datos"]');
+    if (datos && !datos.open) datos.setAttribute('open','');
+    }
+
+    layer.on('click', function(){
+    selectLayer(layer);                // <- marca persistente + animación (definido fuera)
+    openPanel(buildPanelHTML());
+    // Opcional: centrar un poco el polígono
+    setTimeout(initChartForFeaturePM, 0);
+    // map.panTo(layer.getBounds().getCenter(), { animate: true, duration: 0.25 });
+  });
+
+    function closePanel(){
+    var panel = document.getElementById('featurePanel');
+    if (panel) panel.classList.add('hidden');
+    }
+
+  // Botón cerrar y tecla ESC (una sola vez)
+    (function ensureCloseWiring(){
+    var btn = document.getElementById('panelCloseBtn');
+    if (btn && !btn._wired){
+      btn._wired = true;
+      btn.addEventListener('click', function(){ 
+        document.getElementById('featurePanel').classList.add('hidden'); 
+      });
+      document.addEventListener('keydown', function(ev){
+        if (ev.key === 'Escape') { 
+          document.getElementById('featurePanel').classList.add('hidden'); 
+        }
+      });
+    }
+  })();
+
+  // En vez de bindPopup: abrimos el panel en click
+  layer.on('click', function(){
+    openPanel(buildPanelHTML());
+  });
+}
+
+
+        function style_PRIMERODEMAYO_2() {
+            return {
+                pane: 'pane_PRIMERODEMAYO_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,158,23,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PRIMERODEMAYO_2');
+        map.getPane('pane_PRIMERODEMAYO_2').style.zIndex = 401;
+        map.getPane('pane_PRIMERODEMAYO_2').style['mix-blend-mode'] = 'normal';
+        var layer_PRIMERODEMAYO_2 = new L.geoJson(json_PRIMERODEMAYO_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PRIMERODEMAYO_2',
+            layerName: 'layer_PRIMERODEMAYO_2',
+            pane: 'pane_PRIMERODEMAYO_2',
+            onEachFeature: pop_PRIMERODEMAYO_2,
+            style: style_PRIMERODEMAYO_2,
+        });
+        bounds_group.addLayer(layer_PRIMERODEMAYO_2);
+        map.addLayer(layer_PRIMERODEMAYO_2);
+
+
+        //===========================================================ORDOÑEZ LAZO======================================================
+        function pop_ORDOEZLASO_3(feature, layer) {
+            layer.on({
+    mouseout: function(e){
+        for (var i in e.target._eventParents) {
+            if (typeof e.target._eventParents[i].resetStyle === 'function') {
+            e.target._eventParents[i].resetStyle(e.target);
+            }
+        }
+        if (__selectedLayer === e.target) {
+      markSelected(e.target);
+        }
+    },
+    mouseover: highlightFeature,
+    });
+
+  // -------- Helpers para HTML ----------
+    function val(k){
+  var v = feature.properties[k];
+  return (v !== null && v !== undefined) ? String(v) : '';
+}
+
+function badge(k, label, suffix){
+  var value = val(k);
+  var cls = value ? '' : ' is-empty';
+
+  // Si hay valor y sufijo, se lo pegamos
+  if (value && suffix) {
+    value = value + ' ' + suffix;
+  }
+
+  var labelHTML = label
+    ? '<span class="key mono">' + label + ':</span>'
+    : '';
+
+  return '<div class="badge' + cls + '">' +
+           labelHTML +
+           '<span>' + value + '</span>' +
+         '</div>';
+}
+
+
+    function buildPanelHTML() {
+  return `
+    <div class="popup-card">
+      <div class="popup-title">Ordoñez Laso</div>
+
+      <details class="section" data-section="datos" open>
+        <summary><span>Datos usuario</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div class="field">Explicacion</div>
+          <div class="badge">
+            <span class="key mono">Predio:</span>
+            <strong>${val('CLAVE')}</strong>
+          </div>
+
+          <div class="grid" style="margin-top:8px">
+            ${badge('RES_01', 'Número de paneles')}
+            ${badge('RES_02', 'Inversión', '$')}
+            ${badge('RES_03', 'Periodo de retorno', 'años')}
+            ${badge('RES_04', 'Ahorro anual', '$')}
+          </div>
+        </div>
+      </details>
+
+      <details class="section" data-section="bateria">
+        <summary><span>bateria</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div class="grid">
+            ${badge('RES_05', 'Número de paneles')}
+            ${badge('RES_06', 'Inversión', '$')}
+            ${badge('RES_07', 'Periodo de retorno', 'años')}
+            ${badge('RES_08', 'Ahorro anual', '$')}
+          </div>
+        </div>
+      </details>
+
+      
+      <details class="section" data-section="grafico" open>
+        <summary><span>Grafico</span><span class="chev">▾</span></summary>
+        <div class="section-body">
+          <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+            <button id="chartPrev" type="button" aria-label="Anterior">◄</button>
+            <div id="chartRangeLabel" class="mono">Enero–Febrero</div>
+            <button id="chartNext" type="button" aria-label="Siguiente">►</button>
+          </div>
+          <div style="height:260px">
+            <canvas id="energyChart"></canvas>
+          </div>
+          <div class="field" style="margin-top:8px">
+            Series: <strong>Consumo</strong>, <strong>Energía máxima</strong>, <strong>Energía recomendada</strong>
+          </div>
+        </div>
+      </details>
+    </div>`;
+}
+
+
+var __totoChart = null;
+var __totoStart = 0; 
+
+function monthsSpec(p){
+  
+  return [
+    {label:'Enero',     sum:'SUM_C_ENER', emax:'E_M_ENE',  erec:'E_R_ENE'},
+    {label:'Febrero',   sum:'SUM_C_FEBR', emax:'E_M_FEB',  erec:'E_R_FEB'},
+    {label:'Marzo',     sum:'SUM_C_MARZ', emax:'E_M_MAR',  erec:'E_R_MAR'},
+    {label:'Abril',     sum:'SUM_C_ABRI', emax:'E_M_ABR',  erec:'E_R_ABR'},
+    {label:'Mayo',      sum:'SUM_C_MAYO', emax:'E_M_MAY',  erec:'E_R_MAY'},
+    {label:'Junio',     sum:'SUM_C_JUNI', emax:'E_M_JUN',  erec:'E_R_JUN'},
+    {label:'Julio',     sum:'SUM_C_JULI', emax:'E_M_JUL',  erec:'E_R_JUL'},
+    {label:'Agosto',    sum:'SUM_C_AGOS', emax:'E_M_AGO',  erec:'E_R_AGO'},
+    {label:'Septiembre',sum:'SUM_C_SEP',  emax:'E_M_SEP',  erec:'E_R_SEP'},
+    {label:'Octubre',   sum:'SUM_C_OCTU', emax:'E_M_OCT',  erec:'E_R_OCT'},
+    {label:'Noviembre', sum:'SUM_C_NOVI', emax:'E_M_NOV',  erec:'E_R_NOV'},
+    {label:'Diciembre', sum:'SUM_C_DIC',  emax:'E_M_DIC',  erec:'E_R_DIC'}
+  ].map(m => ({
+    label: m.label,
+    sum : Number(p[m.sum]  ?? 0),
+    emax: Number(p[m.emax] ?? 0),
+    erec: Number(p[m.erec] ?? 0)
+  }));
+}
+
+function buildSlice(all, start){
+  const slice = all.slice(start, start+2);
+  return {
+    labels: slice.map(m => m.label),
+    consumo: slice.map(m => m.sum),
+    emax: slice.map(m => m.emax),
+    erec: slice.map(m => m.erec)
+  };
+}
+
+function renderChart(slice) {
+  const ctx = document.getElementById('energyChart');
+  if (!ctx) return;
+
+  if (__totoChart) {
+    __totoChart.destroy();
+  }
+
+  __totoChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: slice.labels,
+      datasets: [
+        {
+          label: 'Consumo',
+          data: slice.consumo,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',   // rojo
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Energía máxima',
+          data: slice.emax,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',   // azul
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        },
+        {
+          label: 'Energía recomendada',
+          data: slice.erec,
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',   // turquesa
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'top' },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        x: { ticks: { autoSkip: false } },
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+
+  // Etiqueta de rango
+  const range = document.getElementById('chartRangeLabel');
+  if (range) range.textContent = slice.labels.join(' – ');
+}
+
+function initChartForFeature(){
+  const all = monthsSpec(feature.properties || {});
+  // Asegura que el start sea par y entre 0..10
+  __totoStart = Math.min(10, Math.max(0, __totoStart - (__totoStart%2)));
+  renderChart(buildSlice(all, __totoStart));
+
+  // Controles
+  const prev = document.getElementById('chartPrev');
+  const next = document.getElementById('chartNext');
+
+  function shift(dir){
+    const maxStart = 10; // (12-2)
+    __totoStart = Math.min(maxStart, Math.max(0, __totoStart + (dir*2)));
+    renderChart(buildSlice(all, __totoStart));
+  }
+  if (prev && !prev._wired){ prev._wired = true; prev.addEventListener('click', () => shift(-1)); }
+  if (next && !next._wired){ next._wired = true; next.addEventListener('click', () => shift(+1)); }
+}
+    function openPanel(html){
+        var panel = document.getElementById('featurePanel');
+        var content = document.getElementById('featurePanelContent');
+        content.innerHTML = html;
+        panel.classList.remove('hidden');
+
+    var groups = panel.querySelectorAll('details.section');
+    groups.forEach(function(d){
+    d.addEventListener('toggle', function(){
+        if (d.open) groups.forEach(function(o){ if (o!==d) o.removeAttribute('open'); });
+        var chev = d.querySelector('.chev');
+        if (chev) chev.style.transform = d.open ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+    });
+    
+    var datos = panel.querySelector('details[data-section="datos"]');
+    if (datos && !datos.open) datos.setAttribute('open','');
+    }
+    layer.off('click');
+    layer.on('click', function(){
+    selectLayer(layer);
+  openPanel(buildPanelHTML());
+  
+  setTimeout(initChartForFeature, 0);
+    
+  });
+
+    function closePanel(){
+    var panel = document.getElementById('featurePanel');
+    if (panel) panel.classList.add('hidden');
+    }
+
+  
+    (function ensureCloseWiring(){
+    var btn = document.getElementById('panelCloseBtn');
+    if (btn && !btn._wired){
+      btn._wired = true;
+      btn.addEventListener('click', function(){ 
+        document.getElementById('featurePanel').classList.add('hidden'); 
+      });
+      document.addEventListener('keydown', function(ev){
+        if (ev.key === 'Escape') { 
+          document.getElementById('featurePanel').classList.add('hidden'); 
+        }
+      });
+    }
+  })();
+
+
+  layer.on('click', function(){
+    openPanel(buildPanelHTML());
+  });
+}
+
+        function style_ORDOEZLASO_3_0() {
+            return {
+                pane: 'pane_ORDOEZLASO_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(225,89,137,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ORDOEZLASO_3');
+        map.getPane('pane_ORDOEZLASO_3').style.zIndex = 403;
+        map.getPane('pane_ORDOEZLASO_3').style['mix-blend-mode'] = 'normal';
+        var layer_ORDOEZLASO_3 = new L.geoJson(json_ORDOEZLASO_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ORDOEZLASO_3',
+            layerName: 'layer_ORDOEZLASO_3',
+            pane: 'pane_ORDOEZLASO_3',
+            onEachFeature: pop_ORDOEZLASO_3,
+            style: style_ORDOEZLASO_3_0,
+        });
+        bounds_group.addLayer(layer_ORDOEZLASO_3);
+        map.addLayer(layer_ORDOEZLASO_3);
+        setBounds();
+
+
+
+
+
+      
+// =================== Buscador por CLAVE ===================
+
+// Índice CLAVE -> layer
+var __claveIndex = new Map();
+
+// Registra una capa de entidad individual (feature layer)
+function registerByClave(layer) {
+  try {
+    var f = layer && layer.feature;
+    var clave = f && f.properties && f.properties.CLAVE;
+    if (clave != null) {
+      var key = String(clave).trim().toUpperCase();
+      __claveIndex.set(key, layer); // si hay duplicados, se queda el último
+    }
+  } catch(e) { /* silencio */ }
+}
+
+// Recorre tus grupos GeoJSON
+[
+  typeof layer_TOTORACOCHA_1 !== 'undefined' ? layer_TOTORACOCHA_1 : null,
+  typeof layer_PRIMERODEMAYO_2 !== 'undefined' ? layer_PRIMERODEMAYO_2 : null,
+  typeof layer_ORDOEZLASO_3 !== 'undefined' ? layer_ORDOEZLASO_3 : null
+].forEach(function(group){
+  if (!group || typeof group.eachLayer !== 'function') return;
+  group.eachLayer(registerByClave);
+});
+
+// Autocompletar: poblar <datalist>
+// Array con todas las CLAVE
+var __claveKeys = Array.from(__claveIndex.keys());
+
+// Autocompletar: máximo 5 opciones en el <datalist>
+(function wireClaveAutocomplete(){
+  var input = document.getElementById('claveSearch');
+  var dl    = document.getElementById('claveOptions');
+  if (!input || !dl) return;
+
+  input.addEventListener('input', function () {
+    var texto = this.value.trim().toUpperCase();
+
+    // Limpiar opciones actuales
+    dl.innerHTML = '';
+    if (!texto) return;   // si no hay texto, no mostramos nada
+
+    var count = 0;
+    for (var i = 0; i < __claveKeys.length && count < 5; i++) {
+      var key = __claveKeys[i];
+
+      // Coincidencia: que el texto esté dentro de la CLAVE
+      if (key.indexOf(texto) !== -1) {
+        var op = document.createElement('option');
+        op.value = key;
+        dl.appendChild(op);
+        count++;          // máximo 5
+      }
+    }
+  });
+})();
+
+
+// centa el panel
+var DEFAULT_PANEL_WIDTH = 420;
+function goToClave(q) {
+  if (!q) return;
+  var key = String(q).trim().toUpperCase();
+  var layer = __claveIndex.get(key);
+  if (!layer) {
+    alert('No encontré la CLAVE: ' + q);
+    return;
+  }
+
+  var b = (typeof layer.getBounds === 'function') ? layer.getBounds() : null;
+  if (b && b.isValid && b.isValid()) {
+
+    var panel = document.querySelector('.ui-panel');
+    var panelWidth = DEFAULT_PANEL_WIDTH;
+    if (panel) {
+      panelWidth = Math.max(DEFAULT_PANEL_WIDTH, panel.offsetWidth || 0);
+    }
+
+    map.fitBounds(b, {
+      maxZoom: 18,
+      animate: true,
+      paddingTopLeft: [20, 20],
+      paddingBottomRight: [panelWidth + 20, 20] 
+    });
+
+    setTimeout(function(){ layer.fire('click'); }, 250);
+  } else {
+    layer.fire('click');
+  }
+}
+
+
+
+// Eventos de la UI
+(function wireSearchUI(){
+  var input = document.getElementById('claveSearch');
+  var btn   = document.getElementById('claveGo');
+  if (!input || !btn) return;
+
+  btn.addEventListener('click', function(){
+    goToClave(input.value);
+  });
+
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') goToClave(input.value);
+  });
+})();
+
+        </script>        
+    </body>
+</html>

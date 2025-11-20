@@ -1,0 +1,233 @@
+/* =====================================================================
+   Hoja de estilos del Panel Lateral (Leaflet)
+   Objetivo: hoja clara, comentada y agrupada por secciones.
+   NOTA: Se mantuvo el comportamiento original; solo se reordenó y
+         documentó cada clase/regla para que sea fácil de modificar.
+   ===================================================================== */
+
+/* =====================================================================
+   1) Tipografía global y variables
+   ---------------------------------------------------------------------
+   - Definimos variables de fuentes para cuerpo y títulos.
+   - Aplicamos tipografías al documento, al mapa y a los componentes
+     del panel para un look consistente.
+   ===================================================================== */
+:root{
+  /* Fuente para cuerpo/UI */
+  --font-body: "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu,
+               "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+               "Segoe UI Emoji", sans-serif;
+  /* Fuente para encabezados/títulos */
+  --font-head: "Trocchi", Georgia, "Times New Roman", serif;
+}
+
+/* Aplicar la tipografía base a todo (documento + panel + mapa) */
+html, body,
+.leaflet-container,
+.ui-panel,
+.ui-panel .popup-card,
+.ui-panel .section,
+.ui-panel .badge {
+  font-family: var(--font-body);
+}
+
+/* Títulos con la fuente de encabezado */
+h1, h2, h3, h4, h5, h6,
+.ui-panel .popup-title,
+.ui-panel .section-title {
+  font-family: var(--font-head);
+}
+
+/* Ajustes finos de peso (opcional) */
+body { font-weight: 400; }
+h1, h2, h3 { font-weight: 700; }
+
+
+/* =====================================================================
+   2) Contenedor del Panel Lateral (.ui-panel)
+   ---------------------------------------------------------------------
+   - Panel fijo sobre el mapa, con ancho relativo a la ventana.
+   - Fondo semitransparente y sombra para resaltar sobre el mapa.
+   - Padding interno y color de texto para buen contraste.
+   ===================================================================== */
+.ui-panel {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 45vw;            /* 45% del viewport para pantallas anchas */
+  max-width: 780px;        /* límite superior razonable */
+  min-width: 360px;        /* evita panel demasiado angosto */
+  max-height: calc(100vh - 48px); /* respeta margen superior/inferior */
+  overflow: auto;          /* scroll interno si el contenido crece */
+  border-radius: 24px;     /* esquinas suaves */
+  background: rgb(255, 255, 255, 0.7); /* blanco translúcido */
+  box-shadow: 0 25px 60px rgba(0,0,0,.22); /* elevación */
+  z-index: 1000;           /* por encima de controles Leaflet */
+  color: #0f172a;          /* texto gris azulado (slate-900 aprox) */
+  padding: 16px 16px 12px; /* respiración interna */
+}
+
+/* Utilidad para ocultar el panel cuando no hay selección */
+.ui-panel.hidden { display: none; }
+
+
+/* =====================================================================
+   3) Botón de cierre (esquina superior derecha)
+   ---------------------------------------------------------------------
+   - Botón minimalista que conserva el color heredado.
+   - Ubicado absolutamente dentro del panel.
+   ===================================================================== */
+.ui-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 22px;   /* tamaño del símbolo × */
+  line-height: 1;
+  cursor: pointer;
+  color: inherit;     /* usa el color del panel */
+}
+
+
+/* =====================================================================
+   4) Tarjeta base del contenido (reutiliza estilos de popup)
+   ---------------------------------------------------------------------
+   - .popup-card se usa como contenedor principal dentro del panel.
+   - .popup-title define el título de la ficha de predio.
+   ===================================================================== */
+.ui-panel .popup-card { 
+  width: 100%;
+  max-width: none;
+  padding: 10px 6px 6px;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Título de la tarjeta/ficha */
+.popup-title {
+  font-weight: 800;
+  font-size: 20px;
+  margin: 6px 6px 12px;
+}
+
+
+/* =====================================================================
+   5) Acordeón de secciones (<details> con summary)
+   ---------------------------------------------------------------------
+   - .section: bloque contenedor con fondo suave y borde.
+   - .section summary: cabecera clicable para expandir/contraer.
+   - .chev: ícono/triángulo que rota en toggle.
+   - .section-body: contenido interior de la sección.
+   ===================================================================== */
+.section {
+  background:#f3f4f6;           /* gris muy claro */
+  border-radius:14px;
+  margin:10px 6px;
+  overflow:hidden;               /* oculta bordes internos al colapsar */
+  border:1px solid #e5e7eb;      /* borde sutil */
+}
+
+/* Cabecera del acordeón */
+.section summary {
+  list-style:none;               /* quitar marcador por defecto */
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 14px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* Oculta el marcador por defecto en WebKit */
+.section summary::-webkit-details-marker { display:none; }
+
+/* Chevron animado */
+.section .chev { transition: transform .2s ease; }
+.section[open] .chev{ transform: rotate(180deg); }
+
+/* Cuerpo de la sección */
+.section-body { padding:10px 14px 14px; }
+
+
+/* =====================================================================
+   6) Utilidades de tipografía y layout
+   ---------------------------------------------------------------------
+   - .field: anotaciones o etiquetas secundarias.
+   - .mono: tipografía monoespaciada para claves/códigos.
+   - .grid: layout de 2 columnas con separación uniforme.
+   ===================================================================== */
+.field { font-size:12px; opacity:.8; margin-bottom:10px }
+
+.mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono","Courier New", monospace;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+
+
+/* =====================================================================
+   7) Badge de datos (píldoras con clave/valor)
+   ---------------------------------------------------------------------
+   - .badge: contenedor centrado, borde punteado y radio suave.
+   - .badge .key: subtexto atenuado para la etiqueta.
+   - .badge.is-empty: se oculta si no hay valor (limpieza visual).
+   ===================================================================== */
+.badge{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:42px;
+  background:#fff;
+  border:1px dashed #cbd5e1;   /* sugerencia de contenedor editable */
+  border-radius:10px;
+  font-size:12px;
+  padding:0 8px;
+  gap:6px;
+  text-align:center;
+  word-break:break-word;       /* evita desbordes con textos largos */
+}
+
+.badge .key{ opacity:.6 }
+
+/* Oculta badges sin datos para no "ensuciar" el grid */
+.badge.is-empty{ display:none }
+
+
+/* =====================================================================
+   8) Estado visual de entidad seleccionada en el mapa
+   ---------------------------------------------------------------------
+   - .feature-selected se aplica a los <path> SVG del polígono.
+   - Refuerza el borde y añade un leve resplandor para foco.
+   ===================================================================== */
+.feature-selected {
+  stroke: #1e40af !important;      /* borde azul más oscuro */
+  stroke-width: 5 !important;
+  filter: drop-shadow(0 0 6px rgba(37,99,235,.25));
+}
+
+
+/* =====================================================================
+   9) (Espacio reservado) Reglas responsivas
+   ---------------------------------------------------------------------
+   - Agrega aquí media-queries si deseas ajustar el ancho del panel
+     en móviles o tablets. Ejemplo:
+
+@media (max-width: 980px) {
+  .ui-panel { left: 12px; right: 12px; width: auto; min-width: 0; }
+}
+
+   ===================================================================== */
+
+
+
+
+  

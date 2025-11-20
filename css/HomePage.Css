@@ -1,0 +1,318 @@
+.Alpha {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "logo   inst   date"
+    "logo   title  subtitle"
+    "empty  title2 title2";
+  gap: 10px;
+  padding: 20px;
+  margin: 125px;
+  margin-top: 75px;
+  margin-bottom: 0;
+
+}
+
+.Alpha-logo {
+  height: 100px;
+  grid-area: logo;
+}
+
+.Alpha-institutions {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  text-align: center;
+}
+
+.Alpha-date {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.Alpha-titulo1 {
+  grid-area: title;
+  margin: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: clamp(2rem, 5vw, 5rem);
+  margin-left: 15%;
+}
+
+.Alpha-titulo2 {
+  grid-area: title2;
+  margin-left: 35%;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 80px;
+
+}
+
+/* === Sección de fotografías === */
+.Beta-photos {
+  width: 100%;
+  height: 70%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  
+}
+
+.Beta-photo-item {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* === Secciones de contenido === */
+.content-section-1 {
+  max-width: 100%;
+  padding: 5% 5%;
+}
+.div {
+  display: grid;
+  grid-template-columns: 60% 40%; /* ~60% / 40% */
+  align-items: center;
+  gap: 4rem;                /* permite que, en móviles, se apile */
+}
+.section-title-1 {
+  font-size: 100px;
+  color: #000000;
+  margin:0;
+  text-transform:uppercase;
+  font-weight:700;
+  font-size: clamp(3rem, 10vw, 9rem); /* ajusta tamaño */
+  line-height: .9;                     /* compacta la distancia entre líneas */
+}
+.section-title-1 .line1,
+.section-title-1 .line2{
+  display:block;   /* fuerza el salto de línea */
+}
+
+.section-title-1 .line2{
+  padding-left: 25%;  /* << más “recorrido” a SOMOS */
+  /* opcional: afina la posición vertical si quieres aún más impacto */
+  /* margin-top: .1em; */
+}
+.section-text-1 {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  text-align: justify;
+  width: 80%;
+  margin: 0;
+  
+}
+
+/* Contenedor visual de la sección */
+.content-section-2 {
+  max-width: 100%;
+  padding: 5% 5%;
+  background: #638838;
+}
+
+/* 1) Estructura en fila: texto a la izquierda, imagen a la derecha */
+.content-2-inner {
+  display: grid;
+  grid-template-columns: 4fr 2fr; /* ~60% / 40% */
+  align-items: start;
+  gap: 7rem;                /* permite que, en móviles, se apile */
+}
+
+/* Columna de texto (crece y encoge con el espacio) */
+.content-2-copy {
+  flex: 1 1 420px; /* grow | shrink | base width */
+  min-width: 320px;
+}
+
+/* Corrige el selector: respeta la mayúscula de la clase en HTML */
+.Logo2 {
+  flex: 0 0 auto;
+  max-width: 38vw;      /* imagen responsiva relativa al viewport */
+  height: auto;         /* mantiene proporción */
+  object-fit: contain;  /* por si es SVG/PNG con espacios transparentes */
+}
+
+/* Tipografía existente (puedes ajustarla si quieres) */
+.section-title-2 {
+  margin: 1% 0;
+  font-size: clamp(2rem, 6vw, 100px); /* escalable: 2rem–90px */
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.section-text-2 {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  line-height: 1.6;
+  text-align: justify;
+  color: #ffffff;
+  /* evita fijar width al 60% cuando ya usamos flex,
+     deja que el contenedor calcule */
+}
+
+
+a {
+  text-decoration: none;
+}
+
+
+.btn-wrapper {
+  margin-top: 25%;   
+}
+.btn {
+  height: 50px;
+  width: 25%;
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: none;
+  background: #E0B6AB;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 40px;
+  cursor: pointer;
+  transition:
+  background 0.2s ease,
+  transform 0.15s ease,
+  box-shadow 0.15s ease;
+  text-align-last: center;
+}
+
+.btn:hover {
+  background: #E0B6AB;
+  transform: translateY(-1px);
+  box-shadow: 10px 40px 100px rgba(0, 0, 0, 0.50);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+
+
+  @media (max-width: 768px) {
+  .Alpha {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "logo"
+      "inst"
+      "date"
+      "title"
+      "subtitle"
+      "title2";
+    padding: 10px;
+    margin: 0;
+    gap: 5px;
+  }
+
+  .Alpha-logo {
+    grid-area: logo;
+    justify-self: center;
+    height: 60px;
+  }
+
+  .Alpha-institutions {
+    grid-area: inst;
+    text-align: center;
+  }
+
+  .Alpha-date {
+    grid-area: date;
+    text-align: center;
+  }
+
+  .Alpha-titulo1 {
+    grid-area: title;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
+  }
+
+  
+
+  .Alpha-titulo2 {
+    grid-area: title2;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .Beta-photos {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .Beta-photo-item {
+    min-width: 90%;
+    height: auto;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .div {
+    display: block;
+    text-align: center;
+  }
+
+  .section-title-1 {
+    font-size: 2.5rem;
+  }
+
+  .section-text-1 {
+    width: 100%;
+    text-align: justify;
+    padding: 0 10px;
+  }
+}
+@media (max-width: 768px) {
+  .content-2-inner {
+    display: block;
+    text-align: center;
+  }
+
+  .Logo2 {
+    max-width: 80%;
+    margin: 20px auto;
+  }
+
+  .btn-wrapper {
+    margin-top: 2rem;
+  }
+
+  .btn {
+    width: 80%;
+    font-size: 1.5rem;
+  }
+}
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
