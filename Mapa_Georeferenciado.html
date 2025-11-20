@@ -164,139 +164,268 @@ function closeFeaturePanel(){
 })();
 
         //============================================================================TOTORACHOCHA========================================================================================
-        function pop_TOTORACOCHA_1(feature, layer) {
-  // Hover highlight 
-    layer.on({
-    mouseout: function(e){
-        for (var i in e.target._eventParents) {
-            if (typeof e.target._eventParents[i].resetStyle === 'function') {
-            e.target._eventParents[i].resetStyle(e.target);
-            }
+        // =============================================================================
+// 1. VARIABLES GLOBALES Y LÓGICA DE GRÁFICOS COMPARTIDA (OPTIMIZADO)
+// =============================================================================
+
+var currentChart = null; // Una sola variable para el gráfico actual
+var currentChartStart = 0; // Paginación actual (0-10)
+
+// Genera los datos del gráfico (igual para todos los barrios)
+function getChartData(props) {
+    return [
+        {label:'Enero',     sum:'SUM_C_ENER', emax:'E_M_ENE',  erec:'E_R_ENE'},
+        {label:'Febrero',   sum:'SUM_C_FEBR', emax:'E_M_FEB',  erec:'E_R_FEB'},
+        {label:'Marzo',     sum:'SUM_C_MARZ', emax:'E_M_MAR',  erec:'E_R_MAR'},
+        {label:'Abril',     sum:'SUM_C_ABRI', emax:'E_M_ABR',  erec:'E_R_ABR'},
+        {label:'Mayo',      sum:'SUM_C_MAYO', emax:'E_M_MAY',  erec:'E_R_MAY'},
+        {label:'Junio',     sum:'SUM_C_JUNI', emax:'E_M_JUN',  erec:'E_R_JUN'},
+        {label:'Julio',     sum:'SUM_C_JULI', emax:'E_M_JUL',  erec:'E_R_JUL'},
+        {label:'Agosto',    sum:'SUM_C_AGOS', emax:'E_M_AGO',  erec:'E_R_AGO'},
+        {label:'Septiembre',sum:'SUM_C_SEP',  emax:'E_M_SEP',  erec:'E_R_SEP'},
+        {label:'Octubre',   sum:'SUM_C_OCTU', emax:'E_M_OCT',  erec:'E_R_OCT'},
+        {label:'Noviembre', sum:'SUM_C_NOVI', emax:'E_M_NOV',  erec:'E_R_NOV'},
+        {label:'Diciembre', sum:'SUM_C_DIC',  emax:'E_M_DIC',  erec:'E_R_DIC'}
+    ].map(m => ({
+        label: m.label,
+        sum : Number(props[m.sum]  ?? 0),
+        emax: Number(props[m.emax] ?? 0),
+        erec: Number(props[m.erec] ?? 0)
+    }));
+}
+
+// Renderiza el gráfico en el Canvas
+function renderSharedChart(allData, startIndex) {
+    var ctx = document.getElementById('energyChart');
+    if (!ctx) return;
+
+    if (currentChart) { currentChart.destroy(); }
+
+    // Tomamos solo 2 meses
+    var sliceData = allData.slice(startIndex, startIndex + 2);
+    var labels = sliceData.map(d => d.label);
+
+    currentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Consumo', data: sliceData.map(d => d.sum), backgroundColor: 'rgba(255, 99, 132, 0.5)', borderColor: 'rgba(255, 99, 132, 1)', borderWidth: 1 },
+                { label: 'Energía máxima', data: sliceData.map(d => d.emax), backgroundColor: 'rgba(54, 162, 235, 0.5)', borderWidth: 1 },
+                { label: 'Energía recomendada', data: sliceData.map(d => d.erec), backgroundColor: 'rgba(75, 192, 192, 0.5)', borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 1 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: { legend: { position: 'top' }, tooltip: { enabled: true } },
+            scales: { x: { ticks: { autoSkip: false } }, y: { beginAtZero: true } }
         }
-        if (__selectedLayer === e.target) {
-      markSelected(e.target);
-        }
-    },
-    mouseover: highlightFeature,
     });
 
-  // -------- Helpers para HTML ----------
-    function val(k){
-  var v = feature.properties[k];
-  return (v !== null && v !== undefined) ? String(v) : '';
+    // Actualizar etiqueta de texto
+    var rangeLabel = document.getElementById('chartRangeLabel');
+    if (rangeLabel) rangeLabel.textContent = labels.join(' – ');
 }
 
-function badge(k, label, suffix){
-  var value = val(k);
-  var cls = value ? '' : ' is-empty';
+// Inicializa la lógica del gráfico para un feature específico
+function initChart(feature) {
+    var allData = getChartData(feature.properties || {});
+    currentChartStart = 0; // Reiniciar a Enero/Febrero siempre que se abre uno nuevo
+    renderSharedChart(allData, currentChartStart);
 
+    // Configurar botones una sola vez o reconectar lógica
+    // Nota: Para simplificar, reasignamos los eventos onclick directos para no acumular listeners
+    var prevBtn = document.getElementById('chartPrev');
+    var nextBtn = document.getElementById('chartNext');
 
-  if (value && suffix) {
-    value = value + ' ' + suffix;
-  }
-
-  var labelHTML = label
-    ? '<span class="key mono">' + label + ':</span>'
-    : '';
-
-  return '<div class="badge' + cls + '">' +
-           labelHTML +
-           '<span>' + value + '</span>' +
-         '</div>';
+    if (prevBtn) prevBtn.onclick = function() {
+        currentChartStart = Math.max(0, currentChartStart - 2);
+        renderSharedChart(allData, currentChartStart);
+    };
+    if (nextBtn) nextBtn.onclick = function() {
+        currentChartStart = Math.min(10, currentChartStart + 2);
+        renderSharedChart(allData, currentChartStart);
+    };
 }
 
+// =============================================================================
+// 2. CONSTRUCTOR HTML DEL PANEL (ÚNICO)
+// =============================================================================
 
-    function buildPanelHTML() {
-  return `
+function buildPanelContent(feature, sectorTitle) {
+    var p = feature.properties;
+    function val(k) { return (p[k] !== null && p[k] !== undefined) ? String(p[k]) : ''; }
+    
+    function badge(k, label, suffix) {
+        var v = val(k);
+        if (!v) return '<div class="badge is-empty"></div>';
+        if (suffix) v += ' ' + suffix;
+        return `<div class="badge"><span class="key mono">${label}:</span><span>${v}</span></div>`;
+    }
+
+    return `
     <div class="popup-card">
-      <div class="popup-title">Totoracocha</div>
+      <div class="popup-title">${sectorTitle}</div>
 
       <details class="section" data-section="datos" open>
         <summary><span>Datos usuario</span><span class="chev">▾</span></summary>
         <div class="section-body">
-          <div class="field">Explicacion</div>
-          <div class="badge">
-            <span class="key mono">Predio:</span>
-            <strong>${val('CLAVE')}</strong>
-          </div>
-
+          <div class="badge"><span class="key mono">Predio:</span><strong>${val('CLAVE')}</strong></div>
           <div class="grid" style="margin-top:8px">
-            ${badge('RES_01', 'Número de paneles')}
+            ${badge('RES_01', 'Num paneles')}
             ${badge('RES_02', 'Inversión', '$')}
-            ${badge('RES_03', 'Periodo de retorno', 'años')}
-            ${badge('RES_04', 'Ahorro anual', '$')}
+            ${badge('RES_03', 'Retorno', 'años')}
+            ${badge('RES_04', 'Ahorro', '$')}
           </div>
         </div>
       </details>
 
       <details class="section" data-section="bateria">
-        <summary><span>bateria</span><span class="chev">▾</span></summary>
+        <summary><span>Batería</span><span class="chev">▾</span></summary>
         <div class="section-body">
           <div class="grid">
-            ${badge('RES_05', 'Número de paneles')}
+            ${badge('RES_05', 'Num paneles')}
             ${badge('RES_06', 'Inversión', '$')}
-            ${badge('RES_07', 'Periodo de retorno', 'años')}
-            ${badge('RES_08', 'Ahorro anual', '$')}
+            ${badge('RES_07', 'Retorno', 'años')}
+            ${badge('RES_08', 'Ahorro', '$')}
           </div>
         </div>
       </details>
-
       
       <details class="section" data-section="grafico" open>
-        <summary><span>Grafico</span><span class="chev">▾</span></summary>
+        <summary><span>Gráfico</span><span class="chev">▾</span></summary>
         <div class="section-body">
           <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
-            <button id="chartPrev" type="button" aria-label="Anterior">◄</button>
-            <div id="chartRangeLabel" class="mono">Enero–Febrero</div>
-            <button id="chartNext" type="button" aria-label="Siguiente">►</button>
+            <button id="chartPrev" type="button">◄</button>
+            <div id="chartRangeLabel" class="mono">...</div>
+            <button id="chartNext" type="button">►</button>
           </div>
-          <div style="height:260px">
-            <canvas id="energyChart"></canvas>
-          </div>
-          <div class="field" style="margin-top:8px">
-            Series: <strong>Consumo</strong>, <strong>Energía máxima</strong>, <strong>Energía recomendada</strong>
+          <div style="height:260px"><canvas id="energyChart"></canvas></div>
+          <div class="field" style="margin-top:8px; font-size:0.85em; text-align:center; opacity:0.8;">
+            Series: Consumo | Máxima | Recomendada
           </div>
         </div>
       </details>
     </div>`;
 }
 
-// ====== CHART.JS: datos y paginación por 2 meses ======
-var __totoChart = null;
-var __totoStart = 0; // 0:Ene/Feb, 2:Mar/Abr, ... 10:Nov/Dic
+// =============================================================================
+// 3. LA "FÁBRICA" (FUNCION MAESTRA)
+// =============================================================================
 
-function monthsSpec(p){
-  // p = feature.properties
-  return [
-    {label:'Enero',     sum:'SUM_C_ENER', emax:'E_M_ENE',  erec:'E_R_ENE'},
-    {label:'Febrero',   sum:'SUM_C_FEBR', emax:'E_M_FEB',  erec:'E_R_FEB'},
-    {label:'Marzo',     sum:'SUM_C_MARZ', emax:'E_M_MAR',  erec:'E_R_MAR'},
-    {label:'Abril',     sum:'SUM_C_ABRI', emax:'E_M_ABR',  erec:'E_R_ABR'},
-    {label:'Mayo',      sum:'SUM_C_MAYO', emax:'E_M_MAY',  erec:'E_R_MAY'},
-    {label:'Junio',     sum:'SUM_C_JUNI', emax:'E_M_JUN',  erec:'E_R_JUN'},
-    {label:'Julio',     sum:'SUM_C_JULI', emax:'E_M_JUL',  erec:'E_R_JUL'},
-    {label:'Agosto',    sum:'SUM_C_AGOS', emax:'E_M_AGO',  erec:'E_R_AGO'},
-    {label:'Septiembre',sum:'SUM_C_SEP',  emax:'E_M_SEP',  erec:'E_R_SEP'},
-    {label:'Octubre',   sum:'SUM_C_OCTU', emax:'E_M_OCT',  erec:'E_R_OCT'},
-    {label:'Noviembre', sum:'SUM_C_NOVI', emax:'E_M_NOV',  erec:'E_R_NOV'},
-    {label:'Diciembre', sum:'SUM_C_DIC',  emax:'E_M_DIC',  erec:'E_R_DIC'}
-  ].map(m => ({
-    label: m.label,
-    sum : Number(p[m.sum]  ?? 0),
-    emax: Number(p[m.emax] ?? 0),
-    erec: Number(p[m.erec] ?? 0)
-  }));
+// Esta función crea el comportamiento para CUALQUIER capa
+function crearGestorCapa(tituloSector) {
+    return function(feature, layer) {
+        // 1. Estilos Hover
+        layer.on({
+            mouseout: function(e) {
+                for (var i in e.target._eventParents) {
+                    if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                }
+                if (__selectedLayer === e.target) markSelected(e.target);
+            },
+            mouseover: highlightFeature,
+        });
+
+        // 2. Click: Abrir Panel y Cargar Gráfico
+        layer.on('click', function() {
+            selectLayer(layer);
+            
+            // A. Construir HTML pasando el Título Variable
+            var html = buildPanelContent(feature, tituloSector);
+            
+            // B. Insertar en el Panel
+            var panel = document.getElementById('featurePanel');
+            var content = document.getElementById('featurePanelContent');
+            content.innerHTML = html;
+            panel.classList.remove('hidden');
+
+            // C. Reactivar acordeones
+            var groups = panel.querySelectorAll('details.section');
+            groups.forEach(function(d){
+                d.addEventListener('toggle', function(){
+                    if (d.open) groups.forEach(o => { if (o!==d) o.removeAttribute('open'); });
+                    var chev = d.querySelector('.chev');
+                    if (chev) chev.style.transform = d.open ? 'rotate(180deg)' : 'rotate(0deg)';
+                });
+            });
+
+            // D. Iniciar Gráfico
+            setTimeout(function() { initChart(feature); }, 50);
+        });
+    };
 }
 
-function buildSlice(all, start){
-  const slice = all.slice(start, start+2);
-  return {
-    labels: slice.map(m => m.label),
-    consumo: slice.map(m => m.sum),
-    emax: slice.map(m => m.emax),
-    erec: slice.map(m => m.erec)
-  };
+// =============================================================================
+// 4. DEFINICIÓN DE CAPAS (AHORA MUCHO MÁS LIMPIA)
+// =============================================================================
+
+// --- TOTORACOCHA ---
+function style_TOTORACOCHA_1_0() {
+    return { pane: 'pane_TOTORACOCHA_1', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: 'rgba(255,158,23,1.0)', interactive: true };
 }
+map.createPane('pane_TOTORACOCHA_1');
+map.getPane('pane_TOTORACOCHA_1').style.zIndex = 401;
+
+var layer_TOTORACOCHA_1 = new L.geoJson(json_TOTORACOCHA_1, {
+    interactive: true,
+    dataVar: 'json_TOTORACOCHA_1',
+    layerName: 'layer_TOTORACOCHA_1',
+    pane: 'pane_TOTORACOCHA_1',
+    // ¡AQUÍ ESTÁ LA MAGIA! Usamos la fábrica:
+    onEachFeature: crearGestorCapa("Totoracocha"), 
+    style: style_TOTORACOCHA_1_0,
+});
+bounds_group.addLayer(layer_TOTORACOCHA_1);
+map.addLayer(layer_TOTORACOCHA_1);
+
+
+// --- PRIMERO DE MAYO ---
+function style_PRIMERODEMAYO_2() {
+    return { pane: 'pane_PRIMERODEMAYO_2', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: 'rgba(255,158,23,1.0)', interactive: true };
+}
+map.createPane('pane_PRIMERODEMAYO_2');
+map.getPane('pane_PRIMERODEMAYO_2').style.zIndex = 401;
+
+var layer_PRIMERODEMAYO_2 = new L.geoJson(json_PRIMERODEMAYO_2, {
+    interactive: true,
+    dataVar: 'json_PRIMERODEMAYO_2',
+    layerName: 'layer_PRIMERODEMAYO_2',
+    pane: 'pane_PRIMERODEMAYO_2',
+    // Reutilizamos la misma lógica, solo cambiamos el nombre:
+    onEachFeature: crearGestorCapa("Primero de Mayo"), 
+    style: style_PRIMERODEMAYO_2,
+});
+bounds_group.addLayer(layer_PRIMERODEMAYO_2);
+map.addLayer(layer_PRIMERODEMAYO_2);
+
+
+// --- ORDOÑEZ LASO ---
+function style_ORDOEZLASO_3_0() {
+    return { pane: 'pane_ORDOEZLASO_3', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: 'rgba(225,89,137,1.0)', interactive: true };
+}
+map.createPane('pane_ORDOEZLASO_3');
+map.getPane('pane_ORDOEZLASO_3').style.zIndex = 403;
+
+var layer_ORDOEZLASO_3 = new L.geoJson(json_ORDOEZLASO_3, {
+    interactive: true,
+    dataVar: 'json_ORDOEZLASO_3',
+    layerName: 'layer_ORDOEZLASO_3',
+    pane: 'pane_ORDOEZLASO_3',
+    // Reutilizamos de nuevo:
+    onEachFeature: crearGestorCapa("Ordoñez Laso"), 
+    style: style_ORDOEZLASO_3_0,
+});
+bounds_group.addLayer(layer_ORDOEZLASO_3);
+map.addLayer(layer_ORDOEZLASO_3);
+
+// =============================================================================
+
+        //=================================================================================================================================================================================
 
 function renderChart(slice){
   const ctx = document.getElementById('energyChart');
@@ -430,7 +559,7 @@ function initChartForFeature(){
   layer.on('click', function(){
     openPanel(buildPanelHTML());
   });
-}
+
 
 
         function style_TOTORACOCHA_1_0() {
@@ -465,138 +594,7 @@ function initChartForFeature(){
         
         //============================================================================PRIMERODEMAYO_2========================================================================================
 
-        function pop_PRIMERODEMAYO_2(feature, layer) {
-  // Hover highlight (igual que antes)
-    layer.on({
-    mouseout: function(e){
-        for (var i in e.target._eventParents) {
-            if (typeof e.target._eventParents[i].resetStyle === 'function') {
-            e.target._eventParents[i].resetStyle(e.target);
-            }
-        }
-        if (__selectedLayer === e.target) {
-      markSelected(e.target);
-        }
-    },
-    mouseover: highlightFeature,
-    });
-
-  // -------- Helpers para HTML ----------
-    function val(k){
-  var v = feature.properties[k];
-  return (v !== null && v !== undefined) ? String(v) : '';
-}
-
-function badge(k, label, suffix){
-  var value = val(k);
-  var cls = value ? '' : ' is-empty';
-
-  // Si hay valor y sufijo, se lo pegamos
-  if (value && suffix) {
-    value = value + ' ' + suffix;
-  }
-
-  var labelHTML = label
-    ? '<span class="key mono">' + label + ':</span>'
-    : '';
-
-  return '<div class="badge' + cls + '">' +
-           labelHTML +
-           '<span>' + value + '</span>' +
-         '</div>';
-}
-
-
-    function buildPanelHTML() {
-  return `
-    <div class="popup-card">
-      <div class="popup-title">Primero de Mayo</div>
-
-      <details class="section" data-section="datos" open>
-        <summary><span>Datos usuario</span><span class="chev">▾</span></summary>
-        <div class="section-body">
-          <div class="field">Explicacion</div>
-          <div class="badge">
-            <span class="key mono">Predio:</span>
-            <strong>${val('CLAVE')}</strong>
-          </div>
-
-          <div class="grid" style="margin-top:8px">
-            ${badge('RES_01', 'Número de paneles')}
-            ${badge('RES_02', 'Inversión', '$')}
-            ${badge('RES_03', 'Periodo de retorno', 'años')}
-            ${badge('RES_04', 'Ahorro anual', '$')}
-          </div>
-        </div>
-      </details>
-
-      <details class="section" data-section="bateria">
-        <summary><span>bateria</span><span class="chev">▾</span></summary>
-        <div class="section-body">
-          <div class="grid">
-            ${badge('RES_05', 'Número de paneles')}
-            ${badge('RES_06', 'Inversión', '$')}
-            ${badge('RES_07', 'Periodo de retorno', 'años')}
-            ${badge('RES_08', 'Ahorro anual', '$')}
-          </div>
-        </div>
-      </details>
-      <!-- === NUEVO: GRAFICO (Chart.js) === -->
-      <details class="section" data-section="grafico" open>
-        <summary><span>Grafico</span><span class="chev">▾</span></summary>
-        <div class="section-body">
-          <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
-            <button id="chartPrev" type="button" aria-label="Anterior">◄</button>
-            <div id="chartRangeLabel" class="mono">Enero–Febrero</div>
-            <button id="chartNext" type="button" aria-label="Siguiente">►</button>
-          </div>
-          <div style="height:260px">
-            <canvas id="energyChart"></canvas>
-          </div>
-          <div class="field" style="margin-top:8px">
-            Series: <strong>Consumo</strong>, <strong>Energía máxima</strong>, <strong>Energía recomendada</strong>
-          </div>
-        </div>
-      </details>
-    </div>`;
-    
-}
-
-// ====== CHART.JS: datos y paginación por 2 meses (Primero de Mayo) ======
-var __pmChart = null;
-var __pmStart = 0; // 0:Ene/Feb, 2:Mar/Abr, ... 10:Nov/Dic
-
-function monthsSpecPM(p){
-  return [
-    {label:'Enero',     sum:'SUM_C_ENER', emax:'E_M_ENE',  erec:'E_R_ENE'},
-    {label:'Febrero',   sum:'SUM_C_FEBR', emax:'E_M_FEB',  erec:'E_R_FEB'},
-    {label:'Marzo',     sum:'SUM_C_MARZ', emax:'E_M_MAR',  erec:'E_R_MAR'},
-    {label:'Abril',     sum:'SUM_C_ABRI', emax:'E_M_ABR',  erec:'E_R_ABR'},
-    {label:'Mayo',      sum:'SUM_C_MAYO', emax:'E_M_MAY',  erec:'E_R_MAY'},
-    {label:'Junio',     sum:'SUM_C_JUNI', emax:'E_M_JUN',  erec:'E_R_JUN'},
-    {label:'Julio',     sum:'SUM_C_JULI', emax:'E_M_JUL',  erec:'E_R_JUL'},
-    {label:'Agosto',    sum:'SUM_C_AGOS', emax:'E_M_AGO',  erec:'E_R_AGO'},
-    {label:'Septiembre',sum:'SUM_C_SEP',  emax:'E_M_SEP',  erec:'E_R_SEP'},
-    {label:'Octubre',   sum:'SUM_C_OCTU', emax:'E_M_OCT',  erec:'E_R_OCT'},
-    {label:'Noviembre', sum:'SUM_C_NOVI', emax:'E_M_NOV',  erec:'E_R_NOV'},
-    {label:'Diciembre', sum:'SUM_C_DIC',  emax:'E_M_DIC',  erec:'E_R_DIC'}
-  ].map(m => ({
-    label: m.label,
-    sum : Number(p[m.sum]  ?? 0),
-    emax: Number(p[m.emax] ?? 0),
-    erec: Number(p[m.erec] ?? 0)
-  }));
-}
-
-function buildSlicePM(all, start){
-  const slice = all.slice(start, start+2);
-  return {
-    labels:  slice.map(m => m.label),
-    consumo: slice.map(m => m.sum),
-    emax:    slice.map(m => m.emax),
-    erec:    slice.map(m => m.erec)
-  };
-}
+       
 
 function renderChartPM(slice){
   const ctx = document.getElementById('energyChart');
@@ -724,7 +722,7 @@ function initChartForFeaturePM(){
   layer.on('click', function(){
     openPanel(buildPanelHTML());
   });
-}
+
 
 
         function style_PRIMERODEMAYO_2() {
@@ -759,133 +757,7 @@ function initChartForFeaturePM(){
 
 
         //===========================================================ORDOÑEZ LAZO======================================================
-        function pop_ORDOEZLASO_3(feature, layer) {
-            layer.on({
-    mouseout: function(e){
-        for (var i in e.target._eventParents) {
-            if (typeof e.target._eventParents[i].resetStyle === 'function') {
-            e.target._eventParents[i].resetStyle(e.target);
-            }
-        }
-        if (__selectedLayer === e.target) {
-      markSelected(e.target);
-        }
-    },
-    mouseover: highlightFeature,
-    });
-
-  // -------- Helpers para HTML ----------
-    function val(k){
-  var v = feature.properties[k];
-  return (v !== null && v !== undefined) ? String(v) : '';
-}
-
-function badge(k, label, suffix){
-  var value = val(k);
-  var cls = value ? '' : ' is-empty';
-  if (value && suffix) {
-    value = value + ' ' + suffix;
-  }
-
-  var labelHTML = label
-    ? '<span class="key mono">' + label + ':</span>'
-    : '';
-
-  return '<div class="badge' + cls + '">' +
-           labelHTML +
-           '<span>' + value + '</span>' +
-         '</div>';
-}
-    function buildPanelHTML() {
-  return `
-    <div class="popup-card">
-      <div class="popup-title">Ordoñez Laso</div>
-
-      <details class="section" data-section="datos" open>
-        <summary><span>Datos usuario</span><span class="chev">▾</span></summary>
-        <div class="section-body">
-          <div class="field">Explicacion</div>
-          <div class="badge">
-            <span class="key mono">Predio:</span>
-            <strong>${val('CLAVE')}</strong>
-          </div>
-
-          <div class="grid" style="margin-top:8px">
-            ${badge('RES_01', 'Número de paneles')}
-            ${badge('RES_02', 'Inversión', '$')}
-            ${badge('RES_03', 'Periodo de retorno', 'años')}
-            ${badge('RES_04', 'Ahorro anual', '$')}
-          </div>
-        </div>
-      </details>
-
-      <details class="section" data-section="bateria">
-        <summary><span>bateria</span><span class="chev">▾</span></summary>
-        <div class="section-body">
-          <div class="grid">
-            ${badge('RES_05', 'Número de paneles')}
-            ${badge('RES_06', 'Inversión', '$')}
-            ${badge('RES_07', 'Periodo de retorno', 'años')}
-            ${badge('RES_08', 'Ahorro anual', '$')}
-          </div>
-        </div>
-      </details>
-
-      
-      <details class="section" data-section="grafico" open>
-        <summary><span>Grafico</span><span class="chev">▾</span></summary>
-        <div class="section-body">
-          <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
-            <button id="chartPrev" type="button" aria-label="Anterior">◄</button>
-            <div id="chartRangeLabel" class="mono">Enero–Febrero</div>
-            <button id="chartNext" type="button" aria-label="Siguiente">►</button>
-          </div>
-          <div style="height:260px">
-            <canvas id="energyChart"></canvas>
-          </div>
-          <div class="field" style="margin-top:8px">
-            Series: <strong>Consumo</strong>, <strong>Energía máxima</strong>, <strong>Energía recomendada</strong>
-          </div>
-        </div>
-      </details>
-    </div>`;
-}
-
-var __totoChart = null;
-var __totoStart = 0; 
-
-function monthsSpec(p){
-  
-  return [
-    {label:'Enero',     sum:'SUM_C_ENER', emax:'E_M_ENE',  erec:'E_R_ENE'},
-    {label:'Febrero',   sum:'SUM_C_FEBR', emax:'E_M_FEB',  erec:'E_R_FEB'},
-    {label:'Marzo',     sum:'SUM_C_MARZ', emax:'E_M_MAR',  erec:'E_R_MAR'},
-    {label:'Abril',     sum:'SUM_C_ABRI', emax:'E_M_ABR',  erec:'E_R_ABR'},
-    {label:'Mayo',      sum:'SUM_C_MAYO', emax:'E_M_MAY',  erec:'E_R_MAY'},
-    {label:'Junio',     sum:'SUM_C_JUNI', emax:'E_M_JUN',  erec:'E_R_JUN'},
-    {label:'Julio',     sum:'SUM_C_JULI', emax:'E_M_JUL',  erec:'E_R_JUL'},
-    {label:'Agosto',    sum:'SUM_C_AGOS', emax:'E_M_AGO',  erec:'E_R_AGO'},
-    {label:'Septiembre',sum:'SUM_C_SEP',  emax:'E_M_SEP',  erec:'E_R_SEP'},
-    {label:'Octubre',   sum:'SUM_C_OCTU', emax:'E_M_OCT',  erec:'E_R_OCT'},
-    {label:'Noviembre', sum:'SUM_C_NOVI', emax:'E_M_NOV',  erec:'E_R_NOV'},
-    {label:'Diciembre', sum:'SUM_C_DIC',  emax:'E_M_DIC',  erec:'E_R_DIC'}
-  ].map(m => ({
-    label: m.label,
-    sum : Number(p[m.sum]  ?? 0),
-    emax: Number(p[m.emax] ?? 0),
-    erec: Number(p[m.erec] ?? 0)
-  }));
-}
-
-function buildSlice(all, start){
-  const slice = all.slice(start, start+2);
-  return {
-    labels: slice.map(m => m.label),
-    consumo: slice.map(m => m.sum),
-    emax: slice.map(m => m.emax),
-    erec: slice.map(m => m.erec)
-  };
-}
+        
 
 function renderChart(slice) {
   const ctx = document.getElementById('energyChart');
@@ -1014,7 +886,7 @@ function initChartForFeature(){
   layer.on('click', function(){
     openPanel(buildPanelHTML());
   });
-}
+
 
         function style_ORDOEZLASO_3_0() {
             return {
