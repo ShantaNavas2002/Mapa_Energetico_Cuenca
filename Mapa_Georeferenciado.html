@@ -76,67 +76,7 @@
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-        // remove popup's row if "visible-with-data"
-        function removeEmptyRowsFromPopupContent(content, feature) {
-        var tempDiv = document.createElement('div');
-        tempDiv.innerHTML = content;
-        var rows = tempDiv.querySelectorAll('tr');
-        for (var i = 0; i < rows.length; i++) {
-            var td = rows[i].querySelector('td.visible-with-data');
-            var key = td ? td.id : '';
-            if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
-            rows[i].parentNode.removeChild(rows[i]);
-            }
-        }
-        return tempDiv.innerHTML;
-        }
-        // modify popup if contains media
-        function addClassToPopupIfMedia(content, popup) {
-            var tempDiv = document.createElement('div');
-            tempDiv.innerHTML = content;
-            var imgTd = tempDiv.querySelector('td img');
-            if (imgTd) {
-                var src = imgTd.getAttribute('src');
-                if (/\.(jpg|jpeg|png|gif|bmp|webp|avif)$/i.test(src)) {
-                    popup._contentNode.classList.add('media');
-                    setTimeout(function() {
-                        popup.update();
-                    }, 10);
-                } else if (/\.(mp3|wav|ogg|aac)$/i.test(src)) {
-                    var audio = document.createElement('audio');
-                    audio.controls = true;
-                    audio.src = src;
-                    imgTd.parentNode.replaceChild(audio, imgTd);
-                    popup._contentNode.classList.add('media');
-                    setTimeout(function() {
-                        popup.setContent(tempDiv.innerHTML);
-                        popup.update();
-                    }, 10);
-                } else if (/\.(mp4|webm|ogg|mov)$/i.test(src)) {
-                    var video = document.createElement('video');
-                    video.controls = true;
-                    video.src = src;
-                    video.style.width = "400px";
-                    video.style.height = "300px";
-                    video.style.maxHeight = "60vh";
-                    video.style.maxWidth = "60vw";
-                    imgTd.parentNode.replaceChild(video, imgTd);
-                    popup._contentNode.classList.add('media');
-                    // Aggiorna il popup quando il video carica i metadati
-                    video.addEventListener('loadedmetadata', function() {
-                        popup.update();
-                    });
-                    setTimeout(function() {
-                        popup.setContent(tempDiv.innerHTML);
-                        popup.update();
-                    }, 10);
-                } else {
-                    popup._contentNode.classList.remove('media');
-                }
-            } else {
-                popup._contentNode.classList.remove('media');
-            }
-        }
+        
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
@@ -372,21 +312,20 @@ function renderChart(slice){
         {
           label: 'Consumo',
           data: slice.consumo,
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',   // rojo
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',   
           borderColor: 'rgba(255, 99, 132, 1)',
           borderWidth: 1
         },
         {
           label: 'Energía máxima',
           data: slice.emax,
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',   // azul
-          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',   
           borderWidth: 1
         },
         {
           label: 'Energía recomendada',
           data: slice.erec,
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',   // turquesa
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',   
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1
         }
@@ -844,8 +783,6 @@ function initChartForFeaturePM(){
 function badge(k, label, suffix){
   var value = val(k);
   var cls = value ? '' : ' is-empty';
-
-  // Si hay valor y sufijo, se lo pegamos
   if (value && suffix) {
     value = value + ' ' + suffix;
   }
@@ -859,8 +796,6 @@ function badge(k, label, suffix){
            '<span>' + value + '</span>' +
          '</div>';
 }
-
-
     function buildPanelHTML() {
   return `
     <div class="popup-card">
@@ -915,7 +850,6 @@ function badge(k, label, suffix){
       </details>
     </div>`;
 }
-
 
 var __totoChart = null;
 var __totoStart = 0; 
@@ -1122,15 +1056,13 @@ function initChartForFeature(){
 
 // Índice CLAVE -> layer
 var __claveIndex = new Map();
-
-// Registra una capa de entidad individual (feature layer)
 function registerByClave(layer) {
   try {
     var f = layer && layer.feature;
     var clave = f && f.properties && f.properties.CLAVE;
     if (clave != null) {
       var key = String(clave).trim().toUpperCase();
-      __claveIndex.set(key, layer); // si hay duplicados, se queda el último
+      __claveIndex.set(key, layer); 
     }
   } catch(e) { /* silencio */ }
 }
