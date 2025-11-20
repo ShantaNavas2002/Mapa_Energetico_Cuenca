@@ -50,7 +50,7 @@
 
 }
 
-/* === Sección de fotografías === */
+
 .Beta-photos {
   width: 100%;
   height: 70%;
@@ -66,35 +66,34 @@
   display: block;
 }
 
-/* === Secciones de contenido === */
+
 .content-section-1 {
   max-width: 100%;
   padding: 5% 5%;
+  padding-bottom: 7% ;
+  padding-top: 7%;
 }
 .div {
   display: grid;
   grid-template-columns: 60% 40%; /* ~60% / 40% */
   align-items: center;
-  gap: 4rem;                /* permite que, en móviles, se apile */
+  gap: 4rem;               
 }
 .section-title-1 {
-  font-size: 100px;
+  font-size: clamp(2rem, 5vw, 5rem);
   color: #000000;
   margin:0;
   text-transform:uppercase;
-  font-weight:700;
-  font-size: clamp(3rem, 10vw, 9rem); /* ajusta tamaño */
-  line-height: .9;                     /* compacta la distancia entre líneas */
+  font-weight:700; 
+  line-height: .9;                     
 }
 .section-title-1 .line1,
 .section-title-1 .line2{
-  display:block;   /* fuerza el salto de línea */
+  display:block;   
 }
 
 .section-title-1 .line2{
-  padding-left: 25%;  /* << más “recorrido” a SOMOS */
-  /* opcional: afina la posición vertical si quieres aún más impacto */
-  /* margin-top: .1em; */
+  padding-left: 25%;  
 }
 .section-text-1 {
   font-size: 0.98rem;
@@ -105,39 +104,42 @@
   
 }
 
-/* Contenedor visual de la sección */
+
 .content-section-2 {
   max-width: 100%;
-  padding: 5% 5%;
-  background: #638838;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5%;
+  
+  background: #627733
 }
 
-/* 1) Estructura en fila: texto a la izquierda, imagen a la derecha */
+
 .content-2-inner {
   display: grid;
   grid-template-columns: 4fr 2fr; /* ~60% / 40% */
   align-items: start;
-  gap: 7rem;                /* permite que, en móviles, se apile */
+  gap: 7rem;                
 }
 
-/* Columna de texto (crece y encoge con el espacio) */
+
 .content-2-copy {
-  flex: 1 1 420px; /* grow | shrink | base width */
+  flex: 1 1 420px; 
   min-width: 320px;
 }
 
-/* Corrige el selector: respeta la mayúscula de la clase en HTML */
+
 .Logo2 {
   flex: 0 0 auto;
-  max-width: 38vw;      /* imagen responsiva relativa al viewport */
-  height: auto;         /* mantiene proporción */
-  object-fit: contain;  /* por si es SVG/PNG con espacios transparentes */
+  max-width: 38vw;      
+  height: auto;         
+  object-fit: contain;  
 }
 
-/* Tipografía existente (puedes ajustarla si quieres) */
+
 .section-title-2 {
   margin: 1% 0;
-  font-size: clamp(2rem, 6vw, 100px); /* escalable: 2rem–90px */
+  font-size: clamp(2rem, 5vw, 5rem);; 
   text-transform: uppercase;
   color: #ffffff;
 }
@@ -148,8 +150,6 @@
   line-height: 1.6;
   text-align: justify;
   color: #ffffff;
-  /* evita fijar width al 60% cuando ya usamos flex,
-     deja que el contenedor calcule */
 }
 
 
@@ -159,7 +159,7 @@ a {
 
 
 .btn-wrapper {
-  margin-top: 25%;   
+  margin-top: 10%;   
 }
 .btn {
   height: 50px;
@@ -168,7 +168,7 @@ a {
   padding: 12px 28px;
   border-radius: 999px;
   border: none;
-  background: #E0B6AB;
+  background: #434D2E;
   color: #ffffff;
   font-family: inherit;
   font-size: 40px;
@@ -181,9 +181,9 @@ a {
 }
 
 .btn:hover {
-  background: #E0B6AB;
+  background: #BDCD9C;
   transform: translateY(-1px);
-  box-shadow: 10px 40px 100px rgba(0, 0, 0, 0.50);
+  box-shadow:  4px 10px rgba(0, 0, 0, 0.50);
 }
 
 .btn:active {
@@ -306,7 +306,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
+  
   box-sizing: border-box;
 }
 
@@ -314,5 +314,96 @@ body {
 
 
 
+.city-skyline-container {
+    width: 100%;
+    height: 100px; 
+    position: relative;
+    margin-bottom: -1px; 
+    z-index: 10;
+    background-color: #627733;
+    display: flex;
+    align-items: flex-end;
+}
 
+.city-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; 
+    object-position: bottom center; 
+}
 
+.footer-content {
+    background-color: #262626; 
+    color: #F2F2EB;            
+    padding: 40px 20px;        
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    text-align: center;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: start; 
+}
+
+.footer-col h3 {
+    color: #627733; 
+    margin-bottom: 15px;
+    font-family: var(--font-head); 
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.avatar-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    background-color: #ffffff;
+    width: 50px;  
+    height: 50px;
+    border-radius: 50%; 
+    object-fit: cover;  
+    border: 3px solid #262626; 
+    margin-left: -15px; 
+    transition: transform 0.3s ease; 
+    position: relative;
+    z-index: 1;
+}
+
+.avatar:first-child {
+    margin-left: 0;
+}
+
+.avatar:hover {
+    transform: translateY(-5px);
+    z-index: 10; 
+    border-color: #627733; 
+}
+
+.contact-info p, .web-info, .small-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.8; 
+    margin-bottom: 8px;
+}
+
+.copyright {
+    font-size: 0.75rem;
+    margin-top: auto; 
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
