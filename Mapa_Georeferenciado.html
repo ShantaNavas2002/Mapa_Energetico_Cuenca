@@ -11,12 +11,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Trocchi&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="css/leaflet.css">
-        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
         <link rel="stylesheet" href="css/qgis2web.css">
-        <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/styles-panel.css">
-
+        <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -30,12 +27,10 @@
     <body>
     <!--===========================================================================================================================================-->
 <!-- Buscador por CLAVE -->
-<div class="ui-search" style="position:absolute; z-index:1000; top:12px; left:12px; display:flex; gap:6px; align-items:center; background:rgba(255,255,255,.9); padding:8px 10px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.08);">
-  <input id="claveSearch" type="search" placeholder="Buscar por CLAVE…" list="claveOptions"
-    style="width:220px; padding:6px 10px; border-radius:8px; border:1px solid #d1d5db; outline:none;">
+<div class="Buscador-Predio" >
+  <input id="claveSearch" type="search" placeholder="Buscar por CLAVE CATASTRAL…" list="claveOptions">
   <datalist id="claveOptions"></datalist>
-  <button id="claveGo" type="button" style="padding:6px 10px; border-radius:8px; border:0; background:#638838;
-; color:white; cursor:pointer;">Buscar</button>
+  <button id="claveGo" >Buscar</button>
 </div>
 
     <!--===========================================================================================================================================-->
@@ -56,8 +51,7 @@
         <script src="js/Autolinker.min.js"></script>
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/leaflet.photon.js"></script>
+        <script src="js/labels.js"></script>       
         <script src="data/TOTORACOCHA_1.js"></script>
         <script src="data/PRIMERODEMAYO_2.js"></script>
         <script src="data/ORDOEZLASO_3.js"></script>
