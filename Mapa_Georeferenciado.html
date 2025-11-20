@@ -44,21 +44,15 @@
 
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
-        <script src="js/L.Control.Layers.Tree.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>       
+        <script src="js/Autolinker.min.js"></script>  
         <script src="data/TOTORACOCHA_1.js"></script>
         <script src="data/PRIMERODEMAYO_2.js"></script>
         <script src="data/ORDOEZLASO_3.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-        
-        
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -169,7 +163,6 @@
 function getLayerElements(layer){
   var el = (typeof layer.getElement === 'function') ? layer.getElement() : layer._path;
   if (!el) return [];
-  // Para multipolígonos, Leaflet genera un <g> con varios <path>
   if (el.tagName && el.tagName.toLowerCase() === 'g') {
     return Array.from(el.querySelectorAll('path.leaflet-interactive'));
   }
@@ -177,13 +170,12 @@ function getLayerElements(layer){
 }
 
 function markSelected(layer){
-  // Trae al frente para que el borde no quede oculto
+
   if (typeof layer.bringToFront === 'function') layer.bringToFront();
-  // Aumenta peso/color (fallback por si el navegador ignora CSS en algún caso)
+
   if (typeof layer.setStyle === 'function') {
     layer.setStyle({ weight: 3, color: '#2563eb', fillOpacity: 0.85 });
   }
-  // Añade clase a cada path
   getLayerElements(layer).forEach(function(p){ if (p) p.classList.add('feature-selected'); });
 }
 
@@ -233,7 +225,7 @@ function closeFeaturePanel(){
 
         //============================================================================TOTORACHOCHA========================================================================================
         function pop_TOTORACOCHA_1(feature, layer) {
-  // Hover highlight (igual que antes)
+  // Hover highlight 
     layer.on({
     mouseout: function(e){
         for (var i in e.target._eventParents) {
@@ -258,7 +250,7 @@ function badge(k, label, suffix){
   var value = val(k);
   var cls = value ? '' : ' is-empty';
 
-  // Si hay valor y sufijo, se lo pegamos
+
   if (value && suffix) {
     value = value + ' ' + suffix;
   }
