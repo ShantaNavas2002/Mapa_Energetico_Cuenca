@@ -304,7 +304,7 @@ function buildPanelContent(feature, sectorTitle) {
 }
 
 // =============================================================================
-//  genera Graficos (Paneles etc)
+//  generar Graficos (Paneles etc)
 
 function crearGestorCapa(tituloSector) {
     return function(feature, layer) {
@@ -385,7 +385,7 @@ var layer_PRIMERODEMAYO_2 = new L.geoJson(json_PRIMERODEMAYO_2, {
     dataVar: 'json_PRIMERODEMAYO_2',
     layerName: 'layer_PRIMERODEMAYO_2',
     pane: 'pane_PRIMERODEMAYO_2',
-    // Reutilizamos la misma lógica, solo cambiamos el nombre:
+    
     onEachFeature: crearGestorCapa("Primero de Mayo"), 
     style: style_PRIMERODEMAYO_2,
 });
@@ -429,7 +429,7 @@ function registerByClave(layer) {
   } catch(e) { /* silencio */ }
 }
 
-// Recorre tus grupos GeoJSON
+// Recorre  grupos GeoJSON
 [
   typeof layer_TOTORACOCHA_1 !== 'undefined' ? layer_TOTORACOCHA_1 : null,
   typeof layer_PRIMERODEMAYO_2 !== 'undefined' ? layer_PRIMERODEMAYO_2 : null,
@@ -439,11 +439,10 @@ function registerByClave(layer) {
   group.eachLayer(registerByClave);
 });
 
-// Autocompletar: poblar <datalist>
-// Array con todas las CLAVE
+// Autocompletar
 var __claveKeys = Array.from(__claveIndex.keys());
 
-// Autocompletar: máximo 5 opciones en el <datalist>
+// 5 opciones 
 (function wireClaveAutocomplete(){
   var input = document.getElementById('claveSearch');
   var dl    = document.getElementById('claveOptions');
@@ -454,18 +453,18 @@ var __claveKeys = Array.from(__claveIndex.keys());
 
     // Limpiar opciones actuales
     dl.innerHTML = '';
-    if (!texto) return;   // si no hay texto, no mostramos nada
+    if (!texto) return;   
 
     var count = 0;
     for (var i = 0; i < __claveKeys.length && count < 5; i++) {
       var key = __claveKeys[i];
 
-      // Coincidencia: que el texto esté dentro de la CLAVE
+      
       if (key.indexOf(texto) !== -1) {
         var op = document.createElement('option');
         op.value = key;
         dl.appendChild(op);
-        count++;          // máximo 5
+        count++;          
       }
     }
   });
@@ -507,7 +506,7 @@ function goToClave(q) {
 
 
 
-// Eventos de la UI
+
 (function wireSearchUI(){
   var input = document.getElementById('claveSearch');
   var btn   = document.getElementById('claveGo');
