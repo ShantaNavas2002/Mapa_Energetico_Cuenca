@@ -1,10 +1,10 @@
 
 :root{
-  /* Fuente para cuerpo/UI */
+  
   --font-body: "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu,
     "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
     "Segoe UI Emoji", sans-serif;
-  /* Fuente para encabezados/títulos */
+  
   --font-head: "Trocchi", Georgia, "Times New Roman", serif;
 }
 
@@ -117,7 +117,7 @@ color:white;
   border:1px solid #e5e7eb;      
 }
 
-/* Cabecera del acordeón */
+
 .section summary {
   list-style:none;               
   display:flex;
@@ -128,14 +128,14 @@ color:white;
   font-weight:600;
 }
 
-/* Oculta el marcador por defecto en WebKit */
+
 .section summary::-webkit-details-marker { display:none; }
 
-/* Chevron animado */
+
 .section .chev { transition: transform .2s ease; }
 .section[open] .chev{ transform: rotate(180deg); }
 
-/* Cuerpo de la sección */
+
 .section-body { padding:10px 14px 14px; }
 
 
@@ -170,7 +170,7 @@ color:white;
 
 .badge .key{ opacity:.6 }
 
-/
+
 .badge.is-empty{ display:none }
 
 
