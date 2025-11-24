@@ -26,6 +26,7 @@
     </head>
     <body>
     
+  
 <!-- Buscador por CLAVE -->
 <div class="Buscador-Predio" >
   <input id="claveSearch" type="search" placeholder="Buscar por CLAVE CATASTRAL…" list="claveOptions">
@@ -163,7 +164,7 @@ function closeFeaturePanel(){
 //  LÓGICA 
 
 
-var currentChart = null; // Una sola variable para el gráfico actual
+var currentChart = null; // Una sola variable 
 var currentChartStart = 0; 
 
 function getChartData(props) {
@@ -204,17 +205,36 @@ function renderSharedChart(allData, startIndex) {
         data: {
             labels: labels,
             datasets: [
-                { label: 'Consumo', data: sliceData.map(d => d.sum), backgroundColor: 'rgba(255, 99, 132, 0.5)', borderColor: 'rgba(255, 99, 132, 1)', borderWidth: 1 },
-                { label: 'Energía máxima', data: sliceData.map(d => d.emax), backgroundColor: 'rgba(54, 162, 235, 0.5)', borderWidth: 1 },
-                { label: 'Energía recomendada', data: sliceData.map(d => d.erec), backgroundColor: 'rgba(75, 192, 192, 0.5)', borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 1 }
+                { label: 'Consumo', data: sliceData.map(d => d.sum), backgroundColor: '#D9D9D9', borderColor: '#585859', borderWidth: 1 },
+                { label: 'Energía máxima', data: sliceData.map(d => d.emax), backgroundColor: '#BCD1AC', borderColor: "#B0CC66 ",  borderWidth: 1 },
+                { label: 'Energía recomendada', data: sliceData.map(d => d.erec), backgroundColor: '#FDAA76', borderColor: '#FF9C60', borderWidth: 1 }
             ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
-            plugins: { legend: { position: 'top' }, tooltip: { enabled: true } },
-            scales: { x: { ticks: { autoSkip: false } }, y: { beginAtZero: true } }
+            plugins: { 
+                legend: { position: 'top' }, 
+                tooltip: { enabled: true } 
+            },
+            scales: { 
+                x: { ticks: { autoSkip: false } }, 
+                y: { 
+                    beginAtZero: true,
+                    
+                    title: {
+                        display: true,
+                        text: 'kWh',      
+                        font: {
+                            
+                            size: 14
+                        },
+                        padding: {bottom: 10} 
+                    }
+                    
+                } 
+            }
         }
     });
 
@@ -245,49 +265,80 @@ function initChart(feature) {
 
 // =============================================================================
 // 2. CONSTRUCTOR HTML DEL PANEL
-
 function buildPanelContent(feature, sectorTitle) {
     var p = feature.properties;
-    function val(k) { return (p[k] !== null && p[k] !== undefined) ? String(p[k]) : ''; }
     
-    function badge(k, label, suffix) {
-        var v = val(k);
-        if (!v) return '<div class="badge is-empty"></div>';
-        if (suffix) v += ' ' + suffix;
-        return `<div class="badge"><span class="key mono">${label}:</span><span>${v}</span></div>`;
+    // Si el dato es nulo, pone un guion '-'
+    function val(k) { 
+        return (p[k] !== null && p[k] !== undefined) ? String(p[k]) : '-'; 
+    }
+
+    /**
+     * Función para crear la tarjeta gris
+     */
+    function solarCard(imgSrc, label, key, suffix) {
+        var valor = val(key);
+        if (suffix && valor !== '-') valor += ' ' + suffix;
+
+        return `
+        <div class="solar-card">
+            <div class="solar-icon">
+                <img src="${imgSrc}" alt="icono" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+            <div class="solar-info">
+                <span class="solar-label">${label}</span>
+                <span class="solar-value-box">${valor}</span>
+            </div>
+        </div>`;
     }
 
     return `
     <div class="popup-card">
-      <div class="popup-title">${sectorTitle}</div>
+      <div class="popup-title">
+        <span class="key mono">Clave Catastral:</span>
+        <strong>${val('CLAVE')}</strong>
+      </div>
 
       <details class="section" data-section="datos" open>
-        <summary><span>Datos usuario</span><span class="chev">▾</span></summary>
+        <summary>
+            <div class="summary-content">
+                <span>Implementacion de paneles solares Sistemas On-Grid (Sin bateria)</span>
+                <img src="images/UI_Pestaña1.svg" class="header-img" alt="Sin batería">
+            </div>
+            <span class="chev">▾</span>
+        </summary>
+        
         <div class="section-body">
-          <div class="badge"><span class="key mono">Predio:</span><strong>${val('CLAVE')}</strong></div>
-          <div class="grid" style="margin-top:8px">
-            ${badge('RES_01', 'Num paneles')}
-            ${badge('RES_02', 'Inversión', '$')}
-            ${badge('RES_03', 'Retorno', 'años')}
-            ${badge('RES_04', 'Ahorro', '$')}
+          <div class="solar-grid">
+            ${solarCard('images/UI_panel1.svg', 'Número de paneles recomendado según su consumo eléctrico:', 'RES_01', '')}
+            ${solarCard('images/UI_Inversion2.svg', 'Inversión:', 'RES_02', '$')}
+            ${solarCard('images/UI_RecuInversion3.svg', 'Tiempo de recuperación de la inversión:', 'RES_03', 'años')}
+            ${solarCard('images/UI_Ahorro4.svg', 'Ahorro anual posterior a la inversión:', 'RES_04', '$')}
           </div>
         </div>
       </details>
 
       <details class="section" data-section="bateria">
-        <summary><span>Batería</span><span class="chev">▾</span></summary>
+        <summary>
+            <div class="summary-content">
+                <span>Implementacion de paneles solares Sistemas On-Grid (Con bateria)</span>
+                <img src="images/UI_Pestaña2.svg" class="header-img" alt="Con batería">
+            </div>
+            <span class="chev">▾</span>
+        </summary>
+
         <div class="section-body">
-          <div class="grid">
-            ${badge('RES_05', 'Num paneles')}
-            ${badge('RES_06', 'Inversión', '$')}
-            ${badge('RES_07', 'Retorno', 'años')}
-            ${badge('RES_08', 'Ahorro', '$')}
+          <div class="solar-grid">
+            ${solarCard('images/UI_panel1.svg', 'Número de paneles recomendado según su consumo eléctrico:', 'RES_05', '')}
+            ${solarCard('images/UI_Inversion2.svg', 'Inversión:', 'RES_06', '$')}
+            ${solarCard('images/UI_RecuInversion3.svg', 'Tiempo de recuperación de la inversión', 'RES_07', 'años')}
+            ${solarCard('images/UI_Ahorro4.svg', 'Ahorro anual posterior a la inversión:', 'RES_08', '$')}
           </div>
         </div>
       </details>
       
       <details class="section" data-section="grafico" open>
-        <summary><span>Gráfico</span><span class="chev">▾</span></summary>
+        <summary><span>Análisis energético mensual</span><span class="chev">▾</span></summary>
         <div class="section-body">
           <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
             <button id="chartPrev" type="button">◄</button>
@@ -295,9 +346,6 @@ function buildPanelContent(feature, sectorTitle) {
             <button id="chartNext" type="button">►</button>
           </div>
           <div style="height:260px"><canvas id="energyChart"></canvas></div>
-          <div class="field" style="margin-top:8px; font-size:0.85em; text-align:center; opacity:0.8;">
-            Series: Consumo | Máxima | Recomendada
-          </div>
         </div>
       </details>
     </div>`;
@@ -355,7 +403,7 @@ function crearGestorCapa(tituloSector) {
 
 // --- TOTORACOCHA ---
 function style_TOTORACOCHA_1_0() {
-    return { pane: 'pane_TOTORACOCHA_1', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: 'rgba(255,158,23,1.0)', interactive: true };
+    return { pane: 'pane_TOTORACOCHA_1', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: '#BDBEBF', interactive: true };
 }
 map.createPane('pane_TOTORACOCHA_1');
 map.getPane('pane_TOTORACOCHA_1').style.zIndex = 401;
@@ -365,7 +413,7 @@ var layer_TOTORACOCHA_1 = new L.geoJson(json_TOTORACOCHA_1, {
     dataVar: 'json_TOTORACOCHA_1',
     layerName: 'layer_TOTORACOCHA_1',
     pane: 'pane_TOTORACOCHA_1',
-    // ¡AQUÍ ESTÁ LA MAGIA! Usamos la fábrica:
+    // Fabri
     onEachFeature: crearGestorCapa("Totoracocha"), 
     style: style_TOTORACOCHA_1_0,
 });
@@ -375,7 +423,7 @@ map.addLayer(layer_TOTORACOCHA_1);
 
 // --- PRIMERO DE MAYO ---
 function style_PRIMERODEMAYO_2() {
-    return { pane: 'pane_PRIMERODEMAYO_2', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: 'rgba(255,158,23,1.0)', interactive: true };
+    return { pane: 'pane_PRIMERODEMAYO_2', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: '#BDBEBF', interactive: true };
 }
 map.createPane('pane_PRIMERODEMAYO_2');
 map.getPane('pane_PRIMERODEMAYO_2').style.zIndex = 401;
@@ -395,7 +443,7 @@ map.addLayer(layer_PRIMERODEMAYO_2);
 
 // --- ORDOÑEZ LASO ---
 function style_ORDOEZLASO_3_0() {
-    return { pane: 'pane_ORDOEZLASO_3', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: 'rgba(225,89,137,1.0)', interactive: true };
+    return { pane: 'pane_ORDOEZLASO_3', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: '#BDBEBF', interactive: true };
 }
 map.createPane('pane_ORDOEZLASO_3');
 map.getPane('pane_ORDOEZLASO_3').style.zIndex = 403;

@@ -1,187 +1,263 @@
 
-:root{
-  
-  --font-body: "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu,
-    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
-    "Segoe UI Emoji", sans-serif;
-  
-  --font-head: "Trocchi", Georgia, "Times New Roman", serif;
-}
+/* ==========================================================================
+   1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
+   ========================================================================== */
+:root {
+  /* Defino mis fuentes aquí para cambiarlas rápido si me aburro */
+  --font-body: "Source Sans Pro", system-ui, -apple-system, sans-serif;
+ 
+} 
 
-html, body,
-.leaflet-container,
-.ui-panel,
-.ui-panel .popup-card,
-.ui-panel .section,
-.ui-panel .badge {
+/* Aplico la fuente de cuerpo a todo lo que sea texto general */
+html, body, .leaflet-container, .ui-panel, .badge {
   font-family: var(--font-body);
+  font-weight: 400;
 }
 
-
-h1, h2, h3, h4, h5, h6,
-.ui-panel .popup-title,
-.ui-panel .section-title {
+/* Aplico la fuente de títulos a encabezados y secciones */
+h1, h2, h3, h4, h5, h6, .ui-panel .popup-title, .ui-panel .section-title {
   font-family: var(--font-head);
+  font-weight: 700;
 }
 
+/* ==========================================================================
+   2. UI FLOTANTE (PANEL LATERAL Y BUSCADOR)
+   ========================================================================== */
 
-body { font-weight: 400; }
-h1, h2, h3 { font-weight: 700; }
-
-
-
+/* El panel principal que flota a la derecha. Tiene efecto vidrio (transparencia) */
 .ui-panel {
-  position: fixed;
-  top: 24px;
-  right: 24px;
+  position: absolute;
+  top: 24px; right: 24px;
   width: 45vw;            
-  max-width: 780px;        
-  min-width: 360px;        
-  max-height: calc(100vh - 48px); 
+  max-width: 780px; min-width: 360px;        
+  max-height: calc(100vh - 48px); /* Que no se salga de la pantalla verticalmente */
   overflow: auto;          
   border-radius: 24px;     
-  background: rgb(255, 255, 255, 0.7); 
-  box-shadow: 0 25px 60px rgba(0,0,0,.22); 
+  background: rgba(255, 255, 255, 0.85); /* Un poco más sólido para legibilidad */
+  box-shadow: 0 25px 60px rgba(0,0,0,0.22); 
   z-index: 1000;           
+  padding: 16px; 
   color: #0f172a;          
-  padding: 16px 16px 12px; 
 }
 
-
+/* Clase de utilidad para esconder cosas */
 .ui-panel.hidden { display: none; }
 
-
-.Buscador-Predio{
-  position:absolute; 
-  z-index:1000; 
-  top:12px; 
-  left:12px; 
-  display:flex; 
-  gap:6px; 
-  align-items:center; 
-  background:rgba(255,255,255,.9); 
-  padding:8px 10px; 
-  border-radius:10px; 
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
-#claveSearch {
-  width:220px; 
-  padding:6px 10px; 
-  border-radius:8px; 
-  border:1px solid #d1d5db;
-  outline:none;
-}
-#claveGo {
-padding:6px 10px; 
-border-radius:8px; 
-border:0; 
-background:#638838;
-color:white; 
-;cursor:pointer;
-}
-
+/* Botón de cerrar (X) en la esquina del panel */
 .ui-close {
   position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  border: 0;
-  border-radius: 8px;
+  top: 10px; right: 12px;
   background: transparent;
+  border: 0;
   font-size: 22px;   
-  line-height: 1;
   cursor: pointer;
   color: inherit;     
 }
+
+/* El buscador flotante de la izquierda */
+.Buscador-Predio {
+  position: absolute; 
+  z-index: 1000; 
+  top: 12px; left: 12px; 
+  display: flex; 
+  gap: 6px; 
+  align-items: center; 
+  background: rgba(255,255,255,0.95); 
+  padding: 8px 10px; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* Estilos de los inputs y botones del buscador */
+#claveSearch {
+  width: 220px; 
+  padding: 6px 10px; 
+  border-radius: 8px; 
+  border: 1px solid #d1d5db;
+  outline: none;
+}
+
+#claveGo {
+  padding: 6px 10px; 
+  border-radius: 8px; 
+  border: 0; 
+  background: #638838; /* Verde corporativo */
+  color: white; 
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#claveGo:hover { background: #4d6b2b; }
+
+/* ==========================================================================
+   3. COMPONENTES INTERNOS DEL PANEL (ACORDEONES Y BADGES)
+   ========================================================================== */
+
+/* Contenedor interno para dar márgenes */
 .ui-panel .popup-card { 
   width: 100%;
-  max-width: none;
-  padding: 10px 6px 6px;
-  background: transparent;
-  box-shadow: none;
+  padding: 10px 6px;
 }
-
 
 .popup-title {
-  font-weight: 800;
   font-size: 20px;
   margin: 6px 6px 12px;
+  text-align: center;
 }
 
+/* Estilo base de los acordeones (<details>) */
 .section {
-  background:#f3f4f6;           
-  border-radius:14px;
-  margin:10px 6px;
-  overflow:hidden;               
-  border:1px solid #e5e7eb;      
+  background: #f3f4f6;           
+  border-radius: 14px;
+  margin: 10px 6px;
+  overflow: hidden;               
+  border: 1px solid #e5e7eb;      
 }
 
-
+/* La cabecera clickeable del acordeón */
 .section summary {
-  list-style:none;               
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 14px;
-  cursor:pointer;
-  font-weight:600;
+  list-style: none; /* Quito el triángulo feo por defecto */              
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 600;
 }
+.section summary::-webkit-details-marker { display: none; } /* Soporte Safari */
 
-
-.section summary::-webkit-details-marker { display:none; }
-
-
+/* Animación de la flechita al abrir/cerrar */
 .section .chev { transition: transform .2s ease; }
-.section[open] .chev{ transform: rotate(180deg); }
+.section[open] .chev { transform: rotate(180deg); }
 
+.section-body { padding: 10px 14px 14px; }
 
-.section-body { padding:10px 14px 14px; }
-
-
-.field { font-size:12px; opacity:.8; margin-bottom:10px }
-.mono{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-               "Liberation Mono","Courier New", monospace;
+/* Badges (Etiquetas simples) */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  background: #fff;
+  border: 1px solid #cbd5e1; /* Corregido: faltaba el tipo de borde */
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 0 8px;
+  gap: 6px;
+  text-align: center;
 }
+.badge .key { opacity: 0.6; }
+.badge.is-empty { display: none; }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px;
-}
-
-
-
-.badge{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:42px;
-  background:#fff;
-  border:1px dashed #cbd5e1;   
-  border-radius:10px;
-  font-size:12px;
-  padding:0 8px;
-  gap:6px;
-  text-align:center;
-  word-break:break-word;       
-}
-
-.badge .key{ opacity:.6 }
-
-
-.badge.is-empty{ display:none }
-
-
-
+/* Efecto visual cuando selecciono un predio en el mapa */
 .feature-selected {
   stroke: #1e40af !important;      
   stroke-width: 5 !important;
-  filter: drop-shadow(0 0 6px rgba(37,99,235,.25));
+  filter: drop-shadow(0 0 6px rgba(37,99,235,0.25));
 }
 
+/* ==========================================================================
+   4. TARJETAS SOLARES (DISEÑO PERSONALIZADO GRIS)
+   ========================================================================== */
 
+/* Grid de 2 columnas para las tarjetas */
+.solar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 12px;
+  margin-top: 10px;
+}
 
+/* La tarjeta gris individual */
+.solar-card {
+  background-color: #E8E8E8; 
+  border-radius: 16px;       
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
 
+/* Contenedor del icono SVG/IMG */
+.solar-icon {
+  width: 40px; height: 40px;
+  flex-shrink: 0; /* Evito que el icono se aplaste si hay mucho texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+/* Parte derecha de la tarjeta (Texto y Valor) */
+.solar-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0; 
+}
+
+.solar-label {
+  font-size: 11px;
+  color: #444;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* La cajita gris oscura donde va el número */
+.solar-value-box {
+  background-color: #999999;
+  color: white;
+  padding: 6px 4px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  text-align: center;
+  width: 90%; /* Un poco menos del 100% para que se vea elegante */
+  display: block;
+  margin: 0 auto; /* Centrado */
+}
+
+/* Responsive: En móviles muy pequeños, las tarjetas se ponen una bajo otra */
+@media (max-width: 400px) {
+  .solar-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   5. IMÁGENES DINÁMICAS EN CABECERA (LA CASA QUE CAMBIA)
+   ========================================================================== */
+
+/* Agrupa el texto del acordeón y la imagen */
+.summary-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1; /* Ocupa todo el espacio disponible para empujar la imagen */
+}
+
+/* La imagen de la casa (Oculta por defecto) */
+.header-img {
+  display: none;       
+  height: 50px;        
+  width: auto;         
+  object-fit: contain;
   
+  /* Truco Flexbox: Empuja la imagen todo lo posible a la derecha */
+  margin-left: auto;   
+  margin-right: 15px;  
+  
+  transition: all 0.3s ease;
+}
+
+/* Cuando abro el acordeón, muestro la imagen con animación */
+.section[open] .header-img {
+  display: block;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
