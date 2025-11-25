@@ -24,6 +24,10 @@ h1, h2, h3, h4, h5, h6, .ui-panel .popup-title, .ui-panel .section-title {
    2. UI FLOTANTE (PANEL LATERAL Y BUSCADOR)
    ========================================================================== */
 
+  .head{
+    background-color: #0f172a;
+  }
+
 /* El panel principal que flota a la derecha. Tiene efecto vidrio (transparencia) */
 .ui-panel {
   position: absolute;
