@@ -3,7 +3,7 @@
             background-color: #ffffff
         }
         html, body, #map {
-			overflow: hidden;
+			/*overflow: hidden; Desactiv para prueba, ya no se oculta */
         }
         .col9{
 			height: 100%!important;
@@ -60,7 +60,7 @@
         .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
             border: 0px;
         }
-        }
+        
         .fa, .leaflet-container, a {
             color: #444444 !important;
         }

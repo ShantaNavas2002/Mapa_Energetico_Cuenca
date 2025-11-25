@@ -25,7 +25,9 @@ h1, h2, h3, h4, h5, h6, .ui-panel .popup-title, .ui-panel .section-title {
    ========================================================================== */
 
   .head{
-    background-color: #0f172a;
+    background-color: #576da1;
+    height: 5%;
+    width: 100%;
   }
 
 /* El panel principal que flota a la derecha. Tiene efecto vidrio (transparencia) */
@@ -60,7 +62,7 @@ h1, h2, h3, h4, h5, h6, .ui-panel .popup-title, .ui-panel .section-title {
 
 /* El buscador flotante de la izquierda */
 .Buscador-Predio {
-  position: absolute; 
+  position: relative;
   z-index: 1000; 
   top: 12px; left: 12px; 
   display: flex; 
@@ -70,6 +72,7 @@ h1, h2, h3, h4, h5, h6, .ui-panel .popup-title, .ui-panel .section-title {
   padding: 8px 10px; 
   border-radius: 10px; 
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  width: 15%;
 }
 
 /* Estilos de los inputs y botones del buscador */
