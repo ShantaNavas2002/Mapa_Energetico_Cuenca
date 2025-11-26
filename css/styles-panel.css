@@ -2,33 +2,26 @@
 /* ==========================================================================
    1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
    ========================================================================== */
-:root {
-  /* Defino mis fuentes aquí para cambiarlas rápido si me aburro */
-  --font-body: "Source Sans Pro", system-ui, -apple-system, sans-serif;
- 
-} 
-
-/* Aplico la fuente de cuerpo a todo lo que sea texto general */
-html, body, .leaflet-container, .ui-panel, .badge {
-  font-family: var(--font-body);
-  font-weight: 400;
+body {
+  font-family: 'Roboto';
+  
+  /* Opcional: Esto hace que el texto se vea más nítido en algunos navegadores */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Aplico la fuente de títulos a encabezados y secciones */
-h1, h2, h3, h4, h5, h6, .ui-panel .popup-title, .ui-panel .section-title {
-  font-family: var(--font-head);
-  font-weight: 700;
+/* Fuerza a los inputs y botones a usar la misma fuente que el resto */
+input, button, textarea, select {
+  font-family: inherit;
 }
 
 /* ==========================================================================
    2. UI FLOTANTE (PANEL LATERAL Y BUSCADOR)
    ========================================================================== */
 
-  .head{
-    background-color: #576da1;
-    height: 5%;
-    width: 100%;
-  }
+  
+  
+  
 
 /* El panel principal que flota a la derecha. Tiene efecto vidrio (transparencia) */
 .ui-panel {

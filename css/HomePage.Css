@@ -1,341 +1,136 @@
-.Alpha {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto auto;
-  grid-template-areas:
-    "logo   inst   date"
-    "logo   title  subtitle"
-    "empty  title2 title2";
-  gap: 10px;
-  padding: 20px;
-  margin: 125px;
-  margin-top: 75px;
-  margin-bottom: 0;
+   
+   body {
+  font-family: 'Roboto', sans-serif;
+  
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} 
 
+input, button, textarea, select {
+  font-family: inherit;
 }
+   .position-btn{
+    padding-left: 15%;
+    align-self: center;
+  justify-self: start;
+   }
 
-.Alpha-logo {
-  height: 100px;
-  grid-area: logo;
+
+.btn-lateral{
+  
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  
 }
-
-.Alpha-institutions {
-  grid-column: 2;
-  grid-row: 1;
+.Logo-cuencasolar{
+  height: 150px;
+  width: auto;
   justify-self: center;
-  text-align: center;
 }
-
-.Alpha-date {
-  grid-column: 3;
-  grid-row: 1;
+.Logo-consiso {
+  padding-right: 15%;
+  height: 50PX;
+  width: auto;  
+  align-self: center;
   justify-self: end;
 }
-
-.Alpha-titulo1 {
-  grid-area: title;
-  margin: 0;
-  margin-bottom: 0;
-  margin-top: 0;
-  font-size: clamp(2rem, 5vw, 5rem);
-  margin-left: 15%;
+/* Centramos la tarjeta en la pantalla (opcional) */
+.contenedor-principal {
+    padding: 3%;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: center;
 }
 
-.Alpha-titulo2 {
-  grid-area: title2;
-  margin-left: 35%;
-  margin-bottom: 0;
-  margin-top: 0;
-  font-size: 80px;
-
-}
-
-
-.Beta-photos {
-  width: 100%;
-  height: 70%;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  
-}
-
-.Beta-photo-item {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-
-.content-section-1 {
-  max-width: 100%;
-  padding: 5% 5%;
-  padding-bottom: 7% ;
-  padding-top: 7%;
-}
-.div {
-  display: grid;
-  grid-template-columns: 60% 40%; /* ~60% / 40% */
-  align-items: center;
-  gap: 4rem;               
-}
-.section-title-1 {
-  font-size: clamp(2rem, 5vw, 5rem);
-  color: #000000;
-  margin:0;
-  text-transform:uppercase;
-  font-weight:700; 
-  line-height: .9;                     
-}
-.section-title-1 .line1,
-.section-title-1 .line2{
-  display:block;   
-}
-
-.section-title-1 .line2{
-  padding-left: 25%;  
-}
-.section-text-1 {
-  font-size: 0.98rem;
-  line-height: 1.6;
-  text-align: justify;
-  width: 80%;
-  margin: 0;
-  
-}
-
-
-.content-section-2 {
-  max-width: 100%;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 5%;
-  
-  background: #627733
-}
-
-
-.content-2-inner {
-  display: grid;
-  grid-template-columns: 4fr 2fr; /* ~60% / 40% */
-  align-items: start;
-  gap: 7rem;                
-}
-
-
-.content-2-copy {
-  flex: 1 1 420px; 
-  min-width: 320px;
-}
-
-
-.Logo2 {
-  flex: 0 0 auto;
-  max-width: 38vw;      
-  height: auto;         
-  object-fit: contain;  
-}
-
-
-.section-title-2 {
-  margin: 1% 0;
-  font-size: clamp(2rem, 5vw, 5rem);; 
-  text-transform: uppercase;
-  color: #ffffff;
-}
-
-.section-text-2 {
-  margin: 0;
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-  line-height: 1.6;
-  text-align: justify;
-  color: #ffffff;
-}
-
-
-a {
-  text-decoration: none;
-}
-
-
-.btn-wrapper {
-  margin-top: 10%;   
-}
-.btn {
-  height: 50px;
-  width: 25%;
-  display: inline-block;
-  padding: 12px 28px;
-  border-radius: 999px;
-  border: none;
-  background: #434D2E;
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 40px;
-  cursor: pointer;
-  transition:
-  background 0.2s ease,
-  transform 0.15s ease,
-  box-shadow 0.15s ease;
-  text-align-last: center;
-}
-
-.btn:hover {
-  background: #BDCD9C;
-  transform: translateY(-1px);
-  box-shadow:  4px 10px rgba(0, 0, 0, 0.50);
-}
-
-.btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-
-
-
-  @media (max-width: 768px) {
-  .Alpha {
+.tarjeta-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "logo"
-      "inst"
-      "date"
-      "title"
-      "subtitle"
-      "title2";
-    padding: 10px;
-    margin: 0;
-    gap: 5px;
-  }
-
-  .Alpha-logo {
-    grid-area: logo;
-    justify-self: center;
-    height: 60px;
-  }
-
-  .Alpha-institutions {
-    grid-area: inst;
-    text-align: center;
-  }
-
-  .Alpha-date {
-    grid-area: date;
-    text-align: center;
-  }
-
-  .Alpha-titulo1 {
-    grid-area: title;
-    font-size: 2rem;
-    text-align: center;
-    margin: 0;
-  }
-
-  
-
-  .Alpha-titulo2 {
-    grid-area: title2;
-    font-size: 2rem;
-    text-align: center;
-    margin: 0;
-  }
-}
-
-
-
-@media (max-width: 768px) {
-  .Beta-photos {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .Beta-photo-item {
-    min-width: 90%;
-    height: auto;
-    flex-shrink: 0;
-    scroll-snap-align: center;
-    border-radius: 10px;
-  }
-}
-@media (max-width: 768px) {
-  .div {
-    display: block;
-    text-align: center;
-  }
-
-  .section-title-1 {
-    font-size: 2.5rem;
-  }
-
-  .section-text-1 {
+    /* TRUCO: Definimos las columnas. 
+       1fr: espacio vacío a la izquierda para ver la imagen.
+       350px: ancho de tu tarjeta verde a la derecha. */
+    grid-template-columns: 1fr 350px; 
+    /* Solo una fila que ocupe toda la altura */
+    grid-template-rows: 100%; 
+    
     width: 100%;
-    text-align: justify;
-    padding: 0 10px;
-  }
-}
-@media (max-width: 768px) {
-  .content-2-inner {
-    display: block;
-    text-align: center;
-  }
-
-  .Logo2 {
-    max-width: 80%;
-    margin: 20px auto;
-  }
-
-  .btn-wrapper {
-    margin-top: 2rem;
-  }
-
-  .btn {
-    width: 80%;
-    font-size: 1.5rem;
-  }
-}
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+    max-width: 1800px; /* Ajusté esto, 8000px era demasiado ancho */
+    height: 700px;
+    
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative; /* Necesario para el posicionamiento */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  
-  box-sizing: border-box;
+/* --- CAPA 1: LA IMAGEN (FONDO) --- */
+.imagen-contenedor {
+    /* MAGIA GRID: Le decimos que empiece en la línea 1 y termine en la última (-1).
+       O sea, ocupa TODO el ancho de la tarjeta */
+    grid-column: 1 / -1; 
+    grid-row: 1 / -1; /* Y toda la altura */
+    
+    z-index: 1; /* Nivel de profundidad bajo */
 }
 
-
-
-
-
-.edificio-container {
-    width: 100%;
-    height: 100px; 
-    position: relative;
-    margin-bottom: -1px; 
-    z-index: 10;
-    background-color: #627733;
-    display: flex;
-    align-items: flex-end;
-}
-
-.city-svg {
+.imagen-contenedor img {
     width: 100%;
     height: 100%;
-    display: block;
-    object-fit: cover; 
-    object-position: bottom center; 
+    object-fit: cover;
+}
+
+/* --- CAPA 2: LA TARJETA VERDE (SUPERIOR) --- */
+.inf {
+    /* MAGIA GRID: Le decimos que ocupe SOLO la segunda columna (la derecha) */
+    grid-column: 2 / 3; 
+    grid-row: 1 / -1; /* Toda la altura */
+    
+    z-index: 2; /* Nivel de profundidad alto (encima de la imagen) */
+    
+    /* ESTÉTICA Y TRANSPARENCIA */
+    /* Usamos rgba con opacidad 0.85 para ver un poco la imagen de fondo */
+    background-color: rgba(98, 119, 112, 0.7); 
+    
+    /* EFECTO DE VIDRIO (Glassmorphism) */
+    /* Esto desenfoca la imagen que está DETRÁS de la tarjeta verde. Se ve muy pro. */
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px); /* Para Safari */
+
+    /* Tus estilos de texto y flexbox */
+    color: #e0e0e0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    
+    /* Configuración de botón */
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 3. EFECTO AL PASAR EL MOUSE (HOVER) */
+.inf:hover {
+    /* Le da un poco más de opacidad al pasar el mouse (opcional) */
+    background-color: rgba(98, 119, 112, 1); 
+
+    /* Agrega una sombra para dar sensación de altura */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.mi-grid-3 {
+  padding-top: 2%;
+  display: grid;
+  /* Crea 3 columnas de igual tamaño */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; /* Espacio entre elementos */
+  width: 100%;
 }
 
 .footer-content {
-    background-color: #262626; 
-    color: #F2F2EB;            
+    
+    color: #000000;            
     padding: 40px 20px;        
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
@@ -350,8 +145,8 @@ body {
     justify-content: start; 
 }
 
-.footer-col h3 {
-    color: #627733; 
+.footer-col h2 {
+    color: #627770; 
     margin-bottom: 15px;
     font-family: var(--font-head); 
     text-transform: uppercase;
@@ -372,7 +167,6 @@ body {
     border-radius: 50%; 
     object-fit: cover;  
     border: 3px solid #262626; 
-    margin-left: -15px; 
     transition: transform 0.3s ease; 
     position: relative;
     z-index: 1;
@@ -388,11 +182,36 @@ body {
     border-color: #627733; 
 }
 
-.contact-info p, .web-info, .small-text {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    opacity: 0.8; 
-    margin-bottom: 8px;
+/* Contenedor de los enlaces */
+.contact-links {
+    display: flex;
+    flex-direction: column; /* Pone un enlace debajo del otro */
+    gap: 15px; /* Espacio entre el renglón de instagram y el de email */
+    margin-top: 15px;
+}
+
+/* Estilo de cada botón (Icono + Texto) */
+.link-item {
+    display: flex;       /* Esto alinea el icono AL LADO del texto */
+    align-items: center; /* Centra verticalmente icono y texto */
+    gap: 10px;           /* Espacio entre el icono y el texto */
+    
+    text-decoration: none; /* Quita el subrayado feo */
+    color: #333; /* Color del texto (cámbialo si tu fondo es oscuro) */
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+/* Estilo específico para los iconos */
+.link-item i {
+    font-size: 1.5rem; /* Iconos un poco más grandes que el texto */
+    color: #627770;    /* Usé tu verde para los iconos */
+}
+
+/* Efecto Hover (al pasar el mouse) */
+.link-item:hover {
+    color: #627770; /* El texto cambia de color */
+    transform: translateX(5px); /* Pequeño movimiento a la derecha */
 }
 
 .copyright {
