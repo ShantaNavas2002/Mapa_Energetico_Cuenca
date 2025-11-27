@@ -1,0 +1,253 @@
+   
+   body {
+  font-family: 'Roboto', sans-serif;
+  
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} 
+
+input, button, textarea, select {
+  font-family: inherit;
+}
+ .position-btn {
+            padding-left: 15%;
+            justify-self: start;
+            align-self: center;
+        }
+
+        .btn-lateral {
+            height: 50px;
+            width: 50px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #627770;
+            transition: transform 0.3s ease;
+        }
+
+    .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 900; /* Debajo del menú, encima del resto */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.activo {
+            opacity: 1;
+            visibility: visible;
+        }
+.Logo-cuencasolar{
+  height: 150px;
+  width: auto;
+  justify-self: center;
+}
+.Logo-consiso {
+  padding-right: 15%;
+  height: 50PX;
+  width: auto;  
+  align-self: center;
+  justify-self: end;
+}
+/* Centramos la tarjeta en la pantalla (opcional) */
+
+
+.mi-grid-3 {
+  padding-top: 2%;
+  display: grid;
+  /* Crea 3 columnas de igual tamaño */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; /* Espacio entre elementos */
+  width: 100%;
+}
+
+.footer-content {
+    
+    color: #000000;            
+    padding: 40px 20px;        
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    text-align: center;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: start; 
+}
+
+.footer-col h2 {
+    color: #627770; 
+    margin-bottom: 15px;
+    font-family: var(--font-head); 
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.avatar-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    background-color: #ffffff;
+    width: 50px;  
+    height: 50px;
+    border-radius: 50%; 
+    object-fit: cover;  
+    border: 3px solid #262626; 
+    transition: transform 0.3s ease; 
+    position: relative;
+    z-index: 1;
+}
+
+.avatar:first-child {
+    margin-left: 0;
+}
+
+.avatar:hover {
+    transform: translateY(-5px);
+    z-index: 10; 
+    border-color: #627733; 
+}
+
+/* Contenedor de los enlaces */
+.contact-links {
+    display: flex;
+    flex-direction: column; /* Pone un enlace debajo del otro */
+    gap: 15px; /* Espacio entre el renglón de instagram y el de email */
+    margin-top: 15px;
+}
+
+/* Estilo de cada botón (Icono + Texto) */
+.link-item {
+    display: flex;       /* Esto alinea el icono AL LADO del texto */
+    align-items: center; /* Centra verticalmente icono y texto */
+    gap: 10px;           /* Espacio entre el icono y el texto */
+    
+    text-decoration: none; /* Quita el subrayado feo */
+    color: #333; /* Color del texto (cámbialo si tu fondo es oscuro) */
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+/* Estilo específico para los iconos */
+.link-item i {
+    font-size: 1.5rem; /* Iconos un poco más grandes que el texto */
+    color: #627770;    /* Usé tu verde para los iconos */
+}
+
+/* Efecto Hover (al pasar el mouse) */
+.link-item:hover {
+    color: #627770; /* El texto cambia de color */
+    transform: translateX(5px); /* Pequeño movimiento a la derecha */
+}
+
+.copyright {
+    font-size: 0.75rem;
+    margin-top: auto; 
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+
+
+        .btn-lateral:hover {
+            transform: scale(1.1);
+            color: #4a5c55;
+        }
+
+        /* --- MENÚ LATERAL (NUEVO) --- */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -800px; /* Oculto inicialmente a la izquierda */
+            width: 300px;
+            height: 100vh;
+            
+            /* Glassmorphism (Igual que tu tarjeta verde .inf) */
+            background-color: rgba(98, 119, 112, 0.85); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            
+            box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            
+            z-index: 1000; /* Siempre encima de todo */
+            padding: 80px 30px; /* Espacio interior */
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animación suave */
+            
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Clase para mostrar el menú con JS */
+        .menu-lateral.activo {
+            left: 0;
+        }
+
+        .btn-cerrar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .menu-lista {
+            list-style: none;
+            width: 100%;
+        }
+
+        .menu-lista li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Línea separadora sutil */
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        .menu-lista a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+        }
+
+        .menu-lista a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        
+        /* Pequeño cuadrado decorativo antes del texto (como en tu imagen) */
+        .menu-bullet {
+            width: 8px;
+            height: 8px;
+            background-color: #Cdcab8; /* Color arena suave */
+            display: inline-block;
+        }

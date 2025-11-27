@@ -1,0 +1,81 @@
+.contenedor-principal {
+    padding: 3%;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.tarjeta-grid {
+    display: grid;
+    /* TRUCO: Definimos las columnas. 
+       1fr: espacio vacío a la izquierda para ver la imagen.
+       350px: ancho de tu tarjeta verde a la derecha. */
+    grid-template-columns: 1fr 350px; 
+    /* Solo una fila que ocupe toda la altura */
+    grid-template-rows: 100%; 
+    
+    width: 90%;
+    max-width: 1800px; /* Ajusté esto, 8000px era demasiado ancho */
+    height: 700px;
+    
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative; /* Necesario para el posicionamiento */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* --- CAPA 1: LA IMAGEN (FONDO) --- */
+.imagen-contenedor {
+    /* MAGIA GRID: Le decimos que empiece en la línea 1 y termine en la última (-1).
+       O sea, ocupa TODO el ancho de la tarjeta */
+    grid-column: 1 / -1; 
+    grid-row: 1 / -1; /* Y toda la altura */
+    
+    z-index: 1; /* Nivel de profundidad bajo */
+}
+
+.imagen-contenedor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- CAPA 2: LA TARJETA VERDE (SUPERIOR) --- */
+.inf {
+    /* MAGIA GRID: Le decimos que ocupe SOLO la segunda columna (la derecha) */
+    grid-column: 2 / 3; 
+    grid-row: 1 / -1; /* Toda la altura */
+    
+    z-index: 2; /* Nivel de profundidad alto (encima de la imagen) */
+    
+    /* ESTÉTICA Y TRANSPARENCIA */
+    /* Usamos rgba con opacidad 0.85 para ver un poco la imagen de fondo */
+    background-color: rgba(98, 119, 112, 0.7); 
+    
+    /* EFECTO DE VIDRIO (Glassmorphism) */
+    /* Esto desenfoca la imagen que está DETRÁS de la tarjeta verde. Se ve muy pro. */
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px); /* Para Safari */
+
+    /* Tus estilos de texto y flexbox */
+    color: #e0e0e0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    
+    /* Configuración de botón */
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 3. EFECTO AL PASAR EL MOUSE (HOVER) */
+.inf:hover {
+    /* Le da un poco más de opacidad al pasar el mouse (opcional) */
+    background-color: rgba(98, 119, 112, 0.85); 
+
+    /* Agrega una sombra para dar sensación de altura */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
