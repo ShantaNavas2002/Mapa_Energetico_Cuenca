@@ -1,0 +1,53 @@
+.tajeta-verde {
+    /* **1. Posicionamiento Absoluto y Z-index:** */
+    position: absolute;
+    z-index: 2; /* Asegura que esté encima de la imagen */
+    
+    /* **2. Dimensiones Responsivas:** */
+    /* Ajusta estos porcentajes si quieres un tamaño diferente */
+    width: 90%;
+    height: 80%;
+    
+    /* **3. Técnica de Centrado Absoluto:** */
+    /* Coloca la esquina superior izquierda en el centro del padre. */
+    top: 50%;
+    left: 50%;
+    
+    /* Mueve el elemento hacia atrás la mitad de su propio ancho/alto. */
+    /* Esto es clave para el centrado perfecto. */
+    transform: translate(-50%, -50%);
+
+    /* **4. Estilos Visuales:** */
+    background-color: rgba(98, 119, 112, 0.85); /* Verde semi-transparente */
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* Configuración para el contenido interno (el cuadro color arena) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2%; /* Espacio interno para el contenido */
+    border-radius: 30px;
+    
+
+
+    /* Activa el motor de CSS Grid */
+    display: grid;
+    
+    /* Define la estructura de 3 filas y 2 columnas: */
+    
+    /* 1. Define las columnas: dos columnas de igual ancho (1fr). */
+    grid-template-columns: 1fr 1fr;
+    /* O de forma abreviada: grid-template-columns: repeat(2, 1fr); */
+    
+    /* 2. Define las filas: tres filas, donde el tamaño es automático según el contenido. */
+    grid-template-rows: auto auto auto; 
+    
+    /* 3. Espacio entre las celdas (opcional) */
+    gap: 20px;
+    
+    /* Opcional: Dale un tamaño de ejemplo al contenedor */
+    width: 80%;
+    margin: 0 auto;
+
+}
