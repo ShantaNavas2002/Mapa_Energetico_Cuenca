@@ -225,9 +225,8 @@ input, button, textarea, select {
     overflow: hidden;
     position: relative;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 80%;
     max-width: 1800px;
-    
     /* Altura adaptativa en vez de fija */
     min-height: 300px;
     aspect-ratio: 16/9; /* Mantiene proporción */

@@ -1,0 +1,29 @@
+[
+    {
+        "faseId": 0,
+        "titulo": "Introducción",
+        "subtitulo": "Estructura Metodológica",
+        "nombreBarra": "INTRODUCCIÓN",
+        "apartadoIzquierdo": {
+            "tipo": "texto",
+            "contenido": "La metodología desplegada se aleja de las estimaciones genéricas basadas en promedios satelitales de baja resolución. En su lugar, propone un flujo de trabajo de alta precisión..."
+        },
+        "apartadoDerecho": {
+            "tipo": "lista_numerada",
+            "items": [
+                "1. Definición Territorial...",
+                "2. Levantamiento y Digitalización...",
+                "3. Modelado y Simulación...",
+                "4. Procesamiento y Análisis Económico..."
+            ]
+        }
+    }, 
+    {
+        "faseId": 1,
+        "titulo": "Fase I",
+        "subtitulo": "Estudio Preliminar",
+        "nombreBarra": "FASE I",
+        "apartadoIzquierdo": { /* Aquí debe ir el contenido de la Fase 1 */ },
+        "apartadoDerecho": { /* Aquí debe ir el contenido de la Fase 1 */ }
+    }
+]

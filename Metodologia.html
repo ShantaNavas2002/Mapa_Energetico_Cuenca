@@ -1,130 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consiso</title>
+    <title>Consiso - Metodología</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="js/UI_efecc.js"></script>
-  
-    <!-- FontAwesome (Movido al head para mejor carga de iconos) -->
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/Pag_Metodologia.css">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/EstructuraBase.Css">
+    <link rel="stylesheet" href="css/Pag_Metodologia.css">
+    <link rel="stylesheet" href="css/tarjeta-verde.css">
+    
+    <!-- JavaScript -->
+    <script src="js/UI_efecc.js"></script>
+    <script src="js/LayoutTxt.js"></script>
+    <script src="js/CargarDatos.js"></script>
 </head>
 <body class="page">  
     <div class="overlay" id="overlay"></div>
+    
     <nav class="menu-lateral" id="menuLateral">
-    <button class="btn-cerrar" onclick="toggleMenu()">
-        <i class="fa-solid fa-times"></i>
-    </button>
-    
-    <ul class="menu-lista">
-        <li>
-            <a href="Metodologia.html">
-                <span class="menu-bullet"></span> Metodología
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="menu-bullet"></span> Otros Proyectos
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="menu-bullet"></span> Geovisor Usos PB
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="menu-bullet"></span> Imágenes Térmicas
-            </a>
-        </li>
-        
-        <li style="border: none; margin-top: 100%;">
-            <a href="equipo.html">
-                <span class="menu-bullet"></span> Equipo
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="menu-bullet"></span> Consiso Lab Home
-            </a>
-        </li>
-    </ul>
-</nav>
-<header class="mi-grid-3">
-    <div class="position-btn">
-    <button class="btn-lateral" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
+        <button class="btn-cerrar" onclick="toggleMenu()">
+            <i class="fa-solid fa-times"></i>
         </button>
-    </div>
-    <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg">
-    <img class="Logo-consiso" src="images/logoConsiso.svg" alt="logo de Consiso">
-</header>
-<section class="contenedor-principal">
-    
-    <div class="tarjeta-img">
-        <div class="imagen-contenedor">
-             <img src="images/Ui_Ilustracion.png" alt="Mapa de la ciudad">
-        </div>
-        <div class="tajeta-verde">
-            <div class="item item-a">Item A</div>
-            <div class="item item-b">Item B</div>
-            <div class="item item-c">Item C</div>
-            <div class="item item-d">Item D</div>
-            <div class="item item-e">Item E</div> </div>
-        </div>
-    </div>   
-       
-
-   
-
-</section>
-
-
-<footer class="site-footer">
-
-    <div class="footer-content">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <div class="footer-col contact-section">
-        <h2>Contacto</h3>
-    
-        <div class="contact-links">
         
-        <a href="https://www.instagram.com/consisolab" target="_blank" class="link-item">
-            <i class="fa-brands fa-instagram"></i> <span>@ConsisoLab</span>      </a>
-
-        <a href="mailto:tucorreo@ejemplo.com" class="link-item">
-            <i class="fa-regular fa-envelope"></i>  <span>consisolab@ucacue.edu.ec</span>       </a>
-
-         </div>
+        <ul class="menu-lista">
+            <li>
+                <a href="Metodologia.html">
+                    <span class="menu-bullet"></span> Metodología
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menu-bullet"></span> Otros Proyectos
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menu-bullet"></span> Geovisor Usos PB
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menu-bullet"></span> Imágenes Térmicas
+                </a>
+            </li>
+            
+            <li style="border: none; margin-top: 100%;">
+                <a href="equipo.html">
+                    <span class="menu-bullet"></span> Equipo
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menu-bullet"></span> Consiso Lab Home
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <header class="mi-grid-3">
+        <div class="position-btn">
+            <button class="btn-lateral" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg" alt="Logo Cuenca Solar">
+        <img class="Logo-consiso" src="images/logoConsiso.svg" alt="logo de Consiso">
+    </header>
+    
+    <section class="contenedor-principal">
+        <div class="tarjeta-img">
+            <div class="imagen-contenedor">
+                <img src="images/Ui_Ilustracion.png" alt="Mapa de la ciudad">
             </div>
-        <div class="footer-col">
-             
-             <h2>Contribuidores</h3>
-             <div class="avatar-group">
-                 <img src="images/logo-espoch.png" alt="Colaborador 1" class="avatar">
-                 <img src="images/UCACUE.png" alt="Colaborador 2" class="avatar">
-                 <img src="images/Marca_UCuenca_2021_Fondo_Blanco_(1).png" alt="Colaborador 3" class="avatar">
-             </div>
+            <div class="tajeta-verde">
+                <h1 id="titulo" class="item item-a">Cargando...</h1>
+                <h2 id="subtitulo" class="item item-b">Por favor espere</h2>
+                <div id="izq-imgOtxt" class="item item-c"></div>
+                <div id="der-imgOtxt" class="item item-d"></div>
+                <div id="barra-nav" class="item item-e"></div> 
+            </div>
+        </div>   
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-col contact-section">
+                <h2>Contacto</h2>
+                <div class="contact-links">
+                    <a href="https://www.instagram.com/consisolab" target="_blank" class="link-item">
+                        <i class="fa-brands fa-instagram"></i> <span>@ConsisoLab</span>
+                    </a>
+                    <a href="mailto:consisolab@ucacue.edu.ec" class="link-item">
+                        <i class="fa-regular fa-envelope"></i> <span>consisolab@ucacue.edu.ec</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h2>Contribuidores</h2>
+                <div class="avatar-group">
+                    <img src="images/logo-espoch.png" alt="Colaborador 1" class="avatar">
+                    <img src="images/UCACUE.png" alt="Colaborador 2" class="avatar">
+                    <img src="images/Marca_UCuenca_2021_Fondo_Blanco_(1).png" alt="Colaborador 3" class="avatar">
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h2>Sobre la Web</h2>
+                <p class="web-info">
+                    Esta plataforma visualiza datos energéticos<br>
+                    geo-referenciados para el análisis<br>
+                    urbano sostenible.
+                </p>
+                <p class="copyright">© 2025 Consiso</p>
+            </div>
         </div>
-
-        <div class="footer-col">
-             <h2>Sobre la Web</h3>
-             <p class="web-info">
-                 Esta plataforma visualiza datos energéticos </br>geo-referenciados para el análisis </br> urbano sostenible.
-             </p>
-             <p class="copyright">© 2025 Consiso</p>
-        </div>
-
-    </div>
-   
-</footer>
-
+    </footer>
 </body>
-
 </html>
