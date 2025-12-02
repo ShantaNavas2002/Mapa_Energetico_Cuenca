@@ -28,7 +28,8 @@ function mostrarBloque(indice) {
     
     // Actualizar subtítulo
     const subtitulo = document.getElementById('subtitulo');
-    subtitulo.textContent = bloque.subtitulo;
+    subtitulo.innerHTML = bloque.subtitulo;
+    
     // Actualizar contenido izquierdo
     const izquierda = document.getElementById('izq-imgOtxt');
     actualizarContenido(izquierda, bloque.contenidoIzquierda);

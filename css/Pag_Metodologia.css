@@ -77,14 +77,41 @@
     background-color: var(--color-primario-tarjeta);
     color: var(--color-titulos);
 }
-.item-b{
-    /* 2/3: Ocupa 4 columnas de las 6 */
+
+
+
+.item-b {
     grid-column: 3 / 7; 
-    /* Estilos de color/fondo */
+    font-size: 1.2rem;
+    font-weight: 300;
+    opacity: 0.9;
+    margin: 0;
+    animation-delay: 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     background-color: transparent;
     color: var(--color-titulos);
-    justify-self: start;
+    text-align: start;
 }
+
+.item-b h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+    justify-self: start;
+    
+}
+
+.item-b span {
+    font-size: 1.2rem;
+    font-weight: 300;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+
 
 /* Fila 2: 50/50 (Proporciones exactas) */
 .item-c{

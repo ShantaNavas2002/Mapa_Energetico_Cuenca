@@ -1,29 +1,45 @@
-[
+{
+  "bloques": [
     {
-        "faseId": 0,
-        "titulo": "Introducción",
-        "subtitulo": "Estructura Metodológica",
-        "nombreBarra": "INTRODUCCIÓN",
-        "apartadoIzquierdo": {
-            "tipo": "texto",
-            "contenido": "La metodología desplegada se aleja de las estimaciones genéricas basadas en promedios satelitales de baja resolución. En su lugar, propone un flujo de trabajo de alta precisión..."
-        },
-        "apartadoDerecho": {
-            "tipo": "lista_numerada",
-            "items": [
-                "1. Definición Territorial...",
-                "2. Levantamiento y Digitalización...",
-                "3. Modelado y Simulación...",
-                "4. Procesamiento y Análisis Económico..."
-            ]
-        }
-    }, 
+      "id": 1,
+      "titulo": "Metodología",
+      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
+      "contenidoIzquierda": {
+        "tipo": "texto",
+        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+      },
+      "contenidoDerecha": {
+        "tipo": "imagen",
+        "src": "images/metodologia-1.jpg",
+        "alt": "Análisis solar"
+      }
+    },
     {
-        "faseId": 1,
-        "titulo": "Fase I",
-        "subtitulo": "Estudio Preliminar",
-        "nombreBarra": "FASE I",
-        "apartadoIzquierdo": { /* Aquí debe ir el contenido de la Fase 1 */ },
-        "apartadoDerecho": { /* Aquí debe ir el contenido de la Fase 1 */ }
+      "id": 2,
+      "titulo": "Captura de Datos",
+      "subtitulo": "Tecnología de punta para información precisa",
+      "contenidoIzquierda": {
+        "tipo": "imagen",
+        "src": "images/metodologia-2.jpg",
+        "alt": "Captura de datos"
+      },
+      "contenidoDerecha": {
+        "tipo": "texto",
+        "contenido": "Mediante vuelos con drones y sensores especializados, capturamos información detallada de la radiación solar en diferentes superficies urbanas."
+      }
+    },
+    {
+      "id": 3,
+      "titulo": "Procesamiento de Información",
+      "subtitulo": "Análisis computacional avanzado",
+      "contenidoIzquierda": {
+        "tipo": "texto",
+        "contenido": "Los datos recopilados son procesados mediante algoritmos de machine learning para generar mapas de potencial solar con alta precisión."
+      },
+      "contenidoDerecha": {
+        "tipo": "texto",
+        "contenido": "Este proceso incluye la corrección de sombras, análisis de inclinación de techos y cálculo de radiación anual promedio."
+      }
     }
-]
+  ]
+}
