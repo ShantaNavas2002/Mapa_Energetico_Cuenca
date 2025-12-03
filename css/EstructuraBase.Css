@@ -31,6 +31,7 @@
     --menu-width-desktop: 300px;
 }
 
+
 /* ========================================
    BASE - Estilos generales
    ======================================== */
@@ -47,8 +48,266 @@ body {
     overflow-x: hidden;
 }
 
+
 input, button, textarea, select {
     font-family: inherit;
+}
+/* ============================================================
+   ESTILOS PARA TABLAS Y CONTENIDO MÚLTIPLE
+   Añade esto a tu archivo tarjeta-verde.css o Pag_Metodologia.css
+   ============================================================ */
+
+/* ---------------------------------------------------------------- */
+/* ESPACIADO ENTRE ELEMENTOS MÚLTIPLES */
+/* ---------------------------------------------------------------- */
+.item-c > *:not(:last-child),
+.item-d > *:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+/* Separador opcional */
+.contenido-separador {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 1rem 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* CONTENEDOR DE TABLA */
+/* ---------------------------------------------------------------- */
+.contenido-tabla {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.tabla-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    text-align: center;
+    /* Color según el item donde esté */
+}
+
+.item-c .tabla-titulo {
+    color: var(--color-titulos); /* Arena para fondo verde */
+}
+
+.item-d .tabla-titulo {
+    color: var(--color-fondo); /* Verde para fondo arena */
+}
+
+/* ---------------------------------------------------------------- */
+/* ESTILOS DE LA TABLA */
+/* ---------------------------------------------------------------- */
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+
+/* Encabezados */
+.tabla-datos thead {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.tabla-datos th {
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Colores de encabezado según item */
+.item-c .tabla-datos th {
+    color: var(--color-titulos);
+}
+
+.item-d .tabla-datos th {
+    color: var(--color-fondo);
+}
+
+/* Celdas del cuerpo */
+.tabla-datos td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Colores de celdas según item */
+.item-c .tabla-datos td {
+    color: rgba(238, 211, 168, 0.9);
+}
+
+.item-d .tabla-datos td {
+    color: rgba(98, 119, 112, 0.9);
+}
+
+/* Filas alternadas (zebra striping) */
+.tabla-datos tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tabla-datos tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
+}
+
+/* Footer (totales) */
+.tabla-datos tfoot {
+    background-color: rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+}
+
+.tabla-datos tfoot td {
+    padding: 12px 10px;
+    border-bottom: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.tabla-total {
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* TABLA RESPONSIVE */
+/* ---------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .tabla-datos {
+        font-size: 0.8rem;
+    }
+    
+    .tabla-datos th,
+    .tabla-datos td {
+        padding: 8px 5px;
+    }
+    
+    .tabla-titulo {
+        font-size: 1rem;
+    }
+    
+    /* Hacer scroll horizontal si es necesario */
+    .contenido-tabla {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ---------------------------------------------------------------- */
+/* VARIANTE: TABLA COMPACTA */
+/* ---------------------------------------------------------------- */
+.tabla-datos.tabla-compacta th,
+.tabla-datos.tabla-compacta td {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* VARIANTE: TABLA CON BORDES */
+/* ---------------------------------------------------------------- */
+.tabla-datos.tabla-bordes {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tabla-datos.tabla-bordes th,
+.tabla-datos.tabla-bordes td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ---------------------------------------------------------------- */
+/* ALINEACIÓN DE COLUMNAS */
+/* ---------------------------------------------------------------- */
+
+/* Números alineados a la derecha */
+.tabla-datos td:last-child {
+    text-align: right;
+}
+
+/* Primera columna (nombres) a la izquierda */
+.tabla-datos td:first-child {
+    text-align: left;
+    font-weight: 500;
+}
+
+/* ---------------------------------------------------------------- */
+/* TABLA SIMPLE (HTML directo) */
+/* ---------------------------------------------------------------- */
+.contenido-tabla-simple table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.contenido-tabla-simple table th {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    text-align: left;
+    font-weight: 700;
+}
+
+.contenido-tabla-simple table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contenido-tabla-simple table tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ---------------------------------------------------------------- */
+/* SCROLLBAR PARA TABLAS */
+/* ---------------------------------------------------------------- */
+.contenido-tabla::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.contenido-tabla::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.contenido-tabla::-webkit-scrollbar-thumb {
+    background-color: rgba(238, 211, 168, 0.3);
+    border-radius: 10px;
+}
+
+.contenido-tabla::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(238, 211, 168, 0.5);
+}
+
+/* ---------------------------------------------------------------- */
+/* ESTILOS ESPECIALES PARA CELDAS */
+/* ---------------------------------------------------------------- */
+
+/* Celdas de encabezado centradas */
+.tabla-datos th.centrado {
+    text-align: center;
+}
+
+/* Celdas con énfasis */
+.tabla-datos td.destacado {
+    font-weight: 700;
+    background-color: rgba(238, 211, 168, 0.1);
+}
+
+/* Celdas con colores personalizados */
+.tabla-datos td.positivo {
+    color: #4ade80;
+}
+
+.tabla-datos td.negativo {
+    color: #f87171;
+}
+
+.tabla-datos td.neutro {
+    color: #fbbf24;
 }
 
 /* ========================================

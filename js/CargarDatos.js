@@ -1,4 +1,3 @@
-// cargarDatos.js
 let datosMetodologia = [];
 let bloqueActual = 0;
 
@@ -12,7 +11,16 @@ async function cargarDatosJSON() {
         crearNavegacion();
     } catch (error) {
         console.error('Error al cargar los datos:', error);
+        mostrarError();
     }
+}
+
+// Mostrar error si falla la carga
+function mostrarError() {
+    const titulo = document.getElementById('titulo');
+    titulo.textContent = 'Error al cargar datos';
+    const subtitulo = document.getElementById('subtitulo');
+    subtitulo.innerHTML = '<span>Por favor, recarga la página</span>';
 }
 
 // Mostrar un bloque específico
@@ -32,31 +40,142 @@ function mostrarBloque(indice) {
     
     // Actualizar contenido izquierdo
     const izquierda = document.getElementById('izq-imgOtxt');
-    actualizarContenido(izquierda, bloque.contenidoIzquierda);
+    actualizarContenidoMultiple(izquierda, bloque.contenidoIzquierda);
     
     // Actualizar contenido derecho
     const derecha = document.getElementById('der-imgOtxt');
-    actualizarContenido(derecha, bloque.contenidoDerecha);
+    actualizarContenidoMultiple(derecha, bloque.contenidoDerecha);
     
     // Actualizar indicadores de navegación
     actualizarIndicadores();
 }
 
-// Actualizar contenido (texto o imagen)
-function actualizarContenido(elemento, contenido) {
+// ============================================================
+// FUNCIÓN CLAVE: Detecta si es objeto único o array múltiple
+// ============================================================
+function actualizarContenidoMultiple(elemento, contenido) {
     elemento.innerHTML = '';
     
-    if (contenido.tipo === 'texto') {
-        const p = document.createElement('p');
-        p.textContent = contenido.contenido;
-        p.className = 'contenido-texto';
-        elemento.appendChild(p);
-    } else if (contenido.tipo === 'imagen') {
+    // CASO 1: Es un array de múltiples contenidos
+    if (Array.isArray(contenido)) {
+        contenido.forEach(item => {
+            crearElementoContenido(elemento, item);
+        });
+    } 
+    // CASO 2: Es un solo objeto (compatibilidad con formato anterior)
+    else if (contenido && typeof contenido === 'object') {
+        crearElementoContenido(elemento, contenido);
+    }
+}
+
+// ============================================================
+// FUNCIÓN QUE CREA CADA ELEMENTO DE CONTENIDO
+// ============================================================
+function crearElementoContenido(contenedor, item) {
+    
+    // TIPO: TEXTO
+    if (item.tipo === 'texto') {
+        const div = document.createElement('div');
+        div.innerHTML = item.contenido;
+        div.className = 'contenido-texto';
+        contenedor.appendChild(div);
+    } 
+    
+    // TIPO: IMAGEN
+    else if (item.tipo === 'imagen') {
         const img = document.createElement('img');
-        img.src = contenido.src;
-        img.alt = contenido.alt;
+        img.src = item.src;
+        img.alt = item.alt;
         img.className = 'contenido-imagen';
-        elemento.appendChild(img);
+        contenedor.appendChild(img);
+    }
+    
+    // TIPO: TABLA ESTRUCTURADA
+    else if (item.tipo === 'tabla') {
+        const tablaWrapper = document.createElement('div');
+        tablaWrapper.className = 'contenido-tabla';
+        
+        // Título opcional de la tabla
+        if (item.titulo) {
+            const tituloTabla = document.createElement('h3');
+            tituloTabla.textContent = item.titulo;
+            tituloTabla.className = 'tabla-titulo';
+            tablaWrapper.appendChild(tituloTabla);
+        }
+        
+        // Crear tabla
+        const tabla = document.createElement('table');
+        tabla.className = 'tabla-datos';
+        
+        // Encabezados
+        if (item.headers && item.headers.length > 0) {
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            
+            item.headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            
+            thead.appendChild(headerRow);
+            tabla.appendChild(thead);
+        }
+        
+        // Cuerpo de la tabla
+        if (item.filas && item.filas.length > 0) {
+            const tbody = document.createElement('tbody');
+            
+            item.filas.forEach(fila => {
+                const tr = document.createElement('tr');
+                
+                fila.forEach(celda => {
+                    const td = document.createElement('td');
+                    td.textContent = celda;
+                    tr.appendChild(td);
+                });
+                
+                tbody.appendChild(tr);
+            });
+            
+            tabla.appendChild(tbody);
+        }
+        
+        // Footer opcional (totales, etc.)
+        if (item.footer && item.footer.length > 0) {
+            const tfoot = document.createElement('tfoot');
+            const footerRow = document.createElement('tr');
+            
+            item.footer.forEach((celda, index) => {
+                const td = document.createElement('td');
+                td.textContent = celda;
+                if (index === item.footer.length - 1) {
+                    td.className = 'tabla-total';
+                }
+                footerRow.appendChild(td);
+            });
+            
+            tfoot.appendChild(footerRow);
+            tabla.appendChild(tfoot);
+        }
+        
+        tablaWrapper.appendChild(tabla);
+        contenedor.appendChild(tablaWrapper);
+    }
+    
+    // TIPO: TABLA SIMPLE (HTML directo)
+    else if (item.tipo === 'tabla-simple') {
+        const div = document.createElement('div');
+        div.innerHTML = item.contenido;
+        div.className = 'contenido-tabla contenido-tabla-simple';
+        contenedor.appendChild(div);
+    }
+    
+    // TIPO: SEPARADOR (opcional para espaciar elementos)
+    else if (item.tipo === 'separador') {
+        const hr = document.createElement('hr');
+        hr.className = 'contenido-separador';
+        contenedor.appendChild(hr);
     }
 }
 
@@ -99,6 +218,18 @@ function actualizarIndicadores() {
             indicador.classList.remove('activo');
         }
     });
+    
+    // Deshabilitar botones en extremos
+    const btnAnterior = document.querySelector('.btn-anterior');
+    const btnSiguiente = document.querySelector('.btn-siguiente');
+    
+    if (btnAnterior) {
+        btnAnterior.disabled = bloqueActual === 0;
+    }
+    
+    if (btnSiguiente) {
+        btnSiguiente.disabled = bloqueActual === datosMetodologia.length - 1;
+    }
 }
 
 // Navegación
@@ -113,6 +244,12 @@ function navegarSiguiente() {
         mostrarBloque(bloqueActual + 1);
     }
 }
+
+// Navegación con teclado
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') navegarAnterior();
+    if (e.key === 'ArrowRight') navegarSiguiente();
+});
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', cargarDatosJSON);
