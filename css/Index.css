@@ -19,6 +19,11 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+.titutlo-mapa{
+    margin: 0%;
+    
+}
+
 /* --- CAPA 1: LA IMAGEN (FONDO) --- */
 .imagen-contenedor {
     /* Ocupa TODO el espacio del grid */

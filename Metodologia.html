@@ -14,62 +14,23 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/EstructuraBase.Css">
     <link rel="stylesheet" href="css/Pag_Metodologia.css">
-    <link rel="stylesheet" href="css/tarjeta-verde.css">
+    
     
     <!-- JavaScript -->
     <script src="js/UI_efecc.js"></script>
-    
+    <script src="js/menu.js" ></script>
     <script src="js/CargarDatos.js"></script>
 </head>
 <body class="page">  
     <div class="overlay" id="overlay"></div>
     
-    <nav class="menu-lateral" id="menuLateral">
-        <button class="btn-cerrar" onclick="toggleMenu()">
-            <i class="fa-solid fa-times"></i>
-        </button>
-        
-        <ul class="menu-lista">
-            <li>
-                <a href="Metodologia.html">
-                    <span class="menu-bullet"></span> Metodología
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="menu-bullet"></span> Otros Proyectos
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="menu-bullet"></span> Geovisor Usos PB
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="menu-bullet"></span> Imágenes Térmicas
-                </a>
-            </li>
-            
-            <li style="border: none; margin-top: 100%;">
-                <a href="equipo.html">
-                    <span class="menu-bullet"></span> Equipo
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="menu-bullet"></span> Consiso Lab Home
-                </a>
-            </li>
-        </ul>
-    </nav>
-    
     <header class="mi-grid-3">
         <div class="position-btn">
-            <button class="btn-lateral" onclick="toggleMenu()">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
+        <div id="menu-container"></div>
+        <button class="btn-menu" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    </div>
         <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg" alt="Logo Cuenca Solar">
         <img class="Logo-consiso" src="images/logoConsiso.svg" alt="logo de Consiso">
     </header>

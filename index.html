@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="js/UI_efecc.js"></script>
+    <script src="js/menu.js" ></script>
   
     <!-- FontAwesome (Movido al head para mejor carga de iconos) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -16,52 +17,13 @@
 </head>
 <body class="page">  
     <div class="overlay" id="overlay"></div>
-    <nav class="menu-lateral" id="menuLateral">
-    <button class="btn-cerrar" onclick="toggleMenu()">
-        <i class="fa-solid fa-times"></i>
-    </button>
     
-    <ul class="menu-lista">
-        <li>
-            <a href="Metodologia.html">
-                <span class="menu-bullet"></span> Metodología
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="menu-bullet"></span> Otros Proyectos
-            </a>
-        </li>
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="menu-bullet"></span> Geovisor Usos PB
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-bullet"></span> Imágenes Térmicas
-                    </a>
-                </li>
-            </ul>
-        
-        <li style="border: none; margin-top: 100%;">
-            <a href="equipo.html">
-                <span class="menu-bullet"></span> Equipo
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="menu-bullet"></span> Consiso Lab Home
-            </a>
-        </li>
-    </ul>
-</nav>
 <header class="mi-grid-3">
     <div class="position-btn">
-    <button class="btn-lateral" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+    <div id="menu-container"></div>
+    <button class="btn-menu" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
     </div>
     <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg">
     <img class="Logo-consiso" src="images/logoConsiso.svg" alt="logo de Consiso">
@@ -74,9 +36,8 @@
         </div>
 
         <a href="Mapa_Georeferenciado.html" class="inf">
-        <h2>MAPA...</h2>
-        <p>Lorem ipsum...</p>
-        <div class="icono-mapa"></div> 
+        <h2 class="titiulo-mapa">MAPA </br> FOTO </br>VOLTAICO<div class="icono-mapa" ></div> </h2>
+        <p>Estimación del potencial fotovoltáico</br> para hogares con sistemas </br> ON-GRID y OFF-GRID</p>
         </a>
    
 

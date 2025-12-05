@@ -224,7 +224,7 @@
         {
         "tipo": "imagen",
         "src": "images/imgjson15.png",
-        "alt": "Análisis solar"
+        "alt": "Ilustracion"
         }
 
       ]
@@ -232,122 +232,211 @@
     {
       "id": 16,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
+      "subtitulo": "<h2>Fase VI: Análisis Tarifario</h2>",
       "contenidoIzquierda": {
         "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+        "contenido": "<h3>Consumo Energético:</h3><h3>El Medidor como Unidad de Análisis</h3>Se trabajó con datos de consumo real proporcionados por Centrosur para el periodo Julio 2024 – Junio 2025.<ul><li>Procesamiento: Se sumaron los consumos de todos los medidores asociados a un mismo predio catastral. Esto es vital en edificios de departamentos (Propiedad Horizontal), donde el techo es un bien común que debe abastecer a múltiples medidores.</li><li>Supuesto de Vivienda: Ante la falta de datos censales, se validó la densidad habitacional asumiendo 1 Medidor = 1 Unidad Habitacional, visualizado mediante mapas de densidad de puntos (Dot Density) que muestran intuitivamente dónde se concentra la demanda.1</li></ul>"
       },
       "contenidoDerecha": {
-        "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
-        "alt": "Análisis solar"
+        "tipo": "texto",
+        "contenido": "<h3>Estructura Tarifaria y Costos \"Ocultos\"</h3>La rentabilidad solar no depende solo de cuánta energía produces, sino de cuánto dejas de pagar. La metodología desglosó la planilla eléctrica de Cuenca para identificar los ahorros reales y los costos inevitables.1</br>Componentes Variables (Ahorrables)<ul><li>Energía Activa: Depende del consumo. Se consideró el escalón tarifario:<ul><li>Tarifa Dignidad: Para consumos < 100 kWh/mes (~$0.05/kWh).</li><li>Tarifa General: Para consumos > 100 kWh/mes (~$0.10/kWh).</li></ul></li><li>Alumbrado Público: Calculado como un porcentaje del consumo (11.76% para tarifa general). Al bajar el consumo con paneles, este rubro también baja.1</li></ul>Componentes Fijos (No Ahorrables) </br>Incluso con paneles solares, el usuario seguirá pagando: <ul><li>Comercialización: ~$1.41 USD.</li><li>Tasa de Bomberos: ~$2.35 USD (Variable según normativa local, pero fijo para el usuario residencial promedio).1</li></ul>La Tasa de Recolección de Basura </br> En Ecuador para el diciembre de 2025 la tasa de aseo y recolección de basura se deja de cobrar en la planilla de luz. Por tanto se ha obviado su consideración dentro de estas tazas. "
       }
     },
     {
       "id": 17,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
-      "contenidoIzquierda": {
+      "subtitulo": "<h2>Fase VII: Modelado de Costos de InstalaciónV</h2><span>Sistemas ON-Grid (Conectados a la Red)</span>",
+      "contenidoIzquierda":[
+        {
         "tipo": "texto",
         "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
-      },
+        },
+        {
+          "tipo": "tabla",
+      "titulo": "",
+      "headers": ["Paneles", "Limite INF Wp", "Limite SUP Wp","Fórmula"],
+      "filas": [
+        ["1 A 35", "540", "18900","5.023432* Wp <sup>0.808891</sup>"],
+        ["36 A 300", "19440", "162000","1*1E-11*Wp2-3*1E-6*Wp+0.9646"],
+        ["300<", "162540", "540540","0.74"]
+      ]
+        }
+      ],
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
-        "alt": "Análisis solar"
+        "src": "images/imgjson17.png",
+        "alt": "Esquema de conexión Sistema"
       }
     },
     {
       "id": 18,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
+      "subtitulo": "<h2>Fase VII: Modelado de Costos de InstalaciónV</h2><span>Sistemas OFF-Grid (Con Baterías)</span>",
       "contenidoIzquierda": {
         "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+        "contenido": "Los sistemas Off-Grid, al requerir almacenamiento de energía para operar de noche o durante cortes de luz, presentan un comportamiento de costos más complejo y no lineal. El dimensionamiento de las baterías (Wh) no siempre crece en la misma proporción que los paneles (Wp).DE este modo se tienen 4 rangos, uno cread con los datos conocidos y 3 basados en una proporción a los rangos de la sección ON-Grid .</br>Rango 1: Para este rango, se construyó una base de datos con costos reales de 23 proyectos instalados, abarcando sistemas desde 540 Wp hasta 13,920 Wp (1 a 26 paneles), se desarrolló una regresión cuadrática multivariable que relaciona la potencia instalada (Wp) y la capacidad de almacenamiento (Wh). El modelo presenta un R2 > 0.97. Ademas, se estimó una relación promedio de 1.97 Wh de almacenamiento por cada Wp de generación.1</br>Rangos 2, 3 y 4: Para sistemas mayores a 26 paneles, donde los datos de mercado son escasos, se calculó una relación de precio constante. Se determinó que, en promedio, un sistema con baterías cuesta 1.93 veces más que su equivalente On-Grid. Este factor se aplica a las fórmulas ya validadas del sistema On-Grid para proyectar los costos en escalas mayores.1"
       },
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
+        "src": "images/imgjson18.png",
         "alt": "Análisis solar"
       }
     },
+
     {
       "id": 19,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
-      "contenidoIzquierda": {
-        "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
-      },
+      "subtitulo": "<h2>Fase VII: Modelado de Costos de InstalaciónV</h2><span>Sistemas OFF-Grid (Con Baterías)</span>",
+      "contenidoIzquierda": 
+      {
+      "tipo": "tabla",
+      "titulo": "",
+      "headers": ["Rango (Paneles)", "Rango Potencia (Wp)", "Método de cálculo", "Fórmula/Valor aplicado","Explicación"],
+      "filas": [
+        ["1 - 26", "540 - 13,920", "Regresión Cuadrática","USD=1.68⋅Wp+1.33⋅10−5⋅Wp2+660","\"El Modelo Preciso\": Basado en facturas reales. Incluye un costo base de arranque ($660) y ajusta el precio de las baterías con alta precisión."],
+        ["27 - 35", "14,460 - 18,900", "Regresión Cuadrática","USD=1.68⋅Wp+1.33⋅10−5⋅Wp2+660","\"El Modelo Preciso\": Basado en facturas reales. Incluye un costo base de arranque ($660) y ajusta el precio de las baterías con alta precisión."],
+        ["36 - 300", "540 - 13,920", "Regresión Cuadrática","USD=1.68⋅Wp+1.33⋅10−5⋅Wp2+660","\"El Modelo Preciso\": Basado en facturas reales. Incluye un costo base de arranque ($660) y ajusta el precio de las baterías con alta precisión."],
+        ["<300", "540 - 13,920", "Regresión Cuadrática","USD=1.68⋅Wp+1.33⋅10−5⋅Wp2+660","\"El Modelo Preciso\": Basado en facturas reales. Incluye un costo base de arranque ($660) y ajusta el precio de las baterías con alta precisión."]
+      ]
+    },
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
-        "alt": "Análisis solar"
+        "src": "images/imgjson18.png",
+        "alt": "Esquema Off grid"
       }
     },
+
     {
       "id": 20,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
-      "contenidoIzquierda": {
+      "subtitulo": "<h2>Fase VIII: Cálculo del retorno de inversión y ahorro anual</h2>",
+      "contenidoIzquierda":[ 
+      {
         "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+        "contenido": "<h2>Retorno de la Inversión</h2>Una vez definidas las tasas fijas mandatorias y los costos de instalación según la potencia (Wp) del sistema, se procede a calcular el retorno de la inversión. Para ello, se establece un balance anual donde el \"ingreso\" corresponde al monto del consumo eléctrico anual por predio (basado en datos de CENTROSUR) y el \"egreso\" equivale a las tasas fijas mensuales multiplicadas por doce.</br>La variable determinante, el costo total del sistema, se obtiene considerando los Wp mínimos requeridos, calculados a partir del consumo promedio de kWh del último año y la radiación de la cubierta más óptima, vistos en secciones anteriores. Finalmente, el tiempo de retorno en años se obtiene dividiendo el costo total del sistema para el flujo neto anual (Ahorro Anual menos Egresos por tasas fijas)."
       },
-      "contenidoDerecha": {
+      {
         "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
-        "alt": "Análisis solar"
+        "src": "images/imgjson20.png",
+        "alt": "Formula"
+      },
+      {
+        "tipo": "texto",
+        "contenido": "Donde:<ul><li>Tr = Tiempo de retorno de la inversión expresado en años.</li><li>Csistema: Costo total de instalación del sistema fotovoltaico (USD), derivado de los Wp requeridos según el consumo histórico y la radiación de la cubierta óptima.</li><li>Panual: Pago anual estimado basado en el historial de planillas (USD).</li><li>Tfija: Tasas fijas mandatorias mensuales que permanecen como costo operativo (USD).</li></ul>"
       }
+    ],
+      "contenidoDerecha": [ 
+      {
+        "tipo": "texto",
+        "contenido": "<h2>Ahorro anual</h2>Cuando la inversión ya se ha solventado de acuerdo al número de años estimados para el retorno de la inversión, se procede a calcular el ahorro anual del usuario por el sistema instalado. Para este proceso se resta el Pago anual del último año menos las tasas fijas mandatorias por 12 meses, este valor se expresa en USD.año."
+      },
+      {
+        "tipo": "imagen",
+        "src": "images/imgjson20-1.png",
+        "alt": "Formula"
+      },
+      {
+        "tipo": "texto",
+        "contenido": "Donde:<ul><li>Aanual: Ahorro anual en (USD).<li>Panual: Pago anual estimado basado en el historial de planillas (USD).</li><li>Tfija: Tasas fijas mandatorias mensuales que permanecen como costo operativo (USD).</li></ul>"}
+      ]
     },
+
+
     {
       "id": 21,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
+      "subtitulo": "<h2>Visualización de Resultados</h2><span>Estimación de alturas edificadas y número de pisos por predio</span>",
       "contenidoIzquierda": {
         "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+        "contenido": "La estimación de alturas edificadas y número de pisos se realizó a partir de la integración de modelos digitales derivados de fotogrametría y análisis espacial sobre la cartografía catastral. El procedimiento se desarrolló en cuatro etapas principales: generación del modelo de alturas (nDSM), cálculo de estadísticas zonales por predio, definición del criterio de conversión de altura a número de pisos, y vinculación de los resultados a la capa de predios. <h3>Generación del Modelo Digital de Alturas (nDSM)</h3>A partir de la nube de puntos densa clasificada en Metashape se generaron dos modelos:<ul><li>(a) un Modelo Digital del Terreno (DTM), empleando únicamente la clase Ground;</li><li>(b) un Modelo Digital de Superficie (DSM), utilizando la clase building.</li></ul>Ambos modelos fueron exportados en formato GeoTIFF y posteriormente integrados en ArcGIS Pro. El Modelo Digital de Alturas (nDSM), por sus siglas en inglés (normalized Digital Surface Model) se obtuvo mediante la resta: <h3>nDSM=DSM-DTM</h3>Este raster representa exclusivamente la altura relativa de las edificaciones y otros objetos situados sobre el terreno natural. "
       },
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
-        "alt": "Análisis solar"
+        "src": "images/imgjson21.png",
+        "alt": "Ilustracion"
       }
     },
     {
       "id": 22,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
+      "subtitulo": "<h2>Visualización de Resultados</h2>",
       "contenidoIzquierda": {
         "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+        "contenido": "<h3>Cálculo de estadísticas de altura por predio (Zonal Statistics) </h3>Con el nDSM calculado, se empleó la herramienta Zonal Statistics as Table de ArcGIS Pro para obtener, para cada predio, un conjunto de métricas de altura. Se utilizó como campo identificador el código del predio.Las estadísticas generadas fueron:<ul><li>Altura máxima (MAX)</li><li>Altura media (MEAN)</li><li>Altura mínima (MIN)</li><li>Mediana (MEDIAN)</li><li>Desviación estándar (STD)</li><li>Percentil 90 (PCT90)</li></ul> El percentil 90 se incluyó debido a su utilidad para representar la altura dominante de un edificio eliminando valores atípicos como chimeneas, antenas o ruido fotogramétrico. Esta métrica es frecuentemente empleada en estudios urbanos porque refleja con mayor fidelidad la masa edificada sin sobreestimar alturas por puntos aislados elevados."
       },
-      "contenidoDerecha": {
+      "contenidoDerecha":[
+      {
+        "tipo": "texto",
+        "contenido":"<h3>Integración de alturas por predio y cálculo del número de pisos</h3>La tabla de estadísticas se unió a la capa de predios mediante un Join utilizando el campo de identificación común. Una vez integrada la información, se procedió a calcular la altura representativa y el número de pisos por predio.</br>Para definir el número de pisos se empleó inicialmente una altura promedio por piso de 3.20 m, estimada mediante la revisión manual de predios con alturas conocidas. El cálculo se realizó según:"
+      },
+      {
         "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
-        "alt": "Análisis solar"
+        "src": "images/imgjson22.png",
+        "alt": "Formula"
+      },
+      {
+        "tipo": "texto",
+        "contenido": "y de manera equivalente con la Mediana o el Percentil 90:"
+      },
+      {
+        "tipo": "imagen",
+        "src": "images/imgjson22-1.png",
+        "alt": "Formula"
+      },
+      {
+        "tipo": "texto",
+        "contenido": "No obstante, para evitar sobreestimaciones y dado que en viviendas bajas el perfil volumétrico puede presentar variaciones, se aplicó un criterio ajustado:<ol><li>Si el valor fraccionario era menor a 0.70, se conserva el piso inferior.</li><li>Si era mayor o igual a 0.70, se redondea al siguiente entero.</li></ol>Este ajuste permite obtener una clasificación más coherente con la volumetría real y con la altura característica de viviendas de dos o tres niveles. </br>Exportación final de resultados y verificación espacial</br>Finalmente, la capa con los campos de altura y número de pisos se exportó como una nueva entidad vectorial, garantizando que los atributos quedaran integrados de manera permanente. Se verificó visualmente la coherencia espacial de los valores asignados mediante superposición con el nDSM y la ortofoto, identificando posibles casos de ruido o errores asociados a arbolado o edificaciones con techos inclinados."
       }
+    ]
     },
+
     {
       "id": 23,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
-      "contenidoIzquierda": {
+      "subtitulo": "<h2>Visualización de Resultados</h2><span>El potencial máximo instalable por cubierta</span>",
+      "contenidoIzquierda": 
+      
+      {
         "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+        "contenido": "Una vez obtenidos los resultados gráficos, se procede a elaborar un gráfico de barras que presenta, por un lado, el consumo por mes de cada predio (con datos obtenidos de la CENTROSUR), otra barra muestra la cantidad de energía mínima recomendada a instalar obtenida en secciones anteriores y la barra final presenta el potencial máximo instalable en las cubiertas de cada predio. </br>Este valor fue calculado de acuerdo al área útil de cada cubierta por orientación obtenido en la Fase III. Se divide el área útil de cada una de las 5 cubiertas (Norte, Sur, Este, Oeste y Plana) para el área de cada panel (Para este caso el panel utilizado de 540w tiene una superficie de ~2.59 m2). Este valor nos entrega el número total de paneles a instalarse dentro de las cubiertas de cada predio. Además, debido a que cada orientación presenta su radiación especifica, se multiplica el número de paneles por orientación por la radiación análoga a la orientación especifica y por la potencia del panel. Este valor nos entrega los kWh generados por cada orientación de cubierta. Finalmente, una vez calculado el potencial de cada una de las orientaciones en toda la cubierta, se procede a sumar cada una de estas potencias. Este valor final representa el potencial FV máximo que cada cubierta de cada predio puede generar."
       },
-      "contenidoDerecha": {
+      "contenidoDerecha": [
+      {
         "tipo": "imagen",
-        "src": "images/metodologia-1.jpg",
-        "alt": "Análisis solar"
+        "src": "images/imgjson23.png",
+        "alt": "Formula"
+      },
+      {
+        "tipo":"texto",
+        "contenido":"Donde:<ul><li>E_max Energía máxima generada por el predio (kWh).<li>A_(util_i ) área útil de la cubierta en la orientación i (Norte, Sur, Este, Oeste, Plana).</li><li>A_(util_i )Superficie del panel fotovoltaico (2.59 m2).</li><li>P_panel Potencia nominal del panel (540 W).</li><li>R_i Radiación incidente específica según la orientación i (Norte, Sur, Este, Oeste, Plana). </li></ul>El resultado de esta sumatoria representa el límite técnico de generación del inmueble y se grafica comparativamente junto a la demanda del usuario."
       }
-    },
+  ]
+  },
+
+
     {
       "id": 24,
       "titulo": "Metodología",
-      "subtitulo": "<h2>Proceso de recopilación</h2><span>y análisis de datos energéticos</span>",
+      "subtitulo": "<h2>Visualización de Resultados</h2>",
       "contenidoIzquierda": {
         "tipo": "texto",
-        "contenido": "La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1 Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local."
+        "contenido": "Finalmente, toda la información recopila más de 250 mil datos de los predios y se presenta de manera didáctica visual para el usuario dentro de esta página. Si quieres acceder al mapa fotovoltaico visita nuestra página de inicio o da click en el siguiente link. </br>La información presentada por predio es:<ul><li>Clave catastral</li><li>Número de pisos por predio</li><li>Número de medidores por predio </li><li>Implementación de paneles solares Sistemas ON-GRID (Sin Batería)</li><ul><li>Número de paneles recomendado según consumo eléctrico</li> <li>Inversión estimada en USD</li><li>Tiempo de recuperación de la inversión en años y meses </li><li>Y ahorro anual posterior a la recuperación de la inversión </li></ul><li>Implementación de paneles solares Sistemas OFF-GRID (Con Batería)</li><ul><li>Número de paneles recomendado según consumo eléctrico </li><li>Inversión estimada en USD</li><li>Tiempo de recuperación de la inversión en años y meses </li><li>Y ahorro anual posterior a la recuperación de la inversión </li></ul><li>Análisis Energético Mensual</li><ul><li>Energía consumida</li><li>Energía recomendada a instalar</li><li>Energía máxima a instar</li></ul></ul>"
+      },
+      "contenidoDerecha": {
+        "tipo": "imagen",
+        "src": "images/imgjson24.png",
+        "alt": "GeoVisor"
+      }
+    },
+
+
+    {
+      "id": 25,
+      "titulo": "Metodología",
+      "subtitulo": "<h2>Referencias</h2>",
+      "contenidoIzquierda": {
+        "tipo": "texto",
+        "contenido":"<ol><li>Caracterización del consumo energético, la superficie útil y el potencial fotovoltaico en morfologías urbanas contrastantes de una ciudad intermedia. Cuenca – Ecuador. Steven Lopez y Jefferson Torres. Diciembre 2025</li><li>Understand Your Solar Score for My House: Key Factors Explained, accessed November 30, 2025</li><li>Consumer Guide to Residential Solar Rooftop Potential - Department of Energy, accessed November 30, 2025</li><li>use of uav photogrammetry to estimate the solar energy potential of residential buildings in severe cold region - CumInCAD, accessed November 30, 2025</li><li>ANEXO 4: FICHAS NORMATIVAS - GAD Municipal de Cuenca, accessed November 30, 2025</li><li>Method for Estimating Solar Energy Potential Based on Photogrammetry from Unmanned Aerial Vehicles - MDPI, accessed November 30, 2025</li><li>Estimate solar power potential | Documentation - Learn ArcGIS, accessed November 30, 2025</li><li>What Are the Differences Between On-Grid and Off-Grid Solar? - EcoFlow, accessed November 30, 2025</li><li>Anexo 3.1 Estructurante c Urbanistico 0 Cuenca | PDF | Planificación - Scribd, accessed November 30, 2025</li><li>Plan Operativo Bicicletas | PDF | Ecuador | Transporte - Scribd, accessed November 30, 2025</li><li>De la ciudad densificada a la ciudad paisaje. Tramo parcial de la Avenida Ordóñez Lasso de Cuenca, Ecuador - ucuenca, accessed November 30, 2025</li><li>Análisis, diagnóstico y valoración del paisaje en el proyecto de ampliación de la avenida, accessed November 30, 2025</li><li>VENTA DE CASA SECTOR PRIMERO DE MAYO EN CUENCA, accessed November 30, 2025</li><li>17 Bienes raíces y propiedades cuenca primero mayo en venta en Ecuador - Plusvalía, accessed November 30, 2025</li><li>Análisis de Sitio en Totoracocha - Prezi, accessed November 30, 2025</li><li>Totoracocha (parroquia de Cuenca) - Wikipedia, accessed November 30, 2025</li><li>Universidad del Azuay, accessed November 30, 2025</li><li>Fotogrametría - Instituto Geográfico Nacional, accessed November 30, 2025</li><li>¿Qué es la fotogrametría?—ArcGIS Pro | Documentación, accessed November 30, 2025</li><li>Fotogrametría Con Drones: Todo Lo Que Debes Saber | DRONING, accessed November 30, 2025</li><li>Fotografía: Explicación sencilla de la medición digital de edificios - autarc.energy, accessed November 30, 2025</li><li>Tecnología de drones en la revolución de la energía solar - Volatus Drones, accessed November 30, 2025</li><li>Curso Gratuito de Fotogrametría (Parte 1) - YouTube, accessed November 30, 2025</li><li>Analysis and Precision of Light Detection and Ranging Sensors Integrated in Mobile Phones - MDPI, accessed November 30, 2025</li><li>Captura de realidad 3D para la construcción de edificios - FlyPix AI, accessed November 30, 2025</li><li>validación de modelos digitales del terreno de precisión a partir de datos láser escáner aerotransportado, accessed November 30, 2025</li><li>Is My Roof Suitable for Solar Panels?, accessed November 30, 2025</li><li>Assess solar potential home - Enphase, accessed November 30, 2025</li><li>A beginner's guide to solar potential and its estimation, accessed November 30, 2025</li><li>Methodology - Global Solar Atlas, accessed November 30, 2025</li><li>Resúmenes por Área - XXV Verano de la Investigación Científica, accessed November 30, 2025</li><li>Dot Density Map | Data Viz Project, accessed November 30, 2025</li><li>Vigente el mecanismo para subsidio eléctrico - Celec EP, accessed November 30, 2025</li><li>Homeowner's Guide to Solar - Department of Energy, accessed November 30, 2025</li><li>Jenks Natural Breaks Explained, accessed November 30, 2025</li></ol>"
       },
       "contenidoDerecha": {
         "tipo": "imagen",

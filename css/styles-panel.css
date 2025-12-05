@@ -1,4 +1,11 @@
-
+:root {
+    /* --- COLORES --- */
+    --color-primario-tarjeta: rgba(98, 119, 112, 0.8);
+    --color-titulos: #EED3A8;
+    --color-hex-vacio: rgba(98, 119, 112, 0.3);
+    --color-hex-sombra: rgba(0, 0, 0, 0.15);
+    --color-texto-nombre: #ffffff;
+     }
 /* ==========================================================================
    1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
    ========================================================================== */
@@ -58,6 +65,7 @@ body {
 .header-right img {
     height: 35px; /* Un poco más pequeño si quieres, o igual (40px) */
     width: auto;
+   
 }
 
 /* 5. Ajuste CRUCIAL para el Mapa */
@@ -80,7 +88,7 @@ body {
   max-height: calc(100vh - 100px); /* Que no se salga de la pantalla verticalmente */
   overflow: auto;          
   border-radius: 24px;     
-  background: rgba(255, 255, 255, 0.85); /* Un poco más sólido para legibilidad */
+  background: var(--color-primario-tarjeta); /* Un poco más sólido para legibilidad */
   box-shadow: 0 25px 60px rgba(0,0,0,0.22); 
   z-index: 1000;           
   padding: 16px; 
@@ -129,7 +137,7 @@ body {
   padding: 6px 10px; 
   border-radius: 8px; 
   border: 0; 
-  background: #638838; /* Verde corporativo */
+  background: var(--color-primario-tarjeta); /* Verde corporativo */
   color: white; 
   cursor: pointer;
   transition: background 0.2s;
@@ -256,7 +264,7 @@ body {
 
 /* La cajita gris oscura donde va el número */
 .solar-value-box {
-  background-color: #999999;
+  background-color: var(--color-primario-tarjeta);
   color: white;
   padding: 6px 4px;
   border-radius: 8px;
