@@ -37,7 +37,7 @@
       },
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/imgjson3.png",
+        "src": "images/ImgJson3.png",
         "alt": "Análisis solar"
       }
     },
@@ -51,7 +51,7 @@
       },
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/imgjson4.png",
+        "src": "images/ImgJson4.png",
         "alt": "Mapa Ordoñez Lasso"
       }
     },
@@ -65,7 +65,7 @@
       },
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/imgjson5.png",
+        "src": "images/ImgJson5.png",
         "alt": "Mapa Ordoñez Lasso"
       }
     },
@@ -424,7 +424,7 @@
       },
       "contenidoDerecha": {
         "tipo": "imagen",
-        "src": "images/imgjson24.png",
+        "src": "images/ImgJson24.png",
         "alt": "GeoVisor"
       }
     },
