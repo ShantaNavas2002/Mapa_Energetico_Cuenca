@@ -9,31 +9,33 @@
                 <span class="menu-bullet"></span> Metodología
             </a>
         </li>
-        <li>
-            <a href="#">
-                <span class="menu-bullet"></span> Otros Proyectos
-            </a>
-        </li>
-        <ul>
-            <li>
-                <a href="Mapa_Georeferenciado.html">
-                    <span class="menu-bullet"></span> Geovisor Usos PB
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="menu-bullet"></span> Imágenes Térmicas
-                </a>
-            </li>
-        </ul>
         
+        <li class="menu-desplegable">
+            <a href="#" class="btn-desplegar" onclick="toggleSubMenu(event, 'subMenuOtrosProyectos')">
+                <span class="menu-bullet"></span> Otros Proyectos
+                <i class="fa-solid fa-chevron-down flecha-desplegable"></i>
+            </a>
+            
+            <ul class="sub-menu-lista" id="subMenuOtrosProyectos">
+                <li>
+                    <a href="Mapa_Georeferenciado.html">
+                        <span class="menu-bullet"></span> Geovisor Usos PB
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="menu-bullet"></span> Imágenes Térmicas
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li style="border: none; margin-top: 100%;">
             <a href="equipo.html">
                 <span class="menu-bullet"></span> Equipo
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="index.html">
                 <span class="menu-bullet"></span> Consiso Lab Home
             </a>
         </li>

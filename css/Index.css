@@ -1,7 +1,14 @@
 /* ========================================
    INDEX - Estilos específicos de la página principal
    ======================================== */
-
+:root {
+    /* --- COLORES --- */
+    --color-primario-tarjeta: rgba(98, 119, 112, 0.8);
+    --color-titulos: #EED3A8;
+    --color-hex-vacio: rgba(98, 119, 112, 0.3);
+    --color-hex-sombra: rgba(0, 0, 0, 0.15);
+    --color-texto-nombre: #ffffff;
+     }
 /* --- TARJETA CON IMAGEN Y CARD SOBREPUESTA --- */
 .tarjeta-img {
     /* Grid de 2 columnas: imagen completa + card derecha */
@@ -19,10 +26,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.titutlo-mapa{
-    margin: 0%;
-    
-}
+
 
 /* --- CAPA 1: LA IMAGEN (FONDO) --- */
 .imagen-contenedor {
@@ -54,11 +58,11 @@
     -webkit-backdrop-filter: blur(5px);
     
     /* Contenido */
-    color: #e0e0e0;
+    color: var(--color-titulos);
     padding: var(--spacing-lg, 2rem);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--spacing-md, 1.5rem);
     
     /* Interactividad */
@@ -76,6 +80,8 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+    width: auto;
+    
 }
 
 .inf p {
@@ -84,23 +90,24 @@
     line-height: 1.6;
     opacity: 0.9;
 }
-
-.inf:hover {
-    background-color: rgba(98, 119, 112, 0.85);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
-
 /* Icono decorativo (si existe) */
 .icono-mapa {
     width: 40px;
     height: 40px;
     background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
+   
     display: flex;
     align-items: center;
     justify-content: center;
-    align-self: flex-start;
+    align-self: en;
 }
+
+.inf:hover {
+    background-color: var(--color-primario-tarjeta);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+
 
 /* ========================================
    MEDIA QUERIES - Adaptación progresiva
@@ -177,3 +184,8 @@
         font-size: 0.9rem;
     }
 }
+
+
+
+
+

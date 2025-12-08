@@ -1,0 +1,54 @@
+/* --- Estilos Menu Lateral --- */
+
+.sub-menu-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px; /* Separación del botón */
+    
+    /* Propiedad clave para el despliegue animado */
+    max-height: 0; 
+    overflow: hidden;
+    transition: max-height 0.4s ease-out; /* Animación de apertura/cierre */
+}
+
+/* Estilo para los ítems del sub-menú */
+.sub-menu-lista li {
+    padding-left: 15px; /* Indentación visual */
+    border-bottom: none; /* Eliminar el separador de la lista principal */
+    margin-bottom: 5px; 
+    padding-bottom: 5px;
+}
+
+/* Estilo específico para los enlaces del sub-menú */
+.sub-menu-lista a {
+    font-size: 0.85rem; /* Letra más pequeña */
+    opacity: 0.8;
+}
+
+.sub-menu-lista a:hover {
+    opacity: 1;
+}
+
+/* Estilos para el ícono de flecha */
+.flecha-desplegable {
+    margin-left: auto; /* Mueve la flecha a la derecha */
+    transition: transform 0.3s ease;
+    font-size: 0.75rem; /* Más pequeña */
+}
+
+/* Rotación de la flecha cuando el menú está abierto */
+.menu-desplegable.abierto .flecha-desplegable {
+    transform: rotate(180deg);
+}
+
+/* Asegurar que el botón principal de 'Otros Proyectos' se vea bien */
+.menu-desplegable > a {
+    /* Elimina el borde inferior del elemento principal si el sub-menú está abierto */
+    border-bottom: none; 
+}
+
+/* Restaurar el borde inferior del <li> principal si está cerrado y no es el último */
+.menu-desplegable:not(.abierto) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
