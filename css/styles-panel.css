@@ -88,7 +88,7 @@ body {
   max-height: calc(100vh - 100px); /* Que no se salga de la pantalla verticalmente */
   overflow: auto;          
   border-radius: 24px;     
-  background: var(--color-primario-tarjeta); /* Un poco más sólido para legibilidad */
+ background: radial-gradient(circle,rgba(238, 211, 168, 0.5) 0%, rgba(98, 119, 112, 0.5) 100%); /* Un poco más sólido para legibilidad */
   box-shadow: 0 25px 60px rgba(0,0,0,0.22); 
   z-index: 1000;           
   padding: 16px; 
@@ -207,7 +207,7 @@ body {
 
 /* Efecto visual cuando selecciono un predio en el mapa */
 .feature-selected {
-  stroke: #1e40af !important;      
+  stroke: rgb(2, 255, 65) !important;      
   stroke-width: 5 !important;
   filter: drop-shadow(0 0 6px rgba(37,99,235,0.25));
 }
@@ -226,7 +226,7 @@ body {
 
 /* La tarjeta gris individual */
 .solar-card {
-  background-color: #E8E8E8; 
+  background-color: ; 
   border-radius: 16px;       
   padding: 10px;
   display: flex;
@@ -264,7 +264,7 @@ body {
 
 /* La cajita gris oscura donde va el número */
 .solar-value-box {
-  background-color: var(--color-primario-tarjeta);
+  background-color: rgba(98, 119, 112, 0.4);
   color: white;
   padding: 6px 4px;
   border-radius: 8px;

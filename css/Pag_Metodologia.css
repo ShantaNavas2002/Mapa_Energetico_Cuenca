@@ -1,7 +1,7 @@
 :root {
     /* --- COLORES --- */
     --color-primario-tarjeta: rgba(98, 119, 112, 0.8);
-    --color-titulos: #EED3A8;
+    --color-titulos: rgb(238 211 168);
     --color-fondo: rgba(98, 119, 112, 1);
     --color-hex-sombra: rgba(0, 0, 0, 0.15);
     --color-texto-nombre: #ffffff;
