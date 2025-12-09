@@ -128,13 +128,14 @@
     
     /* Asegura que el contenido no se desborde */
     box-sizing: border-box;
+    padding: 10%;
 }
 
 .item-d {
     /* 50%: Ocupa las últimas 3 columnas */
     grid-column: 4 / 7; 
     grid-row: 2;
-    
+    padding: 10%;
     background-color: var(--color-titulos);
     color: var(--color-fondo);
     
@@ -149,6 +150,7 @@
     
     /* Asegura que el contenido no se desborde */
     box-sizing: border-box;
+    place-items: center;
 }
 
 /* ---------------------------------------------------------------- */
@@ -158,12 +160,12 @@
 .item-e {
     /* 100%: Ocupa las 6 columnas */
     grid-column: 1 / 7; 
-    grid-row: 3;
+    grid-row: 3; /* CAMBIADO: Debe ser la Fila 3 en la configuración de 3 filas */
     
-    background-color: var(--color-primario-tarjeta); 
     color: white;
+    /* Asegurar que el padding del item no lo haga sobresalir, aunque esto está bien */
+    padding: 20px; 
 }
-
 /* ============================================================
    CONTENIDO DENTRO DE ITEMS C Y D
    ============================================================ */
@@ -219,7 +221,10 @@
     max-width: 100%;
     max-height: 300px;
     display: block;
+    
     margin: 0 auto;
+    padding: 0;
+    
     object-fit: contain;
     border-radius: 10px;
 }
@@ -262,6 +267,7 @@
 
 .item-d::-webkit-scrollbar-thumb:hover {
     background-color: rgba(98, 119, 112, 0.7);
+
 }
 
 /* ============================================================

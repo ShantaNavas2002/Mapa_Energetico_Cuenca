@@ -274,18 +274,59 @@ function initChart(feature) {
 }
 
 // =============================================================================
-// 2. CONSTRUCTOR HTML DEL PANEL
+// CONSTRUCTOR HTML DEL PANEL CON LÓGICA CONDICIONAL
+// =============================================================================
+
 function buildPanelContent(feature, sectorTitle) {
     var p = feature.properties;
     
-    // Si el dato es nulo, pone un guion '-'
+    // Función helper para valores
     function val(k) { 
         return (p[k] !== null && p[k] !== undefined) ? String(p[k]) : '-'; 
     }
 
-    /**
-     * Función para crear la tarjeta gris
-     */
+    // ========================================================================
+    // VERIFICACIÓN DE CONDICIONES ESPECIALES
+    // ========================================================================
+    
+    // Si X_1 o X_2 es igual a 1, mostrar panel alternativo 1
+    if (p.X_1 == 1 || p.X_2 == 1) {
+        return `
+        <div class="popup-card">
+          <div class="popup-title">
+            <span class="key mono">Clave Catastral:</span>
+            <strong>${val('CLAVE')}</strong>
+          </div>
+          
+          <div class="alert-panel">
+            <div class= "panel1">
+              <h3>Datos Insuficientes</h3>
+            </div>
+          </div>
+        </div>`;
+    }
+    
+    // Si X_3 es igual a 1, mostrar panel alternativo 2
+    if (p.X_3 == 1) {
+        return `
+        <div class="popup-card">
+          <div class="popup-title">
+            <span class="key mono">Clave Catastral:</span>
+            <strong>${val('CLAVE')}</strong>
+          </div>
+          
+           <div class="alert-panel">
+            <div class= "panel2">
+              <h3>Los paneles solare no pueden proveer la energia suficiente</h3>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // ========================================================================
+    // PANEL NORMAL (cuando no se cumplen las condiciones especiales)
+    // ========================================================================
+    
     function solarCard(imgSrc, label, key, suffix) {
         var valor = val(key);
         if (suffix && valor !== '-') valor += ' ' + suffix;
@@ -348,7 +389,13 @@ function buildPanelContent(feature, sectorTitle) {
       </details>
       
       <details class="section" data-section="grafico" open>
-        <summary><span>Análisis energético mensual</span><span class="chev">▾</span></summary>
+        <summary>
+          <div class="summary-content">
+            <span>Análisis energético mensual</span>
+            <img src="images/UI_Pestaña3.svg" class="header-img" alt="Icono de barras">
+          </div>
+          <span class="chev">▾</span>
+        </summary>
         <div class="section-body">
           <div id="chartControls" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
             <button id="chartPrev" type="button">◄</button>

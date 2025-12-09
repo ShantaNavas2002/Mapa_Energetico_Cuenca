@@ -1,7 +1,7 @@
 :root {
     /* --- COLORES --- */
-    --color-primario-tarjeta: rgba(98, 119, 112, 0.8);
-    --color-titulos: #EED3A8;
+    --color-primario-tarjeta: rgba(98, 119, 112, 0.8); /* --- #627770 ---*/
+    --color-titulos: rgb(238 211 168);                 /* --- #EED3A8 ---*/  
     --color-hex-vacio: rgba(98, 119, 112, 0.3);
     --color-hex-sombra: rgba(0, 0, 0, 0.15);
     --color-texto-nombre: #ffffff;
@@ -88,7 +88,9 @@ body {
   max-height: calc(100vh - 100px); /* Que no se salga de la pantalla verticalmente */
   overflow: auto;          
   border-radius: 24px;     
- background: radial-gradient(circle,rgba(238, 211, 168, 0.5) 0%, rgba(98, 119, 112, 0.5) 100%); /* Un poco más sólido para legibilidad */
+ background: rgba(98, 119, 112, 0.5) ;
+ backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); /* Un poco más sólido para legibilidad */
   box-shadow: 0 25px 60px rgba(0,0,0,0.22); 
   z-index: 1000;           
   padding: 16px; 
@@ -143,7 +145,8 @@ body {
   transition: background 0.2s;
 }
 
-#claveGo:hover { background: #4d6b2b; }
+#claveGo:hover { background: rgb(238 211 168); 
+color: black;}
 
 /* ==========================================================================
    3. COMPONENTES INTERNOS DEL PANEL (ACORDEONES Y BADGES)
@@ -156,7 +159,7 @@ body {
 }
 
 .popup-title {
-  font-size: 20px;
+  font-size: 1.5rem;
   margin: 6px 6px 12px;
   text-align: center;
 }
@@ -207,7 +210,7 @@ body {
 
 /* Efecto visual cuando selecciono un predio en el mapa */
 .feature-selected {
-  stroke: rgb(2, 255, 65) !important;      
+  stroke: rgb(84, 173, 106) !important;      
   stroke-width: 5 !important;
   filter: drop-shadow(0 0 6px rgba(37,99,235,0.25));
 }
@@ -226,7 +229,7 @@ body {
 
 /* La tarjeta gris individual */
 .solar-card {
-  background-color: ; 
+  
   border-radius: 16px;       
   padding: 10px;
   display: flex;
@@ -255,7 +258,7 @@ body {
 }
 
 .solar-label {
-  font-size: 11px;
+  font-size: 0.9rem;
   color: #444;
   margin-bottom: 4px;
   line-height: 1.2;
@@ -269,7 +272,7 @@ body {
   padding: 6px 4px;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 1rem;
   text-align: center;
   width: 90%; /* Un poco menos del 100% para que se vea elegante */
   display: block;
@@ -311,9 +314,31 @@ body {
 .section[open] .header-img {
   display: block;
   animation: fadeIn 0.4s ease-in-out;
+  
 }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateX(-10px); }
   to { opacity: 1; transform: translateX(0); }
 }
+/* ==========================================================================
+   6. "IF"paneles
+   ========================================================================== */
+ .alert-panel{
+  padding: 20px; 
+  
+ }
+ .panel1{
+   background: #E8B42E; 
+   border: 2px solid rgba(255, 193, 7); 
+   border-radius: 12px; 
+   padding: 30px; 
+   margin: 20px 0;
+ }
+
+ .panel2{
+   background: #e5d3a6; 
+   border: 2px solid rgb(201, 190, 159); 
+   border-radius: 12px; 
+   padding: 30px; 
+   margin: 20px 0;
+ }

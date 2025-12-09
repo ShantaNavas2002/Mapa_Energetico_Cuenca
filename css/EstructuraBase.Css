@@ -282,33 +282,6 @@ input, button, textarea, select {
     background-color: rgba(238, 211, 168, 0.5);
 }
 
-/* ---------------------------------------------------------------- */
-/* ESTILOS ESPECIALES PARA CELDAS */
-/* ---------------------------------------------------------------- */
-
-/* Celdas de encabezado centradas */
-.tabla-datos th.centrado {
-    text-align: center;
-}
-
-/* Celdas con énfasis */
-.tabla-datos td.destacado {
-    font-weight: 700;
-    background-color: rgba(238, 211, 168, 0.1);
-}
-
-/* Celdas con colores personalizados */
-.tabla-datos td.positivo {
-    color: #4ade80;
-}
-
-.tabla-datos td.negativo {
-    color: #f87171;
-}
-
-.tabla-datos td.neutro {
-    color: #fbbf24;
-}
 
 /* ========================================
    HEADER - Grid adaptativo
@@ -525,23 +498,13 @@ input, button, textarea, select {
     width: 80%;
     max-width: 1800px;
     /* Altura adaptativa en vez de fija */
+    max-height: 720px;
     min-height: 300px;
     aspect-ratio: 16/9; /* Mantiene proporción */
-    
     display: grid;
     place-items: center;
 }
-.tarjeta-img img {
-    /* Ocupa el 100% del ancho y alto del contenedor */
-    width: 100%;
-    height: 100%;
-    
-    /* Propiedad clave: Ajusta la imagen manteniendo su proporción */
-    object-fit: cover;
-    
-    /* Propiedad opcional: Define desde dónde 'corta' o ajusta la imagen */
-    object-position: center; /* Centra la imagen */
-}
+
 
 /* ========================================
    FOOTER - Grid responsivo
