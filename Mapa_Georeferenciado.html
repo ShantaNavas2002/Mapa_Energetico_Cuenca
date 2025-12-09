@@ -27,6 +27,7 @@
     
     <header class="main-header">
       
+
       <div class="header-center">
         <img src="images/UI_LogoCuencaSolar.svg" alt="Logo Central">
       </div>
@@ -215,9 +216,9 @@ function renderSharedChart(allData, startIndex) {
         data: {
             labels: labels,
             datasets: [
-                { label: 'Consumo', data: sliceData.map(d => d.sum), backgroundColor: '#D9D9D9', borderColor: '#585859', borderWidth: 1 },
-                { label: 'Energía máxima', data: sliceData.map(d => d.emax), backgroundColor: '#BCD1AC', borderColor: "#B0CC66 ",  borderWidth: 1 },
-                { label: 'Energía recomendada', data: sliceData.map(d => d.erec), backgroundColor: '#FDAA76', borderColor: '#FF9C60', borderWidth: 1 }
+                { label: 'Consumo', data: sliceData.map(d => d.sum), backgroundColor: '#D9D9D9', borderColor: '#585859', borderWidth: 1 },              
+                { label: 'Energía recomendada', data: sliceData.map(d => d.erec), backgroundColor: '#FDAA76', borderColor: '#FF9C60', borderWidth: 1 },
+                { label: 'Energía máxima', data: sliceData.map(d => d.emax), backgroundColor: '#BCD1AC', borderColor: "#B0CC66 ",  borderWidth: 1 }
             ]
         },
         options: {

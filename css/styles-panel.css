@@ -45,7 +45,10 @@ body {
     z-index: 2000; /* Asegura que esté ENCIMA del mapa */
     box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra suave */
     padding: 0 20px;
+    
 }
+
+
 
 /* 3. Logo Central */
 .header-center img {
@@ -342,3 +345,5 @@ color: black;}
    padding: 30px; 
    margin: 20px 0;
  }
+
+
