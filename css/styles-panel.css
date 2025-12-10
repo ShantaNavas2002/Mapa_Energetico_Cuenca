@@ -144,7 +144,7 @@ body {
 
 .
 /* 5. Ajuste CRUCIAL para el Mapa */
-#map {
+#map{
     width: 100%;
     /* Flex: 1 hace que el mapa ocupe TODO el espacio restante debajo de la barra */
     flex: 1; 
