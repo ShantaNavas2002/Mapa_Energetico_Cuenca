@@ -8,10 +8,15 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/styles-panel.css">
+        <link rel="stylesheet" href="css/barralateral.css">
+        
+        
+        
         
         <style>
         html, body, #map {
@@ -24,17 +29,17 @@
         <title></title>
     </head>
     <body>
-    
-    <header class="main-header">
-      
-
-      <div class="header-center">
-        <img src="images/UI_LogoCuencaSolar.svg" alt="Logo Central">
-      </div>
-      <div class="header-right">
-        <img src="images/logoConsiso.svg" alt="Logo Derecha">
-      </div>
-    </header>
+    <div class="overlay" id="overlay"></div>
+<header class="mi-grid-3">
+        <div class="position-btn">
+    <div id="menu-container"></div>
+        <button class="btn-menu" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+        <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg">
+        <img class="Logo-consiso" src="images/logoConsiso.svg" alt="logo de Consiso">
+</header>
 <!-- Buscador por CLAVE -->
 
     
@@ -51,6 +56,7 @@
         <div id="featurePanelContent"></div>
         </div>
 
+        <script src="js/menu.js" ></script>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
@@ -61,7 +67,7 @@
         <script src="data/PRIMERODEMAYO_2.js"></script>
         <script src="data/ORDOEZLASO_3.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-        <script src="js/menu.js" ></script>
+        
 
         <script>
         var highlightLayer;

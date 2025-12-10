@@ -1,26 +1,42 @@
 :root {
-    /* --- COLORES --- */
-    --color-primario-tarjeta: rgba(98, 119, 112, 0.8); /* --- #627770 ---*/
-    --color-titulos: rgb(238 211 168);                 /* --- #EED3A8 ---*/  
-    --color-hex-vacio: rgba(98, 119, 112, 0.3);
-    --color-hex-sombra: rgba(0, 0, 0, 0.15);
-    --color-texto-nombre: #ffffff;
+    /* Colores principales */
+    --color-primary: #627770;
+    --color-primario: rgba(98, 119, 112); /* --- #627770 ---*/
+    --color-secundario:rgb(238 211 168);                 /* --- #EED3A8 ---*/  
+    
+    /* Espaciados */
+    --spacing-xs: 0.5rem;   /* 8px */
+    --spacing-sm: 1rem;     /* 16px */
+    --spacing-md: 1.5rem;   /* 24px */
+    --spacing-lg: 2rem;     /* 32px */
+    --spacing-xl: 3rem;     /* 48px */
+    
+    /* Breakpoints (para referencia, se usan en @media) */
+    --bp-mobile: 480px;
+    --bp-tablet: 768px;
+    --bp-desktop: 1024px;
+    --bp-wide: 1440px;
+    
+    /* Otros */
+    --border-radius: 30px;
+    --transition-speed: 0.3s;
+    --menu-width-mobile: 250px;
+    --menu-width-desktop: 300px;
+
      }
 /* ==========================================================================
    1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
    ========================================================================== */
 body {
-  font-family: 'Roboto';
-  
-  /* Opcional: Esto hace que el texto se vea más nítido en algunos navegadores */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
-/* Fuerza a los inputs y botones a usar la misma fuente que el resto */
-input, button, textarea, select {
-  font-family: inherit;
-}
+
 
 /* ==========================================================================
    2. UI FLOTANTE (PANEL LATERAL Y BUSCADOR)
@@ -35,42 +51,98 @@ body {
 }
 
 /* 2. Estilo de la Barra */
-.main-header {
-    height: 60px; /* Altura de la barra "no tan ancha" */
-    background-color: #000;
+.mi-grid-3 {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-sm);
+}
+
+/* Botón menú lateral */
+.position-btn {
     display: flex;
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra el logo principal horizontalmente */
-    position: relative; /* Necesario para ubicar el logo derecho */
-    z-index: 2000; /* Asegura que esté ENCIMA del mapa */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra suave */
-    padding: 0 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+  
+  .btn-menu
+{
+  /* 1. Reset básico y tamaño */
+  background-color: transparent; 
+  border: transparent;
     
+  /* 2. Tamaño y color del icono */
+  padding: 1px; /* Relleno uniforme para que sea cuadrado */
+  font-size: 1.7rem; /* Icono más grande */
+  color: var(--color-primary); /* Color del icono */
+  
+  /* 3. Forma y transiciones */
+  cursor: pointer; 
+  border-radius: 8px; /* Bordes ligeramente redondeados, como en la imagen */
+  
+  /* Permite animar el borde y el color de forma suave */
+  transition: all var(--transition-speed) ease; 
+  
+  /* Fuerza que sea cuadrado si solo quieres el icono */
+  width: 50px; 
+  height: 50px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-menu:hover {
+  /* Al pasar el ratón, el borde se hace más grueso */
+ 
+  /* Puedes cambiar el color del icono si quieres */
+  color: var(--color-primary-light); 
+  /* Opcional: un ligero escalado */
+  transform: scale(1.05);
 }
 
 
-
-/* 3. Logo Central */
-.header-center img {
-    height: 40px; /* Ajusta el tamaño de la imagen central */
-    width: auto;
-}
-
-/* 4. Logo Derecha (Posicionado absolutamente) */
-.header-right {
-    position: absolute;
-    right: 20px; /* Separación del borde derecho */
-    top: 50%;
-    transform: translateY(-50%); /* Centrado vertical exacto */
+.btn-lateral {
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    transition: transform var(--transition-speed) ease;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.header-right img {
-    height: 35px; /* Un poco más pequeño si quieres, o igual (40px) */
+.btn-lateral:hover {
+    transform: scale(1.1);
+    color: var(--color-primary-light);
+}
+
+/* Logos */
+.Logo-cuencasolar {
+    height: 40px;
     width: auto;
-   
+    justify-self: center;
 }
 
+.Logo-consiso {
+    height: 40px;
+    width: auto;
+    justify-self: center;
+}
+
+
+
+
+
+
+
+.
 /* 5. Ajuste CRUCIAL para el Mapa */
 #map {
     width: 100%;
@@ -91,11 +163,11 @@ body {
   max-height: calc(100vh - 100px); /* Que no se salga de la pantalla verticalmente */
   overflow: auto;          
   border-radius: 24px;     
- background: rgba(98, 119, 112, 0.5) ;
- backdrop-filter: blur(10px); 
+  background: rgba(98, 119, 112, 0.5) ;
+  backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px); /* Un poco más sólido para legibilidad */
   box-shadow: 0 25px 60px rgba(0,0,0,0.22); 
-  z-index: 1000;           
+  z-index: 800;           
   padding: 16px; 
   color: #0f172a;          
 }
@@ -116,8 +188,8 @@ body {
 
 /* El buscador flotante de la izquierda */
 .Buscador-Predio {
-  position: relative;
-  z-index: 1000; 
+  position: absolute;
+  z-index: 800; 
   top: 12px; left: 12px; 
   display: flex; 
   gap: 6px; 
@@ -126,7 +198,7 @@ body {
   padding: 8px 10px; 
   border-radius: 10px; 
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  width: 15%;
+  width: auto;
 }
 
 /* Estilos de los inputs y botones del buscador */
@@ -142,7 +214,7 @@ body {
   padding: 6px 10px; 
   border-radius: 8px; 
   border: 0; 
-  background: var(--color-primario-tarjeta); /* Verde corporativo */
+  background: var(--color-primario); /* Verde corporativo */
   color: white; 
   cursor: pointer;
   transition: background 0.2s;
@@ -159,6 +231,7 @@ color: black;}
 .ui-panel .popup-card { 
   width: 100%;
   padding: 10px 6px;
+  
 }
 
 .popup-title {
@@ -270,7 +343,7 @@ color: black;}
 
 /* La cajita gris oscura donde va el número */
 .solar-value-box {
-  background-color: rgba(98, 119, 112, 0.4);
+  background-color: rgba(98, 119, 112, 0.8);
   color: white;
   padding: 6px 4px;
   border-radius: 8px;
