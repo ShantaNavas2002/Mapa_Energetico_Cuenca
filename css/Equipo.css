@@ -41,13 +41,19 @@
             padding: 40px 0;
         }
 
-        .carousel-track {
-            display: flex;
-            gap: var(--spacing-md);
-            width: max-content;
-            animation: scroll-infinite 40s linear infinite;
-            transform-style: preserve-3d;
-        }
+        /* AGREGAR ESTO AL CSS */
+.carousel-track {
+    display: flex;
+    gap: var(--spacing-md);
+    width: max-content;
+    transform-style: preserve-3d;
+    cursor: grab; /* Manito abierta */
+    will-change: transform; /* Optimización de rendimiento */
+}
+
+.carousel-track.grabbing {
+    cursor: grabbing; /* Manito cerrada al agarrar */
+}
 
         .carousel-track:hover {
             animation-play-state: paused;

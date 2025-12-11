@@ -97,47 +97,183 @@
     </footer>
 
     <script>
-        // Datos del equipo
-        const teamMembers = [
-            
-            { name: "Jefferson Torres-Quezada", position: "Doctor en Arquitectura", email: "jefferson.torres@ucacue.edu.ec", image: "images/Jefferson Torres.jpeg" },
-            { name: "Antonio Barragán", position: "Doctor en Energías Renovabless", email: "antonio.barragan@ucuenca.edu.ec", image: "images/Antonio Barragan.png" },
-            { name: "Christian Contreras", position: "Doctor en Estudios Latinoamericanos", email: "chcontrerase@ucacue.edu.ec", image: "images/Christian Contreras.png" },
-            { name: "Geovany Albarracín ", position: "Doctor en medio ambiente", email: "steven@consiso.com", image: "images/Geovani Albarracin.png" },
-            { name: "Steven Lopez-Sanchez", position: "Arquitecto", email: "steven2603lopez@outlook.es", image: "images/Steven Lopez.png" },
-            { name: "Atila Avila-Argudo", position: "Arquitecto", email: "atila.avila@ucacue.edu.ec", image: "images/Atila Avila.jpg" },
-            { name: "Santiago Navas Falconi", position: "Diseñador Multimedia", email: "alex.navas@ucacue.edu.ec", image: "images/SantiagoNavas.png" }
-        ];
+    // 1. DATOS DEL EQUIPO
+    const teamMembers = [
+        { name: "Jefferson Torres-Quezada", position: "Doctor en Arquitectura", email: "jefferson.torres@ucacue.edu.ec", image: "images/Jefferson Torres.jpeg" },
+        { name: "Antonio Barragán", position: "Doctor en Energías Renovabless", email: "antonio.barragan@ucuenca.edu.ec", image: "images/Antonio Barragan.png" },
+        { name: "Christian Contreras", position: "Doctor en Estudios Latinoamericanos", email: "chcontrerase@ucacue.edu.ec", image: "images/Christian Contreras.png" },
+        { name: "Geovany Albarracín ", position: "Doctor en medio ambiente", email: "steven@consiso.com", image: "images/Geovani Albarracin.png" },
+        { name: "Steven Lopez-Sanchez", position: "Arquitecto", email: "steven2603lopez@outlook.es", image: "images/Steven Lopez.png" },
+        { name: "Atila Avila-Argudo", position: "Arquitecto", email: "atila.avila@ucacue.edu.ec", image: "images/Atila Avila.jpg" },
+        { name: "Santiago Navas Falconi", position: "Diseñador Multimedia", email: "alex.navas@ucacue.edu.ec", image: "images/SantiagoNavas.png" }
+    ];
 
-        // Crear las tarjetas del equipo
-        function createTeamCard(member) {
-            return `
-                <div class="team-card">
-                    <img src="${member.image}" alt="Foto de ${member.name}">
-                    <div class="card-info-overlay">
-                        <h3 class="card-nombre">${member.name}</h3>
-                        <p class="card-cargo">${member.position}</p>
-                        <a href="mailto:${member.email}" class="card-email">
-                            <i class="fa-regular fa-envelope"></i> ${member.email}
-                        </a>
-                    </div>
+    function createTeamCard(member) {
+        return `
+            <div class="team-card">
+                <img src="${member.image}" alt="Foto de ${member.name}" draggable="false">
+                <div class="card-info-overlay">
+                    <h3 class="card-nombre">${member.name}</h3>
+                    <p class="card-cargo">${member.position}</p>
+                    <a href="mailto:${member.email}" class="card-email">
+                        <i class="fa-regular fa-envelope"></i> ${member.email}
+                    </a>
                 </div>
-            `;
+            </div>
+        `;
+    }
+
+    // 2. VARIABLES DE CONTROL
+    const track = document.getElementById('carouselTrack');
+    
+    // Configuración
+    const autoPlaySpeed = 0.8; // Velocidad automática (px por frame). Más alto = más rápido.
+    
+    // Estado
+    let isDragging = false;
+    let isHovering = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID;
+    let itemWidth = 0;
+    let totalWidth = 0;
+
+    function initCarousel() {
+        // Duplicamos x3 para asegurar el bucle infinito visual
+        const cardsHTML = teamMembers.map(createTeamCard).join('');
+        track.innerHTML = cardsHTML + cardsHTML + cardsHTML;
+
+        // Calculamos dimensiones iniciales
+        setTimeout(() => {
+            calculateDimensions();
+            // Posición inicial en el set del medio
+            currentTranslate = -totalWidth;
+            prevTranslate = -totalWidth;
+            
+            // Iniciamos el "Game Loop"
+            requestAnimationFrame(animate);
+        }, 100);
+    }
+
+    function calculateDimensions() {
+        const firstCard = track.querySelector('.team-card');
+        if (firstCard) {
+            const style = window.getComputedStyle(track);
+            const gap = parseFloat(style.gap) || 24;
+            itemWidth = firstCard.offsetWidth + gap;
+            totalWidth = itemWidth * teamMembers.length;
+        }
+    }
+
+    // --- EVENTOS DEL MOUSE Y TÁCTIL ---
+    
+    // Hover: Pausar cuando el mouse está encima
+    track.addEventListener('mouseenter', () => isHovering = true);
+    track.addEventListener('mouseleave', () => { 
+        isHovering = false; 
+        if(isDragging) touchEnd(); 
+    });
+
+    // Drag: Arrastrar
+    track.addEventListener('mousedown', touchStart);
+    track.addEventListener('touchstart', touchStart);
+
+    track.addEventListener('mouseup', touchEnd);
+    track.addEventListener('touchend', touchEnd);
+
+    track.addEventListener('mousemove', touchMove);
+    track.addEventListener('touchmove', touchMove);
+
+    // Scroll: Rueda del ratón
+    track.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        isHovering = true; // Consideramos el scroll como interacción activa
+        const scrollSpeed = 0.2; 
+        currentTranslate -= e.deltaY * scrollSpeed;
+        
+        // Pequeño truco: quitamos el "hover" después de un momento si no mueve el mouse
+        clearTimeout(window.scrollTimeout);
+        window.scrollTimeout = setTimeout(() => isHovering = false, 1000);
+    }, { passive: false });
+
+
+    function touchStart(event) {
+        isDragging = true;
+        track.classList.add('grabbing');
+        startPos = getPositionX(event);
+        // Importante: Actualizamos prevTranslate para que el arrastre empiece 
+        // exactamente donde estaba la animación automática
+        prevTranslate = currentTranslate; 
+    }
+
+    function touchEnd() {
+        isDragging = false;
+        track.classList.remove('grabbing');
+        // Guardamos la posición final para la próxima interacción
+        prevTranslate = currentTranslate;
+    }
+
+    function touchMove(event) {
+        if (isDragging) {
+            const currentPosition = getPositionX(event);
+            const currentMove = currentPosition - startPos;
+            currentTranslate = prevTranslate + currentMove;
+        }
+    }
+
+    function getPositionX(event) {
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    }
+
+    // --- EL BUCLE PRINCIPAL (GAME LOOP) ---
+    function animate() {
+        // 1. Calcular Movimiento Automático
+        // Solo nos movemos solos si NO estás arrastrando y NO estás con el mouse encima
+        if (!isDragging && !isHovering) {
+            currentTranslate -= autoPlaySpeed;
         }
 
-        // Inicializar el carrusel
-        function initCarousel() {
-            const track = document.getElementById('carouselTrack');
-            
-            // Crear las tarjetas originales
-            const cardsHTML = teamMembers.map(createTeamCard).join('');
-            
-            // Duplicar las tarjetas para el efecto infinito
-            track.innerHTML = cardsHTML + cardsHTML;
-        }
+        // 2. Verificar Bucle Infinito (Teletransportación)
+        checkInfiniteLoop();
 
-        // Inicializar cuando cargue la página
-        window.addEventListener('DOMContentLoaded', initCarousel);
-    </script>
+        // 3. Aplicar Movimiento
+        setSliderPosition();
+
+        // 4. Repetir en el siguiente frame
+        requestAnimationFrame(animate);
+    }
+
+    function checkInfiniteLoop() {
+        // Límite Izquierdo (hacia el final)
+        if (currentTranslate <= -(totalWidth * 2)) {
+            // Saltamos hacia atrás un set completo
+            const offset = totalWidth;
+            currentTranslate += offset;
+            prevTranslate += offset;
+            startPos += offset; 
+        }
+        
+        // Límite Derecho (hacia el inicio)
+        if (currentTranslate >= -100) { 
+            // Saltamos hacia adelante un set completo
+            const offset = totalWidth;
+            currentTranslate -= offset;
+            prevTranslate -= offset;
+            startPos -= offset;
+        }
+    }
+
+    function setSliderPosition() {
+        track.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    // Inicializar y recalcular en resize
+    window.addEventListener('DOMContentLoaded', initCarousel);
+    window.addEventListener('resize', () => {
+        calculateDimensions();
+    });
+
+</script>
 </body>
 </html>
