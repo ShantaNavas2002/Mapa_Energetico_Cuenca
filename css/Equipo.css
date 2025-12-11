@@ -22,19 +22,8 @@
             overflow-x: hidden;
         }
 
-        .page-header {
-            text-align: center;
-            padding: var(--spacing-xl) var(--spacing-md);
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .page-header h1 {
-            color: var(--color-primario);
-            font-size: 2.5rem;
-            margin-bottom: var(--spacing-sm);
-        }
-
+       
+        
         /* CARRUSEL INFINITO CON CURVA */
         .carousel-container {
             width: 100%;
@@ -189,7 +178,7 @@
         }
 
         .quienes-somos-section h2 {
-            color: var(--color-primario);
+            color: var(--color-secundario);
             font-size: 2.2rem;
             margin-bottom: var(--spacing-md);
             text-transform: uppercase;
@@ -205,7 +194,7 @@
 
         /* FOOTER */
         .site-footer {
-            background-color: rgba(98, 119, 112, 0.1);
+            background-color: rgba(98, 119, 112, 0.8);
             color: #fff;
             padding: var(--spacing-xl) var(--spacing-md);
             margin-top: var(--spacing-xl);
@@ -261,20 +250,74 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .team-card {
-                flex: 0 0 220px;
-                height: 320px;
-            }
+       
 
-            .carousel-track {
-                animation-duration: 30s;
-            }
+            /* SECCIÓN QUIÉNES SOMOS - Rediseñada */
+.quienes-somos-section {
+    width: 100%;
+    max-width: 1200px; /* Aumentamos el ancho para que respire */
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+    /* Eliminamos background, border-radius y box-shadow para quitar el "recuadro" */
+    background: transparent; 
+    box-shadow: none;
+    margin-bottom: var(--spacing-xl);
+}
 
-            .page-header h1 {
-                font-size: 2rem;
-            }
+.qs-container {
+    display: flex;
+    align-items: center; /* Centra verticalmente texto y logo */
+    justify-content: center;
+    gap: var(--spacing-lg); /* Espacio entre la línea y el logo */
+}
 
-            .quienes-somos-section h2 {
-                font-size: 1.8rem;
-            }
+.qs-text {
+    flex: 1; /* El texto ocupa el espacio disponible */
+    text-align: right; /* Alineamos el texto hacia la línea divisoria */
+    padding-right: var(--spacing-lg); /* Espacio entre texto y línea */
+    /* AQUI ESTÁ LA LÍNEA SEPARADORA */
+    border-right: 2px solid var(--color-primario); 
+}
+
+.qs-text h2 {
+    color: var(--color-primario);
+    font-size: 2.5rem; /* Un poco más grande para impactar */
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.qs-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: var(--spacing-sm);
+}
+
+.qs-logo-container {
+    flex: 0 0 300px; /* Ancho fijo para el contenedor del logo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* RESPONSIVE PARA EL NUEVO DISEÑO */
+@media (max-width: 768px) {
+    .qs-container {
+        flex-direction: column-reverse; /* En móvil, el logo arriba o abajo según prefieras */
+        gap: var(--spacing-md);
+    }
+
+    .qs-text {
+        flex: 1; 
+    /* Cambiamos de 'right' a 'justify' */
+    text-align: justify; 
+    padding-right: var(--spacing-lg);
+    }
+    
+    .qs-logo-container {
+        flex: auto;
+        width: 150px; /* Logo más pequeño en móvil */
+    }
+}

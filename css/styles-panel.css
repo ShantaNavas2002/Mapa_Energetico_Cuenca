@@ -420,3 +420,23 @@ color: black;}
  }
 
 
+ .switch-container {
+    position: fixed; /* Cambiado de absolute a fixed */
+    top: 90%;      /* Bájalo un poco más para que no choque con el buscador */
+    left: 1%;     /* Un poco más de margen a la derecha */
+    z-index: 850;   /* Un número muy alto para ganarle a Leaflet y al Header */
+    background: var(--color-primario);
+    padding: 10px 15px;
+    border-radius: 50px; /* Bordes más redondos se ven más modernos */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+}
+
+/* El resto del CSS (.switch, .slider, etc.) déjalo igual, solo cambia el contenedor de arriba */
+
