@@ -49,6 +49,9 @@
             <datalist id="claveOptions"></datalist>
             <button id="claveGo" >Buscar</button>
           </div>
+          
+          
+
         </div>
         
         <div id="featurePanel" class="ui-panel hidden" role="dialog" aria-label="Ficha de predio">
@@ -335,7 +338,28 @@ function buildPanelContent(feature, sectorTitle) {
     // ========================================================================
     
     function solarCard(imgSrc, label, key, suffix) {
-        var valor = val(key);
+        // 1. Obtenemos el valor crudo directamente de las propiedades (p)
+        var rawValue = p[key]; 
+        var valor = '-'; // Valor por defecto si es nulo
+
+        // Verificamos si existe el dato
+        if (rawValue !== null && rawValue !== undefined) {
+            
+            // 2. LISTA DE CLAVES QUE NECESITAN DECIMALES
+            // (Asegúrate de usar los nombres exactos que tienes en tu código: RES_02, etc.)
+            var clavesConDecimales = ['RES_02', 'RES_04', 'RES_06', 'RES_08'];
+
+            if (clavesConDecimales.includes(key)) {
+                // 3. APLICAMOS EL FORMATO: Convertir a número y fijar 2 decimales
+                // Number() asegura que sea número, toFixed(2) corta a 2 decimales
+                valor = Number(rawValue).toFixed(2);
+            } else {
+                // Para el resto (como número de paneles), lo dejamos como texto normal
+                valor = String(rawValue);
+            }
+        }
+
+        // Agregamos el sufijo ($, años, etc) si el valor es válido
         if (suffix && valor !== '-') valor += ' ' + suffix;
 
         return `
@@ -352,14 +376,33 @@ function buildPanelContent(feature, sectorTitle) {
 
     return `
     <div class="popup-card">
-      <div class="popup-title">
-        <span class="">Clave Catastral:</span>
-        <strong>${val('CLAVE')}</strong>
-        <span class="key mono">Numero de Medidores:</span>
-        <strong>${val('X_5')}</strong>
-        <span class="key mono">Numero de paneles:</span>
-        <strong>${val('X_6')}</strong>
+      
+      <div class="popup-title" style="display: flex; justify-content: space-between; align-items: center;">
+        
+        <div style="text-align: left; margin-left: 1%;">
+            <span style="font-size: 0.9rem; display: block; opacity: 0.8;">Clave Catastral</span>
+            <strong style="font-size: 1.2rem;">${val('CLAVE')}</strong>
+        </div>
+
+        <div style="display: flex; gap: 20px; text-align: right; margin-right: 7%;">
+            
+            <div style="display: flex; flex-direction: column;">
+                <span class="key mono" style="font-size: 0.9rem; opacity: 0.8;">Nº Medidores</span>
+                <strong style="font-size: 1.1rem;">${val('X_5')}</strong>
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <span class="key mono" style="font-size: 0.9rem; opacity: 0.8;">Nº Pisos</span>
+                <strong style="font-size: 1.1rem;">${val('X_6')}</strong>
+            </div>
+
+        </div>
+
       </div>
+
+        
+      </div>
+      
 
       <details class="section" data-section="datos" open>
         <summary>
