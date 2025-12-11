@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consiso - Metodología</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/EstructuraBase.Css">
+    <link rel="stylesheet" href="css/Equipo.css">
+    <link rel="stylesheet" href="css/barralateral.css">
+    
+    
+    <!-- JavaScript -->
+    
+    <script src="js/menu.js" ></script>
+    
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+<header class="mi-grid-3">
+        <div class="position-btn">
+    <div id="menu-container"></div>
+        <button class="btn-menu" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+        <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg"  >
+        <img class="Logo-consiso" src="images/logoConsiso.svg" alt="logo de Consiso">
+</header>
+    <div class="page-header">
+        <h1>Nuestro Equipo</h1>
+        <p>Conoce a las personas detrás de <strong>Cuenca Solar</p>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-viewport">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Las tarjetas se duplicarán automáticamente con JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="quienes-somos-section">
+        <h2>Quiénes Somos</h2>
+        <p>
+            Somos un grupo multidisciplinario dedicado al análisis urbano sostenible.
+            Combinamos tecnología, datos y experiencia para crear soluciones innovadoras.
+        </p>
+        <p>
+            Nuestro objetivo es visualizar datos energéticos para un futuro mejor y más sostenible.
+        </p>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-col contact-section">
+                <h2>Contacto</h2>
+                <div class="contact-links">
+                    <a href="https://www.instagram.com/consisolab" target="_blank" class="link-item">
+                        <i class="fa-brands fa-instagram"></i> <span>@ConsisoLab</span>
+                    </a>
+                    <a href="mailto:consisolab@ucacue.edu.ec" class="link-item">
+                        <i class="fa-regular fa-envelope"></i> <span>consisolab@ucacue.edu.ec</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h2>Contribuidores</h2>
+                <div class="avatar-group">
+                    <div class="avatar" style="background: white; width: 60px; height: 60px; border-radius: 50%;"></div>
+                    <div class="avatar" style="background: white; width: 60px; height: 60px; border-radius: 50%;"></div>
+                    <div class="avatar" style="background: white; width: 60px; height: 60px; border-radius: 50%;"></div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h2>Sobre la Web</h2>
+                <p class="web-info">
+                    Esta plataforma visualiza datos energéticos<br>
+                    geo-referenciados para el análisis<br>
+                    urbano sostenible.
+                </p>
+                <p class="copyright">© 2025 Consiso</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Datos del equipo
+        const teamMembers = [
+            
+            { name: "Jefferson Torres-Quezada", position: "Doctor en Arquitectura", email: "jefferson.torres@ucacue.edu.ec", image: "images/Jefferson Torres.jpeg" },
+            { name: "Antonio Barragán", position: "Doctor en Energías Renovabless", email: "antonio.barragan@ucuenca.edu.ec", image: "images/Antonio Barragan.png" },
+            { name: "Christian Contreras", position: "Doctor en Estudios Latinoamericanos", email: "chcontrerase@ucacue.edu.ec", image: "images/Christian Contreras.png" },
+            { name: "Geovany Albarracín ", position: "Doctor en medio ambiente", email: "steven@consiso.com", image: "images/Geovani Albarracin.png" },
+            { name: "Steven Lopez-Sanchez", position: "Arquitecto", email: "steven2603lopez@outlook.es", image: "images/Steven Lopez.png" },
+            { name: "Atila Avila-Argudo", position: "Arquitecto", email: "atila.avila@ucacue.edu.ec", image: "images/Atila Avila.jpg" },
+            { name: "Santiago Navas Falconi", position: "Diseñador Multimedia", email: "alex.navas@ucacue.edu.ec", image: "images/SantiagoNavas.png" }
+        ];
+
+        // Crear las tarjetas del equipo
+        function createTeamCard(member) {
+            return `
+                <div class="team-card">
+                    <img src="${member.image}" alt="Foto de ${member.name}">
+                    <div class="card-info-overlay">
+                        <h3 class="card-nombre">${member.name}</h3>
+                        <p class="card-cargo">${member.position}</p>
+                        <a href="mailto:${member.email}" class="card-email">
+                            <i class="fa-regular fa-envelope"></i> ${member.email}
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Inicializar el carrusel
+        function initCarousel() {
+            const track = document.getElementById('carouselTrack');
+            
+            // Crear las tarjetas originales
+            const cardsHTML = teamMembers.map(createTeamCard).join('');
+            
+            // Duplicar las tarjetas para el efecto infinito
+            track.innerHTML = cardsHTML + cardsHTML;
+        }
+
+        // Inicializar cuando cargue la página
+        window.addEventListener('DOMContentLoaded', initCarousel);
+    </script>
+</body>
+</html>
