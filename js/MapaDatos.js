@@ -18,7 +18,7 @@ var highlightLayer;
         zoomControl:false, maxZoom:28, minZoom:14
         }).fitBounds([[-2.908626027397235,-79.04784062706698],[-2.8875146284421516,-79.01489480969526]]);
         var hash = new L.Hash(map);
-        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        map.attributionControl.setPrefix('<a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; ');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         
         var zoomControl = L.control.zoom({

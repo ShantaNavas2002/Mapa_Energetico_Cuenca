@@ -36,6 +36,98 @@ body {
     overflow-x: hidden;
 }
 
+.map-legend {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  background: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 800;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Encabezado de la leyenda */
+.legend-header {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.legend-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Contenedor de items */
+.legend-items {
+  display: flex;
+  flex-direction: row;
+  
+  align-items: center;
+}
+
+/* Cada item de la leyenda */
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Cuadro de color */
+.legend-color {
+  width: 50px;
+  height: 20px;
+  
+}
+
+/* Etiqueta de texto */
+.legend-label {
+  font-size: 11px;
+  color: #444;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Responsive: adaptar en pantallas pequeñas */
+@media (max-width: 768px) {
+  .map-legend {
+    bottom: 15px;
+    left: 10px;
+    padding: 10px 15px;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: calc(100vw - 20px);
+  }
+  
+  .legend-header h3 {
+    font-size: 12px;
+  }
+  
+  .legend-items {
+    gap: 8px;
+  }
+  
+  .legend-color {
+    width: 25px;
+    height: 18px;
+  }
+  
+  .legend-label {
+    font-size: 10px;
+  }
+}
+
+
+
 /* Nueva clase para el enlace */
 .link-logo {
     justify-self: center; /* ESTO es lo que mantiene el logo centrado en tu grid */
