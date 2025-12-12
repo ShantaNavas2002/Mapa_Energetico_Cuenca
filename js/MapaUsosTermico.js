@@ -217,15 +217,38 @@ var __claveKeys = Array.from(__claveIndex.keys());
 
 
 
-// =============================================================================
-// CAPA DE CATEGORÍAS (SHAPE_FINAL_WEBDATOS_WEB_FINAL_TOTAL_0)
-// =============================================================================
-
-// Verificar que el archivo se cargó
+function getColorByCategoria(categoria) {
+    if (!categoria) return '#CCCCCC'; // Color por defecto
+    
+    var cat = String(categoria).toLowerCase().trim();
+    
+    // Mapeo de categorías a colores según tu leyenda
+    if (cat.includes('servicio')) {
+        return ' #7F8C18'; // Naranja - Servicio
+    }
+    if (cat.includes('comercio')) {
+        return '#3d4717ff'; // Naranja claro - Comercio
+    }
+    if (cat.includes('desuso') || cat.includes('vacante')) {
+        return '#D9D9D9'; // Café claro - Lote Vacante
+    }
+    if (cat.includes('espacio') || cat.includes('abierto') || cat.includes('parque') || cat.includes('plaza')) {
+        return '#F2DB94'; // Verde claro - Espacio Público Abierto
+    }
+    if (cat.includes('equipamiento')) {
+        return '#595347'; // Rojo - Equipamiento Público
+    }
+    if (cat.includes('vivienda') || cat.includes('residencia')) {
+        return '#2d4796ff'; // Azul - Residencia
+    }
+    
+    return '#CCCCCC'; // Color por defecto
+}
 
 
 // Estilo verde para la capa de categorías
-function style_CATEGORIAS_4() {
+function style_CATEGORIAS_4(feature) {
+    var categoria = feature.properties.CAT_GENERA;
     return { 
         pane: 'pane_CATEGORIAS_4', 
         opacity: 1, 
@@ -233,7 +256,7 @@ function style_CATEGORIAS_4() {
         weight: 1.0, 
         fill: true, 
         fillOpacity: 0.7, 
-        fillColor: '#4ade80',  // Verde
+        fillColor: getColorByCategoria(categoria),  // Color dinámico según categoría
         interactive: true 
     };
 }
@@ -246,7 +269,7 @@ map.getPane('pane_CATEGORIAS_4').style.zIndex = 404;
 var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
     interactive: true,
     pane: 'pane_CATEGORIAS_4',
-    style: style_CATEGORIAS_4,
+    style: style_CATEGORIAS_4,  // Ahora recibe el feature
     onEachFeature: function(feature, layer) {
         var p = feature.properties;
         
@@ -256,7 +279,6 @@ var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
             
             var cat = String(categoria).toLowerCase().trim();
             
-            // Mapeo de categorías a imágenes (ahora todo en minúsculas)
             if (cat.includes('vivienda')) {
                 return 'images/Vivienda-Residencia.png';
             }
@@ -270,7 +292,7 @@ var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
                 return 'images/Equipamiento-Publico.png';
             }
             if (cat.includes('desuso') || cat.includes('vacante')) {
-                return 'images/Desuso-Vacantes.png';  // ← AGREGUÉ .png
+                return 'images/Desuso-Vacantes.png';
             }
             if (cat.includes('espacio') || cat.includes('abierto')) {
                 return 'images/Parques-Plaza.png';
@@ -279,14 +301,9 @@ var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
             return 'images/default.jpg'; 
         }
         
-        // Crear el contenido del popup
         var titulo = p.CAT_GENERA || 'Sin Información';
         var imagen = getImagenCategoria(p.CAT_GENERA);
         var actividadPB = p.ACT_PB || 'Sin información';
-        
-        // DEBUG: Agregar console.log temporal para verificar
-        console.log('Categoría:', titulo);
-        console.log('Imagen seleccionada:', imagen);
         
         var popupContent = `
             <div style="min-width: 250px; padding: 10px; font-family: 'Roboto', sans-serif;">
@@ -300,7 +317,7 @@ var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
                 <img src="${imagen}" alt="${titulo}" 
                      style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; 
                             box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                     onerror="this.onerror=null; this.src='images/default.jpg'; console.error('No se pudo cargar:', '${imagen}');">
+                     onerror="this.onerror=null; this.src='images/default.jpg';">
                 
                 <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border-left: 4px solid rgb(238 211 168);">
                     <p style="margin: 0; color: #64748b; font-size: 0.85rem; font-weight: 500; 
@@ -314,10 +331,8 @@ var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
             </div>
         `;
         
-        // Bind popup que aparece en hover
         layer.bindPopup(popupContent);
         
-        // Eventos de hover
         layer.on({
             mouseover: function(e) {
                 this.openPopup();
@@ -332,9 +347,9 @@ var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
                 }
             }
         });
-        
     }
 });
+
 map.addLayer(layer_CATEGORIAS_4);
 
 // ============= FUNCIÓN DE BÚSQUEDA SEGÚN MODO ACTIVO =============
