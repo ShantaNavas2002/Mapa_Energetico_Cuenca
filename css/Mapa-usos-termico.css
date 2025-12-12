@@ -1,12 +1,12 @@
 .map-legend-usos {
   position: absolute;
   bottom: 30px;
-  left: 20px;
+  right: 20px;
   background: white;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  z-index: 1000;
+  z-index: 800;
   font-family: 'Roboto', sans-serif;
   min-width: 200px;
 }
@@ -67,7 +67,7 @@
 @media (max-width: 768px) {
   .map-legend-usos {
     bottom: 15px;
-    left: 10px;
+    right: 10px;
     padding: 12px;
     min-width: 180px;
   }
