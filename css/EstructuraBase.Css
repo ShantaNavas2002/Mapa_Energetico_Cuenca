@@ -158,6 +158,20 @@ input, button, textarea, select {
     justify-self: center;
 }
 
+/* Nueva clase para el enlace */
+.link-logo {
+    justify-self: center; /* ESTO es lo que mantiene el logo centrado en tu grid */
+    display: flex;        /* Elimina espacios fantasma debajo de la imagen */
+    align-items: center;  /* Asegura centrado vertical si fuera necesario */
+    cursor: pointer;      /* Manito al pasar el mouse */
+}
+
+/* Ajuste opcional: asegura que la imagen no tenga bordes ni márgenes extraños */
+.link-logo .Logo-cuencasolar {
+    /* Ya no es necesario 'justify-self: center' aquí porque lo hace el padre (.link-logo), 
+       pero si lo dejas no pasa nada malo. */
+    display: block; 
+}
 
 
 
@@ -201,6 +215,36 @@ input, button, textarea, select {
     justify-self: center;
 }
 
+/* ========================================
+   AJUSTE LOGOS CONTRIBUIDORES (FOOTER)
+   ======================================== */
+
+/* 1. Ponemos el contenedor en columna */
+.footer-col .avatar-group {
+    display: flex;
+    flex-direction: column; /* Lista vertical */
+    align-items: center;    /* Centrados */
+    gap: 1px;              /* Espacio entre cada logo */
+}
+
+/* 2. Transformamos los "avatars" en logos rectangulares */
+.footer-col .avatar {
+    width: 120px;           /* Ancho fijo idéntico para todos */
+    height: 40px;          /* Alto fijo idéntico para todos */
+    object-fit: contain;    /* CLAVE: Evita que la imagen se deforme/estire */
+    
+    /* Reseteo de estilos viejos */
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto hover opcional para que se vea interactivo */
+.footer-col .avatar:hover {
+    transform: scale(1.05);
+}
+
 .footer-col {
     display: flex;
     flex-direction: column;
@@ -234,6 +278,7 @@ input, button, textarea, select {
     border: 3px solid #262626;
     transition: transform var(--transition-speed) ease;
 }
+
 
 .avatar:hover {
     transform: translateY(-5px);

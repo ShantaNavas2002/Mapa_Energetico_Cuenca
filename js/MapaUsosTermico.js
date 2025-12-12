@@ -1,0 +1,373 @@
+var highlightLayer;
+        function highlightFeature(e) {
+            if (__selectedLayer === e.target) return;
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString' || e.target.feature.geometry.type === 'MultiLineString') {
+            highlightLayer.setStyle({
+                color: '#ffff00',
+            });
+            } else {
+            highlightLayer.setStyle({
+                fillColor: 'rgba(98, 119, 112)',
+                fillOpacity: 1
+            });
+            }
+        }
+        var map = L.map('map', {
+        zoomControl:false, maxZoom:28, minZoom:14
+        }).fitBounds([[-2.908626027397235,-79.04784062706698],[-2.8875146284421516,-79.01489480969526]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        
+        map.createPane('pane_Positronretina_0');
+        map.getPane('pane_Positronretina_0').style.zIndex = 400;
+        var layer_Positronretina_0 = L.tileLayer('https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+            pane: 'pane_Positronretina_0',
+            opacity: 1.0,
+            attribution: '<a href="https://cartodb.com/basemaps/">Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 5,
+            maxNativeZoom: 20
+        });
+        layer_Positronretina_0;
+        map.addLayer(layer_Positronretina_0);
+
+        var __selectedLayer = null;
+
+// Devuelve  elementos SVG del layer 
+function getLayerElements(layer){
+  var el = (typeof layer.getElement === 'function') ? layer.getElement() : layer._path;
+  if (!el) return [];
+  if (el.tagName && el.tagName.toLowerCase() === 'g') {
+    return Array.from(el.querySelectorAll('path.leaflet-interactive'));
+  }
+  return [el];
+}
+
+function markSelected(layer){
+
+  if (typeof layer.bringToFront === 'function') layer.bringToFront();
+
+  if (typeof layer.setStyle === 'function') {
+    layer.setStyle({ weight: 3, color: '#2563eb', fillOpacity: 0.85 });
+  }
+  getLayerElements(layer).forEach(function(p){ if (p) p.classList.add('feature-selected'); });
+}
+
+function unmarkSelected(layer){
+  if (!layer) return;
+  // Reset de estilo de la capa padre 
+  for (var i in layer._eventParents) {
+    if (typeof layer._eventParents[i].resetStyle === 'function') {
+      layer._eventParents[i].resetStyle(layer);
+    }
+  }
+  getLayerElements(layer).forEach(function(p){ if (p) p.classList.remove('feature-selected'); });
+}
+
+function selectLayer(layer){
+  if (__selectedLayer && __selectedLayer !== layer) {
+    unmarkSelected(__selectedLayer);
+  }
+  __selectedLayer = layer;
+  markSelected(layer);
+}
+
+// Cerrar panel 
+function closeFeaturePanel(){
+  var panel = document.getElementById('featurePanel');
+  if (panel) panel.classList.add('hidden');
+  if (__selectedLayer) {
+    unmarkSelected(__selectedLayer);
+    __selectedLayer = null;
+  }
+}
+
+// Conecta tecla ESC una sola vez
+(function wireCloseOnce(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('panelCloseBtn');
+    if (btn && !btn._wired){
+      btn._wired = true;
+      btn.addEventListener('click', closeFeaturePanel);
+      document.addEventListener('keydown', function(ev){
+        if (ev.key === 'Escape') closeFeaturePanel();
+      });
+    }
+  });
+})();
+
+// =============================================================================
+//  generar Graficos (Paneles etc)
+
+function crearGestorCapa(tituloSector) {
+    return function(feature, layer) {
+        
+        layer.on({
+            mouseout: function(e) {
+                for (var i in e.target._eventParents) {
+                    if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                }
+                if (__selectedLayer === e.target) markSelected(e.target);
+            },
+            mouseover: highlightFeature,
+        });
+
+        // 2. Clic
+        layer.on('click', function() {
+            selectLayer(layer);
+            
+            
+            var html = buildPanelContent(feature, tituloSector);
+            
+            
+            var panel = document.getElementById('featurePanel');
+            var content = document.getElementById('featurePanelContent');
+            content.innerHTML = html;
+            panel.classList.remove('hidden');
+
+            
+            var groups = panel.querySelectorAll('details.section');
+            groups.forEach(function(d){
+                d.addEventListener('toggle', function(){
+                    if (d.open) groups.forEach(o => { if (o!==d) o.removeAttribute('open'); });
+                    var chev = d.querySelector('.chev');
+                    if (chev) chev.style.transform = d.open ? 'rotate(180deg)' : 'rotate(0deg)';
+                });
+            });
+
+           
+            setTimeout(function() { initChart(feature); }, 50);
+        });
+    };
+}
+
+// =============================================================================
+// 4. DEFINICIÓN DE CAPAS 
+
+
+
+// ===================
+//  Buscador por CLAVE 
+
+
+var __claveIndex = new Map();
+function registerByClave(layer) {
+  try {
+    var f = layer && layer.feature;
+    var clave = f && f.properties && f.properties.CLAVE;
+    if (clave != null) {
+      var key = String(clave).trim().toUpperCase();
+      __claveIndex.set(key, layer); 
+    }
+  } catch(e) { /* silencio */ }
+}
+
+// Recorre  grupos GeoJSON
+[
+  typeof layer_Usos !== 'undefined' ? layer_Usos : null
+].forEach(function(group){
+  if (!group || typeof group.eachLayer !== 'function') return;
+  group.eachLayer(registerByClave);
+});
+
+// Autocompletar
+var __claveKeys = Array.from(__claveIndex.keys());
+
+// 5 opciones 
+(function wireClaveAutocomplete(){
+  var input = document.getElementById('claveSearch');
+  var dl    = document.getElementById('claveOptions');
+  if (!input || !dl) return;
+
+  input.addEventListener('input', function () {
+    var texto = this.value.trim().toUpperCase();
+
+    // Limpiar opciones actuales
+    dl.innerHTML = '';
+    if (!texto) return;   
+
+    var count = 0;
+    for (var i = 0; i < __claveKeys.length && count < 5; i++) {
+      var key = __claveKeys[i];
+
+      
+      if (key.indexOf(texto) !== -1) {
+        var op = document.createElement('option');
+        op.value = key;
+        dl.appendChild(op);
+        count++;          
+      }
+    }
+  });
+})();
+
+
+// centa el panel
+
+
+
+// =============================================================================
+// CAPA DE CATEGORÍAS (SHAPE_FINAL_WEBDATOS_WEB_FINAL_TOTAL_0)
+// =============================================================================
+
+// Verificar que el archivo se cargó
+
+
+// Estilo verde para la capa de categorías
+function style_CATEGORIAS_4() {
+    return { 
+        pane: 'pane_CATEGORIAS_4', 
+        opacity: 1, 
+        color: 'rgba(35,35,35,1.0)',  // Borde gris oscuro
+        weight: 1.0, 
+        fill: true, 
+        fillOpacity: 0.7, 
+        fillColor: '#4ade80',  // Verde
+        interactive: true 
+    };
+}
+
+// Crear el pane para la capa
+map.createPane('pane_CATEGORIAS_4');
+map.getPane('pane_CATEGORIAS_4').style.zIndex = 404;
+
+// Crear la capa de categorías
+var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
+    interactive: true,
+    pane: 'pane_CATEGORIAS_4',
+    style: style_CATEGORIAS_4,
+    onEachFeature: function(feature, layer) {
+        var p = feature.properties;
+        
+        // Función para obtener la imagen según la categoría
+        function getImagenCategoria(categoria) {
+            if (!categoria) return 'images/default.jpg';
+            
+            var cat = String(categoria).toLowerCase().trim();
+            
+            // Mapeo de categorías a imágenes (ahora todo en minúsculas)
+            if (cat.includes('vivienda')) {
+                return 'images/Vivienda-Residencia.png';
+            }
+            if (cat.includes('servicio')) {
+                return 'images/Servicio.png';
+            }
+            if (cat.includes('comercio')) {
+                return 'images/Comercio.png';
+            }
+            if (cat.includes('equipamiento')) {
+                return 'images/Equipamiento-Publico.png';
+            }
+            if (cat.includes('desuso') || cat.includes('vacante')) {
+                return 'images/Desuso-Vacantes.png';  // ← AGREGUÉ .png
+            }
+            if (cat.includes('espacio') || cat.includes('abierto')) {
+                return 'images/Parques-Plaza.png';
+            }
+            
+            return 'images/default.jpg'; 
+        }
+        
+        // Crear el contenido del popup
+        var titulo = p.CAT_GENERA || 'Sin Información';
+        var imagen = getImagenCategoria(p.CAT_GENERA);
+        var actividadPB = p.ACT_PB || 'Sin información';
+        
+        // DEBUG: Agregar console.log temporal para verificar
+        console.log('Categoría:', titulo);
+        console.log('Imagen seleccionada:', imagen);
+        
+        var popupContent = `
+            <div style="min-width: 250px; padding: 10px; font-family: 'Roboto', sans-serif;">
+                <div style="background: linear-gradient(135deg, rgba(98, 119, 112) 0%, rgba(98, 119, 112) 100%); 
+                            padding: 15px; border-radius: 8px 8px 0 0; margin: -10px -10px 15px -10px;">
+                    <h3 style="margin: 0; color: white; font-size: 1.2rem; font-weight: 700;">
+                        ${titulo}
+                    </h3>
+                </div>
+                
+                <img src="${imagen}" alt="${titulo}" 
+                     style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; 
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+                     onerror="this.onerror=null; this.src='images/default.jpg'; console.error('No se pudo cargar:', '${imagen}');">
+                
+                <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border-left: 4px solid rgb(238 211 168);">
+                    <p style="margin: 0; color: #64748b; font-size: 0.85rem; font-weight: 500; 
+                              text-transform: uppercase; letter-spacing: 0.5px;">
+                        Actividad Principal
+                    </p>
+                    <p style="margin: 5px 0 0 0; color: #1e293b; font-size: 1rem; font-weight: 600;">
+                        ${actividadPB}
+                    </p>
+                </div>
+            </div>
+        `;
+        
+        // Bind popup que aparece en hover
+        layer.bindPopup(popupContent);
+        
+        // Eventos de hover
+        layer.on({
+            mouseover: function(e) {
+                this.openPopup();
+                highlightFeature(e);
+            },
+            mouseout: function(e) {
+                this.closePopup();
+                for (var i in e.target._eventParents) {
+                    if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                }
+            }
+        });
+        
+    }
+});
+map.addLayer(layer_CATEGORIAS_4);
+
+// ============= FUNCIÓN DE BÚSQUEDA SEGÚN MODO ACTIVO =============
+
+// ============= EVENTOS DEL BUSCADOR =============
+(function wireSearchUI(){
+  var input = document.getElementById('claveSearch');
+  var btn = document.getElementById('claveGo');
+  if (!input || !btn) return;
+
+  btn.addEventListener('click', function(){
+    buscarYAbrir(input.value);
+  });
+
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') buscarYAbrir(input.value);
+  });
+})();
+
+
+
+
+(function wireSearchUI(){
+  var input = document.getElementById('claveSearch');
+  var btn   = document.getElementById('claveGo');
+  if (!input || !btn) return;
+
+  btn.addEventListener('click', function(){
+    goToClave(input.value);
+  });
+
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') goToClave(input.value);
+  });
+  
+})();

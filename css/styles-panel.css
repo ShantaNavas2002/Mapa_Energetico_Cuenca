@@ -36,7 +36,20 @@ body {
     overflow-x: hidden;
 }
 
+/* Nueva clase para el enlace */
+.link-logo {
+    justify-self: center; /* ESTO es lo que mantiene el logo centrado en tu grid */
+    display: flex;        /* Elimina espacios fantasma debajo de la imagen */
+    align-items: center;  /* Asegura centrado vertical si fuera necesario */
+    cursor: pointer;      /* Manito al pasar el mouse */
+}
 
+/* Ajuste opcional: asegura que la imagen no tenga bordes ni márgenes extraños */
+.link-logo .Logo-cuencasolar {
+    /* Ya no es necesario 'justify-self: center' aquí porque lo hace el padre (.link-logo), 
+       pero si lo dejas no pasa nada malo. */
+    display: block; 
+}
 
 /* ==========================================================================
    2. UI FLOTANTE (PANEL LATERAL Y BUSCADOR)
