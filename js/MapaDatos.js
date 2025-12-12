@@ -334,7 +334,7 @@ function buildPanelContent(feature, sectorTitle) {
       <details class="section" data-section="datos" open>
         <summary>
             <div class="summary-content">
-                <span>Implementacion de paneles solares Sistemas On-Grid (Sin bateria)</span>
+                <span>Implementación de paneles solares Sistemas On-Grid (Sin baterías)</span>
                 <img src="images/UI_Pestaña2.svg" class="header-img" alt="Sin batería">
             </div>
             <span class="chev">▾</span>
@@ -353,7 +353,7 @@ function buildPanelContent(feature, sectorTitle) {
       <details class="section" data-section="bateria">
         <summary>
             <div class="summary-content">
-                <span>Implementacion de paneles solares Sistemas Off-Grid (Con bateria)</span>
+                <span>Implementación de paneles solares Sistemas Off-Grid (Con baterías)</span>
                 <img src="images/UI_Pestaña1.svg" class="header-img" alt="Con batería">
             </div>
             <span class="chev">▾</span>
