@@ -320,7 +320,7 @@ function buildPanelContent(feature, sectorTitle) {
 
             <div style="display: flex; flex-direction: column;">
                 <span class="key mono" style="font-size: 0.9rem; opacity: 0.8;">Nº Pisos</span>
-                <strong style="font-size: 1.1rem;">${val('X_6')}</strong>
+                <strong style="font-size: 1.1rem;">${val('X_4')}</strong>
             </div>
 
         </div>
@@ -394,7 +394,7 @@ function getColorByPisos(pisos) {
     var numPisos = Number(pisos);
     
     if (isNaN(numPisos) || numPisos === 0) {
-        return '#D4E7D0'; // Color para 0 pisos (verde muy claro)
+        return '#dadadaff'; // Color para 0 pisos (verde muy claro)
     } else if (numPisos === 1) {
         return '#C5DFC0'; // Verde claro
     } else if (numPisos === 2) {
@@ -467,7 +467,7 @@ function crearGestorCapa(tituloSector) {
 
 // --- TOTORACOCHA ---
 function style_TOTORACOCHA_1_0(feature) {
-    var pisos = feature.properties.X_6;
+    var pisos = feature.properties.X_4;
     return { 
         pane: 'pane_TOTORACOCHA_1', 
         opacity: 1, 
@@ -497,7 +497,7 @@ map.addLayer(layer_TOTORACOCHA_1);
 
 // --- PRIMERO DE MAYO ---
 function style_PRIMERODEMAYO_2(feature) {
-    var pisos = feature.properties.X_6;
+    var pisos = feature.properties.X_4;
     return { 
         pane: 'pane_PRIMERODEMAYO_2', 
         opacity: 1, 
@@ -527,7 +527,7 @@ map.addLayer(layer_PRIMERODEMAYO_2);
 
 // --- ORDOÑEZ LASO ---
 function style_ORDOEZLASO_3_0(feature) {
-    var pisos = feature.properties.X_6;
+    var pisos = feature.properties.X_4;
     return { 
         pane: 'pane_ORDOEZLASO_3', 
         opacity: 1, 

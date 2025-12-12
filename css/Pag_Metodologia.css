@@ -1,91 +1,79 @@
+/* ============================================================
+   VARIABLES GLOBALES
+   ============================================================ */
 :root {
-    /* --- COLORES --- */
-    --color-primario: rgba(98, 119, 112); /* --- #627770 ---*/
-    --color-secundario:rgb(238 211 168);                 /* --- #EED3A8 ---*/  
+    --color-primario: rgba(98, 119, 112, 1);
+    --color-secundario: rgb(238, 211, 168);
+    --color-primario-translucido: rgba(98, 119, 112, 0.5);
 }
 
 /* ============================================================
-   TARJETA VERDE - CONTENEDOR PRINCIPAL
+   CONTENEDOR PRINCIPAL - TARJETA VERDE
    ============================================================ */
 .tajeta-verde {
-    /* Posicionamiento Absoluto y Z-index */
     position: absolute;
     z-index: 2;
-    
-    /* Dimensiones Responsivas */
-    width: 80%;
-    height: 90%;
-    
-    /* Técnica de Centrado Absoluto */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    /* Estilos Visuales */
-    background-color: rgba(98, 119, 112, 0.5);
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
     
-    padding: 4%;
+    width: 85%;
+    height: 95%;
+    padding: 3%;
+    
+    background-color: var(--color-primario-translucido);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 30px;
-    margin: 0 auto;
-
-    /* Grid Layout */
+    
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: auto auto auto; 
+    grid-template-rows: auto 400px auto;
     gap: 20px;
+    
+    box-sizing: border-box;
 }
 
 /* ============================================================
-   ITEMS - CONFIGURACIÓN DEL GRID
+   ESTILOS BASE PARA ITEMS
    ============================================================ */
-
-/* Estilos básicos para todos los items */
 .item {
     padding: 20px;
     border-radius: 8px;
 }
 
-/* ---------------------------------------------------------------- */
-/* FILA 1: TÍTULO (item-a) y SUBTÍTULO (item-b) */
-/* ---------------------------------------------------------------- */
+/* ============================================================
+   FILA 1: TÍTULO Y SUBTÍTULO
+   ============================================================ */
 
+/* TÍTULO (1/3 del ancho) */
 .item-a {
-    /* 1/3 del ancho: Ocupa 2 columnas de las 6 */
-    grid-column: 1 / 3; 
+    grid-column: 1 / 3;
     grid-row: 1;
     
+    display: flex;
+    align-items: center;
+    
     background-color: var(--color-primario);
-    color: var(--color-secundario );
+    color: var(--color-secundario);
     
     font-size: 1.5rem;
     font-weight: 700;
-    text-align: start;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    height: 80%;
-    margin: auto;
-    margin-left: 0%;
-    margin-right: 0%;
 }
 
+/* SUBTÍTULO (2/3 del ancho) */
 .item-b {
-    /* 2/3 del ancho: Ocupa 4 columnas de las 6 */
     grid-column: 3 / 7;
     grid-row: 1;
-    
-    background-color: transparent;
-    color: var(--color-secundario);
     
     display: flex;
     flex-direction: column;
     gap: 5px;
-    text-align: start;
-    margin: 0;
+    
+    background-color: transparent;
+    color: var(--color-secundario);
 }
 
 .item-b h2 {
@@ -102,133 +90,182 @@
     line-height: 1.4;
 }
 
-/* ---------------------------------------------------------------- */
-/* FILA 2: CONTENIDO IZQUIERDA (item-c) y DERECHA (item-d) */
-/* ---------------------------------------------------------------- */
+/* ============================================================
+   FILA 2: CONTENIDO IZQUIERDA Y DERECHA
+   ============================================================ */
 
+/* CONTENEDOR IZQUIERDO */
 .item-c {
-    /* 50%: Ocupa las primeras 3 columnas */
-    grid-column: 1 / 4; 
+    grid-column: 1 / 4;
     grid-row: 2;
     
     background-color: var(--color-primario);
     color: var(--color-secundario);
     
-    /* ⭐ ALTURA FIJA - CLAVE PARA TU PROBLEMA */
-    min-height: 400px;
-    max-height: 400px;
-    height: 400px;
-    
-    /* ⭐ SCROLL INTERNO */
     overflow-y: auto;
     overflow-x: hidden;
-    
-    /* Asegura que el contenido no se desborde */
-    box-sizing: border-box;
     padding: 10%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
+/* CONTENEDOR DERECHO */
 .item-d {
-    /* 50%: Ocupa las últimas 3 columnas */
-    grid-column: 4 / 7; 
+    grid-column: 4 / 7;
     grid-row: 2;
-    padding: 10%;
+    
     background-color: var(--color-secundario);
     color: var(--color-primario);
     
-    /* ⭐ ALTURA FIJA - IGUAL QUE item-c */
-    min-height: 400px;
-    max-height: 400px;
-    height: 400px;
-    
-    /* ⭐ SCROLL INTERNO */
     overflow-y: auto;
     overflow-x: hidden;
+    padding: 10%;
     
-    /* Asegura que el contenido no se desborde */
-    box-sizing: border-box;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-/* ---------------------------------------------------------------- */
-/* FILA 3: NAVEGACIÓN (item-e) */
-/* ---------------------------------------------------------------- */
-
-.item-e {
-    /* 100%: Ocupa las 6 columnas */
-    grid-column: 1 / 7; 
-    grid-row: 3; /* CAMBIADO: Debe ser la Fila 3 en la configuración de 3 filas */
-    
-    color: white;
-    /* Asegurar que el padding del item no lo haga sobresalir, aunque esto está bien */
-    padding: 20px; 
-}
 /* ============================================================
-   CONTENIDO DENTRO DE ITEMS C Y D
+   FILA 3: NAVEGACIÓN
    ============================================================ */
-
-/* ---------------------------------------------------------------- */
-/* ESPACIADO ENTRE ELEMENTOS MÚLTIPLES */
-/* ---------------------------------------------------------------- */
-.item-c > *:not(:last-child),
-.item-d > *:not(:last-child) {
-    margin-bottom: 1.5rem;
+.item-e {
+    grid-column: 1 / 7;
+    grid-row: 3;
+    padding: 20px;
 }
 
-/* ---------------------------------------------------------------- */
-/* TEXTOS */
-/* ---------------------------------------------------------------- */
-.item-c .contenido-texto,
-.item-d .contenido-texto {
+/* ============================================================
+   CONTENIDO: TEXTOS
+   ============================================================ */
+.contenido-texto {
     width: 100%;
     line-height: 1.6;
     text-align: justify;
+    margin-bottom: 1.5rem;
 }
 
-.item-c .contenido-texto h3,
-.item-d .contenido-texto h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
+.contenido-texto h3 {
+    margin: 0 0 1rem 0;
     font-size: 1.2rem;
 }
 
-.item-c .contenido-texto p,
-.item-d .contenido-texto p {
+.contenido-texto p {
     margin: 0 0 1rem 0;
 }
 
-.item-c .contenido-texto ul,
-.item-c .contenido-texto ol,
-.item-d .contenido-texto ul,
-.item-d .contenido-texto ol {
+.contenido-texto ul,
+.contenido-texto ol {
     margin: 0 0 1rem 0;
     padding-left: 1.5rem;
 }
 
-.item-c .contenido-texto li,
-.item-d .contenido-texto li {
+.contenido-texto li {
     margin-bottom: 0.5rem;
 }
 
-/* ---------------------------------------------------------------- */
-/* IMÁGENES */
-/* ---------------------------------------------------------------- */
-.item-c .contenido-imagen,
-.item-d .contenido-imagen {
+/* ============================================================
+   CONTENIDO: IMÁGENES
+   ============================================================ */
+.contenido-imagen {
     max-width: 100%;
     max-height: 300px;
-    display: block;
-    
-    margin: 0 auto;
-    padding: 0;
-    
     object-fit: contain;
     border-radius: 10px;
+    margin-bottom: 1.5rem;
 }
 
-/* ---------------------------------------------------------------- */
-/* SCROLLBAR PERSONALIZADO */
-/* ---------------------------------------------------------------- */
+/* ============================================================
+   CONTENIDO: TABLAS
+   ============================================================ */
+.contenido-tabla {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    overflow: auto;
+}
+
+.tabla-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+
+.tabla-datos thead {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.tabla-datos th {
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabla-datos td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tabla-datos tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tabla-datos tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
+}
+
+.tabla-datos tfoot {
+    background-color: rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+}
+
+.tabla-datos tfoot td {
+    padding: 12px 10px;
+    border-bottom: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.tabla-total {
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+/* Alineación de columnas */
+.tabla-datos td:first-child {
+    text-align: left;
+    font-weight: 500;
+}
+
+.tabla-datos td:last-child {
+    text-align: right;
+}
+
+/* ============================================================
+   BARRA DE NAVEGACIÓN
+   ============================================================ */
+
+
+/* ============================================================
+   SCROLLBARS PERSONALIZADOS
+   ============================================================ */
 
 /* Firefox */
 .item-c,
@@ -264,313 +301,9 @@
 
 .item-d::-webkit-scrollbar-thumb:hover {
     background-color: rgba(98, 119, 112, 0.7);
-
 }
 
-/* ============================================================
-   RESPONSIVE - ADAPTACIÓN A MÓVILES Y TABLETS
-   ============================================================ */
-
-@media (max-width: 1024px) {
-    .item-c,
-    .item-d {
-        min-height: 350px;
-        max-height: 350px;
-        height: 350px;
-    }
-    
-    .item-c .contenido-imagen,
-    .item-d .contenido-imagen {
-        max-height: 250px;
-    }
-}
-
-@media (max-width: 768px) {
-    /* En móvil las tarjetas se apilan verticalmente */
-    .tajeta-verde {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto auto;
-        height: auto;
-        width: 95%;
-        padding: 3%;
-    }
-    
-    .item-a {
-        grid-column: 1;
-        grid-row: 1;
-        font-size: 1.3rem;
-    }
-    
-    .item-b {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    
-    .item-b h2 {
-        font-size: 1rem;
-    }
-    
-    .item-b span {
-        font-size: 1rem;
-    }
-    
-    .item-c {
-        grid-column: 1;
-        grid-row: 3;
-        min-height: 300px;
-        max-height: 300px;
-        height: 300px;
-    }
-    
-    .item-d {
-        grid-column: 1;
-        grid-row: 4;
-        min-height: 300px;
-        max-height: 300px;
-        height: 300px;
-    }
-    
-    .item-e {
-        grid-column: 1;
-        grid-row: 5;
-    }
-    
-    .item-c .contenido-imagen,
-    .item-d .contenido-imagen {
-        max-height: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    .tajeta-verde {
-        width: 98%;
-        padding: 2%;
-    }
-    
-    .item-a {
-        font-size: 1.1rem;
-        padding: 15px;
-    }
-    
-    .item-b h2 {
-        font-size: 0.9rem;
-    }
-    
-    .item-b span {
-        font-size: 0.9rem;
-    }
-    
-    .item-c,
-    .item-d {
-        min-height: 250px;
-        max-height: 250px;
-        height: 250px;
-        padding: 15px;
-    }
-    
-    .item-c .contenido-texto,
-    .item-d .contenido-texto {
-        font-size: 0.9rem;
-    }
-    
-    .item-c .contenido-imagen,
-    .item-d .contenido-imagen {
-        max-height: 180px;
-    }
-}
-
-/* ---------------------------------------------------------------- */
-/* CONTENEDOR DE TABLA */
-/* ---------------------------------------------------------------- */
-.contenido-tabla {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: auto;
-}
-
-.tabla-titulo {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 0 0 1rem 0;
-    text-align: center;
-    /* Color según el item donde esté */
-}
-
-.item-c .tabla-titulo {
-    color: var(--color-titulos); /* Arena para fondo verde */
-}
-
-.item-d .tabla-titulo {
-    color: var(--color-fondo); /* Verde para fondo arena */
-}
-
-/* ---------------------------------------------------------------- */
-/* ESTILOS DE LA TABLA */
-/* ---------------------------------------------------------------- */
-.tabla-datos {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    overflow: hidden;
-    font-size: 0.9rem;
-}
-
-/* Encabezados */
-.tabla-datos thead {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.tabla-datos th {
-    padding: 12px 10px;
-    text-align: left;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.85rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Colores de encabezado según item */
-.item-c .tabla-datos th {
-    color: var(--color-titulos);
-}
-
-.item-d .tabla-datos th {
-    color: var(--color-fondo);
-}
-
-/* Celdas del cuerpo */
-.tabla-datos td {
-    padding: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Colores de celdas según item */
-.item-c .tabla-datos td {
-    color: rgba(238, 211, 168, 0.9);
-}
-
-.item-d .tabla-datos td {
-    color: rgba(98, 119, 112, 0.9);
-}
-
-/* Filas alternadas (zebra striping) */
-.tabla-datos tbody tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.tabla-datos tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    transition: background-color 0.2s ease;
-}
-
-/* Footer (totales) */
-.tabla-datos tfoot {
-    background-color: rgba(0, 0, 0, 0.3);
-    font-weight: 700;
-}
-
-.tabla-datos tfoot td {
-    padding: 12px 10px;
-    border-bottom: none;
-    border-top: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.tabla-total {
-    text-align: right;
-    font-size: 1.1rem;
-}
-
-/* ---------------------------------------------------------------- */
-/* TABLA RESPONSIVE */
-/* ---------------------------------------------------------------- */
-@media (max-width: 768px) {
-    .tabla-datos {
-        font-size: 0.8rem;
-    }
-    
-    .tabla-datos th,
-    .tabla-datos td {
-        padding: 8px 5px;
-    }
-    
-    .tabla-titulo {
-        font-size: 1rem;
-    }
-    
-    /* Hacer scroll horizontal si es necesario */
-    .contenido-tabla {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-}
-
-/* ---------------------------------------------------------------- */
-/* VARIANTE: TABLA COMPACTA */
-/* ---------------------------------------------------------------- */
-.tabla-datos.tabla-compacta th,
-.tabla-datos.tabla-compacta td {
-    padding: 6px 8px;
-    font-size: 0.85rem;
-}
-
-/* ---------------------------------------------------------------- */
-/* VARIANTE: TABLA CON BORDES */
-/* ---------------------------------------------------------------- */
-.tabla-datos.tabla-bordes {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.tabla-datos.tabla-bordes th,
-.tabla-datos.tabla-bordes td {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ---------------------------------------------------------------- */
-/* ALINEACIÓN DE COLUMNAS */
-/* ---------------------------------------------------------------- */
-
-/* Números alineados a la derecha */
-.tabla-datos td:last-child {
-    text-align: right;
-}
-
-/* Primera columna (nombres) a la izquierda */
-.tabla-datos td:first-child {
-    text-align: left;
-    font-weight: 500;
-}
-
-/* ---------------------------------------------------------------- */
-/* TABLA SIMPLE (HTML directo) */
-/* ---------------------------------------------------------------- */
-.contenido-tabla-simple table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-}
-
-.contenido-tabla-simple table th {
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    text-align: left;
-    font-weight: 700;
-}
-
-.contenido-tabla-simple table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.contenido-tabla-simple table tbody tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-/* ---------------------------------------------------------------- */
-/* SCROLLBAR PARA TABLAS */
-/* ---------------------------------------------------------------- */
+/* Scrollbar para tablas */
 .contenido-tabla::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -587,4 +320,112 @@
 
 .contenido-tabla::-webkit-scrollbar-thumb:hover {
     background-color: rgba(238, 211, 168, 0.5);
+}
+
+/* ============================================================
+   RESPONSIVE - TABLETS
+   ============================================================ */
+@media (max-width: 1024px) {
+    .tajeta-verde {
+        grid-template-rows: auto 350px auto;
+    }
+    
+    .contenido-imagen {
+        max-height: 250px;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE - MÓVILES
+   ============================================================ */
+@media (max-width: 768px) {
+    .tajeta-verde {
+        width: 95%;
+        padding: 3%;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 300px 300px auto;
+        height: auto;
+    }
+    
+    .item-a {
+        grid-column: 1;
+        grid-row: 1;
+        font-size: 1.3rem;
+    }
+    
+    .item-b {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .item-b h2,
+    .item-b span {
+        font-size: 1rem;
+    }
+    
+    .item-c {
+        grid-column: 1;
+        grid-row: 3;
+    }
+    
+    .item-d {
+        grid-column: 1;
+        grid-row: 4;
+    }
+    
+    .item-e {
+        grid-column: 1;
+        grid-row: 5;
+    }
+    
+    .contenido-imagen {
+        max-height: 200px;
+    }
+    
+    .tabla-datos {
+        font-size: 0.8rem;
+    }
+    
+    .tabla-datos th,
+    .tabla-datos td {
+        padding: 8px 5px;
+    }
+    
+    .tabla-titulo {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE - MÓVILES PEQUEÑOS
+   ============================================================ */
+@media (max-width: 480px) {
+    .tajeta-verde {
+        width: 98%;
+        padding: 2%;
+        grid-template-rows: auto auto 250px 250px auto;
+    }
+    
+    .item-a {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+    
+    .item-b h2,
+    .item-b span {
+        font-size: 0.9rem;
+    }
+    
+    .item-c,
+    .item-d {
+        padding: 15px;
+    }
+    
+    .contenido-texto {
+        font-size: 0.9rem;
+    }
+    
+    .contenido-imagen {
+        max-height: 180px;
+    }
 }

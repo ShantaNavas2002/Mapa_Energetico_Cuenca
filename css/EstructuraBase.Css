@@ -194,7 +194,7 @@ input, button, textarea, select {
     width: 80%;
     max-width: 1800px;
     /* Altura adaptativa en vez de fija */
-    max-height: 720px;
+    max-height: 1000px;
     min-height: 300px;
     aspect-ratio: 16/9; /* Mantiene proporción */
     display: grid;
