@@ -335,7 +335,7 @@ function buildPanelContent(feature, sectorTitle) {
         <summary>
             <div class="summary-content">
                 <span>Implementacion de paneles solares Sistemas On-Grid (Sin bateria)</span>
-                <img src="images/UI_Pestaña1.svg" class="header-img" alt="Sin batería">
+                <img src="images/UI_Pestaña2.svg" class="header-img" alt="Sin batería">
             </div>
             <span class="chev">▾</span>
         </summary>
@@ -344,7 +344,7 @@ function buildPanelContent(feature, sectorTitle) {
           <div class="solar-grid">
             ${solarCard('images/UI_panel1.svg', 'Número de paneles recomendado según su consumo eléctrico:', 'RES_01', '')}
             ${solarCard('images/UI_Inversion2.svg', 'Inversión:', 'RES_02', '$')}
-            ${solarCard('images/UI_RecuInversion3.svg', 'Tiempo de recuperación de la inversión:', 'RES_03', 'años')}
+            ${solarCard('images/UI_RecuInversion3.svg', 'Tiempo de recuperación de la inversión:', 'RES_03')}
             ${solarCard('images/UI_Ahorro4.svg', 'Ahorro anual posterior a la inversión:', 'RES_04', '$')}
           </div>
         </div>
@@ -354,7 +354,7 @@ function buildPanelContent(feature, sectorTitle) {
         <summary>
             <div class="summary-content">
                 <span>Implementacion de paneles solares Sistemas Off-Grid (Con bateria)</span>
-                <img src="images/UI_Pestaña2.svg" class="header-img" alt="Con batería">
+                <img src="images/UI_Pestaña1.svg" class="header-img" alt="Con batería">
             </div>
             <span class="chev">▾</span>
         </summary>
@@ -363,7 +363,7 @@ function buildPanelContent(feature, sectorTitle) {
           <div class="solar-grid">
             ${solarCard('images/UI_panel1.svg', 'Número de paneles recomendado según su consumo eléctrico:', 'RES_05', '')}
             ${solarCard('images/UI_Inversion2.svg', 'Inversión:', 'RES_06', '$')}
-            ${solarCard('images/UI_RecuInversion3.svg', 'Tiempo de recuperación de la inversión', 'RES_07', 'años')}
+            ${solarCard('images/UI_RecuInversion3.svg', 'Tiempo de recuperación de la inversión', 'RES_07',)}
             ${solarCard('images/UI_Ahorro4.svg', 'Ahorro anual posterior a la inversión:', 'RES_08', '$')}
           </div>
         </div>
