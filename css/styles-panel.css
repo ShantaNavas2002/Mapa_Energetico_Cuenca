@@ -414,14 +414,22 @@ color: black;}
    ========================================================================== */
  .alert-panel{
   padding: 20px; 
-  
+   
+ }
+
+ .icono-alerta{
+  width: 20%;
+  height: auto;
+  display: flex;
  }
  .panel1{
-   background: #E8B42E; 
-   border: 2px solid rgba(255, 193, 7); 
+   background: #e5d3a6; 
+   border: 2px solid rgb(201, 190, 159); 
    border-radius: 12px; 
    padding: 30px; 
    margin: 20px 0;
+   display: flex;
+   
  }
 
  .panel2{
@@ -430,6 +438,7 @@ color: black;}
    border-radius: 12px; 
    padding: 30px; 
    margin: 20px 0;
+   display: flex;
  }
 
 

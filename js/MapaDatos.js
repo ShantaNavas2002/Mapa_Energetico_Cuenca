@@ -235,7 +235,8 @@ function buildPanelContent(feature, sectorTitle) {
           
           <div class="alert-panel">
             <div class= "panel1">
-              <h3>Datos Insuficientes</h3>
+              <h3>El predio no cuenta con un consumo actual</h3>
+              <img class="icono-alerta" src="images/IconoAlerta.png">
             </div>
           </div>
         </div>`;
@@ -252,7 +253,8 @@ function buildPanelContent(feature, sectorTitle) {
           
            <div class="alert-panel">
             <div class= "panel2">
-              <h3>Los paneles solare no pueden proveer la energia suficiente</h3>
+              <h3>No se puede satisfacer el consumo actual con paneles solares únicamente.</h3>
+              <img class="icono-alerta" src="images/IconoAlerta.png">
             </div>
           </div>
         </div>`;
@@ -387,6 +389,32 @@ function buildPanelContent(feature, sectorTitle) {
     </div>`;
 }
 
+function getColorByPisos(pisos) {
+    // Convertir a número y manejar valores nulos/indefinidos
+    var numPisos = Number(pisos);
+    
+    if (isNaN(numPisos) || numPisos === 0) {
+        return '#D4E7D0'; // Color para 0 pisos (verde muy claro)
+    } else if (numPisos === 1) {
+        return '#C5DFC0'; // Verde claro
+    } else if (numPisos === 2) {
+        return '#B5D7AF'; // Verde
+    } else if (numPisos === 3) {
+        return '#A6CF9F'; // Verde medio
+    } else if (numPisos >= 4 && numPisos <= 6) {
+        return '#8FBF85'; // Verde oscuro
+    } else if (numPisos >= 7 && numPisos <= 9) {
+        return '#78AF6B'; // Verde más oscuro
+    } else if (numPisos >= 10 && numPisos <= 12) {
+        return '#619F51'; // Verde intenso
+    } else if (numPisos >= 13 && numPisos <= 15) {
+        return '#4A8F37'; // Verde muy oscuro
+    } else if (numPisos >= 16 && numPisos <= 18) {
+        return '#337F1D'; // Verde profundo
+    } else {
+        return '#1C6F03'; // Verde máximo (más de 18 pisos)
+    }
+}
 // =============================================================================
 //  generar Graficos (Paneles etc)
 
@@ -438,8 +466,18 @@ function crearGestorCapa(tituloSector) {
 // 4. DEFINICIÓN DE CAPAS 
 
 // --- TOTORACOCHA ---
-function style_TOTORACOCHA_1_0() {
-    return { pane: 'pane_TOTORACOCHA_1', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: '#BDBEBF', interactive: true };
+function style_TOTORACOCHA_1_0(feature) {
+    var pisos = feature.properties.X_6;
+    return { 
+        pane: 'pane_TOTORACOCHA_1', 
+        opacity: 1, 
+        color: 'rgba(35,35,35,1.0)', 
+        weight: 1.0, 
+        fill: true, 
+        fillOpacity: 1, 
+        fillColor: getColorByPisos(pisos), 
+        interactive: true 
+    };
 }
 map.createPane('pane_TOTORACOCHA_1');
 map.getPane('pane_TOTORACOCHA_1').style.zIndex = 401;
@@ -458,8 +496,18 @@ map.addLayer(layer_TOTORACOCHA_1);
 
 
 // --- PRIMERO DE MAYO ---
-function style_PRIMERODEMAYO_2() {
-    return { pane: 'pane_PRIMERODEMAYO_2', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: '#BDBEBF', interactive: true };
+function style_PRIMERODEMAYO_2(feature) {
+    var pisos = feature.properties.X_6;
+    return { 
+        pane: 'pane_PRIMERODEMAYO_2', 
+        opacity: 1, 
+        color: 'rgba(35,35,35,1.0)', 
+        weight: 1.0, 
+        fill: true, 
+        fillOpacity: 1, 
+        fillColor: getColorByPisos(pisos), 
+        interactive: true 
+    };
 }
 map.createPane('pane_PRIMERODEMAYO_2');
 map.getPane('pane_PRIMERODEMAYO_2').style.zIndex = 401;
@@ -478,8 +526,18 @@ map.addLayer(layer_PRIMERODEMAYO_2);
 
 
 // --- ORDOÑEZ LASO ---
-function style_ORDOEZLASO_3_0() {
-    return { pane: 'pane_ORDOEZLASO_3', opacity: 1, color: 'rgba(35,35,35,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: '#BDBEBF', interactive: true };
+function style_ORDOEZLASO_3_0(feature) {
+    var pisos = feature.properties.X_6;
+    return { 
+        pane: 'pane_ORDOEZLASO_3', 
+        opacity: 1, 
+        color: 'rgba(35,35,35,1.0)', 
+        weight: 1.0, 
+        fill: true, 
+        fillOpacity: 1, 
+        fillColor: getColorByPisos(pisos), 
+        interactive: true 
+    };
 }
 map.createPane('pane_ORDOEZLASO_3');
 map.getPane('pane_ORDOEZLASO_3').style.zIndex = 403;
