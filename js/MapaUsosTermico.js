@@ -117,22 +117,22 @@ function getColorByCategoria(categoria) {
     var cat = String(categoria).toLowerCase().trim();
     
     if (cat.includes('servicio')) {
-        return '#7F8C18'; 
+        return '#F2AB1F'; 
     }
     if (cat.includes('comercio')) {
-        return '#3d4717ff'; 
+        return '#ED7D31'; 
     }
     if (cat.includes('desuso') || cat.includes('vacante')) {
-        return '#595347'; 
+        return '#7F7F7F'; 
     }
     if (cat.includes('espacio') || cat.includes('abierto') || cat.includes('parque') || cat.includes('plaza')) {
-        return '#915a2dff'; 
+        return '#668A4C'; 
     }
     if (cat.includes('equipamiento')) {
-        return '#D9D9D9'; 
+        return '#C00000'; 
     }
     if (cat.includes('vivienda') || cat.includes('residencia')) {
-        return '#F2DB94'; 
+        return '#104358'; 
     }
     
     return '#CCCCCC'; 
@@ -252,6 +252,13 @@ var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
 });
 
 map.addLayer(layer_CATEGORIAS_4);
+
+var bounds = layer_CATEGORIAS_4.getBounds();
+if (bounds.isValid()) {
+    map.fitBounds(bounds, {
+        padding: [20, 20] // Añade un pequeño margen alrededor
+    });
+}
 
 // =============================================================================
 // BUSCADOR POR CLAVE

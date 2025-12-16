@@ -48,25 +48,6 @@ body {
 input, button, textarea, select {
     font-family: inherit;
 }
-/* ============================================================
-   ESTILOS PARA TABLAS Y CONTENIDO MÚLTIPLE
-   Añade esto a tu archivo tarjeta-verde.css o Pag_Metodologia.css
-   ============================================================ */
-
-/* ---------------------------------------------------------------- */
-/* ESPACIADO ENTRE ELEMENTOS MÚLTIPLES */
-/* ---------------------------------------------------------------- */
-.item-c > *:not(:last-child),
-.item-d > *:not(:last-child) {
-    margin-bottom: 1.5rem;
-}
-
-/* Separador opcional */
-.contenido-separador {
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin: 1rem 0;
-}
 
 
 
@@ -176,31 +157,6 @@ input, button, textarea, select {
 
 
 
-/* ========================================
-   CONTENEDOR PRINCIPAL - Tarjeta imagen
-   ======================================== */
-.contenedor-principal {
-    padding: var(--spacing-md) var(--spacing-sm);
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.tarjeta-img {
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 1800px;
-    /* Altura adaptativa en vez de fija */
-    max-height: 1000px;
-    min-height: 300px;
-    aspect-ratio: 16/9; /* Mantiene proporción */
-    display: grid;
-    place-items: center;
-}
-
 
 /* ========================================
    FOOTER - Grid responsivo
@@ -278,8 +234,6 @@ input, button, textarea, select {
     border: 3px solid #262626;
     transition: transform var(--transition-speed) ease;
 }
-
-
 .avatar:hover {
     transform: translateY(-5px);
     border-color: var(--color-primary);
@@ -412,13 +366,7 @@ input, button, textarea, select {
 /* ========================================
    UTILIDADES - Clases helper
    ======================================== */
-.text-center {
-    text-align: center;
-}
 
-.hidden-mobile {
-    display: none;
-}
 
 @media (min-width: 768px) {
     .hidden-mobile {

@@ -1,5 +1,6 @@
 /* ========================================
    INDEX - Estilos específicos de la página principal
+   (SIN BREAKPOINTS - CONFIGURACIÓN FIJA DE ESCRITORIO)
    ======================================== */
 :root {
     /* --- COLORES --- */
@@ -8,29 +9,62 @@
     --color-hex-vacio: rgba(98, 119, 112, 0.3);
     --color-hex-sombra: rgba(0, 0, 0, 0.15);
     --color-texto-nombre: #ffffff;
-     }
+}
+
 /* --- TARJETA CON IMAGEN Y CARD SOBREPUESTA --- */
 .tarjeta-img {
-    /* Grid de 2 columnas: imagen completa + card derecha */
+    
+    
     display: grid;
-    grid-template-columns: 1fr; /* Móvil: 1 columna */
+    /* AQUÍ DEFINES EL ANCHO: 1fr para imagen, 500px para la barra de texto */
+    grid-template-columns: 1fr 700px; 
+    
+    /* Altura automática pero con un mínimo alto para que luzca bien */
     grid-template-rows: auto;
+    min-height: 600px; 
     
     width: 100%;
-    max-width: 1800px;
-    min-height: 400px;
+    max-width: 90%; /* Un poco más ancho para aprovechar pantalla */
     
+    /* Estilos visuales */
     border-radius: var(--border-radius, 30px);
     overflow: hidden;
     position: relative;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+.contenedor-principal {
+    padding: var(--spacing-md) var(--spacing-sm);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 
+/* --- ENCABEZADO (Icono + Título) --- */
+.encabezado-card {
+    display: flex;
+    flex-direction: row;       
+    justify-content: flex-start; 
+    align-items: center;       
+    width: 100%;               
+    gap: 30px; 
+}
+
+.encabezado-card h2 {
+    margin: 0;
+    flex: 0 1 auto; 
+}
+
+.icono-mapa {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-shrink: 0;
+}
 
 /* --- CAPA 1: LA IMAGEN (FONDO) --- */
 .imagen-contenedor {
-    /* Ocupa TODO el espacio del grid */
+    /* La imagen ocupa TODO el fondo (columnas 1 a la ultima) */
     grid-column: 1 / -1;
     grid-row: 1 / -1;
     z-index: 1;
@@ -42,64 +76,58 @@
     object-fit: cover;
 }
 
-/* --- CAPA 2: LA TARJETA VERDE (SOBREPUESTA) --- */
+/* --- CAPA 2: LA TARJETA VERDE (BARRA LATERAL) --- */
 .inf {
-    /* En móvil, ocupa todo el ancho en la parte inferior */
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
+    
+    /* POSICIONAMIENTO: Columna 2 (Derecha) */
+    grid-column: 2 / 3;
+    grid-row: 1 / -1; /* Ocupa toda la altura */
     z-index: 2;
+    height: auto;
     
-    /* Se alinea abajo en móvil */
-    align-self: end;
+    align-self: stretch; /* Se estira verticalmente */
     
-    /* Glassmorphism */
+    /* Estilos Glassmorphism */
     background-color: rgba(98, 119, 112, 0.7);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     
-    /* Contenido */
-    color: var(--color-titulos);
-    padding: var(--spacing-lg, 2rem);
+    /* Espaciado interno grande (estilo desktop) */
+    padding: 50px; 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: var(--spacing-md, 1.5rem);
+    justify-content: center; /* Contenido centrado verticalmente */
+    gap: 25px;
     
     /* Interactividad */
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    
-    /* Altura mínima en móvil */
-    min-height: 200px;
+    color: var(--color-titulos);
 }
 
+/* Tipografía adaptada a tamaño grande */
 .inf h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 2rem; /* Título grande */
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     width: auto;
-    
+}
+
+.inf h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #fff; /* Opcional para subtítulos */
 }
 
 .inf p {
     margin: 0;
-    font-size: 1rem;
-    line-height: 1.6;
-    opacity: 0.9;
-}
-/* Icono decorativo (si existe) */
-.icono-mapa {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.2);
-   
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: en;
+    font-size: 1.1rem; /* Texto legible */
+    line-height: 1.5;
+    opacity: 0.95;
 }
 
 .inf:hover {
@@ -107,85 +135,6 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* ... dentro de tu Index.css, casi al final ... */
 
-
-/* ========================================
-   MEDIA QUERIES - Adaptación progresiva
-   ======================================== */
-
-/* Tablet: 768px+ - La card empieza a moverse al lado derecho */
-@media (min-width: 768px) {
-    .tarjeta-img {
-        grid-template-columns: 1fr 300px; /* Imagen + Card de 300px */
-        min-height: 450px;
-    }
-    
-    .inf {
-        /* Ahora ocupa solo la columna derecha */
-        grid-column: 2 / 3;
-        align-self: stretch; /* Ocupa toda la altura */
-        min-height: auto;
-    }
-    
-    .inf h2 {
-        font-size: 1.75rem;
-    }
-}
-
-/* Desktop: 1024px+ - Card más ancha */
-@media (min-width: 1024px) {
-    .tarjeta-img {
-        grid-template-columns: 1fr 350px; /* Card de 350px como original */
-        min-height: 500px;
-    }
-    
-    .inf {
-        padding: 40px;
-        gap: 20px;
-    }
-    
-    .inf h2 {
-        font-size: 2rem;
-    }
-    
-    .inf p {
-        font-size: 1.1rem;
-    }
-}
-
-/* Wide Desktop: 1440px+ - Altura máxima */
-@media (min-width: 1440px) {
-    .tarjeta-img {
-        grid-template-columns: 1fr 400px; /* Card aún más ancha */
-        min-height: 600px;
-        max-height: 700px;
-    }
-    
-    .inf {
-        padding: 50px;
-    }
-}
-
-/* ========================================
-   AJUSTES PARA MÓVIL PEQUEÑO
-   ======================================== */
-@media (max-width: 480px) {
-    .inf {
-        padding: var(--spacing-md, 1.5rem);
-        gap: var(--spacing-sm, 1rem);
-        min-height: 180px;
-    }
-    
-    .inf h2 {
-        font-size: 1.25rem;
-    }
-    
-    .inf p {
-        font-size: 0.9rem;
-    }
-}
-
-
-
-
-
+/* Desktop: 1024px+ */

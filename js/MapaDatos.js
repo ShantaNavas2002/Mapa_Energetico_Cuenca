@@ -151,8 +151,8 @@ function renderSharedChart(allData, startIndex) {
             labels: labels,
             datasets: [
                 { label: 'Consumo', data: sliceData.map(d => d.sum), backgroundColor: '#D9D9D9', borderColor: '#585859', borderWidth: 1 },              
-                { label: 'Energía recomendada', data: sliceData.map(d => d.erec), backgroundColor: '#FDAA76', borderColor: '#FF9C60', borderWidth: 1 },
-                { label: 'Energía máxima', data: sliceData.map(d => d.emax), backgroundColor: '#BCD1AC', borderColor: "#B0CC66 ",  borderWidth: 1 }
+                { label: 'Energía recomendada', data: sliceData.map(d => d.erec), backgroundColor: '#BCD1AC', borderColor: '#B0CC66', borderWidth: 1 },
+                { label: 'Energía máxima', data: sliceData.map(d => d.emax), backgroundColor: '#FDAA76', borderColor: "#FF9C60 ",  borderWidth: 1 }
             ]
         },
         options: {
@@ -242,51 +242,24 @@ function buildPanelContent(feature, sectorTitle) {
         </div>`;
     }
     
-    // Si X_3 es igual a 1, mostrar panel alternativo 2
-    if (p.X_3 == 1) {
-        return `
-        <div class="popup-card">
-          <div class="popup-title">
-            <span class="key mono">Clave Catastral:</span>
-            <strong>${val('CLAVE')}</strong>
-          </div>
-          
-           <div class="alert-panel">
-            <div class= "panel2">
-              <h3>No se puede satisfacer el consumo actual con paneles solares únicamente.</h3>
-              <img class="icono-alerta" src="images/IconoAlerta.png">
-            </div>
-          </div>
-        </div>`;
-    }
-
     // ========================================================================
-    // PANEL NORMAL (cuando no se cumplen las condiciones especiales)
+    // PANEL NORMAL (con o sin X_10 dependiendo de X_3)
     // ========================================================================
     
     function solarCard(imgSrc, label, key, suffix) {
-        // 1. Obtenemos el valor crudo directamente de las propiedades (p)
         var rawValue = p[key]; 
-        var valor = '-'; // Valor por defecto si es nulo
+        var valor = '-';
 
-        // Verificamos si existe el dato
         if (rawValue !== null && rawValue !== undefined) {
-            
-            // 2. LISTA DE CLAVES QUE NECESITAN DECIMALES
-            // (Asegúrate de usar los nombres exactos que tienes en tu código: RES_02, etc.)
-            var clavesConDecimales = ['RES_02', 'RES_04', 'RES_06', 'RES_08'];
+            var clavesSinDecimales = ['RES_02', 'RES_04', 'RES_06', 'RES_08'];
 
-            if (clavesConDecimales.includes(key)) {
-                // 3. APLICAMOS EL FORMATO: Convertir a número y fijar 2 decimales
-                // Number() asegura que sea número, toFixed(2) corta a 2 decimales
-                valor = Number(rawValue).toFixed(2);
+            if (clavesSinDecimales.includes(key)) {
+                valor = Number(rawValue).toFixed(0);
             } else {
-                // Para el resto (como número de paneles), lo dejamos como texto normal
                 valor = String(rawValue);
             }
         }
 
-        // Agregamos el sufijo ($, años, etc) si el valor es válido
         if (suffix && valor !== '-') valor += ' ' + suffix;
 
         return `
@@ -301,6 +274,15 @@ function buildPanelContent(feature, sectorTitle) {
         </div>`;
     }
 
+    // Determinar si mostramos X_10 (cuando X_3 == 1)
+    var mostrarX10 = (p.X_3 == 1);
+    var x10Html = mostrarX10 ? `
+        <div style="display: flex; flex-direction: column; margin-top: 8px;">
+            <span class="key mono" style="font-size: 0.9rem; opacity: 0.8;"></span>
+            <strong style="font-size: 0.9rem; color: #e7444cff;">${val('X_10')}</strong>
+        </div>
+    ` : '';
+
     return `
     <div class="popup-card">
       
@@ -309,6 +291,7 @@ function buildPanelContent(feature, sectorTitle) {
         <div style="text-align: left; margin-left: 1%;">
             <span style="font-size: 0.9rem; display: block; opacity: 0.8;">Clave Catastral</span>
             <strong style="font-size: 1.2rem;">${val('CLAVE')}</strong>
+            ${x10Html}
         </div>
 
         <div style="display: flex; gap: 20px; text-align: right; margin-right: 7%;">
@@ -495,6 +478,9 @@ bounds_group.addLayer(layer_TOTORACOCHA_1);
 map.addLayer(layer_TOTORACOCHA_1);
 
 
+
+
+
 // --- PRIMERO DE MAYO ---
 function style_PRIMERODEMAYO_2(feature) {
     var pisos = feature.properties.X_4;
@@ -553,6 +539,13 @@ var layer_ORDOEZLASO_3 = new L.geoJson(json_ORDOEZLASO_3, {
 });
 bounds_group.addLayer(layer_ORDOEZLASO_3);
 map.addLayer(layer_ORDOEZLASO_3);
+
+
+if (bounds_group.getLayers().length > 0) {
+    map.fitBounds(bounds_group.getBounds(), {
+        padding: [50, 50] // Un poco de margen para que no queden pegadas a los bordes
+    });
+}
 
 
 // ===================
