@@ -205,7 +205,9 @@
             padding: var(--spacing-xl) var(--spacing-md);
             margin-top: var(--spacing-xl);
         }
-
+        .site-footer h2{
+            color: #D4C5A9;
+        }
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -234,12 +236,20 @@
         .link-item:hover {
             color: var(--color-secundario);
         }
+        .fa-brands {
+            color: #444;
+        }
+        .fa-regular  {
+            color: #444;
+        }
 
         .avatar-group {
             display: flex;
             gap: var(--spacing-sm);
             flex-wrap: wrap;
         }
+
+        
 
         .avatar {
             width: 60px;
