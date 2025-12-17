@@ -307,9 +307,7 @@ input, button, textarea, select {
         padding: var(--spacing-xl) var(--spacing-md);
     }
     
-    .tarjeta-img {
-        min-height: 400px;
-    }
+   
     
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
@@ -339,11 +337,7 @@ input, button, textarea, select {
     .Logo-cuencasolar {
         height: 150px;
     }
-    
-    .tarjeta-img {
-        min-height: 500px;
-        max-height: 700px;
-    }
+
     
     .footer-content {
         grid-template-columns: repeat(3, 1fr);
@@ -352,16 +346,7 @@ input, button, textarea, select {
     }
 }
 
-/* Wide Desktop: 1440px+ */
-@media (min-width: 1440px) {
-    .contenedor-principal {
-        padding: var(--spacing-xl);
-    }
-    
-    .tarjeta-img {
-        min-height: 600px;
-    }
-}
+
 
 /* ========================================
    UTILIDADES - Clases helper

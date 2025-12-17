@@ -1,9 +1,11 @@
-/* ========================================
-   INDEX - Estilos específicos de la página principal
-   (SIN BREAKPOINTS - CONFIGURACIÓN FIJA DE ESCRITORIO)
-   ======================================== */
+/* ==========================================================================
+   INDEX - ESTILOS ESPECÍFICOS DE LA PÁGINA PRINCIPAL
+   Configuración: Escritorio Fijo (Sin Breakpoints)
+   ========================================================================== */
+
+/* 1. VARIABLES (Configuración Global del Módulo)
+   -------------------------------------------------------------------------- */
 :root {
-    /* --- COLORES --- */
     --color-primario-tarjeta: rgba(98, 119, 112, 0.8);
     --color-titulos: #EED3A8;
     --color-hex-vacio: rgba(98, 119, 112, 0.3);
@@ -11,130 +13,117 @@
     --color-texto-nombre: #ffffff;
 }
 
-/* --- TARJETA CON IMAGEN Y CARD SOBREPUESTA --- */
-.tarjeta-img {
-    
-    
-    display: grid;
-    /* AQUÍ DEFINES EL ANCHO: 1fr para imagen, 500px para la barra de texto */
-    grid-template-columns: 1fr 700px; 
-    
-    /* Altura automática pero con un mínimo alto para que luzca bien */
-    grid-template-rows: auto;
-    min-height: 600px; 
-    
-    width: 100%;
-    max-width: 90%; /* Un poco más ancho para aprovechar pantalla */
-    
-    /* Estilos visuales */
-    border-radius: var(--border-radius, 30px);
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
+/* 2. CONTENEDORES DE ESTRUCTURA (Layout)
+   -------------------------------------------------------------------------- */
 .contenedor-principal {
-    padding: var(--spacing-md) var(--spacing-sm);
     display: flex;
     justify-content: center;
     width: 100%;
+    padding: var(--spacing-md) var(--spacing-sm);
 }
 
-/* --- ENCABEZADO (Icono + Título) --- */
-.encabezado-card {
-    display: flex;
-    flex-direction: row;       
-    justify-content: flex-start; 
-    align-items: center;       
-    width: 100%;               
-    gap: 30px; 
+/* ==========================================================================
+   INDEX - DISEÑO DE CAPAS (IMAGEN DE FONDO + BARRA LATERAL)
+   ========================================================================== */
+
+/* 1. CONTENEDOR RAÍZ (El Límite) */
+.tarjeta-img {
+    position: relative; /* Indispensable para que la imagen no se escape */
+    display: flex;      /* Cambiamos a Flex para empujar la barra a la derecha */
+    justify-content: flex-end; /* Alinea la barra de info a la derecha */
+    
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    min-height: 800px; /* Aquí controlas la altura que querías */
+    
+    border-radius: 30px;
+    overflow: hidden;   /* Corta la imagen si intenta salirse de los bordes */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-.encabezado-card h2 {
-    margin: 0;
-    flex: 0 1 auto; 
-}
-
-.icono-mapa {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    flex-shrink: 0;
-}
-
-/* --- CAPA 1: LA IMAGEN (FONDO) --- */
+/* 2. CAPA DE FONDO (Ocupa todo el cuadro) */
 .imagen-contenedor {
-    /* La imagen ocupa TODO el fondo (columnas 1 a la ultima) */
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    z-index: 1;
+    position: absolute; /* Se despega del flujo para irse al fondo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Nivel más bajo */
 }
 
 .imagen-contenedor img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Mantiene la proporción de la imagen */
 }
 
-/* --- CAPA 2: LA TARJETA VERDE (BARRA LATERAL) --- */
+/* 3. CAPA DE INFORMACIÓN (La barra lateral) */
 .inf {
+    position: relative; /* Para estar por encima de la imagen */
+    z-index: 2;         /* Nivel superior */
     
-    /* POSICIONAMIENTO: Columna 2 (Derecha) */
-    grid-column: 2 / 3;
-    grid-row: 1 / -1; /* Ocupa toda la altura */
-    z-index: 2;
-    height: auto;
+    width: 45%;       /* Ancho fijo de la barra */
+    height: 100%;       /* Ocupa todo el alto disponible de la tarjeta */
     
-    align-self: stretch; /* Se estira verticalmente */
+    /* Estilos Visuales (Glassmorphism) */
+    background-color: rgba(98, 119, 112, 0.75); /* Un poco más opaco para legibilidad */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(8px);
     
-    /* Estilos Glassmorphism */
-    background-color: rgba(98, 119, 112, 0.7);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    
-    /* Espaciado interno grande (estilo desktop) */
-    padding: 50px; 
+    padding: 60px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Contenido centrado verticalmente */
+    justify-content: center;
     gap: 25px;
     
-    /* Interactividad */
     text-decoration: none;
-    cursor: pointer;
+    color: #EED3A8; /* Color de tus variables */
     transition: all 0.3s ease;
-    color: var(--color-titulos);
 }
 
-/* Tipografía adaptada a tamaño grande */
+.inf:hover {
+    background-color: rgba(98, 119, 112, 0.95);
+}
+
+/* 4. ELEMENTOS INTERNOS */
+.encabezado-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.inf h2 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.icono-mapa img {
+    width: 60px;
+    height: auto;
+}
+
+/* Jerarquía de Textos */
 .inf h2 {
     margin: 0;
-    font-size: 2rem; /* Título grande */
+    font-size: 2rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    width: auto;
 }
 
 .inf h3 {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 400;
-    color: #fff; /* Opcional para subtítulos */
+    color: #ffffff;
 }
 
 .inf p {
     margin: 0;
-    font-size: 1.1rem; /* Texto legible */
+    font-size: 1.1rem;
     line-height: 1.5;
     opacity: 0.95;
 }
-
-.inf:hover {
-    background-color: var(--color-primario-tarjeta);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* ... dentro de tu Index.css, casi al final ... */
-
-/* Desktop: 1024px+ */

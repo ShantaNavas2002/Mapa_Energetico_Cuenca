@@ -1,26 +1,31 @@
-let datosMetodologia = [];
+// Variable local para manejar el estado
+let datosMetodologia = []; // Se llenará con los datos del archivo .js
 let bloqueActual = 0;
 
-// Cargar datos del JSON
-async function cargarDatosJSON() {
-    try {
-        const response = await fetch('data/metodologia-data.json');
-        const data = await response.json();
-        datosMetodologia = data.bloques;
+// INICIALIZACIÓN (Ya no es 'cargarDatosJSON', ahora es 'iniciar')
+function iniciarMetodologia() {
+    // Verificamos si la variable DATA_METODOLOGIA (del otro archivo) existe
+    if (typeof DATA_METODOLOGIA !== 'undefined') {
+        
+        // Asignamos los datos del archivo externo a nuestra variable local
+        datosMetodologia = DATA_METODOLOGIA.bloques;
+        
+        // Iniciamos la vista
         mostrarBloque(0);
         crearNavegacion();
-    } catch (error) {
-        console.error('Error al cargar los datos:', error);
+        
+    } else {
+        console.error('No se encontraron los datos en DATA_METODOLOGIA');
         mostrarError();
     }
 }
 
-// Mostrar error si falla la carga
+// Mostrar error (se mantiene igual, pero el mensaje cambia un poco)
 function mostrarError() {
     const titulo = document.getElementById('titulo');
-    titulo.textContent = 'Error al cargar datos';
+    titulo.textContent = 'Error de datos';
     const subtitulo = document.getElementById('subtitulo');
-    subtitulo.innerHTML = '<span>Por favor, recarga la página</span>';
+    subtitulo.innerHTML = '<span>No se pudo cargar el archivo de configuración.</span>';
 }
 
 // Mostrar un bloque específico
@@ -252,4 +257,4 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', cargarDatosJSON);
+document.addEventListener('DOMContentLoaded', iniciarMetodologia);;
