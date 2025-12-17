@@ -196,6 +196,7 @@
             line-height: 1.8;
             color: #444;
             margin-bottom: var(--spacing-sm);
+            text-align: justify;
         }
 
         /* FOOTER */

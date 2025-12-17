@@ -99,6 +99,9 @@
     line-height: 1.1;
     margin: 0;
 }
+.inf p {
+    text-align: justify;
+}
 
 .icono-mapa img {
     width: 60px;
@@ -106,19 +109,13 @@
 }
 
 /* Jerarquía de Textos */
-.inf h2 {
-    margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+.
 
 .inf h3 {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 400;
-    color: #ffffff;
+    color: var(--color-titulos);
 }
 
 .inf p {

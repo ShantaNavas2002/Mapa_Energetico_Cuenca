@@ -186,14 +186,10 @@ input, button, textarea, select {
 /* 2. Transformamos los "avatars" en logos rectangulares */
 .footer-col .avatar {
     width: 120px;           /* Ancho fijo idéntico para todos */
-    height: 40px;          /* Alto fijo idéntico para todos */
-    object-fit: contain;    /* CLAVE: Evita que la imagen se deforme/estire */
+    height: 50px;          /* Alto fijo idéntico para todos */
+        /* CLAVE: Evita que la imagen se deforme/estire */
     
-    /* Reseteo de estilos viejos */
-    border-radius: 0;
-    border: none;
-    background-color: transparent;
-    transition: transform 0.3s ease;
+    
 }
 
 /* Efecto hover opcional para que se vea interactivo */
@@ -225,15 +221,7 @@ input, button, textarea, select {
     margin-bottom: 10px;
 }
 
-.avatar {
-    background-color: var(--color-white);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #262626;
-    transition: transform var(--transition-speed) ease;
-}
+
 .avatar:hover {
     transform: translateY(-5px);
     border-color: var(--color-primary);
@@ -256,6 +244,7 @@ input, button, textarea, select {
     font-size: 1rem;
     transition: all var(--transition-speed) ease;
     justify-content: center;
+    align-self: start;
 }
 
 .link-item i {
@@ -279,53 +268,11 @@ input, button, textarea, select {
    ======================================== */
 
 /* Tablet: 768px+ */
-@media (min-width: 768px) {
-    .mi-grid-3 {
-        grid-template-columns: 80px 1fr 120px;
-        padding: var(--spacing-md);
-    }
+
     
-    .Logo-cuencasolar {
-        height: 120px;
-    }
     
-    .Logo-consiso {
-        height: 50px;
-    }
     
-    .menu-lateral {
-        width: var(--menu-width-desktop);
-        left: calc(-1 * var(--menu-width-desktop));
-        padding: 80px 30px;
-    }
-    
-    .menu-lista a {
-        font-size: 1.1rem;
-    }
-    
-    .contenedor-principal {
-        padding: var(--spacing-xl) var(--spacing-md);
-    }
-    
-   
-    
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-        text-align: left;
-    }
-    
-    .footer-col {
-        align-items: flex-start;
-    }
-    
-    .link-item {
-        justify-content: flex-start;
-    }
-    
-    .avatar-group {
-        justify-content: flex-start;
-    }
-}
+
 
 /* Desktop: 1024px+ */
 @media (min-width: 1024px) {

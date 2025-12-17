@@ -279,7 +279,7 @@ function buildPanelContent(feature, sectorTitle) {
     var x10Html = mostrarX10 ? `
         <div style="display: flex; flex-direction: column; margin-top: 8px;">
             <span class="key mono" style="font-size: 0.9rem; opacity: 0.8;"></span>
-            <strong style="font-size: 0.9rem; color: #e7444cff;">${val('X_10')}</strong>
+            <strong style="font-size: 0.9rem; color: #e7444cff;">*  ${val('X_10')}</strong>
         </div>
     ` : '';
 
