@@ -1,37 +1,41 @@
 const DATA_METODOLOGIA = {
     bloques: [
-      // 1
+      // ---------------- BLOQUE 1 CORREGIDO ----------------
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Introducción</h2><span>La Inminente Transición Energética</span>",
+            // 1. Cabecera dividida
+            seccion: "METODOLOGÍA",      // Va a la pastilla gris (Izquierda)
+            fase: "Introducción",        // Va al texto claro (Derecha)
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Contexto Urbano", // <--- ESTO ES LO QUE HACE QUE SALGA EL TÍTULO FLOTANTE
                     contenido: `
-                        <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1</p>
-
-                        <p>Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local 2.</p>
-
-                        <p>Este metodológica presenta los procesos detallados desarrollados para construir una plataforma web educativa y funcional. El objetivo no es solo calcular los vatios-hora (WH), generados por el sistema fotovoltaico, sino traducir variables físicas complejas como la irradiancia difusa, la obstrucción de horizonte y las regresiones tarifarias, en una narrativa accesible que permita a los habitantes de la ciudad de Cuenca (de los sectores Ordóñez Lasso, Primero de Mayo y Totoracocha) tomar decisiones informadas sobre su futuro energético.1</p>
+                        <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un "yacimiento solar" inexplorado en sus cubiertas [1]. </p>
+                        <p>Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local [2].</p>
+                        <p>Esta metodológica presenta los procesos detallados desarrollados para construir una plataforma web educativa y funcional. El objetivo no es solo calcular los kWh, generados por el sistema fotovoltaico, sino traducir variables físicas complejas como la irradiancia difusa, la obstrucción de horizonte y las regresiones tarifarias, en una narrativa accesible que permita a los habitantes de la ciudad de Cuenca (de los sectores Ordóñez Lasso, Primero de Mayo y Totoracocha) tomar decisiones informadas sobre su futuro energético [1].</p>
                     `
                 }
             ],
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "", // <--- TÍTULO FLOTANTE DERECHA
                     src: "images/imgjson1.png",
                     alt: "Fotografia"
                 }
             ]
         },
 
+        
+
       //2
     {
-            titulo: "Metodología",
-            subtitulo: "<h2>Introducción</h2><span>Estructura Metodológica</span>",
+            seccion: "Metodología",
+            fase: "Introducción",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Estructura Metodológica",
                     contenido: `
                         <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1</p>
                         
@@ -42,6 +46,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <ol>
                             <li><strong>Definición Territorial:</strong> Selección estratégica de tejidos urbanos representativos basándose en índices de edificabilidad y verticalidad.</li>
@@ -59,11 +64,12 @@ const DATA_METODOLOGIA = {
 
         //3
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 1: Definición de los Sectores de Estudio</h2><span>Criterios de Selección</span>",
+            seccion: "Metodología",
+            fase: "Fase 1: Definición de los Sectores de Estudio",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Criterios de Selección",
                     contenido: `
                         <p>Para que los resultados de un estudio de potencial solar sean extrapolables y didácticos, la selección de las áreas de muestra no puede ser aleatoria. Se debe capturar la heterogeneidad de la ciudad.</p>
                         
@@ -76,19 +82,22 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/ImgJson3.png",
                     alt: "Análisis solar"
                 }
             ]
         },
 
-        //4
+        // 4
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 1: Definición de los Sectores de Estudio</h2><span>Análisis Morfológico de los Sectores</span>",
+            seccion: "Metodología",
+            fase: "Fase 1: Definición de los Sectores de Estudio",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Análisis Morfológico de los Sectores ",
+                    
                     contenido: `
                         <p><strong>Sector S1: Ordóñez Lasso – La Verticalidad</strong></p>
                         
@@ -107,19 +116,22 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/ImgJson4.png",
-                    alt: "Mapa Ordoñez Lasso"
+                    alt: "Mapa Ordoñez Lasso",
+                    sinSombra: true
                 }
             ]
         },
 
-        //5
+        // 5
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 1: Definición de los Sectores de Estudio</h2><span>Análisis Morfológico de los Sectores</span>",
+            seccion: "Metodología",
+            fase: "Fase 1: Definición de los Sectores de Estudio",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Análisis Morfológico de los Sectores",
                     contenido: `
                         <p><strong>Sector S2: Primero de Mayo – La Heterogeneidad alto-bajo.</strong></p>
                         
@@ -138,20 +150,22 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/ImgJson5.png",
-                    alt: "Mapa Ordoñez Lasso"
+                    alt: "Primero de Mayo",
+                    sinSombra: true
                 }
             ]
         },
 
-
-    // 6
+        // 6
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 1: Definición de los Sectores de Estudio</h2><span>Análisis Morfológico de los Sectores</span>",
+            seccion: "Metodología",
+            fase: "Fase 1: Definición de los Sectores de Estudio",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Análisis Morfológico de los Sectores",
                     contenido: `
                         <p><strong>Sector S3: Totoracocha – El Potencial Residencial Consolidado</strong></p>
                         
@@ -170,19 +184,22 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson6.png",
-                    alt: "Mapa Totoracocha"
+                    alt: "Mapa Totoracocha",
+                    sinSombra: true
                 }
             ]
         },
 
         // 7
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 2: Levantamiento y Digitalización</h2><span>Fundamentos de la Fotogrametría Aérea</span>",
+            seccion: "Metodología",
+            fase: "Fase 2: Levantamiento y Digitalización",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Fundamentos de la Fotogrametría Aérea",
                     contenido: `
                         <p>Para evaluar el potencial solar con precisión, los mapas satelitales convencionales (como Google Earth) son insuficientes debido a su baja actualización y falta de detalle tridimensional. La metodología adoptada emplea la fotogrametría digital, una técnica que reconstruye la geometría 3D de objetos y terrenos a partir de la superposición de imágenes bidimensionales.18</p>
                         
@@ -193,6 +210,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/metodologia-1.jpg",
                     alt: "Descripción Fotogrametría"
                 }
@@ -201,11 +219,12 @@ const DATA_METODOLOGIA = {
 
         // 8
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 2: Levantamiento y Digitalización</h2><span>Protocolo de Adquisición de Datos</span>",
+            seccion: "Metodología",
+            fase: "Fase 2: Levantamiento y Digitalización",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Protocolo de Adquisición de Datos",
                     contenido: `
                         <p>La calidad del modelo digital depende intrínsecamente de la calidad de la captura. Se utilizaron equipos de grado topográfico para garantizar la fidelidad de los datos.1</p>
                         
@@ -228,6 +247,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson8.png",
                     alt: "Dron DJI"
                 }
@@ -236,11 +256,12 @@ const DATA_METODOLOGIA = {
 
         // 9
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 2: Levantamiento y Digitalización</h2><span>Procesamiento: De la Imagen a la Nube de Puntos</span>",
+            seccion: "Metodología",
+            fase: "Fase 2: Levantamiento y Digitalización",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Procesamiento: De la Imagen a la Nube de Puntos",
                     contenido: `
                         <p>El flujo de trabajo digital se realizó en el software especializado Agisoft Metashape, siguiendo una secuencia lógica de reconstrucción 1:</p>
                         
@@ -261,18 +282,21 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson9.png",
                     alt: "Software Metashape"
                 }
             ]
         },
+
     // 10
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 3: Modelado 3D y Cálculo de Superficie Útil</h2><span>Abstracción Geométrica LOD 2</span>",
+            seccion: "Metodología",
+            fase: "Fase 3: Modelado 3D y Cálculo de Superficie Útil",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Abstracción Geométrica LOD 2",
                     contenido: `
                         <p>Una vez obtenida la nube de puntos, se procedió a la modelación de las edificaciones en el software DesignBuilder v6.1. Se optó por un nivel de detalle LOD 2 (Level of Detail 2).</p>
                         
@@ -287,6 +311,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson10.png",
                     alt: "Logo DesignBuilder"
                 }
@@ -295,11 +320,12 @@ const DATA_METODOLOGIA = {
 
         // 11
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 3: Modelado 3D y Cálculo de Superficie Útil</h2><span>La Fórmula de la Superficie Útil</span>",
+            seccion: "Metodología",
+            fase: "Fase 3: Modelado 3D y Cálculo de Superficie Útil",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "La Fórmula de la Superficie Útil",
                     contenido: `
                         <p>Uno de los aportes metodológicos más importantes de este estudio es la distinción entre "área de techo" y "área útil". No todo el techo es apto para paneles solares. La metodología define la Superficie Útil Su mediante una ecuación de sustracción que elimina áreas ineficientes u ocupadas.1</p>
                         
@@ -318,6 +344,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <div style="text-align: center; padding: 20px; border: 2px solid var(--color-primario); border-radius: 10px;">
                             <h3 style="margin-bottom: 10px;">Ecuación</h3>
@@ -330,11 +357,12 @@ const DATA_METODOLOGIA = {
 
         // 12
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.1 : Simulación Energética y Estimación Solar</h2><span>El Sol Virtual: Datos Climáticos y Simulación</span>",
+            seccion: "Metodología",
+            fase: "Fase 4.1 : Simulación Energética y Estimación Solar",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "El Sol Virtual: Datos Climáticos y Simulación",
                     contenido: `
                         <p>Con los sectores reconstruidos digitalmente y depurados, el siguiente paso fue simular el comportamiento del sol sobre estas superficies. Se utilizaron archivos climáticos EPW (EnergyPlus Weather) específicos para Cuenca (Latitud -2.90°, Longitud -79.00°), actualizados al año 2024 con datos de la estación meteorológica El Batán [1].</p>
                         
@@ -357,6 +385,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson12.png",
                     alt: "Ilustración Simulación"
                 }
@@ -365,11 +394,12 @@ const DATA_METODOLOGIA = {
 
         // 13
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.2: Dimensionamiento del Sistema FV</h2>",
+            seccion: "Metodología",
+            fase: "Fase 4.2: Dimensionamiento del Sistema FV",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <h3>Selección del Panel</h3>
                         <p>Para traducir la radiación solar (clima) en electricidad (servicio), se debe definir un hardware de referencia. El estudio seleccionó un módulo fotovoltaico que representa el estándar actual del mercado local:</p>
@@ -377,6 +407,7 @@ const DATA_METODOLOGIA = {
                 },
                 {
                     tipo: "tabla",
+                    tituloCaja: "",
                     headers: ["Parámetro", "Valor", "Justificación"],
                     filas: [
                         ["Tecnología", "Monocristalino", "Mayor eficiencia por m2, ideal para techos urbanos limitados."],
@@ -390,6 +421,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p>La metodología garantiza la seguridad energética del usuario. Por tanto, se dimensiona el sistema para el consumo promedio mensual registrado en el año (E).</p>
                         
@@ -412,11 +444,12 @@ const DATA_METODOLOGIA = {
 
         // 14
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.2: Dimensionamiento del Sistema FV</h2><span>Índice de Suficiencia Fotovoltaica (ISF)</span>",
+            seccion: "Metodología",
+            fase: "Fase 4.2: Dimensionamiento del Sistema FV",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Índice de Suficiencia Fotovoltaica (ISF)",
                     contenido: `
                         <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1</p>
                         
@@ -427,6 +460,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p><strong>Interpretación para el Usuario:</strong></p>
                         
@@ -439,6 +473,7 @@ const DATA_METODOLOGIA = {
                 },
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson15.png",
                     alt: "Ilustración ISF"
                 }
@@ -447,11 +482,12 @@ const DATA_METODOLOGIA = {
     
         // 15
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.3: Análisis Tarifario</h2>",
+            seccion: "Metodología",
+            fase: "Fase 4.3: Análisis Tarifario",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <h3>Consumo Energético:</h3>
                         <h3>El Medidor como Unidad de Análisis</h3>
@@ -468,6 +504,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <h3>Estructura Tarifaria y Costos "Ocultos"</h3>
                         <p>La rentabilidad solar no depende solo de cuánta energía produces, sino de cuánto dejas de pagar. La metodología desglosó la planilla eléctrica de Cuenca para identificar los ahorros reales y los costos inevitables.1</p>
@@ -499,11 +536,12 @@ const DATA_METODOLOGIA = {
 
         // 16
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.4: Modelado de Costos de Instalación</h2><span>Sistemas ON-Grid (Conectados a la Red)</span>",
+            seccion: "Metodología",
+            fase: "Fase 4.4: Modelado de Costos de Instalación",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Sistemas ON-Grid (Conectados a la Red)",
                     contenido: `
                         <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1</p>
                         
@@ -512,6 +550,7 @@ const DATA_METODOLOGIA = {
                 },
                 {
                     tipo: "tabla",
+                    tituloCaja: "",
                     headers: ["Paneles", "Límite INF Wp", "Límite SUP Wp", "Fórmula"],
                     filas: [
                         ["1 A 35", "540", "18,900", "5.023432 * Wp <sup>0.808891</sup>"],
@@ -523,6 +562,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson17.png",
                     alt: "Esquema de conexión Sistema"
                 }
@@ -531,11 +571,12 @@ const DATA_METODOLOGIA = {
 
         // 17
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.4: Modelado de Costos de Instalación</h2><span>Sistemas OFF-Grid (Con Baterías)</span>",
+            seccion: "Metodología",
+            fase: "Fase 4.4: Modelado de Costos de Instalación",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Sistemas OFF-Grid (Con Baterías)",
                     contenido: `
                         <p>Los sistemas Off-Grid, al requerir almacenamiento de energía para operar de noche o durante cortes de luz, presentan un comportamiento de costos más complejo y no lineal. El dimensionamiento de las baterías (Wh) no siempre crece en la misma proporción que los paneles (Wp). De este modo se tienen 4 rangos, uno creado con los datos conocidos y 3 basados en una proporción a los rangos de la sección ON-Grid.</p>
                         
@@ -548,6 +589,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson18.png",
                     alt: "Análisis solar Off-Grid"
                 }
@@ -556,11 +598,12 @@ const DATA_METODOLOGIA = {
 
         // 18
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.4: Modelado de Costos de Instalación</h2><span>Sistemas OFF-Grid (Con Baterías)</span>",
+            seccion: "Metodología",
+            fase: "Fase 4.4: Modelado de Costos de Instalación",
             contenidoIzquierda: [
                 {
                     tipo: "tabla",
+                    tituloCaja: "Sistemas OFF-Grid (Con Baterías)",
                     headers: ["Rango (Paneles)", "Rango Potencia (Wp)", "Método de cálculo", "Fórmula/Valor aplicado", "Explicación"],
                     filas: [
                         ["1 - 26", "540 - 13,920", "Regresión Cuadrática", "USD = 1.68⋅Wp + 1.33⋅10<sup>-5</sup>⋅Wp<sup>2</sup> + 660", "\"El Modelo Preciso\": Basado en facturas reales. Incluye un costo base de arranque ($660) y ajusta el precio de las baterías con alta precisión."],
@@ -573,6 +616,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson18.png",
                     alt: "Esquema Off grid"
                 }
@@ -581,11 +625,12 @@ const DATA_METODOLOGIA = {
 
     // 19
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Fase 4.5: Cálculo del retorno de inversión y ahorro anual</h2>",
+            seccion: "Metodología",
+            fase: "Fase 4.5: Cálculo del retorno de inversión y ahorro anual",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <h2>Retorno de la Inversión</h2>
                         <p>Una vez definidas las tasas fijas mandatorias y los costos de instalación según la potencia (Wp) del sistema, se procede a calcular el retorno de la inversión. Para ello, se establece un balance anual donde el "ingreso" corresponde al monto del consumo eléctrico anual por predio (basado en datos de CENTROSUR) y el "egreso" equivale a las tasas fijas mensuales multiplicadas por doce.</p>
@@ -595,11 +640,13 @@ const DATA_METODOLOGIA = {
                 },
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson20.png",
                     alt: "Fórmula Retorno Inversión"
                 },
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p>Donde:</p>
                         <ul>
@@ -614,6 +661,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <h2>Ahorro anual</h2>
                         <p>Cuando la inversión ya se ha solventado de acuerdo al número de años estimados para el retorno de la inversión, se procede a calcular el ahorro anual del usuario por el sistema instalado. Para este proceso se resta el Pago anual del último año menos las tasas fijas mandatorias por 12 meses, este valor se expresa en USD/año.</p>
@@ -621,11 +669,13 @@ const DATA_METODOLOGIA = {
                 },
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson20-1.png",
                     alt: "Fórmula Ahorro Anual"
                 },
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p>Donde:</p>
                         <ul>
@@ -640,11 +690,12 @@ const DATA_METODOLOGIA = {
 
         // 20
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Visualización de Resultados</h2><span>Estimación de alturas edificadas y número de pisos por predio</span>",
+            seccion: "Metodología",
+            fase: "Visualización de Resultados",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "Estimación de alturas edificadas y número de pisos por predio",
                     contenido: `
                         <p>La estimación de alturas edificadas y número de pisos se realizó a partir de la integración de modelos digitales derivados de fotogrametría y análisis espacial sobre la cartografía catastral. El procedimiento se desarrolló en cuatro etapas principales: generación del modelo de alturas (nDSM), cálculo de estadísticas zonales por predio, definición del criterio de conversión de altura a número de pisos, y vinculación de los resultados a la capa de predios.</p>
                         
@@ -666,6 +717,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson21.png",
                     alt: "Ilustración nDSM"
                 }
@@ -674,11 +726,12 @@ const DATA_METODOLOGIA = {
 
         // 21
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Visualización de Resultados</h2>",
+            seccion: "Metodología",
+            fase: "Visualización de Resultados",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <h3>Cálculo de estadísticas de altura por predio (Zonal Statistics)</h3>
                         <p>Con el nDSM calculado, se empleó la herramienta Zonal Statistics as Table de ArcGIS Pro para obtener, para cada predio, un conjunto de métricas de altura. Se utilizó como campo identificador el código del predio.</p>
@@ -700,6 +753,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <h3>Integración de alturas por predio y cálculo del número de pisos</h3>
                         <p>La tabla de estadísticas se unió a la capa de predios mediante un Join utilizando el campo de identificación común. Una vez integrada la información, se procedió a calcular la altura representativa y el número de pisos por predio.</p>
@@ -709,22 +763,26 @@ const DATA_METODOLOGIA = {
                 },
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson22.png",
                     alt: "Fórmula Pisos"
                 },
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p>y de manera equivalente con la Mediana o el Percentil 90:</p>
                     `
                 },
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson22-1.png",
                     alt: "Fórmula Percentil"
                 },
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p>No obstante, para evitar sobreestimaciones y dado que en viviendas bajas el perfil volumétrico puede presentar variaciones, se aplicó un criterio ajustado:</p>
                         <ol>
@@ -743,11 +801,12 @@ const DATA_METODOLOGIA = {
 
         // 22
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Visualización de Resultados</h2><span>El potencial máximo instalable por cubierta</span>",
+            seccion: "Metodología",
+            fase: "Visualización de Resultados",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "El potencial máximo instalable por cubierta",
                     contenido: `
                         <p>Una vez obtenidos los resultados gráficos, se procede a elaborar un gráfico de barras que presenta, por un lado, el consumo por mes de cada predio (con datos obtenidos de la CENTROSUR), otra barra muestra la cantidad de energía mínima recomendada a instalar obtenida en secciones anteriores y la barra final presenta el potencial máximo instalable en las cubiertas de cada predio.</p>
                         
@@ -760,11 +819,13 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/imgjson23.png",
                     alt: "Fórmula Potencial Máximo"
                 },
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p>Donde:</p>
                         <ul>
@@ -782,11 +843,12 @@ const DATA_METODOLOGIA = {
 
     // 23
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Visualización de Resultados</h2>",
+            seccion: "Metodología",
+            fase: "Visualización de Resultados",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <p>La presentación de estos datos en la web utiliza técnicas avanzadas para facilitar la comprensión. El usuario obtendrá un mapa interactivo que presenta, en primera instancia los predios de los tres sectores de estudio en escala de color según el número de pisos que las edificaciones presentan. Por otra parte, al dar clic sobre cada uno de estos predios, el usuario podrá observar información técnica referente a identificadores del predio y la información recopilada dentro del proyecto de investigación IMETU, que engloba más de 250 mil datos y se presenta de manera didáctica visual para el usuario de acuerdo a los siguientes criterios: </p>
                         
@@ -829,6 +891,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "imagen",
+                    tituloCaja: "",
                     src: "images/ImgJson24.png",
                     alt: "GeoVisor"
                 }
@@ -837,11 +900,12 @@ const DATA_METODOLOGIA = {
 
         // 24
         {
-            titulo: "Metodología",
-            subtitulo: "<h2>Referencias</h2>",
+            seccion: "Metodología",
+            fase: "Referencias",
             contenidoIzquierda: [
                 {
                     tipo: "texto",
+                    tituloCaja: "",
                     contenido: `
                         <ol>
                             <li>Caracterización del consumo energético, la superficie útil y el potencial fotovoltaico en morfologías urbanas contrastantes de una ciudad intermedia. Cuenca – Ecuador. Steven Lopez y Jefferson Torres. Diciembre 2025</li>
@@ -861,6 +925,17 @@ const DATA_METODOLOGIA = {
                             <li>Análisis de Sitio en Totoracocha - Prezi, accessed November 30, 2025</li>
                             <li>Totoracocha (parroquia de Cuenca) - Wikipedia, accessed November 30, 2025</li>
                             <li>Universidad del Azuay, accessed November 30, 2025</li>
+                            
+                        </ol>
+                    `
+                }
+            ],
+            contenidoDerecha: [
+                {
+                    tipo: "texto",
+                    tituloCaja: "",
+                    contenido: `
+                        <ol>
                             <li>Fotogrametría - Instituto Geográfico Nacional, accessed November 30, 2025</li>
                             <li>¿Qué es la fotogrametría?—ArcGIS Pro | Documentación, accessed November 30, 2025</li>
                             <li>Fotogrametría Con Drones: Todo Lo Que Debes Saber | DRONING, accessed November 30, 2025</li>
@@ -882,14 +957,7 @@ const DATA_METODOLOGIA = {
                         </ol>
                     `
                 }
-            ],
-            contenidoDerecha: [
-                {
-                    tipo: "imagen",
-                    src: "images/metodologia-1.jpg",
-                    alt: "Análisis solar"
-                }
             ]
         }
-    ] // Cierre del array 'bloques'
-}; // Cierre del objeto 'DATA_METODOLOGIA'
+    ]
+};

@@ -180,17 +180,19 @@ input, button, textarea, select {
     display: flex;
     flex-direction: column; /* Lista vertical */
     align-items: center;    /* Centrados */
-    gap: 1px;              /* Espacio entre cada logo */
+    gap: 15px;              /* Espacio entre cada logo */
 }
 
 /* 2. Transformamos los "avatars" en logos rectangulares */
 .footer-col .avatar {
-    width: 120px;           /* Ancho fijo idéntico para todos */
-    height: 50px;          /* Alto fijo idéntico para todos */
+    width: 100px;           /* Ancho fijo idéntico para todos */
+    height: 30px;          /* Alto fijo idéntico para todos */
         /* CLAVE: Evita que la imagen se deforme/estire */
     
     
 }
+
+
 
 /* Efecto hover opcional para que se vea interactivo */
 .footer-col .avatar:hover {
