@@ -1,161 +1,49 @@
+/* ========================================
+   VARIABLES (Sincronizadas)
+   ======================================== */
 :root {
     /* Colores principales */
-    --color-primary: #627770;
-    --color-primario: rgba(98, 119, 112); /* --- #627770 ---*/
-    --color-secundario:rgb(238 211 168);                 /* --- #EED3A8 ---*/  
+    --color-primario: rgba(98, 119, 112, 1);
+    --color-primario-light: rgba(98, 119, 112, 0.8);
+    --color-secundario: rgb(238, 211, 168);
     
     /* Espaciados */
-    --spacing-xs: 0.5rem;   /* 8px */
-    --spacing-sm: 1rem;     /* 16px */
-    --spacing-md: 1.5rem;   /* 24px */
-    --spacing-lg: 2rem;     /* 32px */
-    --spacing-xl: 3rem;     /* 48px */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
     
-    /* Breakpoints (para referencia, se usan en @media) */
+    /* Breakpoints */
     --bp-mobile: 480px;
     --bp-tablet: 768px;
     --bp-desktop: 1024px;
     --bp-wide: 1440px;
     
-    /* Otros */
+    /* Configuración */
     --border-radius: 30px;
     --transition-speed: 0.3s;
     --menu-width-mobile: 250px;
     --menu-width-desktop: 300px;
+}
 
-     }
-/* ==========================================================================
-   1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
-   ========================================================================== */
+/* ========================================
+   CONFIGURACIÓN BASE (Layout Mapa)
+   ======================================== */
 body {
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-}
-
-.map-legend {
-  position: absolute;
-  bottom: 30px;
-  left: 20px;
-  background: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  z-index: 800;
-  font-family: 'Roboto', sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Encabezado de la leyenda */
-.legend-header {
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-.legend-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  color: #333;
-  white-space: nowrap;
-}
-
-/* Contenedor de items */
-.legend-items {
-  display: flex;
-  flex-direction: row;
-  
-  align-items: center;
-}
-
-/* Cada item de la leyenda */
-.legend-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Cuadro de color */
-.legend-color {
-  width: 50px;
-  height: 20px;
-  
-}
-
-/* Etiqueta de texto */
-.legend-label {
-  font-size: 11px;
-  color: #444;
-  font-weight: 400;
-  white-space: nowrap;
-}
-
-/* Responsive: adaptar en pantallas pequeñas */
-@media (max-width: 768px) {
-  .map-legend {
-    bottom: 15px;
-    left: 10px;
-    padding: 10px 15px;
-    gap: 10px;
-    flex-wrap: wrap;
-    max-width: calc(100vw - 20px);
-  }
-  
-  .legend-header h3 {
-    font-size: 12px;
-  }
-  
-  .legend-items {
-    gap: 8px;
-  }
-  
-  .legend-color {
-    width: 25px;
-    height: 18px;
-  }
-  
-  .legend-label {
-    font-size: 10px;
-  }
-}
-
-
-
-/* Nueva clase para el enlace */
-.link-logo {
-    justify-self: center; /* ESTO es lo que mantiene el logo centrado en tu grid */
-    display: flex;        /* Elimina espacios fantasma debajo de la imagen */
-    align-items: center;  /* Asegura centrado vertical si fuera necesario */
-    cursor: pointer;      /* Manito al pasar el mouse */
-}
-
-/* Ajuste opcional: asegura que la imagen no tenga bordes ni márgenes extraños */
-.link-logo .Logo-cuencasolar {
-    /* Ya no es necesario 'justify-self: center' aquí porque lo hace el padre (.link-logo), 
-       pero si lo dejas no pasa nada malo. */
-    display: block; 
-}
-
-/* ==========================================================================
-   2. UI FLOTANTE (PANEL LATERAL Y BUSCADOR)
-   ========================================================================== */
-/* 1. Ajustamos el cuerpo para que sea una columna flexible */
-body {
+    /* Configuración Flex para pantalla completa sin scroll */
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ocupa el 100% de la altura de la ventana */
-    margin: 0;
-    overflow: hidden; /* Evita scrollbars innecesarios */
+    height: 100vh; 
+    overflow: hidden;
 }
 
-/* 2. Estilo de la Barra */
+/* Ajuste Header Grid */
 .mi-grid-3 {
     display: grid;
     grid-template-columns: 60px 1fr 60px;
@@ -165,384 +53,341 @@ body {
     padding: var(--spacing-sm);
 }
 
-/* Botón menú lateral */
+/* ========================================
+   ELEMENTOS DE UI (Botones y Logos)
+   ======================================== */
 .position-btn {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-  
-  .btn-menu
-{
-  /* 1. Reset básico y tamaño */
-  background-color: transparent; 
-  border: transparent;
-    
-  /* 2. Tamaño y color del icono */
-  padding: 1px; /* Relleno uniforme para que sea cuadrado */
-  font-size: 1.7rem; /* Icono más grande */
-  color: var(--color-primary); /* Color del icono */
-  
-  /* 3. Forma y transiciones */
-  cursor: pointer; 
-  border-radius: 8px; /* Bordes ligeramente redondeados, como en la imagen */
-  
-  /* Permite animar el borde y el color de forma suave */
-  transition: all var(--transition-speed) ease; 
-  
-  /* Fuerza que sea cuadrado si solo quieres el icono */
-  width: 50px; 
-  height: 50px; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-menu:hover {
-  /* Al pasar el ratón, el borde se hace más grueso */
- 
-  /* Puedes cambiar el color del icono si quieres */
-  color: var(--color-primary-light); 
-  /* Opcional: un ligero escalado */
-  transform: scale(1.05);
-}
-
-
-.btn-lateral {
-    height: 50px;
-    width: 50px;
-    background-color: transparent;
+.btn-menu {
+    background-color: transparent; 
     border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: var(--color-primary);
-    transition: transform var(--transition-speed) ease;
+    padding: 1px; 
+    font-size: 1.7rem; 
+    color: var(--color-primario); 
+    cursor: pointer; 
+    border-radius: 8px; 
+    transition: all var(--transition-speed) ease; 
+    width: 50px; 
+    height: 50px; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.btn-lateral:hover {
-    transform: scale(1.1);
-    color: var(--color-primary-light);
+.btn-menu:hover {
+    color: var(--color-primario-light); 
+    transform: scale(1.05);
 }
 
-/* Logos */
-.Logo-cuencasolar {
-    height: 40px;
-    width: auto;
-    justify-self: center;
-}
-
+.Logo-cuencasolar,
 .Logo-consiso {
     height: 40px;
     width: auto;
     justify-self: center;
 }
 
+.link-logo {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 
+.link-logo .Logo-cuencasolar {
+    display: block; 
+}
 
-
-
-
-
-
-/* 5. Ajuste CRUCIAL para el Mapa */
-#map{
+/* ========================================
+   MAPA Y LEYENDAS
+   ======================================== */
+#map {
     width: 100%;
-    /* Flex: 1 hace que el mapa ocupe TODO el espacio restante debajo de la barra */
-    flex: 1; 
-    height: auto !important; /* Sobrescribe el 100% anterior */
+    flex: 1; /* Ocupa todo el espacio restante */
+    height: auto !important; 
 }
-  
-  
-  
 
-/* El panel principal que flota a la derecha. Tiene efecto vidrio (transparencia) */
+.map-legend {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 800;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.legend-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.legend-color {
+    width: 50px;
+    height: 20px;
+}
+
+.legend-label {
+    font-size: 11px;
+    color: #444;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+/* ========================================
+   PANEL FLOTANTE (Derecha)
+   ======================================== */
 .ui-panel {
-  position: absolute;
-  top: 80px; right: 24px;
-  width: 45vw;            
-  max-width: 780px; min-width: 360px;        
-  max-height: calc(100vh - 100px); /* Que no se salga de la pantalla verticalmente */
-  overflow: auto;          
-  border-radius: 24px;     
-  background: rgba(98, 119, 112, 0.5) ;
-  backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); /* Un poco más sólido para legibilidad */
-  box-shadow: 0 25px 60px rgba(0,0,0,0.22); 
-  z-index: 800;           
-  padding: 16px; 
-  color: #0f172a;          
+    position: absolute;
+    top: 80px; 
+    right: 24px;
+    width: 45vw;            
+    max-width: 780px; 
+    min-width: 360px;        
+    max-height: calc(100vh - 100px); 
+    overflow: auto;          
+    border-radius: 24px;     
+    background: rgba(98, 119, 112, 0.5);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    box-shadow: 0 25px 60px rgba(0,0,0,0.22); 
+    z-index: 800;           
+    padding: 16px; 
+    color: #0f172a;          
 }
 
-/* Clase de utilidad para esconder cosas */
 .ui-panel.hidden { display: none; }
 
-/* Botón de cerrar (X) en la esquina del panel */
 .ui-close {
-  position: absolute;
-  top: 10px; right: 12px;
-  background: transparent;
-  border: 0;
-  font-size: 22px;   
-  cursor: pointer;
-  color: inherit;     
+    position: absolute;
+    top: 10px; 
+    right: 12px;
+    background: transparent;
+    border: 0;
+    font-size: 22px;   
+    cursor: pointer;
+    color: inherit;     
 }
 
-/* El buscador flotante de la izquierda */
-.Buscador-Predio {
-  position: absolute;
-  z-index: 800; 
-  top: 12px; left: 12px; 
-  display: flex; 
-  gap: 6px; 
-  align-items: center; 
-  background: rgba(255,255,255,0.95); 
-  padding: 8px 10px; 
-  border-radius: 10px; 
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  width: auto;
-}
-
-/* Estilos de los inputs y botones del buscador */
-#claveSearch {
-  width: 220px; 
-  padding: 6px 10px; 
-  border-radius: 8px; 
-  border: 1px solid #d1d5db;
-  outline: none;
-}
-
-#claveGo {
-  padding: 6px 10px; 
-  border-radius: 8px; 
-  border: 0; 
-  background: var(--color-primario); /* Verde corporativo */
-  color: white; 
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-#claveGo:hover { background: rgb(238 211 168); 
-color: black;}
-
-/* ==========================================================================
-   3. COMPONENTES INTERNOS DEL PANEL (ACORDEONES Y BADGES)
-   ========================================================================== */
-
-/* Contenedor interno para dar márgenes */
+/* Componentes internos del panel */
 .ui-panel .popup-card { 
-  width: 100%;
-  padding: 10px 6px;
-  
+    width: 100%;
+    padding: 10px 6px;
 }
 
 .popup-title {
-  font-size: 1.5rem;
-  margin: 6px 6px 12px;
-  text-align: center;
+    font-size: 1.5rem;
+    margin: 6px 6px 12px;
+    text-align: center;
 }
 
-/* Estilo base de los acordeones (<details>) */
+/* Acordeones */
 .section {
-  background: #f3f4f6;           
-  border-radius: 14px;
-  margin: 10px 6px;
-  overflow: hidden;               
-  border: 1px solid #e5e7eb;      
+    background: #f3f4f6;           
+    border-radius: 14px;
+    margin: 10px 6px;
+    overflow: hidden;               
+    border: 1px solid #e5e7eb;      
 }
 
-/* La cabecera clickeable del acordeón */
 .section summary {
-  list-style: none; /* Quito el triángulo feo por defecto */              
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px;
-  cursor: pointer;
-  font-weight: 600;
+    list-style: none;             
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    cursor: pointer;
+    font-weight: 600;
 }
-.section summary::-webkit-details-marker { display: none; } /* Soporte Safari */
 
-/* Animación de la flechita al abrir/cerrar */
+.section summary::-webkit-details-marker { display: none; }
+
 .section .chev { transition: transform .2s ease; }
 .section[open] .chev { transform: rotate(180deg); }
 
 .section-body { padding: 10px 14px 14px; }
 
-/* Badges (Etiquetas simples) */
+/* Badges */
 .badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 42px;
-  background: #fff;
-  border: 1px solid #cbd5e1; /* Corregido: faltaba el tipo de borde */
-  border-radius: 10px;
-  font-size: 12px;
-  padding: 0 8px;
-  gap: 6px;
-  text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 12px;
+    padding: 0 8px;
+    gap: 6px;
+    text-align: center;
 }
+
 .badge .key { opacity: 0.6; }
 .badge.is-empty { display: none; }
 
-/* Efecto visual cuando selecciono un predio en el mapa */
 .feature-selected {
-  stroke: rgb(84, 173, 106) !important;      
-  stroke-width: 5 !important;
-  filter: drop-shadow(0 0 6px rgba(37,99,235,0.25));
+    stroke: rgb(84, 173, 106) !important;      
+    stroke-width: 5 !important;
+    filter: drop-shadow(0 0 6px rgba(37,99,235,0.25));
 }
 
-/* ==========================================================================
-   4. TARJETAS SOLARES (DISEÑO PERSONALIZADO GRIS)
-   ========================================================================== */
+/* ========================================
+   BUSCADOR (Izquierda)
+   ======================================== */
+.Buscador-Predio {
+    position: absolute;
+    z-index: 800; 
+    top: 12px; 
+    left: 12px; 
+    display: flex; 
+    gap: 6px; 
+    align-items: center; 
+    background: rgba(255,255,255,0.95); 
+    padding: 8px 10px; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    width: auto;
+}
 
-/* Grid de 2 columnas para las tarjetas */
+#claveSearch {
+    width: 220px; 
+    padding: 6px 10px; 
+    border-radius: 8px; 
+    border: 1px solid #d1d5db;
+    outline: none;
+}
+
+#claveGo {
+    padding: 6px 10px; 
+    border-radius: 8px; 
+    border: 0; 
+    background: var(--color-primario);
+    color: white; 
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#claveGo:hover { 
+    background: var(--color-secundario); 
+    color: black;
+}
+
+/* ========================================
+   TARJETAS SOLARES (Diseño Gris)
+   ======================================== */
 .solar-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 12px;
-  margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 12px;
+    margin-top: 10px;
 }
 
-/* La tarjeta gris individual */
 .solar-card {
-  
-  border-radius: 16px;       
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 16px;       
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* Contenedor del icono SVG/IMG */
 .solar-icon {
-  width: 40px; height: 40px;
-  flex-shrink: 0; /* Evito que el icono se aplaste si hay mucho texto */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666;
+    width: 40px; 
+    height: 40px;
+    flex-shrink: 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
 }
 
-/* Parte derecha de la tarjeta (Texto y Valor) */
 .solar-info {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0; 
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0; 
 }
 
 .solar-label {
-  font-size: 0.9rem;
-  color: #444;
-  margin-bottom: 4px;
-  line-height: 1.2;
-  text-align: center;
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 4px;
+    line-height: 1.2;
+    text-align: center;
 }
 
-/* La cajita gris oscura donde va el número */
 .solar-value-box {
-  background-color: rgba(98, 119, 112, 0.8);
-  color: white;
-  padding: 6px 4px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 1rem;
-  text-align: center;
-  width: 90%; /* Un poco menos del 100% para que se vea elegante */
-  display: block;
-  margin: 0 auto; /* Centrado */
+    background-color: var(--color-primario-light);
+    color: white;
+    padding: 6px 4px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    width: 90%; 
+    display: block;
+    margin: 0 auto; 
 }
 
-/* Responsive: En móviles muy pequeños, las tarjetas se ponen una bajo otra */
-@media (max-width: 400px) {
-  .solar-grid { grid-template-columns: 1fr; }
+/* ========================================
+   ALERTAS Y PANELES INFORMATIVOS
+   ======================================== */
+.icono-alerta {
+    width: 10%;
+    height: 10%;
 }
 
-/* ==========================================================================
-   5. IMÁGENES DINÁMICAS EN CABECERA (LA CASA QUE CAMBIA)
-   ========================================================================== */
-
-/* Agrupa el texto del acordeón y la imagen */
-.summary-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-grow: 1; /* Ocupa todo el espacio disponible para empujar la imagen */
+.panel1 {
+    background: #e5d3a6; 
+    border: 2px solid rgb(201, 190, 159); 
+    border-radius: 12px; 
+    padding: 30px; 
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center;            
+    text-align: center;   
+    font-size: 0.9rem;
 }
 
-/* La imagen de la casa (Oculta por defecto) */
-.header-img {
-  display: none;       
-  height: 50px;        
-  width: auto;         
-  object-fit: contain;
-  
-  /* Truco Flexbox: Empuja la imagen todo lo posible a la derecha */
-  margin-left: auto;   
-  margin-right: 15px;  
-  
-  transition: all 0.3s ease;
-}
-
-/* Cuando abro el acordeón, muestro la imagen con animación */
-.section[open] .header-img {
-  display: block;
-  animation: fadeIn 0.4s ease-in-out;
-  
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-/* ==========================================================================
-   6. "IF"paneles
-   ========================================================================== */
- 
-
- .icono-alerta{
-  width: 10%;
-  height: 10%;
-
-  
- }
- .panel1{
-  background: #e5d3a6; 
-  border: 2px solid rgb(201, 190, 159); 
-  border-radius: 12px; 
-  padding: 30px; 
-  margin: 20px 0;
-  display: flex;
-  flex-direction: column; 
-  align-items: center;    /
-  justify-content: center;            
-  text-align: center;   
-   
- }
-
- .panel1{
-  font-size: 0.9rem;
-  
- }
-
-
-
-
- .switch-container {
-    position: fixed; /* Cambiado de absolute a fixed */
-    top: 90%;      /* Bájalo un poco más para que no choque con el buscador */
-    left: 1%;     /* Un poco más de margen a la derecha */
-    z-index: 850;   /* Un número muy alto para ganarle a Leaflet y al Header */
+/* ========================================
+   SWITCH FLOTANTE
+   ======================================== */
+.switch-container {
+    position: fixed; 
+    top: 90%;      
+    left: 1%;     
+    z-index: 850;   
     background: var(--color-primario);
     padding: 10px 15px;
-    border-radius: 50px; /* Bordes más redondos se ven más modernos */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+    border-radius: 50px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
     display: flex;
     align-items: center;
     gap: 10px;
@@ -552,5 +397,67 @@ color: black;}
     color: white;
 }
 
-/* El resto del CSS (.switch, .slider, etc.) déjalo igual, solo cambia el contenedor de arriba */
+/* ========================================
+   ANIMACIONES (Header Image)
+   ======================================== */
+.summary-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1; 
+}
 
+.header-img {
+    display: none;       
+    height: 50px;        
+    width: auto;         
+    object-fit: contain;
+    margin-left: auto;   
+    margin-right: 15px;  
+    transition: all 0.3s ease;
+}
+
+.section[open] .header-img {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+    .map-legend {
+        bottom: 15px;
+        left: 10px;
+        padding: 10px 15px;
+        gap: 10px;
+        flex-wrap: wrap;
+        max-width: calc(100vw - 20px);
+    }
+  
+    .legend-header h3 {
+        font-size: 12px;
+    }
+  
+    .legend-items {
+        gap: 8px;
+    }
+  
+    .legend-color {
+        width: 25px;
+        height: 18px;
+    }
+  
+    .legend-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .solar-grid { grid-template-columns: 1fr; }
+}

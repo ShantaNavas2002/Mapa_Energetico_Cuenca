@@ -1,125 +1,115 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-        <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-        <link rel="stylesheet" href="css/leaflet.css">
-        <link rel="stylesheet" href="css/qgis2web.css">
-        <link rel="stylesheet" href="css/styles-panel.css">
-        <link rel="stylesheet" href="css/barralateral.css">
-        
-        
-        
-        
-        <style>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Cuenca Solar</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/styles-panel.css">
+    <link rel="stylesheet" href="css/barralateral.css">
+    <link href="css/EstructuraBase.Css" style >
+
+    <style>
         html, body, #map {
             width: 100%;
             height: 100%;
             padding: 0;
             margin: 0;
         }
-        </style>
-        <title>Cuenca Solar</title>
-    </head>
-    <body>
+    </style>
+</head>
+<body>
     <div class="overlay" id="overlay"></div>
-<header class="mi-grid-3">
+
+    <header class="mi-grid-3">
         <div class="position-btn">
-    <div id="menu-container"></div>
-        <button class="btn-menu" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </div>
-    <a href="index.html" class="link-logo">
-            <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg">
+            <div id="menu-container"></div>
+            <button class="btn-menu" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <a href="index.html" class="link-logo">
+            <img class="Logo-cuencasolar" src="images/UI_LogoCuencaSolar.svg" alt="Logo Cuenca Solar">
         </a>
         <img class="Logo-consiso" src="images/logoConsiso.svg" alt="logo de Consiso">
-</header>
-<!-- Buscador por CLAVE -->
+    </header>
 
-    
-        <div id="map">
-          <div class="Buscador-Predio" >
+    <div id="map">
+        <div class="Buscador-Predio">
             <input id="claveSearch" type="search" placeholder="Buscar por clave catastral.." list="claveOptions">
             <datalist id="claveOptions"></datalist>
-            <button id="claveGo" >Buscar</button>
-          </div>
-
-          <div class="map-legend">
-  <div class="legend-header">
-    <h3>Número de Pisos</h3>
-  </div>
-  <div class="legend-items">
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #dadadaff;"></span>
-      <span class="legend-label">0</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #C5DFC0;"></span>
-      <span class="legend-label">1</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #B5D7AF;"></span>
-      <span class="legend-label">2</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #A6CF9F;"></span>
-      <span class="legend-label">3</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #8FBF85;"></span>
-      <span class="legend-label">4-6</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #78AF6B;"></span>
-      <span class="legend-label">7-9</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #619F51;"></span>
-      <span class="legend-label">10-12</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #4A8F37;"></span>
-      <span class="legend-label">13-15</span>
-    </div>
-    <div class="legend-item">
-      <span class="legend-color" style="background-color: #337F1D;"></span>
-      <span class="legend-label">16-18</span>
-    </div>
-  </div>
-</div>
+            <button id="claveGo">Buscar</button>
         </div>
 
-        
-          
-          
+        <div class="map-legend">
+            <div class="legend-header">
+                <h3>Número de Pisos</h3>
+            </div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #dadadaff;"></span>
+                    <span class="legend-label">0</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #C5DFC0;"></span>
+                    <span class="legend-label">1</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #B5D7AF;"></span>
+                    <span class="legend-label">2</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #A6CF9F;"></span>
+                    <span class="legend-label">3</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #8FBF85;"></span>
+                    <span class="legend-label">4-6</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #78AF6B;"></span>
+                    <span class="legend-label">7-9</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #619F51;"></span>
+                    <span class="legend-label">10-12</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #4A8F37;"></span>
+                    <span class="legend-label">13-15</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #337F1D;"></span>
+                    <span class="legend-label">16-18</span>
+                </div>
+            </div>
         </div>
+    </div>
 
-
-        <div id="featurePanel" class="ui-panel hidden" role="dialog" aria-label="Ficha de predio">
+    <div id="featurePanel" class="ui-panel hidden" role="dialog" aria-label="Ficha de predio">
         <button class="ui-close" id="panelCloseBtn" aria-label="Cerrar">×</button>
         <div id="featurePanelContent"></div>
-        </div>
+    </div>
 
-        <script src="js/menu.js" ></script>
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>  
-        <script src="data/TOTORACOCHA_1.js"></script>
-        <script src="data/PRIMERODEMAYO_2.js"></script>
-        <script src="data/ORDOEZLASO_3.js"></script>
-        <script src="data/Usos.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-        <script src="js/MapaDatos.js"></script>        
-    </body>
+    <script src="js/MenuLateral.js"></script>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="data/TOTORACOCHA_1.js"></script>
+    <script src="data/PRIMERODEMAYO_2.js"></script>
+    <script src="data/ORDOEZLASO_3.js"></script>
+    <script src="data/Usos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="js/MapaDatos.js"></script>
+</body>
 </html>

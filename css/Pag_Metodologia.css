@@ -1,40 +1,36 @@
-/* =================================================================
-   ESTILOS EXCLUSIVOS PARA LA SECCIÓN "METODOLOGÍA"
-   (No afecta header, footer ni body global)
-   ================================================================= */
-
-/* Definimos variables SOLO para este alcance para no romper otros estilos */
+/* ========================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   ======================================== */
 .contenedor-principal-metodo {
-    --met-bg-card: #8CA69E;      /* Verde grisáceo base */
-    --met-bg-dark: #657974;      /* Caja oscura (izq) */
-    --met-bg-light: #EBDCC1;     /* Caja clara (der) */
-    --met-txt-light: #EBDCC1;    /* Texto claro */
-    --met-txt-dark: #505F5B;     /* Texto oscuro */
+    --met-bg-card: #8CA69E;
+    --met-bg-dark: #657974;
+    --met-bg-light: #EBDCC1;
+    --met-txt-light: #EBDCC1;
+    --met-txt-dark: #505F5B;
     
-    /* Configuración del contenedor padre (la section) */
     width: 100%;
-    min-height: 85vh; /* Altura mínima para que se vea bien en pantalla */
+    min-height: 85vh; 
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    box-sizing: border-box;
-    background-color: transparent; /* O el color de fondo que desees para el hueco */
+    background-color: transparent;
 }
 
-/* 1. LA TARJETA GRANDE (El contenedor principal redondeado) */
+/* ========================================
+   LAYOUT PRINCIPAL (TARJETA Y GRILLA)
+   ======================================== */
 .tarjeta-img-metodo {
     width: 100%;
-    max-width: 1400px; /* Ancho máximo para pantallas grandes */
-    height: 80vh;      /* Altura fija relativa al viewport */
+    max-width: 1400px;
+    height: 80vh; 
     background-color: rgba(98, 119, 112, 0.8);
     border-radius: 30px;
     position: relative;
-    overflow: hidden; /* Para que la imagen de fondo no se salga */
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* Sombra para dar profundidad */
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 
-/* Imagen de fondo decorativa (opacidad baja) */
 .imagen-contenedor-metodo {
     position: absolute;
     top: 0;
@@ -43,42 +39,33 @@
     height: 100%;
     z-index: 0;
 }
+
 .imagen-contenedor-metodo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.05; /* Muy sutil */
+    opacity: 0.05;
 }
 
-/* 2. GRILLA INTERNA (Layout de los elementos) */
-/* =========================================
-   2. GRILLA INTERNA (Ajuste 50/50)
-   ========================================= */
 .contenedor-metodo {
     position: relative;
     z-index: 2;
     height: 100%;
     padding: 40px 50px;
-    box-sizing: border-box;
     display: grid;
-    
     grid-template-areas: 
         "cabecera cabecera"
         "izq der"
         "nav nav";
-        
-    /* --- AQUÍ ESTÁ EL CAMBIO --- */
-    /* 1fr 1fr significa: dos columnas de igual tamaño (50% cada una) */
     grid-template-columns: 1fr 1fr; 
-    
     grid-template-rows: auto 1fr auto; 
     column-gap: 40px;
     row-gap: 50px; 
 }
 
-/* El item-b ya no existe, puedes borrar la regla .titulo-tema.item-b */
-
-/* 3. CABECERA SUPERIOR (Pastilla + Introducción) */
+/* ========================================
+   CABECERA (ITEM A)
+   ======================================== */
 .header-superior.item-a {
     grid-area: cabecera;
     display: flex;
@@ -87,127 +74,88 @@
     margin-bottom: 10px;
 }
 
-/* Pastilla "METODOLOGÍA" */
 #seccion-pill {
-    background-color: rgba(0, 0, 0, 0.15); /* Oscuro semitransparente */
+    background-color: rgba(0, 0, 0, 0.15);
     color: #EBDCC1;
     padding: 8px 30px;
     border-radius: 50px;
-    font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-/* Texto Derecha "Introducción" */
 #fase-txt {
-    font-family: 'Roboto', sans-serif;
     font-size: 2rem;
-    color: #EED3A8; /* Color gris suave */
+    color: #EED3A8;
     font-weight: 300;
 }
 
-/* 4. TÍTULO DEL TEMA (Ej: Estructura Metodológica) */
-.titulo-tema.item-b {
-    grid-area: titulo;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.8rem;
-    color: #d1bfa3; /* Beige suave similar a la imagen */
-    margin: 0 0 10px 0;
-    font-weight: 400;
-}
-
-/* 5. CONTENEDORES DE CONTENIDO (Layout) */
+/* ========================================
+   CONTENEDORES DE CONTENIDO (ITEM C & D)
+   ======================================== */
 .item-c { grid-area: izq; }
 .item-d { grid-area: der; }
 
-/* Limpieza de estilos por defecto para que no molesten */
 .item-c, .item-d {
-    position: relative !important; /* Necesario para que el título absoluto se ubique respecto a esto */
+    position: relative !important;
     background: transparent !important;
     padding: 0 !important;
     border: none !important;
     box-shadow: none !important;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Fuerza a ocupar toda la altura de la grilla */
-    min-height: 0; /* Truco de Flexbox/Grid para permitir scroll interno */
+    height: 100%;
+    min-height: 0;
 }
 
-/* TÍTULOS FLOTANTES (Versión Multilínea) */
 .titulo-externo-recuadro {
     position: absolute;
-    /* CAMBIO CLAVE: Se posiciona desde abajo hacia arriba */
-    bottom: 100%;       /* Se pega al borde superior de la caja */
+    bottom: 100%;
     left: 0;
     width: 100%;
-    
-    margin-bottom: 3px; /* Espacio entre el texto y la caja de color */
-    
-    font-family: 'Roboto', sans-serif;
+    margin-bottom: 3px;
     font-size: 1.1rem;
     color: var(--met-txt-light);
     font-weight: 500;
-    line-height: 1.2;    /* Altura de línea para cuando hay 2 renglones */
-    
-    /* Permitir saltos de línea */
-    white-space: normal; 
-    overflow: visible;   /* Permitir que se vea todo el texto */
+    line-height: 1.2;
+    white-space: normal;
+    overflow: visible;
 }
 
-/* 6. ESTILOS DE LAS CAJAS INTERNAS (Colores de fondo) */
+/* ========================================
+   CAJAS INTERNAS Y SCROLLBAR
+   ======================================== */
 .caja-contenido-estilo {
     border-radius: 20px;
     padding: 30px;
     height: 100%;
     width: 100%;
-    box-sizing: border-box;
     overflow-y: auto; 
-    
-    /* --- AGREGA ESTO PARA EL SCROLL --- */
-    /* Le dice al navegador: "El scroll muere aquí, no lo pases al padre" */
     overscroll-behavior-y: contain; 
-    
-    font-family: 'Roboto', sans-serif;
     line-height: 1.5;
 }
 
 .caja-contenido-estilo::-webkit-scrollbar {
-    width: 8px; /* Ancho delgado pero visible */
+    width: 8px;
 }
 
 .caja-contenido-estilo::-webkit-scrollbar-track {
-    background: transparent; /* Fondo del riel invisible */
-    margin-top: 20px;       /* Margen para que no pegue con los bordes redondeados */
+    background: transparent;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
 .caja-contenido-estilo::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* Color oscuro semitransparente */
-    border-radius: 10px;       /* Redondeado */
-    border: 2px solid transparent; /* Truco para dar "padding" al scrollbar */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: 2px solid transparent;
     background-clip: content-box;
 }
 
-/* Hover sobre el scrollbar para que se note más al usarlo */
 .caja-contenido-estilo::-webkit-scrollbar-thumb:hover {
     background-color: rgba(0, 0, 0, 0.4);
 }
-/* Caja Izquierda: OSCURA */
-#izq-imgOtxt .caja-contenido-estilo {
-    background-color: var(--met-bg-dark);
-    color: var(--met-txt-light);
-    font-size: 0.95rem;
-}
 
-/* Caja Derecha: CLARA (Beige) */
-#der-imgOtxt .caja-contenido-estilo {
-    background-color: var(--met-bg-light);
-    color: var(--met-txt-dark);
-    font-size: 0.95rem;
-}
-
-/* Ajustes de imágenes dentro de las cajas */
 .caja-contenido-estilo img {
     width: 100%;
     height: auto;
@@ -215,15 +163,26 @@
     display: block;
 }
 
-/* 7. BARRA DE NAVEGACIÓN (Inferior) */
+/* Estilos Específicos Izquierda/Derecha */
+#izq-imgOtxt .caja-contenido-estilo {
+    background-color: var(--met-bg-dark);
+    color: var(--met-txt-light);
+    font-size: 0.95rem;
+}
+
+#der-imgOtxt .caja-contenido-estilo {
+    background-color: var(--met-bg-light);
+    color: var(--met-txt-dark);
+    font-size: 0.95rem;
+}
+
+/* ========================================
+   BARRA DE NAVEGACIÓN (ITEM E)
+   ======================================== */
 #barra-nav.item-e {
     grid-area: nav;
     width: 90%;
-    margin: 0 auto;
-    
-    /* AQUI ESTA EL PADDING EXTRA QUE PEDISTE */
-    margin-top: 30px; /* Aleja la barra de los contenidos */
-    
+    margin: 30px auto 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -232,55 +191,48 @@
     position: relative;
 }
 
-/* Contenedor de cada GRUPO (Fase) */
 .grupo-nav {
-    flex: 1;                /* Cada fase ocupa el mismo espacio proporcional */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;    /* Centra el texto */
+    align-items: center;
     position: relative;
-    margin: 0 2px;          /* Pequeño espacio entre fases */
+    margin: 0 2px;
 }
 
-/* Texto de la Fase (Arriba) */
 .titulo-fase-nav {
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.75rem;     /* Texto pequeño */
+    font-size: 0.75rem;
     color: var(--met-txt-light);
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 8px;     /* Espacio entre texto y barra */
-    opacity: 0.5;           /* Por defecto semitransparente */
+    margin-bottom: 8px;
+    opacity: 0.5;
     transition: opacity 0.3s;
-    
-    /* Para manejar textos largos */
     white-space: normal;
     max-width: 100%;
     line-height: 1.2;
-    height: 30px;           /* Altura fija para alinear todo */
+    height: 30px;
     display: flex;
-    align-items: flex-end;  /* Texto pegado abajo */
+    align-items: flex-end;
     justify-content: center;
 }
 
-/* La barra contenedora de segmentos */
 .barra-progreso-fase {
     width: 100%;
     display: flex;
-    height: 6px;            /* Grosor de la línea */
-    background-color: rgba(255, 255, 255, 0.2); /* Fondo de la línea inactiva */
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     overflow: hidden;
 }
 
-/* Cada segmento individual (diapositiva) dentro de la fase */
 .segmento-nav {
-    flex: 1;                /* Se reparten el espacio de la fase */
+    flex: 1;
     height: 100%;
     border: none;
     background-color: transparent;
     cursor: pointer;
-    border-right: 1px solid rgba(0,0,0,0.2); /* Separador sutil entre pasos */
+    border-right: 1px solid rgba(0,0,0,0.2);
     padding: 0;
     transition: background-color 0.3s;
 }
@@ -289,25 +241,21 @@
     border-right: none;
 }
 
-/* --- ESTADOS ACTIVOS --- */
-
-/* Cuando la fase está activa (o ya pasó) */
+/* Estados Activos */
 .grupo-nav.fase-activa .titulo-fase-nav {
     opacity: 1;
     font-weight: bold;
-    color: var(--met-bg-light); /* Color beige destacado */
+    color: var(--met-bg-light);
 }
 
-/* Segmento actual o vistos */
 .segmento-nav.activo {
-    background-color: var(--met-bg-light); /* Beige activo */
+    background-color: var(--met-bg-light);
 }
 
 .segmento-nav:hover {
     background-color: rgba(235, 220, 193, 0.5);
 }
 
-/* Eliminamos los botones de flecha antiguos del flujo visual principal si deseas */
 .btn-nav-flotante {
     background: none;
     border: none;
@@ -317,54 +265,60 @@
     padding: 0 15px;
 }
 
-/* =========================================
-   8. ESTILOS ESPECIALES: SOLO IMAGEN
-   (Centrado perfecto, sin scroll, 90%)
-   ========================================= */
-
-/* Cuando la caja tiene la clase 'modo-solo-imagen' (agregada por JS) */
+/* ========================================
+   UTILIDADES: MODOS ESPECIALES
+   ======================================== */
+/* Modo Solo Imagen (Sin Scroll) */
 .caja-contenido-estilo.modo-solo-imagen {
-    display: flex;              /* Flexbox para centrar */
-    justify-content: center;    /* Centrado Horizontal */
-    align-items: center;        /* Centrado Vertical */
-    overflow: hidden;           /* DESACTIVA EL SCROLL */
-    padding: 0;                 /* Quitamos padding para tener control total */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 0;
 }
 
-/* Estilo de la imagen dentro de esta caja especial */
 .caja-contenido-estilo.modo-solo-imagen img {
     width: auto;
     height: auto;
-    
-    /* El truco del 90% sin distorsión */
     max-width: 90%;
     max-height: 90%;
-    object-fit: contain; /* Asegura que la imagen entera se vea sin estirarse */
-    
+    object-fit: contain;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Sombra elegante para resaltar */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
+/* Modo Centrado Total (Texto) */
+.contenido-texto.centrado-total {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    min-height: min-content;
+}
 
-/* =========================================
-   9. ESTILOS DE TABLAS
-   (Diseño limpio y adaptable a fondo claro/oscuro)
-   ========================================= */
+img.sin-sombra {
+    box-shadow: none !important;
+    filter: none !important;
+}
 
+/* ========================================
+   ESTILOS DE TABLAS
+   ======================================== */
 .contenido-tabla {
     width: 100%;
-    overflow-x: auto; /* Scroll horizontal si la tabla es muy ancha */
+    overflow-x: auto;
     margin-top: 10px;
 }
 
 .tabla-datos {
     width: 100%;
-    border-collapse: collapse; /* Elimina espacios entre bordes */
-    font-family: 'Roboto', sans-serif;
+    border-collapse: collapse;
     font-size: 0.9em;
 }
 
-/* Encabezados (TH) */
 .tabla-datos th {
     text-align: left;
     padding: 12px 15px;
@@ -372,70 +326,55 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     opacity: 0.8;
-    border-bottom: 2px solid currentColor; /* Usa el color de texto actual como borde */
+    border-bottom: 2px solid currentColor;
 }
 
-/* Celdas (TD) */
 .tabla-datos td {
     padding: 12px 15px;
-    border-bottom: 1px solid rgba(120, 120, 120, 0.2); /* Línea divisoria sutil */
+    border-bottom: 1px solid rgba(120, 120, 120, 0.2);
     vertical-align: top;
 }
 
-/* Filas (TR) - Efecto hover suave */
 .tabla-datos tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Ilumina ligeramente al pasar el mouse */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Quitar borde a la última fila */
 .tabla-datos tr:last-child td {
     border-bottom: none;
 }
 
-/* Ajuste específico para superíndices en tablas (m2, etc.) */
 .tabla-datos sup {
     font-size: 0.7em;
 }
 
-/* Clase utilitaria para quitar sombras a imágenes específicas (ej. diagramas o logos) */
-img.sin-sombra {
-    box-shadow: none !important;
-    filter: none !important; /* Por si acaso tengas filtros */
-}
-
-
-/* =========================================
-   10. CARRUSEL STACK (Estilo Mazo de Cartas)
-   ========================================= */
-
+/* ========================================
+   CARRUSEL STACK (MAZO DE CARTAS)
+   ======================================== */
 .carrusel-stack-wrapper {
     position: relative;
     width: 100%;
-    height: 100%;       /* Ocupa toda la caja */
-    min-height: 300px;  /* Altura mínima para que no se aplaste */
+    height: 100%;
+    min-height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px; /* Profundidad 3D */
-    overflow: hidden;   /* Para que no se salgan las imágenes */
+    perspective: 1000px;
+    overflow: hidden;
 }
 
-/* Estilo base de todas las cartas */
 .carrusel-carta {
     position: absolute;
-    width: 85%;         /* Un poco menos del 100% para ver la de atrás */
+    width: 85%;
     height: auto;
     max-height: 90%;
     object-fit: cover;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); /* Movimiento suave */
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
 }
 
-/* --- ESTADOS DE POSICIÓN --- */
-
-/* 1. CARTA ACTIVA (Al frente, nítida) */
+/* Estados de Posición */
 .carrusel-carta.pos-activa {
     z-index: 10;
     transform: translateX(0) scale(1);
@@ -443,30 +382,26 @@ img.sin-sombra {
     filter: blur(0);
 }
 
-/* 2. CARTA SIGUIENTE (Atrás derecha, borrosa) */
 .carrusel-carta.pos-siguiente {
     z-index: 5;
-    /* Se mueve a la derecha (40px) y se hace pequeña (0.9) */
-    transform: translateX(40px) scale(0.9) translateZ(-50px); 
+    transform: translateX(40px) scale(0.9) translateZ(-50px);
     opacity: 0.7;
-    filter: blur(4px); /* El efecto borroso que pediste */
+    filter: blur(4px);
 }
 
-/* 3. CARTA ANTERIOR (Atrás izquierda, oculta o saliendo) */
 .carrusel-carta.pos-anterior {
     z-index: 1;
-    transform: translateX(-150%) scale(0.8); /* Se va lejos a la izquierda */
+    transform: translateX(-150%) scale(0.8);
     opacity: 0;
 }
 
-/* 4. EL RESTO (Ocultas al fondo) */
 .carrusel-carta.pos-oculta {
     z-index: 0;
     transform: translateX(40px) scale(0.8) translateZ(-100px);
     opacity: 0;
 }
 
-/* --- BOTONES DE CONTROL --- */
+/* Controles */
 .carrusel-btn {
     position: absolute;
     top: 50%;
@@ -479,7 +414,7 @@ img.sin-sombra {
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    z-index: 20; /* Por encima de todo */
+    z-index: 20;
     transition: background 0.3s;
     backdrop-filter: blur(5px);
 }
@@ -491,22 +426,3 @@ img.sin-sombra {
 
 .btn-prev { left: 10px; }
 .btn-next { right: 10px; }
-
-
-
-/* Clase para centrar contenido vertical y horizontalmente */
-/* Funciona aunque cambie el tamaño del cuadro */
-.contenido-texto.centrado-total {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrado Vertical (clave) */
-    align-items: center;     /* Centrado Horizontal */
-    text-align: center;      /* Alineación del texto interno */
-    
-    /* ESTO ES LO IMPORTANTE: */
-    height: 100%;            /* Ocupa toda la altura disponible del padre */
-    width: 100%;             /* Ocupa todo el ancho */
-    
-    /* Opcional: Para asegurar que si la fórmula es muy grande no se corte */
-    min-height: min-content; 
-}

@@ -7,9 +7,9 @@
     --color-primary: #627770;
     --color-primario: rgba(98, 119, 112);
     --color-secundario: rgb(238 211 168);
-    --color-white: #ffffff; /* Inferido por uso en btn-cerrar */
-    --color-text-light: #f0f0f0; /* Inferido o valor por defecto común */
-    --color-accent: #EED3A8; /* Asumido para menu-bullet basado en secundarios */
+    --color-white: #ffffff; 
+    --color-text-light: #f0f0f0;
+    --color-accent: #EED3A8; 
     
     /* Espaciados */
     --spacing-xs: 0.5rem;
@@ -120,10 +120,10 @@ body {
     margin: 0;
     width: 100%;
     overflow: hidden;
-    color: white; /* Fuente: UI-fija.css */
+    color: white; 
 
-    display: flex;           /* Convierte la lista en flex */
-    flex-direction: column;  /* Ordena los elementos en columna */
+    display: flex;          
+    flex-direction: column;  
     flex-grow: 1;
 }
 
@@ -135,7 +135,7 @@ body {
 
 .menu-lista a {
     text-decoration: none;
-    color: #ffffff !important; /* Nota: usa variable definida en root o fallback */
+    color: #ffffff !important; 
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -153,7 +153,7 @@ body {
 .menu-bullet {
     width: 8px;
     height: 8px;
-    background-color: var(--color-accent); /* Nota: usa variable de acento */
+    background-color: var(--color-accent); 
     display: inline-block;
     flex-shrink: 0;
 }
@@ -168,13 +168,13 @@ body {
     margin: 0;
     margin-top: 10px;
     
-    /* Propiedad clave para el despliegue animado */
+    
     max-height: 0; 
     overflow: hidden;
     transition: max-height 0.4s ease-out; 
 }
 
-/* Estilo para los ítems del sub-menú */
+
 .sub-menu-lista li {
     padding-left: 15px; 
     border-bottom: none; 
@@ -182,7 +182,7 @@ body {
     padding-bottom: 5px;
 }
 
-/* Estilo específico para los enlaces del sub-menú */
+
 .sub-menu-lista a {
     font-size: 0.85rem; 
     opacity: 0.8;
@@ -192,24 +192,24 @@ body {
     opacity: 1;
 }
 
-/* Estilos para el ícono de flecha */
+
 .flecha-desplegable {
     margin-left: auto; 
     transition: transform 0.3s ease;
     font-size: 0.75rem; 
 }
 
-/* Rotación de la flecha cuando el menú está abierto */
+
 .menu-desplegable.abierto .flecha-desplegable {
     transform: rotate(180deg);
 }
 
-/* Asegurar que el botón principal de 'Otros Proyectos' se vea bien */
+
 .menu-desplegable > a {
     border-bottom: none; 
 }
 
-/* Restaurar el borde inferior del <li> principal si está cerrado */
+
 .menu-desplegable:not(.abierto) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }

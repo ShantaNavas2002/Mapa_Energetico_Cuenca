@@ -1,20 +1,17 @@
-/* ==========================================================================
-   INDEX - ESTILOS ESPECÍFICOS DE LA PÁGINA PRINCIPAL
-   Configuración: Escritorio Fijo (Sin Breakpoints)
-   ========================================================================== */
-
-/* 1. VARIABLES (Configuración Global del Módulo)
-   -------------------------------------------------------------------------- */
+/* ========================================
+   INDEX - ESTILOS ESPECÍFICOS
+   ======================================== */
 :root {
     --color-primario-tarjeta: rgba(98, 119, 112, 0.8);
     --color-titulos: #EED3A8;
     --color-hex-vacio: rgba(98, 119, 112, 0.3);
     --color-hex-sombra: rgba(0, 0, 0, 0.15);
-    --color-texto-nombre: #ffffff;
+    --color-texto-blanco: #ffffff;
 }
 
-/* 2. CONTENEDORES DE ESTRUCTURA (Layout)
-   -------------------------------------------------------------------------- */
+/* ========================================
+   LAYOUT PRINCIPAL
+   ======================================== */
 .contenedor-principal {
     display: flex;
     justify-content: center;
@@ -22,52 +19,47 @@
     padding: var(--spacing-md) var(--spacing-sm);
 }
 
-/* ==========================================================================
-   INDEX - DISEÑO DE CAPAS (IMAGEN DE FONDO + BARRA LATERAL)
-   ========================================================================== */
-
-/* 1. CONTENEDOR RAÍZ (El Límite) */
+/* ========================================
+   TARJETA (IMAGEN + BARRA LATERAL)
+   ======================================== */
 .tarjeta-img {
-    position: relative; /* Indispensable para que la imagen no se escape */
-    display: flex;      /* Cambiamos a Flex para empujar la barra a la derecha */
+    position: relative; 
+    display: flex;      
     justify-content: flex-end; /* Alinea la barra de info a la derecha */
-    
     width: 100%;
     max-width: 90%;
     margin: 0 auto;
-    min-height: 800px; /* Aquí controlas la altura que querías */
-    
+    min-height: 800px; 
     border-radius: 30px;
-    overflow: hidden;   /* Corta la imagen si intenta salirse de los bordes */
+    overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* 2. CAPA DE FONDO (Ocupa todo el cuadro) */
+/* Capa de fondo (Imagen) */
 .imagen-contenedor {
-    position: absolute; /* Se despega del flujo para irse al fondo */
+    position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Nivel más bajo */
+    z-index: 1; 
 }
 
 .imagen-contenedor img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Mantiene la proporción de la imagen */
+    object-fit: cover; 
 }
 
-/* 3. CAPA DE INFORMACIÓN (La barra lateral) */
+/* Capa de información (Barra lateral) */
 .inf {
-    position: relative; /* Para estar por encima de la imagen */
-    z-index: 2;         /* Nivel superior */
+    position: relative; 
+    z-index: 2;        
+    width: 45%;       
+    height: 100%;       
     
-    width: 45%;       /* Ancho fijo de la barra */
-    height: 100%;       /* Ocupa todo el alto disponible de la tarjeta */
-    
-    /* Estilos Visuales (Glassmorphism) */
-    background-color: rgba(98, 119, 112, 0.75); /* Un poco más opaco para legibilidad */
+    /* Glassmorphism */
+    background-color: rgba(98, 119, 112, 0.75); 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(8px);
     
@@ -78,15 +70,17 @@
     gap: 25px;
     
     text-decoration: none;
-    color: #EED3A8; /* Color de tus variables */
-    transition: all 0.3s ease;
+    color: var(--color-titulos);
+    transition: background-color 0.3s ease;
 }
 
 .inf:hover {
     background-color: rgba(98, 119, 112, 0.95);
 }
 
-/* 4. ELEMENTOS INTERNOS */
+/* ========================================
+   ELEMENTOS INTERNOS
+   ======================================== */
 .encabezado-card {
     display: flex;
     align-items: center;
@@ -94,28 +88,23 @@
     margin-bottom: 10px;
 }
 
-.inf h2 {
-    font-size: 2.2rem;
-    line-height: 1.1;
-    margin: 0;
-}
-.inf p {
-    text-align: justify;
-}
-
 .icono-mapa img {
     width: 60px;
     height: auto;
 }
 
-/* Jerarquía de Textos */
-
-
-
+.inf h2 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--color-titulos);
+}
 
 .inf p {
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.5;
     opacity: 0.95;
+    text-align: justify;
+    color: var(--color-texto-blanco);
 }

@@ -1,91 +1,97 @@
+/* ========================================
+   LEYENDA DE MAPA (USOS TÉRMICOS)
+   ======================================== */
 .map-legend-usos {
-  position: absolute;
-  bottom: 30px;
-  right: 20px;
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  z-index: 800;
-  font-family: 'Roboto', sans-serif;
-  min-width: 200px;
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 800;
+    min-width: 200px;
 }
 
-/* Encabezado de la leyenda */
+/* ========================================
+   ENCABEZADO
+   ======================================== */
 .legend-usos-header {
-  margin-bottom: 12px;
-  border-bottom: 2px solid #e0e0e0;
-  padding-bottom: 8px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
 }
 
 .legend-usos-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  color: #333;
-  text-align: center;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
 }
 
-/* Contenedor de items */
+/* ========================================
+   ITEMS DE LA LEYENDA
+   ======================================== */
 .legend-usos-items {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-/* Cada item de la leyenda */
 .legend-usos-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform var(--transition-speed) ease;
+    cursor: default;
 }
 
 .legend-usos-item:hover {
-  transform: translateX(3px);
+    transform: translateX(3px);
 }
 
-/* Cuadro de color */
 .legend-usos-color {
-  width: 24px;
-  height: 24px;
-  border: 1px solid #666;
-  border-radius: 4px;
-  flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: 24px;
+    height: 24px;
+    border: 1px solid #666;
+    border-radius: 4px;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Etiqueta de texto */
 .legend-usos-label {
-  font-size: 13px;
-  color: #444;
-  font-weight: 400;
-  line-height: 1.3;
+    font-size: 13px;
+    color: #444;
+    font-weight: 400;
+    line-height: 1.3;
 }
 
-/* Responsive: adaptar en pantallas pequeñas */
+/* ========================================
+   RESPONSIVE
+   ======================================== */
 @media (max-width: 768px) {
-  .map-legend-usos {
-    bottom: 15px;
-    right: 10px;
-    padding: 12px;
-    min-width: 180px;
-  }
+    .map-legend-usos {
+        bottom: 15px;
+        right: 10px;
+        padding: 12px;
+        min-width: 180px;
+    }
   
-  .legend-usos-header h3 {
-    font-size: 12px;
-  }
+    .legend-usos-header h3 {
+        font-size: 12px;
+    }
   
-  .legend-usos-items {
-    gap: 6px;
-  }
+    .legend-usos-items {
+        gap: 6px;
+    }
   
-  .legend-usos-color {
-    width: 20px;
-    height: 20px;
-  }
+    .legend-usos-color {
+        width: 20px;
+        height: 20px;
+    }
   
-  .legend-usos-label {
-    font-size: 11px;
-  }
+    .legend-usos-label {
+        font-size: 11px;
+    }
 }

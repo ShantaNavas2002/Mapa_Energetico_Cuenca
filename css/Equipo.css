@@ -1,227 +1,172 @@
-:root {
-            --color-primario: #627770;
-            --color-secundario: #D4C5A9;
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 1.5rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 3rem;
-            --transition-speed: 0.3s;
-        }
+/* ========================================
+   CONFIGURACIÓN PAGINA ESPECÍFICA
+   (Las variables se heredan de EstructuraBase.css)
+   ======================================== */
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+body {
+    background: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: white;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+/* ========================================
+   CARRUSEL INFINITO
+   ======================================== */
+.carousel-container {
+    width: 100%;
+    padding: var(--spacing-xl) 0;
+    overflow: hidden;
+    position: relative;
+}
 
-       
-        
-        /* CARRUSEL INFINITO CON CURVA */
-        .carousel-container {
-            width: 100%;
-            padding: var(--spacing-xl) 0;
-            overflow: hidden;
-            position: relative;
-        }
+.carousel-viewport {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    perspective: 1200px;
+    overflow: visible;
+    padding: 40px 0;
+}
 
-        .carousel-viewport {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            perspective: 1200px;
-            overflow: visible;
-            padding: 40px 0;
-        }
-
-        /* AGREGAR ESTO AL CSS */
 .carousel-track {
     display: flex;
     gap: var(--spacing-md);
     width: max-content;
     transform-style: preserve-3d;
-    cursor: grab; /* Manito abierta */
-    will-change: transform; /* Optimización de rendimiento */
+    cursor: grab;
+    will-change: transform;
 }
 
 .carousel-track.grabbing {
-    cursor: grabbing; /* Manito cerrada al agarrar */
+    cursor: grabbing;
 }
 
-        .carousel-track:hover {
-            animation-play-state: paused;
-        }
+.carousel-track:hover {
+    animation-play-state: paused;
+}
 
-        @keyframes scroll-infinite {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
+@keyframes scroll-infinite {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
 
-        /* TARJETAS DEL EQUIPO */
-        .team-card {
-            position: relative;
-            flex: 0 0 280px;
-            height: 380px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            background-color: #f0f0f0;
-            transform-style: preserve-3d;
-        }
+/* ========================================
+   TARJETAS DEL EQUIPO
+   ======================================== */
+.team-card {
+    position: relative;
+    flex: 0 0 280px;
+    height: 380px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-color: #f0f0f0;
+    transform-style: preserve-3d;
+}
 
-        /* Efecto de curva en las tarjetas - cada tarjeta tiene una rotación suave */
-        .team-card:nth-child(odd) {
-            transform: rotateY(-2deg) rotateX(1deg);
-        }
+/* Efecto curvo alternado */
+.team-card:nth-child(odd) {
+    transform: rotateY(-2deg) rotateX(1deg);
+}
 
-        .team-card:nth-child(even) {
-            transform: rotateY(2deg) rotateX(-1deg);
-        }
+.team-card:nth-child(even) {
+    transform: rotateY(2deg) rotateX(-1deg);
+}
 
-        .team-card:hover {
-            transform: translateY(-20px) scale(1.05) rotateY(0deg) rotateX(0deg) !important;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            z-index: 10;
-        }
+.team-card:hover {
+    transform: translateY(-20px) scale(1.05) rotateY(0deg) rotateX(0deg) !important;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    z-index: 10;
+}
 
-        .team-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(1.1);
-            transition: filter var(--transition-speed) ease;
-        }
+.team-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.1);
+    transition: filter var(--transition-speed) ease;
+}
 
-        .team-card:hover img {
-            filter: grayscale(0%) contrast(1);
-        }
+.team-card:hover img {
+    filter: grayscale(0%) contrast(1);
+}
 
-        /* Overlay de información */
-        .card-info-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: var(--spacing-md) var(--spacing-sm);
-            background: linear-gradient(
-                to top, 
-                rgba(98, 119, 112, 0.95) 0%, 
-                rgba(98, 119, 112, 0.85) 50%, 
-                transparent 100%
-            );
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-            transform: translateY(10px);
-            opacity: 0.9;
-            transition: all var(--transition-speed) ease;
-        }
+/* Overlay de información */
+.card-info-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-sm);
+    background: linear-gradient(
+        to top, 
+        rgba(98, 119, 112, 0.95) 0%, 
+        rgba(98, 119, 112, 0.85) 50%, 
+        transparent 100%
+    );
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transform: translateY(10px);
+    opacity: 0.9;
+    transition: all var(--transition-speed) ease;
+}
 
-        .team-card:hover .card-info-overlay {
-            transform: translateY(0);
-            opacity: 1;
-            background: linear-gradient(
-                to top, 
-                rgba(98, 119, 112, 1) 0%, 
-                rgba(98, 119, 112, 0.9) 60%, 
-                transparent 100%
-            );
-        }
+.team-card:hover .card-info-overlay {
+    transform: translateY(0);
+    opacity: 1;
+    background: linear-gradient(
+        to top, 
+        rgba(98, 119, 112, 1) 0%, 
+        rgba(98, 119, 112, 0.9) 60%, 
+        transparent 100%
+    );
+}
 
-        .card-nombre {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
+.card-nombre {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
 
-        .card-cargo {
-            margin: 0;
-            font-size: 0.95rem;
-            font-weight: 300;
-            opacity: 0.9;
-        }
+.card-cargo {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
 
-        .card-email {
-            font-size: 0.85rem;
-            color: var(--color-secundario);
-            text-decoration: none;
-            margin-top: var(--spacing-xs);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: color var(--transition-speed) ease;
-        }
+.card-email {
+    font-size: 0.85rem;
+    color: var(--color-secundario);
+    text-decoration: none;
+    margin-top: var(--spacing-xs);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color var(--transition-speed) ease;
+}
 
-        .card-email:hover {
-            text-decoration: underline;
-            color: #fff;
-        }
+.card-email:hover {
+    text-decoration: underline;
+    color: #fff;
+}
 
-        /* SECCIÓN QUIÉNES SOMOS */
-        .quienes-somos-section {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            padding: var(--spacing-xl) var(--spacing-md);
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .quienes-somos-section h2 {
-            color: var(--color-secundario);
-            font-size: 2.2rem;
-            margin-bottom: var(--spacing-md);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .quienes-somos-section p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #444;
-            margin-bottom: var(--spacing-sm);
-            text-align: justify;
-        }
-
-        /* FOOTER */
-        .site-footer {
-            background-color: rgba(98, 119, 112, 0.8);
-            color: #fff;
-            padding: var(--spacing-xl) var(--spacing-md);
-            margin-top: var(--spacing-xl);
-        }
-        .site-footer h2{
-            color: #D4C5A9;
-        }
-        
-
-
-        /* RESPONSIVE */
-       
-
-            /* SECCIÓN QUIÉNES SOMOS - Rediseñada */
+/* ========================================
+   SECCIÓN QUIÉNES SOMOS
+   ======================================== */
 .quienes-somos-section {
     width: 100%;
-    max-width: 1200px; /* Aumentamos el ancho para que respire */
+    max-width: 1200px;
     margin: 0 auto;
     padding: var(--spacing-xl) var(--spacing-md);
-    /* Eliminamos background, border-radius y box-shadow para quitar el "recuadro" */
     background: transparent; 
     box-shadow: none;
     margin-bottom: var(--spacing-xl);
@@ -229,22 +174,21 @@
 
 .qs-container {
     display: flex;
-    align-items: center; /* Centra verticalmente texto y logo */
+    align-items: center;
     justify-content: center;
-    gap: var(--spacing-lg); /* Espacio entre la línea y el logo */
+    gap: var(--spacing-lg);
 }
 
 .qs-text {
-    flex: 1; /* El texto ocupa el espacio disponible */
-    text-align: right; /* Alineamos el texto hacia la línea divisoria */
-    padding-right: var(--spacing-lg); /* Espacio entre texto y línea */
-    /* AQUI ESTÁ LA LÍNEA SEPARADORA */
+    flex: 1;
+    text-align: right;
+    padding-right: var(--spacing-lg);
     border-right: 2px solid var(--color-primario); 
 }
 
 .qs-text h2 {
     color: var(--color-primario);
-    font-size: 2.5rem; /* Un poco más grande para impactar */
+    font-size: 2.5rem;
     margin-bottom: var(--spacing-md);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -258,29 +202,46 @@
 }
 
 .qs-logo-container {
-    flex: 0 0 300px; /* Ancho fijo para el contenedor del logo */
+    flex: 0 0 300px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* ========================================
+   FOOTER (Overrides específicos)
+   ======================================== */
+.site-footer {
+    background-color: rgba(98, 119, 112, 0.8);
+    color: #fff;
+    padding: var(--spacing-xl) var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
 
-/* RESPONSIVE PARA EL NUEVO DISEÑO */
+.site-footer h2 {
+    color: var(--color-secundario);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
 @media (max-width: 768px) {
     .qs-container {
-        flex-direction: column-reverse; /* En móvil, el logo arriba o abajo según prefieras */
+        flex-direction: column-reverse;
         gap: var(--spacing-md);
     }
 
     .qs-text {
         flex: 1; 
-    /* Cambiamos de 'right' a 'justify' */
-    text-align: justify; 
-    padding-right: var(--spacing-lg);
+        text-align: justify; 
+        padding-right: var(--spacing-lg);
+        /* Opcional: Si quieres quitar la línea en móvil, descomenta abajo */
+        /* border-right: none; */
+        /* border-bottom: 2px solid var(--color-primario); */
     }
     
     .qs-logo-container {
         flex: auto;
-        width: 150px; /* Logo más pequeño en móvil */
+        width: 150px;
     }
 }

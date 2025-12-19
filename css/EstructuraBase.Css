@@ -1,20 +1,22 @@
 /* ========================================
-   VARIABLES CSS - Centraliza colores y espacios
+   VARIABLES CSS
    ======================================== */
 :root {
-    /* Colores principales */
-    
-    --color-primario: rgba(98, 119, 112); /* --- #627770 ---*/
-    --color-secundario:rgb(238 211 168);                 /* --- #EED3A8 ---*/  
+    /* Colores */
+    --color-primario: rgba(98, 119, 112, 1);
+    --color-primario-light: rgba(98, 119, 112, 0.8);
+    --color-secundario: rgb(238, 211, 168);
+    --color-text: #333333;
+    --color-black: #000000;
     
     /* Espaciados */
-    --spacing-xs: 0.5rem;   /* 8px */
-    --spacing-sm: 1rem;     /* 16px */
-    --spacing-md: 1.5rem;   /* 24px */
-    --spacing-lg: 2rem;     /* 32px */
-    --spacing-xl: 3rem;     /* 48px */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
     
-    /* Breakpoints (para referencia, se usan en @media) */
+    /* Breakpoints */
     --bp-mobile: 480px;
     --bp-tablet: 768px;
     --bp-desktop: 1024px;
@@ -27,9 +29,8 @@
     --menu-width-desktop: 300px;
 }
 
-
 /* ========================================
-   BASE - Estilos generales
+   BASE
    ======================================== */
 * {
     box-sizing: border-box;
@@ -44,15 +45,12 @@ body {
     overflow-x: hidden;
 }
 
-
 input, button, textarea, select {
     font-family: inherit;
 }
 
-
-
 /* ========================================
-   HEADER - Grid adaptativo
+   HEADER
    ======================================== */
 .mi-grid-3 {
     display: grid;
@@ -63,49 +61,32 @@ input, button, textarea, select {
     padding: var(--spacing-sm);
 }
 
-/* Botón menú lateral */
 .position-btn {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-  
-  .btn-menu
-{
-  /* 1. Reset básico y tamaño */
-  background-color: transparent; 
-  border: transparent;
-    
-  /* 2. Tamaño y color del icono */
-  padding: 10px; /* Relleno uniforme para que sea cuadrado */
-  font-size: 2rem; /* Icono más grande */
-  color: var(--color-primary); /* Color del icono */
-  
-  /* 3. Forma y transiciones */
-  cursor: pointer; 
-  border-radius: 8px; /* Bordes ligeramente redondeados, como en la imagen */
-  
-  /* Permite animar el borde y el color de forma suave */
-  transition: all var(--transition-speed) ease; 
-  
-  /* Fuerza que sea cuadrado si solo quieres el icono */
-  width: 50px; 
-  height: 50px; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.btn-menu {
+    background-color: transparent; 
+    border: none;
+    padding: 10px;
+    font-size: 2rem;
+    color: var(--color-primario);
+    cursor: pointer; 
+    border-radius: 8px;
+    transition: all var(--transition-speed) ease; 
+    width: 50px; 
+    height: 50px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-menu:hover {
-  /* Al pasar el ratón, el borde se hace más grueso */
- 
-  /* Puedes cambiar el color del icono si quieres */
-  color: var(--color-primary-light); 
-  /* Opcional: un ligero escalado */
-  transform: scale(1.05);
+    color: var(--color-primario-light); 
+    transform: scale(1.05);
 }
-
 
 .btn-lateral {
     height: 50px;
@@ -114,7 +95,7 @@ input, button, textarea, select {
     border: none;
     cursor: pointer;
     font-size: 1.5rem;
-    color: var(--color-primary);
+    color: var(--color-primario);
     transition: transform var(--transition-speed) ease;
     display: flex;
     align-items: center;
@@ -123,7 +104,7 @@ input, button, textarea, select {
 
 .btn-lateral:hover {
     transform: scale(1.1);
-    color: var(--color-primary-light);
+    color: var(--color-primario-light);
 }
 
 /* Logos */
@@ -139,27 +120,19 @@ input, button, textarea, select {
     justify-self: center;
 }
 
-/* Nueva clase para el enlace */
 .link-logo {
-    justify-self: center; /* ESTO es lo que mantiene el logo centrado en tu grid */
-    display: flex;        /* Elimina espacios fantasma debajo de la imagen */
-    align-items: center;  /* Asegura centrado vertical si fuera necesario */
-    cursor: pointer;      /* Manito al pasar el mouse */
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-/* Ajuste opcional: asegura que la imagen no tenga bordes ni márgenes extraños */
 .link-logo .Logo-cuencasolar {
-    /* Ya no es necesario 'justify-self: center' aquí porque lo hace el padre (.link-logo), 
-       pero si lo dejas no pasa nada malo. */
     display: block; 
 }
 
-
-
-
-
 /* ========================================
-   FOOTER - Grid responsivo
+   FOOTER
    ======================================== */
 .footer-content {
     color: var(--color-black);
@@ -171,34 +144,6 @@ input, button, textarea, select {
     justify-self: center;
 }
 
-/* ========================================
-   AJUSTE LOGOS CONTRIBUIDORES (FOOTER)
-   ======================================== */
-
-/* 1. Ponemos el contenedor en columna */
-.footer-col .avatar-group {
-    display: flex;
-    flex-direction: column; /* Lista vertical */
-    align-items: center;    /* Centrados */
-    gap: 15px;              /* Espacio entre cada logo */
-}
-
-/* 2. Transformamos los "avatars" en logos rectangulares */
-.footer-col .avatar {
-    width: 100px;           /* Ancho fijo idéntico para todos */
-    height: 30px;          /* Alto fijo idéntico para todos */
-        /* CLAVE: Evita que la imagen se deforme/estire */
-    
-    
-}
-
-
-
-/* Efecto hover opcional para que se vea interactivo */
-.footer-col .avatar:hover {
-    transform: scale(1.05);
-}
-
 .footer-col {
     display: flex;
     flex-direction: column;
@@ -207,26 +152,37 @@ input, button, textarea, select {
 }
 
 .footer-col h2 {
-    color: var(--color-primary);
+    color: var(--color-primario);
     margin-bottom: var(--spacing-sm);
     text-transform: uppercase;
     font-size: 1.1rem;
     letter-spacing: 1px;
 }
 
-/* Avatar group */
+/* Contribuidores */
+.footer-col .avatar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-col .avatar {
+    width: 100px;
+    height: 30px;
+    object-fit: contain; 
+}
+
+.footer-col .avatar:hover {
+    transform: scale(1.05);
+}
+
 .avatar-group {
     display: flex;
     justify-content: center;
     gap: var(--spacing-xs);
     flex-wrap: wrap;
     margin-bottom: 10px;
-}
-
-
-.avatar:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-primary);
 }
 
 /* Enlaces de contacto */
@@ -251,11 +207,11 @@ input, button, textarea, select {
 
 .link-item i {
     font-size: 1.5rem;
-    color: var(--color-primary);
+    color: var(--color-primario);
 }
 
 .link-item:hover {
-    color: var(--color-primary);
+    color: var(--color-primario);
     transform: translateX(5px);
 }
 
@@ -265,11 +221,9 @@ input, button, textarea, select {
     opacity: 0.5;
 }
 
-
-    
-
-
-/* Desktop: 1024px+ */
+/* ========================================
+   RESPONSIVE
+   ======================================== */
 @media (min-width: 1024px) {
     .mi-grid-3 {
         grid-template-columns: 1fr 2fr 1fr;
@@ -279,7 +233,6 @@ input, button, textarea, select {
     .Logo-cuencasolar {
         height: 150px;
     }
-
     
     .footer-content {
         grid-template-columns: repeat(3, 1fr);
