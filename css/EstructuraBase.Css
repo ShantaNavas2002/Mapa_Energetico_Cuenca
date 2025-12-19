@@ -3,7 +3,7 @@
    ======================================== */
 :root {
     /* Colores principales */
-    --color-primary: #627770;
+    
     --color-primario: rgba(98, 119, 112); /* --- #627770 ---*/
     --color-secundario:rgb(238 211 168);                 /* --- #EED3A8 ---*/  
     
@@ -265,14 +265,7 @@ input, button, textarea, select {
     opacity: 0.5;
 }
 
-/* ========================================
-   MEDIA QUERIES - Mobile First
-   ======================================== */
 
-/* Tablet: 768px+ */
-
-    
-    
     
 
 
@@ -292,22 +285,5 @@ input, button, textarea, select {
         grid-template-columns: repeat(3, 1fr);
         padding: var(--spacing-xl) var(--spacing-lg);
         gap: var(--spacing-xl);
-    }
-}
-
-
-
-/* ========================================
-   UTILIDADES - Clases helper
-   ======================================== */
-
-
-@media (min-width: 768px) {
-    .hidden-mobile {
-        display: block;
-    }
-    
-    .hidden-desktop {
-        display: none;
     }
 }

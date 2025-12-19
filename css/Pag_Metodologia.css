@@ -8,7 +8,7 @@
     --met-bg-card: #8CA69E;      /* Verde grisáceo base */
     --met-bg-dark: #657974;      /* Caja oscura (izq) */
     --met-bg-light: #EBDCC1;     /* Caja clara (der) */
-    --met-txt-light: #F3EFE0;    /* Texto claro */
+    --met-txt-light: #EBDCC1;    /* Texto claro */
     --met-txt-dark: #505F5B;     /* Texto oscuro */
     
     /* Configuración del contenedor padre (la section) */
@@ -27,7 +27,7 @@
     width: 100%;
     max-width: 1400px; /* Ancho máximo para pantallas grandes */
     height: 80vh;      /* Altura fija relativa al viewport */
-    background-color: var(--met-bg-card);
+    background-color: rgba(98, 119, 112, 0.8);
     border-radius: 30px;
     position: relative;
     overflow: hidden; /* Para que la imagen de fondo no se salga */
@@ -90,12 +90,11 @@
 /* Pastilla "METODOLOGÍA" */
 #seccion-pill {
     background-color: rgba(0, 0, 0, 0.15); /* Oscuro semitransparente */
-    color: #dfdfdf;
+    color: #EBDCC1;
     padding: 8px 30px;
     border-radius: 50px;
     font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
-    font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -104,7 +103,7 @@
 #fase-txt {
     font-family: 'Roboto', sans-serif;
     font-size: 2rem;
-    color: #aabcb6; /* Color gris suave */
+    color: #EED3A8; /* Color gris suave */
     font-weight: 300;
 }
 
@@ -135,21 +134,25 @@
     min-height: 0; /* Truco de Flexbox/Grid para permitir scroll interno */
 }
 
-/* TÍTULOS FLOTANTES (Truco para alineación perfecta) */
+/* TÍTULOS FLOTANTES (Versión Multilínea) */
 .titulo-externo-recuadro {
-    position: absolute; /* Lo sacamos del flujo */
-    top: -35px;         /* Lo subimos 35px sobre la caja */
+    position: absolute;
+    /* CAMBIO CLAVE: Se posiciona desde abajo hacia arriba */
+    bottom: 100%;       /* Se pega al borde superior de la caja */
     left: 0;
     width: 100%;
+    
+    margin-bottom: 3px; /* Espacio entre el texto y la caja de color */
     
     font-family: 'Roboto', sans-serif;
     font-size: 1.1rem;
     color: var(--met-txt-light);
     font-weight: 500;
-    margin: 0;
-    white-space: nowrap;      /* Evita que salte de línea si es posible */
-    overflow: hidden;
-    text-overflow: ellipsis;  /* Puntos suspensivos si es muy largo */
+    line-height: 1.2;    /* Altura de línea para cuando hay 2 renglones */
+    
+    /* Permitir saltos de línea */
+    white-space: normal; 
+    overflow: visible;   /* Permitir que se vea todo el texto */
 }
 
 /* 6. ESTILOS DE LAS CAJAS INTERNAS (Colores de fondo) */
@@ -398,4 +401,112 @@
 img.sin-sombra {
     box-shadow: none !important;
     filter: none !important; /* Por si acaso tengas filtros */
+}
+
+
+/* =========================================
+   10. CARRUSEL STACK (Estilo Mazo de Cartas)
+   ========================================= */
+
+.carrusel-stack-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;       /* Ocupa toda la caja */
+    min-height: 300px;  /* Altura mínima para que no se aplaste */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px; /* Profundidad 3D */
+    overflow: hidden;   /* Para que no se salgan las imágenes */
+}
+
+/* Estilo base de todas las cartas */
+.carrusel-carta {
+    position: absolute;
+    width: 85%;         /* Un poco menos del 100% para ver la de atrás */
+    height: auto;
+    max-height: 90%;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); /* Movimiento suave */
+    cursor: pointer;
+}
+
+/* --- ESTADOS DE POSICIÓN --- */
+
+/* 1. CARTA ACTIVA (Al frente, nítida) */
+.carrusel-carta.pos-activa {
+    z-index: 10;
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* 2. CARTA SIGUIENTE (Atrás derecha, borrosa) */
+.carrusel-carta.pos-siguiente {
+    z-index: 5;
+    /* Se mueve a la derecha (40px) y se hace pequeña (0.9) */
+    transform: translateX(40px) scale(0.9) translateZ(-50px); 
+    opacity: 0.7;
+    filter: blur(4px); /* El efecto borroso que pediste */
+}
+
+/* 3. CARTA ANTERIOR (Atrás izquierda, oculta o saliendo) */
+.carrusel-carta.pos-anterior {
+    z-index: 1;
+    transform: translateX(-150%) scale(0.8); /* Se va lejos a la izquierda */
+    opacity: 0;
+}
+
+/* 4. EL RESTO (Ocultas al fondo) */
+.carrusel-carta.pos-oculta {
+    z-index: 0;
+    transform: translateX(40px) scale(0.8) translateZ(-100px);
+    opacity: 0;
+}
+
+/* --- BOTONES DE CONTROL --- */
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 20; /* Por encima de todo */
+    transition: background 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.carrusel-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: #333;
+}
+
+.btn-prev { left: 10px; }
+.btn-next { right: 10px; }
+
+
+
+/* Clase para centrar contenido vertical y horizontalmente */
+/* Funciona aunque cambie el tamaño del cuadro */
+.contenido-texto.centrado-total {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado Vertical (clave) */
+    align-items: center;     /* Centrado Horizontal */
+    text-align: center;      /* Alineación del texto interno */
+    
+    /* ESTO ES LO IMPORTANTE: */
+    height: 100%;            /* Ocupa toda la altura disponible del padre */
+    width: 100%;             /* Ocupa todo el ancho */
+    
+    /* Opcional: Para asegurar que si la fórmula es muy grande no se corte */
+    min-height: min-content; 
 }

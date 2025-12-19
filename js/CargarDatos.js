@@ -50,10 +50,17 @@ function actualizarContenidoMultiple(contenedorPrincipal, contenido) {
     if (items.length === 0) return;
 
     // 1. TÍTULO EXTERNO (Si existe)
+    // En js/CargarDatos.js dentro de actualizarContenidoMultiple...
+
+    // 1. TÍTULO EXTERNO
     const primerItem = items[0];
     if (primerItem.tituloCaja) {
         const h3 = document.createElement('h3');
-        h3.textContent = primerItem.tituloCaja;
+        
+        // --- CAMBIO AQUÍ: Usar innerHTML en vez de textContent ---
+        h3.innerHTML = primerItem.tituloCaja; 
+        // --------------------------------------------------------
+        
         h3.className = 'titulo-externo-recuadro'; 
         contenedorPrincipal.appendChild(h3);
     }
@@ -83,8 +90,15 @@ function crearElementoContenido(contenedor, item) {
         const div = document.createElement('div');
         div.innerHTML = item.contenido;
         div.className = 'contenido-texto';
+        
+        // --- NUEVO: Detectar si se pidió centrado ---
+        if (item.centrado === true) {
+            div.classList.add('centrado-total');
+        }
+        // ------------------------------------------
+        
         contenedor.appendChild(div);
-    } 
+    }
     // IMAGEN
     else if (item.tipo === 'imagen') {
     const img = document.createElement('img');
@@ -104,7 +118,13 @@ function crearElementoContenido(contenedor, item) {
     else if (item.tipo === 'tabla') {
         crearTabla(contenedor, item);
     }
+// --- NUEVO TIPO: CARRUSEL ---
+    else if (item.tipo === 'carrusel') {
+        crearCarruselStack(contenedor, item);
+    }
 }
+
+
 
 // Función auxiliar para tablas
 function crearTabla(contenedor, item) {
@@ -246,3 +266,83 @@ function actualizarIndicadores() {
 }
 
 document.addEventListener('DOMContentLoaded', iniciarMetodologia);
+
+// ==========================================
+// FUNCIÓN CARRUSEL TIPO "STACK" (Cartas)
+// ==========================================
+function crearCarruselStack(contenedor, item) {
+    if (!item.imagenes || item.imagenes.length === 0) return;
+
+    // 1. Contenedor Principal
+    const wrapper = document.createElement('div');
+    wrapper.className = 'carrusel-stack-wrapper';
+
+    // 2. Crear las Cartas (Imágenes)
+    const cartas = item.imagenes.map((imgData, index) => {
+        const img = document.createElement('img');
+        img.src = imgData.src;
+        img.alt = imgData.alt || `Imagen ${index}`;
+        img.className = 'carrusel-carta';
+        // Click en la carta siguiente para avanzar
+        img.onclick = () => {
+            if (index === (estadoActual + 1) % item.imagenes.length) {
+                avanzar();
+            }
+        };
+        wrapper.appendChild(img);
+        return img;
+    });
+
+    // 3. Controles (Botones)
+    const btnPrev = document.createElement('button');
+    btnPrev.className = 'carrusel-btn btn-prev';
+    btnPrev.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+    btnPrev.onclick = retroceder;
+
+    const btnNext = document.createElement('button');
+    btnNext.className = 'carrusel-btn btn-next';
+    btnNext.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+    btnNext.onclick = avanzar;
+
+    wrapper.appendChild(btnPrev);
+    wrapper.appendChild(btnNext);
+    contenedor.appendChild(wrapper);
+
+    // --- LÓGICA DE ESTADO ---
+    let estadoActual = 0;
+    const total = item.imagenes.length;
+
+    function actualizarClases() {
+        cartas.forEach((carta, index) => {
+            // Limpiamos clases
+            carta.className = 'carrusel-carta';
+            
+            // Calculamos la distancia relativa
+            // 0 = Activa, 1 = Siguiente, etc.
+            let diferencia = (index - estadoActual + total) % total;
+
+            if (diferencia === 0) {
+                carta.classList.add('pos-activa'); // Frente
+            } else if (diferencia === 1) {
+                carta.classList.add('pos-siguiente'); // Detrás a la derecha
+            } else if (diferencia === total - 1) {
+                carta.classList.add('pos-anterior'); // Oculta a la izquierda (opcional)
+            } else {
+                carta.classList.add('pos-oculta'); // Fondo total
+            }
+        });
+    }
+
+    function avanzar() {
+        estadoActual = (estadoActual + 1) % total;
+        actualizarClases();
+    }
+
+    function retroceder() {
+        estadoActual = (estadoActual - 1 + total) % total;
+        actualizarClases();
+    }
+
+    // Iniciar
+    actualizarClases();
+}

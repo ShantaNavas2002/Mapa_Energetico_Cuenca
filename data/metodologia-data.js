@@ -96,10 +96,10 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "Análisis Morfológico de los Sectores ",
+                    tituloCaja: "Análisis Morfológico de los Sectores <br>Sector S1: Ordóñez Lasso – La Verticalidad</br>",
                     
                     contenido: `
-                        <p><strong>Sector S1: Ordóñez Lasso – La Verticalidad</strong></p>
+                        
                         
                         <p>Este sector, con una superficie de 16,87 hectáreas, representa la modernidad vertical de Cuenca. Se ubica a lo largo de un eje vial estructurante de crecimiento lineal.1</p>
                         
@@ -131,9 +131,9 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "Análisis Morfológico de los Sectores",
+                    tituloCaja: "Análisis Morfológico de los Sectores <br>Sector S2: Primero de Mayo – La Heterogeneidad alto-bajo.</br>",
                     contenido: `
-                        <p><strong>Sector S2: Primero de Mayo – La Heterogeneidad alto-bajo.</strong></p>
+                        
                         
                         <p>Con 16,96 hectáreas, este sector ilustra la mixticidad urbana típica de las ciudades latinoamericanas en expansión. Presenta un nivel intermedio de edificabilidad y verticalidad.</p>
                         
@@ -165,9 +165,9 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "Análisis Morfológico de los Sectores",
+                    tituloCaja: "Análisis Morfológico de los Sectores <br> Sector S3: Totoracocha – El Potencial Residencial Consolidado</br>",
                     contenido: `
-                        <p><strong>Sector S3: Totoracocha – El Potencial Residencial Consolidado</strong></p>
+                        
                         
                         <p>El sector Totoracocha, con 11,08 hectáreas, representa el tejido residencial tradicional y planificado de Cuenca.1</p>
                         
@@ -209,10 +209,16 @@ const DATA_METODOLOGIA = {
             ],
             contenidoDerecha: [
                 {
-                    tipo: "imagen",
-                    tituloCaja: "",
-                    src: "images/metodologia-1.jpg",
-                    alt: "Descripción Fotogrametría"
+                    tipo: "carrusel",
+                    tituloCaja: "Galería de Mapas", // Título opcional
+                        imagenes: 
+                        [
+                            { src: "images/ImgJson7.jpg", alt: "Mapa 1" },
+                            { src: "images/ImgJson7.1.jpg", alt: "Mapa 2" },
+                            { src: "images/ImgJson7.2.jpg", alt: "Mapa 3" },
+                            { src: "images/ImgJson7.3.jpg", alt: "Mapa 4" },
+                            { src: "images/ImgJson7.4.png", alt: "Mapa 5" }
+                        ]
                 }
             ]
         },
@@ -325,7 +331,7 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "La Fórmula de la Superficie Útil",
+                    tituloCaja: "Cálculo de Superficie Útil",
                     contenido: `
                         <p>Uno de los aportes metodológicos más importantes de este estudio es la distinción entre "área de techo" y "área útil". No todo el techo es apto para paneles solares. La metodología define la Superficie Útil Su mediante una ecuación de sustracción que elimina áreas ineficientes u ocupadas.1</p>
                         
@@ -345,6 +351,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "texto",
                     tituloCaja: "",
+                    centrado: true,
                     contenido: `
                         <div style="text-align: center; padding: 20px; border: 2px solid var(--color-primario); border-radius: 10px;">
                             <h3 style="margin-bottom: 10px;">Ecuación</h3>
@@ -399,15 +406,15 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Selección del Panel",
                     contenido: `
-                        <h3>Selección del Panel</h3>
+                        
                         <p>Para traducir la radiación solar (clima) en electricidad (servicio), se debe definir un hardware de referencia. El estudio seleccionó un módulo fotovoltaico que representa el estándar actual del mercado local:</p>
                     `
                 },
                 {
                     tipo: "tabla",
-                    tituloCaja: "",
+                    
                     headers: ["Parámetro", "Valor", "Justificación"],
                     filas: [
                         ["Tecnología", "Monocristalino", "Mayor eficiencia por m2, ideal para techos urbanos limitados."],
@@ -421,7 +428,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Cálculo de Paneles Requeridos",
                     contenido: `
                         <p>La metodología garantiza la seguridad energética del usuario. Por tanto, se dimensiona el sistema para el consumo promedio mensual registrado en el año (E).</p>
                         
@@ -487,10 +494,9 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Consumo Energético:<br>El Medidor como Unidad de Análisis",
                     contenido: `
-                        <h3>Consumo Energético:</h3>
-                        <h3>El Medidor como Unidad de Análisis</h3>
+                        
                         
                         <p>Se trabajó con datos de consumo real proporcionados por Centrosur para el periodo Julio 2024 – Junio 2025.</p>
                         
@@ -504,7 +510,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Estructura Tarifaria y Costos ´Ocultos´",
                     contenido: `
                         <h3>Estructura Tarifaria y Costos "Ocultos"</h3>
                         <p>La rentabilidad solar no depende solo de cuánta energía produces, sino de cuánto dejas de pagar. La metodología desglosó la planilla eléctrica de Cuenca para identificar los ahorros reales y los costos inevitables.1</p>
@@ -630,9 +636,9 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Retorno de la Inversión",
                     contenido: `
-                        <h2>Retorno de la Inversión</h2>
+                        
                         <p>Una vez definidas las tasas fijas mandatorias y los costos de instalación según la potencia (Wp) del sistema, se procede a calcular el retorno de la inversión. Para ello, se establece un balance anual donde el "ingreso" corresponde al monto del consumo eléctrico anual por predio (basado en datos de CENTROSUR) y el "egreso" equivale a las tasas fijas mensuales multiplicadas por doce.</p>
                         
                         <p>La variable determinante, el costo total del sistema, se obtiene considerando los Wp mínimos requeridos, calculados a partir del consumo promedio de kWh del último año y la radiación de la cubierta más óptima, vistos en secciones anteriores. Finalmente, el tiempo de retorno en años se obtiene dividiendo el costo total del sistema para el flujo neto anual (Ahorro Anual menos Egresos por tasas fijas).</p>
@@ -661,9 +667,9 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Ahorro anual",
                     contenido: `
-                        <h2>Ahorro anual</h2>
+                        
                         <p>Cuando la inversión ya se ha solventado de acuerdo al número de años estimados para el retorno de la inversión, se procede a calcular el ahorro anual del usuario por el sistema instalado. Para este proceso se resta el Pago anual del último año menos las tasas fijas mandatorias por 12 meses, este valor se expresa en USD/año.</p>
                     `
                 },
@@ -731,9 +737,9 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Cálculo de estadísticas de altura por predio (Zonal Statistics)",
                     contenido: `
-                        <h3>Cálculo de estadísticas de altura por predio (Zonal Statistics)</h3>
+                        
                         <p>Con el nDSM calculado, se empleó la herramienta Zonal Statistics as Table de ArcGIS Pro para obtener, para cada predio, un conjunto de métricas de altura. Se utilizó como campo identificador el código del predio.</p>
                         
                         <p>Las estadísticas generadas fueron:</p>
@@ -753,7 +759,7 @@ const DATA_METODOLOGIA = {
             contenidoDerecha: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Integración de alturas por predio y cálculo del número de pisos",
                     contenido: `
                         <h3>Integración de alturas por predio y cálculo del número de pisos</h3>
                         <p>La tabla de estadísticas se unió a la capa de predios mediante un Join utilizando el campo de identificación común. Una vez integrada la información, se procedió a calcular la altura representativa y el número de pisos por predio.</p>
@@ -848,7 +854,7 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "",
+                    tituloCaja: "Visualización de datos por predio",
                     contenido: `
                         <p>La presentación de estos datos en la web utiliza técnicas avanzadas para facilitar la comprensión. El usuario obtendrá un mapa interactivo que presenta, en primera instancia los predios de los tres sectores de estudio en escala de color según el número de pisos que las edificaciones presentan. Por otra parte, al dar clic sobre cada uno de estos predios, el usuario podrá observar información técnica referente a identificadores del predio y la información recopilada dentro del proyecto de investigación IMETU, que engloba más de 250 mil datos y se presenta de manera didáctica visual para el usuario de acuerdo a los siguientes criterios: </p>
                         
@@ -935,7 +941,7 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "",
                     contenido: `
-                        <ol>
+                        <ol start="18">
                             <li>Fotogrametría - Instituto Geográfico Nacional, accessed November 30, 2025</li>
                             <li>¿Qué es la fotogrametría?—ArcGIS Pro | Documentación, accessed November 30, 2025</li>
                             <li>Fotogrametría Con Drones: Todo Lo Que Debes Saber | DRONING, accessed November 30, 2025</li>
