@@ -20,7 +20,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "", // <--- TÍTULO FLOTANTE DERECHA
-                    src: "images/imgjson1.png",
+                    src: "images/imgjson1.webp",
                     alt: "Fotografia"
                 }
             ]
@@ -117,7 +117,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson4.png",
+                    src: "images/ImgJson4.webp",
                     alt: "Mapa Ordoñez Lasso",
                     sinSombra: true
                 }
@@ -151,7 +151,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson5.png",
+                    src: "images/ImgJson5.webp",
                     alt: "Primero de Mayo",
                     sinSombra: true
                 }
@@ -185,7 +185,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson6.png",
+                    src: "images/imgjson6.webp",
                     alt: "Mapa Totoracocha",
                     sinSombra: true
                 }
@@ -213,11 +213,11 @@ const DATA_METODOLOGIA = {
                     tituloCaja: "Galería de Mapas", // Título opcional
                         imagenes: 
                         [
-                            { src: "images/ImgJson7.jpg", alt: "Mapa 1" },
-                            { src: "images/ImgJson7.1.jpg", alt: "Mapa 2" },
-                            { src: "images/ImgJson7.2.jpg", alt: "Mapa 3" },
-                            { src: "images/ImgJson7.3.jpg", alt: "Mapa 4" },
-                            { src: "images/ImgJson7.4.png", alt: "Mapa 5" }
+                            { src: "images/ImgJson7.webp", alt: "Mapa 1" },
+                            { src: "images/ImgJson7.1.webp", alt: "Mapa 2" },
+                            { src: "images/ImgJson7.2.webp", alt: "Mapa 3" },
+                            { src: "images/ImgJson7.3.webp", alt: "Mapa 4" },
+                            { src: "images/ImgJson7.4.webp", alt: "Mapa 5" }
                         ]
                 }
             ]
@@ -289,7 +289,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson9.png",
+                    src: "images/imgjson9.webp",
                     alt: "Software Metashape"
                 }
             ]
@@ -318,7 +318,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson10.png",
+                    src: "images/imgjson10.webp",
                     alt: "Logo DesignBuilder"
                 }
             ]
@@ -393,7 +393,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson12.png",
+                    src: "images/imgjson12.webp",
                     alt: "Ilustración Simulación"
                 }
             ]
@@ -569,7 +569,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson17.png",
+                    src: "images/imgjson17.webp",
                     alt: "Esquema de conexión Sistema"
                 }
             ]
@@ -596,7 +596,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson18.png",
+                    src: "images/ImgJson18.webp",
                     alt: "Análisis solar Off-Grid"
                 }
             ]
@@ -623,7 +623,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson18.png",
+                    src: "images/imgjson18.webp",
                     alt: "Esquema Off grid"
                 }
             ]
@@ -724,7 +724,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson21.png",
+                    src: "images/imgjson21.webp",
                     alt: "Ilustración nDSM"
                 }
             ]
@@ -898,7 +898,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson24.png",
+                    src: "images/ImgJson24.webp",
                     alt: "GeoVisor"
                 }
             ]

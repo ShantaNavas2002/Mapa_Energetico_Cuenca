@@ -4,12 +4,12 @@
 
 // Mapeo de categorías a colores e imágenes
 const CATEGORY_CONFIG = [
-    { keywords: ['servicio'], color: '#F2AB1F', img: 'images/Servicio.png' },
-    { keywords: ['comercio'], color: '#ED7D31', img: 'images/Comercio.png' },
-    { keywords: ['desuso', 'vacante'], color: '#7F7F7F', img: 'images/Desuso-Vacantes.png' },
-    { keywords: ['espacio', 'abierto', 'parque', 'plaza'], color: '#668A4C', img: 'images/Parques-Plaza.png' },
-    { keywords: ['equipamiento'], color: '#C00000', img: 'images/Equipamiento-Publico.png' },
-    { keywords: ['vivienda', 'residencia'], color: '#104358', img: 'images/Vivienda-Residencia.png' }
+    { keywords: ['servicio'], color: '#F2AB1F', img: 'images/Servicio.webp' },
+    { keywords: ['comercio'], color: '#ED7D31', img: 'images/Comercio.webp' },
+    { keywords: ['desuso', 'vacante'], color: '#7F7F7F', img: 'images/Desuso-Vacantes.webp' },
+    { keywords: ['espacio', 'abierto', 'parque', 'plaza'], color: '#668A4C', img: 'images/Parques-Plaza.webp' },
+    { keywords: ['equipamiento'], color: '#C00000', img: 'images/Equipamiento-Publico.webp' },
+    { keywords: ['vivienda', 'residencia'], color: '#104358', img: 'images/Vivienda-Residencia.webp' }
 ];
 
 const DEFAULT_STYLE = { color: '#CCCCCC', img: 'images/default.jpg' };
