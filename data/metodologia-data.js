@@ -20,7 +20,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "", // <--- TÍTULO FLOTANTE DERECHA
-                    src: "images/imgjson1.webp",
+                    src: "images/ImgJson1.webp",
                     alt: "Fotografia"
                 }
             ]
@@ -185,7 +185,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson6.webp",
+                    src: "images/ImgJson6.webp",
                     alt: "Mapa Totoracocha",
                     sinSombra: true
                 }
@@ -254,7 +254,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson8.png",
+                    src: "images/ImgJson8.png",
                     alt: "Dron DJI"
                 }
             ]
@@ -289,7 +289,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson9.webp",
+                    src: "images/ImgJson9.webp",
                     alt: "Software Metashape"
                 }
             ]
@@ -318,7 +318,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson10.webp",
+                    src: "images/ImgJson10.webp",
                     alt: "Logo DesignBuilder"
                 }
             ]
@@ -393,7 +393,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson12.webp",
+                    src: "images/ImgJson12.webp",
                     alt: "Ilustración Simulación"
                 }
             ]
@@ -481,7 +481,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson15.png",
+                    src: "images/ImgJson15.png",
                     alt: "Ilustración ISF"
                 }
             ]
@@ -569,7 +569,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson17.webp",
+                    src: "images/ImgJson17.webp",
                     alt: "Esquema de conexión Sistema"
                 }
             ]
@@ -623,7 +623,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson18.webp",
+                    src: "images/ImgJson18.webp",
                     alt: "Esquema Off grid"
                 }
             ]
@@ -647,7 +647,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson20.png",
+                    src: "images/ImgJson20.png",
                     alt: "Fórmula Retorno Inversión"
                 },
                 {
@@ -676,7 +676,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson20-1.png",
+                    src: "images/ImgJson20-1.png",
                     alt: "Fórmula Ahorro Anual"
                 },
                 {
@@ -724,7 +724,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson21.webp",
+                    src: "images/ImgJson21.webp",
                     alt: "Ilustración nDSM"
                 }
             ]
@@ -770,7 +770,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson22.png",
+                    src: "images/ImgJson22.png",
                     alt: "Fórmula Pisos"
                 },
                 {
@@ -783,7 +783,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson22-1.png",
+                    src: "images/ImgJson22-1.png",
                     alt: "Fórmula Percentil"
                 },
                 {
@@ -826,7 +826,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/imgjson23.png",
+                    src: "images/ImgJson23.png",
                     alt: "Fórmula Potencial Máximo"
                 },
                 {
