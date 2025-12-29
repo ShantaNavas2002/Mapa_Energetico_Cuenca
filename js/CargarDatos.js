@@ -86,6 +86,9 @@ function crearElementoContenido(contenedor, item) {
         if (item.sinSombra === true) {
             img.classList.add('sin-sombra');
         }
+        if (item.estilo) {
+            img.style = item.estilo;
+        }
         contenedor.appendChild(img);
     }
     else if (item.tipo === 'tabla') {

@@ -12,7 +12,7 @@ const DATA_METODOLOGIA = {
                     contenido: `
                         <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un "yacimiento solar" inexplorado en sus cubiertas [1]. </p>
                         <p>Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local [2].</p>
-                        <p>Esta metodológica presenta los procesos detallados desarrollados para construir una plataforma web educativa y funcional. El objetivo no es solo calcular los kWh, generados por el sistema fotovoltaico, sino traducir variables físicas complejas como la irradiancia difusa, la obstrucción de horizonte y las regresiones tarifarias, en una narrativa accesible que permita a los habitantes de la ciudad de Cuenca (de los sectores Ordóñez Lasso, Primero de Mayo y Totoracocha) tomar decisiones informadas sobre su futuro energético [1].</p>
+                        <p>Esta metodología presenta los procesos detallados desarrollados para construir una plataforma web educativa y funcional. El objetivo no es solo calcular los kWh, generados por el sistema fotovoltaico, sino traducir variables físicas complejas como la irradiancia difusa, la obstrucción de horizonte y las regresiones tarifarias, en una narrativa accesible que permita a los habitantes de la ciudad de Cuenca (de los sectores Ordóñez Lasso, Primero de Mayo y Totoracocha) tomar decisiones informadas sobre su futuro energético [1].</p>
                     `
                 }
             ],
@@ -37,9 +37,9 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "Estructura Metodológica",
                     contenido: `
-                        <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1</p>
-                        
-                        <p>Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local.</p>
+                        <p>La metodología desplegada se aleja de las estimaciones genéricas basadas en promedios satelitales de baja resolución. En su lugar, propone un flujo de trabajo de alta precisión que combina la captura de la realidad mediante fotogrametría aérea, la simulación computacional de dinámica de fluidos y luz, y el modelado econométrico basado en datos reales de facturación [1].</p>
+                        <p>El proceso se articula en cuatro fases secuenciales que transforman lo físico en digital y lo digital en decisión económica:</p>
+
                     `
                 }
             ],
@@ -73,9 +73,9 @@ const DATA_METODOLOGIA = {
                     contenido: `
                         <p>Para que los resultados de un estudio de potencial solar sean extrapolables y didácticos, la selección de las áreas de muestra no puede ser aleatoria. Se debe capturar la heterogeneidad de la ciudad.</p>
                         
-                        <p>Siguiendo los criterios urbanísticos establecidos por Rueda-Palenzuela (2019), se definieron áreas de análisis ("supermanzanas") de aproximadamente 16 hectáreas, lo que permite un equilibrio entre detalle predial y relevancia estadística.1</p>
+                        <p>Siguiendo los criterios urbanísticos establecidos por Rueda-Palenzuela (2019), se definieron áreas de análisis ("supermanzanas") de aproximadamente 16 hectáreas, lo que permite un equilibrio entre detalle predial y relevancia estadística.[1]</p>
                         
-                        <p>La variable rectora para esta selección fue el Índice de Edificabilidad y el nivel de Verticalidad. Estos factores determinan no solo la densidad de consumo energético por metro cuadrado de suelo, sino también la complejidad de las sombras urbanas ("canibalismo solar" entre edificios) y la disponibilidad per cápita de superficie de cubierta.1</p>
+                        <p>La variable rectora para esta selección fue el Índice de Edificabilidad y el nivel de Verticalidad. Estos factores determinan no solo la densidad de consumo energético por metro cuadrado de suelo, sino también la complejidad de las sombras urbanas ("canibalismo solar" entre edificios) y la disponibilidad per cápita de superficie de cubierta.[1]</p>
                     `
                 }
             ],
@@ -101,12 +101,12 @@ const DATA_METODOLOGIA = {
                     contenido: `
                         
                         
-                        <p>Este sector, con una superficie de 16,87 hectáreas, representa la modernidad vertical de Cuenca. Se ubica a lo largo de un eje vial estructurante de crecimiento lineal.1</p>
+                        <p>Este sector, con una superficie de 16,87 hectáreas, representa la modernidad vertical de Cuenca. Se ubica a lo largo de un eje vial estructurante de crecimiento lineal.[1]</p>
                         
                         <ol>
-                            <li><strong>Caracterización Urbana:</strong> Predominan las edificaciones en altura, resultado de un alto índice de edificabilidad. Es una zona en proceso de consolidación donde torres residenciales modernas coexisten con remanentes de viviendas unifamiliares.1</li>
+                            <li><strong>Caracterización Urbana:</strong> Predominan las edificaciones en altura, resultado de un alto índice de edificabilidad. Es una zona en proceso de consolidación donde torres residenciales modernas coexisten con remanentes de viviendas unifamiliares.[1]</li>
                             
-                            <li><strong>Implicación Energética:</strong> Este es el escenario más desafiante para la energía solar. Aunque los edificios son altos y tienen acceso directo al sol, la relación entre el área de techo disponible y la demanda energética acumulada (docenas de departamentos apilados) es crítica. Además, las sombras proyectadas por las torres sobre los predios vecinos son significativas, lo que exige simulaciones de radiación avanzadas para no sobreestimar el potencial.1</li>
+                            <li><strong>Implicación Energética:</strong> Este es el escenario más desafiante para la energía solar. Aunque los edificios son altos y tienen acceso directo al sol, la relación entre el área de techo disponible y la demanda energética acumulada (docenas de departamentos apilados) es crítica. Además, las sombras proyectadas por las torres sobre los predios vecinos son significativas, lo que exige simulaciones de radiación avanzadas para no sobreestimar el potencial.[1]</li>
                             
                             <li><strong>Perfil del Usuario:</strong> Consumidores con alta demanda concentrada, ideales para sistemas comunitarios o análisis de suficiencia crítica.</li>
                         </ol>
@@ -135,12 +135,12 @@ const DATA_METODOLOGIA = {
                     contenido: `
                         
                         
-                        <p>Con 16,96 hectáreas, este sector ilustra la mixticidad urbana típica de las ciudades latinoamericanas en expansión. Presenta un nivel intermedio de edificabilidad y verticalidad.</p>
+                        <p>Con 16,96 hectáreas, este sector ilustra la mixticidad urbana típica de las ciudades latinoamericanas en expansión. Presenta un nivel intermedio de edificabilidad y verticalidad.[1]</p>
                         
                         <ol>
-                            <li><strong>Caracterización Urbana:</strong> Se define por un tejido mixto donde tipologías verticales de altura media conviven con construcciones de baja escala. No es ni plenamente residencial bajo ni corporativo alto; es un híbrido.</li>
+                            <li><strong>Caracterización Urbana:</strong> Se define por un tejido mixto donde tipologías verticales de altura media conviven con construcciones de baja escala. No es ni plenamente residencial bajo ni corporativo alto; es un híbrido.[1]</li>
                             
-                            <li><strong>Implicación Energética:</strong> Este es el escenario más desafiante para la energía solar. Aunque los edificios son altos y tienen acceso directo al sol, la relación entre el área de techo disponible y la demanda energética acumulada (docenas de departamentos apilados) es crítica. Además, las sombras proyectadas por las torres sobre los predios vecinos son significativas, lo que exige simulaciones de radiación avanzadas para no sobreestimar el potencial.1</li>
+                            <li><strong>Implicación Energética:</strong> Este es el escenario más desafiante para la energía solar. Aunque los edificios son altos y tienen acceso directo al sol, la relación entre el área de techo disponible y la demanda energética acumulada (docenas de departamentos apilados) es crítica. Además, las sombras proyectadas por las torres sobre los predios vecinos son significativas, lo que exige simulaciones de radiación avanzadas para no sobreestimar el potencial.[1]</li>
                             
                             <li><strong>Perfil del Usuario:</strong> Una mezcla de viviendas unifamiliares y pequeños condominios, con perfiles de consumo variados.</li>
                         </ol>
@@ -169,14 +169,14 @@ const DATA_METODOLOGIA = {
                     contenido: `
                         
                         
-                        <p>El sector Totoracocha, con 11,08 hectáreas, representa el tejido residencial tradicional y planificado de Cuenca.1</p>
+                        <p>El sector Totoracocha, con 11,08 hectáreas, representa el tejido residencial tradicional y planificado de Cuenca.[1]</p>
                         
                         <ol>
-                            <li><strong>Caracterización Urbana:</strong> Refleja un bajo índice de edificabilidad, caracterizado por una traza urbana definida y viviendas unifamiliares o bifamiliares de baja altura (1-3 pisos). Es un entorno consolidado con poca variación en la altura de los edificios.1</li>
+                            <li><strong>Caracterización Urbana:</strong> Refleja un bajo índice de edificabilidad, caracterizado por una traza urbana definida y viviendas unifamiliares o bifamiliares de baja altura (1-3 pisos). Es un entorno consolidado con poca variación en la altura de los edificios.[1]</li>
                             
-                            <li><strong>Implicación Energética:</strong> Este es el escenario ideal para la generación distribuida. La ausencia de grandes obstrucciones verticales y la baja densidad habitacional por predio resultan en una excelente disponibilidad de techo por habitante. Las sombras son mínimas y predecibles.1</li>
+                            <li><strong>Implicación Energética:</strong> Este es el escenario ideal para la generación distribuida. La ausencia de grandes obstrucciones verticales y la baja densidad habitacional por predio resultan en una excelente disponibilidad de techo por habitante. Las sombras son mínimas y predecibles.[1]</li>
                             
-                            <li><strong>Perfil del Usuario:</strong> Familias con consumo moderado y gran superficie disponible, candidatos perfectos para la autosuficiencia total (Net Zero).1</li>
+                            <li><strong>Perfil del Usuario:</strong> Familias con consumo moderado y gran superficie disponible, candidatos perfectos para la autosuficiencia total (Net Zero).[1]</li>
                         </ol>
                     `
                 }
@@ -201,9 +201,9 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "Fundamentos de la Fotogrametría Aérea",
                     contenido: `
-                        <p>Para evaluar el potencial solar con precisión, los mapas satelitales convencionales (como Google Earth) son insuficientes debido a su baja actualización y falta de detalle tridimensional. La metodología adoptada emplea la fotogrametría digital, una técnica que reconstruye la geometría 3D de objetos y terrenos a partir de la superposición de imágenes bidimensionales.18</p>
+                        <p>Para evaluar el potencial solar con precisión, los mapas satelitales convencionales (como Google Earth) son insuficientes debido a su baja actualización y falta de detalle tridimensional. La metodología adoptada emplea la fotogrametría digital, una técnica que reconstruye la geometría 3D de objetos y terrenos a partir de la superposición de imágenes bidimensionales.[18]</p>
                         
-                        <p>La premisa didáctica para el usuario web es entender esto como un "escaneo 3D desde el cielo". El dron captura miles de fotos desde diferentes ángulos; el software identifica puntos comunes en esas fotos (como la esquina de una ventana o la punta de una chimenea) y, mediante triangulación matemática, calcula su posición exacta en el espacio. El resultado es una "nube de puntos" que replica la ciudad con precisión milimétrica.1</p>
+                        <p>La premisa didáctica para el usuario web es entender esto como un "escaneo 3D desde el cielo". El dron captura miles de fotos desde diferentes ángulos; el software identifica puntos comunes en esas fotos (como la esquina de una ventana o la punta de una chimenea) y, mediante triangulación matemática, calcula su posición exacta en el espacio. El resultado es una "nube de puntos" que replica la ciudad con precisión milimétrica.[1]</p>
                     `
                 }
             ],
@@ -232,18 +232,18 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "Protocolo de Adquisición de Datos",
                     contenido: `
-                        <p>La calidad del modelo digital depende intrínsecamente de la calidad de la captura. Se utilizaron equipos de grado topográfico para garantizar la fidelidad de los datos.1</p>
+                        <p>La calidad del modelo digital depende intrínsecamente de la calidad de la captura. Se utilizaron equipos de grado topográfico para garantizar la fidelidad de los datos.[1]</p>
                         
                         <ul>
-                            <li><strong>Plataforma Aérea:</strong> Dron DJI Matrice 300 RTK. La inclusión de tecnología RTK (Real-Time Kinematic) es crucial, ya que corrige la posición GPS del dron en tiempo real usando una base en tierra, reduciendo el error de posición de varios metros (GPS estándar) a centímetros.1</li>
+                            <li><strong>Plataforma Aérea:</strong> Dron DJI Matrice 300 RTK. La inclusión de tecnología RTK (Real-Time Kinematic) es crucial, ya que corrige la posición GPS del dron en tiempo real usando una base en tierra, reduciendo el error de posición de varios metros (GPS estándar) a centímetros.[1]</li>
                             
-                            <li><strong>Sensor Óptico:</strong> Cámara Zenmuse P1 con sensor full-frame de 45 MP y lente de 35mm. Un sensor más grande captura más luz y detalle, permitiendo identificar pequeños obstáculos en los techos (ej. tuberías de ventilación) que serían invisibles para cámaras menores.1</li>
+                            <li><strong>Sensor Óptico:</strong> Cámara Zenmuse P1 con sensor full-frame de 45 MP y lente de 35mm. Un sensor más grande captura más luz y detalle, permitiendo identificar pequeños obstáculos en los techos (ej. tuberías de ventilación) que serían invisibles para cámaras menores.[1]</li>
                             
                             <li><strong>Parámetros de Vuelo:</strong>
                                 <ul>
                                     <li>Altura: 100 metros sobre el nivel del terreno.</li>
-                                    <li>GSD (Ground Sampling Distance): ~2 cm/píxel. Esto significa que cada píxel en la imagen final representa un cuadrado de 2x2 cm en el mundo real, una resolución extremadamente alta para análisis urbano.1.</li>
-                                    <li>Solapamiento (Overlap): 70% frontal y 60% lateral. Este alto grado de redundancia es necesario para que los algoritmos de fotogrametría eviten "huecos" en el modelo 3D.1</li>
+                                    <li>GSD (Ground Sampling Distance): ~2 cm/píxel. Esto significa que cada píxel en la imagen final representa un cuadrado de 2x2 cm en el mundo real, una resolución extremadamente alta para análisis urbano.[1]</li>
+                                    <li>Solapamiento (Overlap): 70% frontal y 60% lateral. Este alto grado de redundancia es necesario para que los algoritmos de fotogrametría eviten "huecos" en el modelo 3D.[1]</li>
                                 </ul>
                             </li>
                         </ul>
@@ -269,16 +269,16 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "Procesamiento: De la Imagen a la Nube de Puntos",
                     contenido: `
-                        <p>El flujo de trabajo digital se realizó en el software especializado Agisoft Metashape, siguiendo una secuencia lógica de reconstrucción 1:</p>
+                        <p>El flujo de trabajo digital se realizó en el software especializado Agisoft Metashape, siguiendo una secuencia lógica de reconstrucción:</p>
                         
                         <ol>
                             <li><strong>Alineación de Fotos:</strong> El software analiza las miles de imágenes para encontrar "puntos de enlace" y determinar la posición exacta de la cámara en cada disparo.</li>
                             
-                            <li><strong>Nube de Puntos Densa:</strong> Se genera una nube masiva de puntos coloreados (millones de puntos) que representan la superficie de la ciudad. Para el usuario, esto se explica como una pintura puntillista en 3D de su barrio.1</li>
+                            <li><strong>Nube de Puntos Densa:</strong> Se genera una nube masiva de puntos coloreados (millones de puntos) que representan la superficie de la ciudad. Para el usuario, esto se explica como una pintura puntillista en 3D de su barrio.[1]</li>
                             
-                            <li><strong>Modelo Digital de Superficie (MDS):</strong> Se crea una malla geométrica continua (TIN - Triangulated Irregular Network) que conecta los puntos. A diferencia de un Modelo Digital del Terreno (MDT) que solo muestra el suelo, el MDS incluye casas, árboles y muros, elementos vitales para calcular sombras.1</li>
+                            <li><strong>Modelo Digital de Superficie (MDS):</strong> Se crea una malla geométrica continua (TIN - Triangulated Irregular Network) que conecta los puntos. A diferencia de un Modelo Digital del Terreno (MDT) que solo muestra el suelo, el MDS incluye casas, árboles y muros, elementos vitales para calcular sombras.[1]</li>
                             
-                            <li><strong>Ortofoto:</strong> Una imagen aérea libre de distorsiones de perspectiva, georreferenciada con exactitud (± 3 cm horizontal, ± 5 cm vertical), que sirve como mapa base para la verificación visual.1</li>
+                            <li><strong>Ortofoto:</strong> Una imagen aérea libre de distorsiones de perspectiva, georreferenciada con exactitud (± 3 cm horizontal, ± 5 cm vertical), que sirve como mapa base para la verificación visual.[1]</li>
                             
                             <li><strong>Generación del DEM (Rasterizado):</strong> Finalmente, se convierte la información 3D en un mapa de elevaciones matricial (GeoTIFF). A diferencia de la malla visual (Paso 3), el DEM (Digital Elevation Model) funciona como una "hoja de cálculo espacial" donde cada píxel almacena un valor numérico exacto de altura.</li>
                         </ol>
@@ -307,9 +307,9 @@ const DATA_METODOLOGIA = {
                         <p>Una vez obtenida la nube de puntos, se procedió a la modelación de las edificaciones en el software DesignBuilder v6.1. Se optó por un nivel de detalle LOD 2 (Level of Detail 2).</p>
                         
                         <ul>
-                            <li><strong>Concepto Didáctico:</strong> Mientras que un modelo LOD 1 representa los edificios como simples cajas (cubos), el LOD 2 detalla la estructura del techo: sus inclinaciones, cumbreras, limatesas y aleros.1</li>
+                            <li><strong>Concepto Didáctico:</strong> Mientras que un modelo LOD 1 representa los edificios como simples cajas (cubos), el LOD 2 detalla la estructura del techo: sus inclinaciones, cumbreras, limatesas y aleros.[1]</li>
                             
-                            <li><strong>Relevancia:</strong> Un panel solar instalado en un techo plano recibe radiación de manera muy diferente a uno en un techo inclinado hacia el sur. Ignorar la pendiente del techo resultaría en cálculos energéticos erróneos. El modelo excluyó vegetación temporal y vehículos, pero conservó rigurosamente las obstrucciones permanentes.1</li>
+                            <li><strong>Relevancia:</strong> Un panel solar instalado en un techo plano recibe radiación de manera muy diferente a uno en un techo inclinado hacia el sur. Ignorar la pendiente del techo resultaría en cálculos energéticos erróneos. El modelo excluyó vegetación temporal y vehículos, pero conservó rigurosamente las obstrucciones permanentes.[1]</li>
                         </ul>
                     `
                 }
@@ -333,15 +333,15 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "Cálculo de Superficie Útil",
                     contenido: `
-                        <p>Uno de los aportes metodológicos más importantes de este estudio es la distinción entre "área de techo" y "área útil". No todo el techo es apto para paneles solares. La metodología define la Superficie Útil Su mediante una ecuación de sustracción que elimina áreas ineficientes u ocupadas.1</p>
+                        <p>Uno de los aportes metodológicos más importantes de este estudio es la distinción entre "área de techo" y "área útil". No todo el techo es apto para paneles solares. La metodología define la Superficie Útil Su mediante una ecuación de sustracción que elimina áreas ineficientes u ocupadas.[1]</p>
                         
                         <p>La ecuación aplicada a cada predio es: (Mirar recuadro de la derecha)</p>
                         
-                        <p>Donde los componentes positivos son las superficies de cubierta orientadas a los puntos cardinales (Norte, Sur, Este, Oeste) y Plana. Los componentes negativos, que se restan, son 1:</p>
+                        <p>Donde los componentes positivos son las superficies de cubierta orientadas a los puntos cardinales (Norte, Sur, Este, Oeste) y Plana. Los componentes negativos, que se restan, son :</p>
                         
                         <ul>
                             <li><strong>S1 (Superficies Vidriadas):</strong> Tragaluces, claraboyas y entradas de luz cenital. Cubrirlas oscurecería el interior de la vivienda.</li>
-                            <li><strong>S2 (Obstáculos Volumétricos):</strong> Elementos que ocupan espacio físico y proyectan sombra local, como chimeneas, tanques de reserva de agua, casetas de ascensores, antenas y unidades de aire acondicionado.1</li>
+                            <li><strong>S2 (Obstáculos Volumétricos):</strong> Elementos que ocupan espacio físico y proyectan sombra local, como chimeneas, tanques de reserva de agua, casetas de ascensores, antenas y unidades de aire acondicionado.[1]</li>
                             <li><strong>S3 (Geometría Compleja):</strong> Fragmentos de cubierta resultantes de intersecciones complicadas (limahoyas agudas) donde es físicamente imposible instalar un módulo.</li>
                         </ul>
                     `
@@ -369,22 +369,22 @@ const DATA_METODOLOGIA = {
             contenidoIzquierda: [
                 {
                     tipo: "texto",
-                    tituloCaja: "El Sol Virtual: Datos Climáticos y Simulación",
+                    tituloCaja: "Datos Climáticos y Simulación",
                     contenido: `
                         <p>Con los sectores reconstruidos digitalmente y depurados, el siguiente paso fue simular el comportamiento del sol sobre estas superficies. Se utilizaron archivos climáticos EPW (EnergyPlus Weather) específicos para Cuenca (Latitud -2.90°, Longitud -79.00°), actualizados al año 2024 con datos de la estación meteorológica El Batán [1].</p>
                         
-                        <p><strong>Temporalidad:</strong> Se ejecutaron 12 simulaciones independientes, una para cada mes del año. Esto es fundamental porque la posición del sol varía estacionalmente (solsticios y equinoccios) y, más importante aún, la nubosidad en Cuenca cambia a lo largo del año. Un promedio anual ocultaría los déficits de energía en meses nublados.<sup>1</sup></p>
+                        <p><strong>Temporalidad:</strong> Se ejecutaron 12 simulaciones independientes, una para cada mes del año. Esto es fundamental porque la posición del sol varía estacionalmente (solsticios y equinoccios) y, más importante aún, la nubosidad en Cuenca cambia a lo largo del año. Un promedio anual ocultaría los déficits de energía en meses nublados.[1]</p>
                         
-                        <p><strong>Irradiación Global:</strong> El modelo calcula la radiación solar global acumulada (kWh/m2), que es la suma de la radiación directa (rayos de sol directos), difusa (luz dispersa por las nubes) y reflejada (luz que rebota en otros edificios).<sup>29</sup></p>
+                        <p><strong>Irradiación Global:</strong> El modelo calcula la radiación solar global acumulada (kWh/m2), que es la suma de la radiación directa (rayos de sol directos), difusa (luz dispersa por las nubes) y reflejada (luz que rebota en otros edificios).[29]</p>
                         
-                        <p><strong>Sombreado Contextual:</strong> El software considera las sombras que los edificios vecinos proyectan entre sí hora a hora. En el sector Ordóñez Lasso, esto reveló pérdidas significativas de potencial en los pisos inferiores de las torres.<sup>1</sup></p>
+                        <p><strong>Sombreado Contextual:</strong> El software considera las sombras que los edificios vecinos proyectan entre sí hora a hora. En el sector Ordóñez Lasso, esto reveló pérdidas significativas de potencial en los pisos inferiores de las torres.[1]</p>
                     
                         <strong>Identificación de la Orientación Óptima (Hsp)</strong>
 
                         <p>Para cada predio, se analizó cuál de las orientaciones de cubierta recibía la mayor irradiación acumulada.</p>
 
                         <ul>
-                            <li><strong>Horas Sol Pico (Hsp):</strong> Se convirtió la energía total en "Horas Sol Pico", una unidad estándar en la industria que representa el número de horas equivalentes en las que el sol brilla a una intensidad de 1000 W/m2. Para Cuenca, este valor oscila alrededor de las 3.5 a 4.5 horas dependiendo de la micro-ubicación y sombras.1</li>
+                            <li><strong>Horas Sol Pico (Hsp):</strong> Se convirtió la energía total en "Horas Sol Pico", una unidad estándar en la industria que representa el número de horas equivalentes en las que el sol brilla a una intensidad de 1000 W/m2. Para Cuenca, este valor oscila alrededor de las 3.5 a 4.5 horas dependiendo de la micro-ubicación y sombras.[1]</li>
                         </ul>
                         `
                 }
@@ -442,7 +442,7 @@ const DATA_METODOLOGIA = {
                             <li><strong>E:</strong> Consumo de energía diario promedio por mes dentro del año (kWh).</li>
                             <li><strong>Hps:</strong> Horas sol pico promedio del emplazamiento.</li>
                             <li><strong>Wp:</strong> Potencia pico del panel (0.54 kW).</li>
-                            <li><strong>1.30 (Factor de Pérdidas):</strong> Este es un dato clave de honestidad técnica. Se asume que el sistema perderá un 30% de su energía teórica debido a: suciedad en los paneles (polvo/smog), calentamiento del cableado (efecto Joule), eficiencia del inversor (conversión DC/AC) y degradación natural. Esto evita promesas de rendimiento irreales en la página web.1</li>
+                            <li><strong>1.30 (Factor de Pérdidas):</strong> Este es un dato clave de honestidad técnica. Se asume que el sistema perderá un 30% de su energía teórica debido a: suciedad en los paneles (polvo/smog), calentamiento del cableado (efecto Joule), eficiencia del inversor (conversión DC/AC) y degradación natural. Esto evita promesas de rendimiento irreales en la página web.[1]</li>
                         </ul>
                     `
                 }
@@ -458,7 +458,7 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "Índice de Suficiencia Fotovoltaica (ISF)",
                     contenido: `
-                        <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.1</p>
+                        <p>La transformación de las ciudades contemporáneas hacia modelos de sostenibilidad no es solo una cuestión de políticas macroeconómicas o grandes infraestructuras hidroeléctricas; reside, fundamentalmente, en la capacidad de empoderar al ciudadano común para convertirse en un actor activo del sistema energético. En el contexto de Cuenca, Ecuador, la morfología urbana presenta un 'yacimiento solar' inexplorado en sus cubiertas.[1]</p>
                         
                         <p>Sin embargo, la barrera principal para la adopción masiva de la energía fotovoltaica no es tecnológica, sino informativa. El ciudadano promedio desconoce si su techo es apto, cuánta energía puede generar y, crucialmente, cómo interactúa esta generación con la compleja estructura tarifaria local.</p>
                     `
@@ -475,14 +475,15 @@ const DATA_METODOLOGIA = {
                         <p>Tu techo es lo suficientemente grande para cubrir el 100% de tu consumo máximo.</p>
                         
                         <p style="color: red; font-weight: bold;">ISF > 1 (Rojo): Insuficiencia.</p>
-                        <p>Tu consumo es demasiado alto para el espacio disponible en tu techo. Necesitas priorizar la eficiencia energética antes de instalar paneles o aceptar una cobertura parcial.1</p>
+                        <p>Tu consumo es demasiado alto para el espacio disponible en tu techo. Necesitas priorizar la eficiencia energética antes de instalar paneles o aceptar una cobertura parcial.[1]</p>
                     `
                 },
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson15.png",
-                    alt: "Ilustración ISF"
+                    src: "images/ImgJson15.webp",
+                    alt: "Ilustración ISF",
+                    estilo: "width: 50%; margin: 0 auto; display: block;"
                 }
             ]
         },
@@ -502,7 +503,7 @@ const DATA_METODOLOGIA = {
                         
                         <ul>
                             <li><strong>Procesamiento:</strong> Se sumaron los consumos de todos los medidores asociados a un mismo predio catastral. Esto es vital en edificios de departamentos (Propiedad Horizontal), donde el techo es un bien común que debe abastecer a múltiples medidores.</li>
-                            <li><strong>Supuesto de Vivienda:</strong> Ante la falta de datos censales, se validó la densidad habitacional asumiendo 1 Medidor = 1 Unidad Habitacional, visualizado mediante mapas de densidad de puntos (Dot Density) que muestran intuitivamente dónde se concentra la demanda.1</li>
+                            <li><strong>Supuesto de Vivienda:</strong> Ante la falta de datos censales, se validó la densidad habitacional asumiendo 1 Medidor = 1 Unidad Habitacional, visualizado mediante mapas de densidad de puntos (Dot Density) que muestran intuitivamente dónde se concentra la demanda.[1]</li>
                         </ul>
                     `
                 }
@@ -513,7 +514,7 @@ const DATA_METODOLOGIA = {
                     tituloCaja: "Estructura Tarifaria y Costos ´Ocultos´",
                     contenido: `
                         <h3>Estructura Tarifaria y Costos "Ocultos"</h3>
-                        <p>La rentabilidad solar no depende solo de cuánta energía produces, sino de cuánto dejas de pagar. La metodología desglosó la planilla eléctrica de Cuenca para identificar los ahorros reales y los costos inevitables.1</p>
+                        <p>La rentabilidad solar no depende solo de cuánta energía produces, sino de cuánto dejas de pagar. La metodología desglosó la planilla eléctrica de Cuenca para identificar los ahorros reales y los costos inevitables.[1]</p>
                         
                         <p><strong>Componentes Variables (Ahorrables)</strong></p>
                         <ul>
@@ -523,14 +524,14 @@ const DATA_METODOLOGIA = {
                                     <li>Tarifa General: Para consumos > 100 kWh/mes (~$0.10/kWh).</li>
                                 </ul>
                             </li>
-                            <li><strong>Alumbrado Público:</strong> Calculado como un porcentaje del consumo (11.76% para tarifa general). Al bajar el consumo con paneles, este rubro también baja.1</li>
+                            <li><strong>Alumbrado Público:</strong> Calculado como un porcentaje del consumo (11.76% para tarifa general). Al bajar el consumo con paneles, este rubro también baja.[1]</li>
                         </ul>
                         
                         <p><strong>Componentes Fijos (No Ahorrables)</strong></p>
                         <p>Incluso con paneles solares, el usuario seguirá pagando:</p>
                         <ul>
                             <li><strong>Comercialización:</strong> ~$1.41 USD.</li>
-                            <li><strong>Tasa de Bomberos:</strong> ~$2.35 USD (Variable según normativa local, pero fijo para el usuario residencial promedio).1</li>
+                            <li><strong>Tasa de Bomberos:</strong> ~$2.35 USD (Variable según normativa local, pero fijo para el usuario residencial promedio).[1]</li>
                         </ul>
                         
                         <p><strong>La Tasa de Recolección de Basura</strong></p>
@@ -647,8 +648,11 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson20.png",
-                    alt: "Fórmula Retorno Inversión"
+                    src: "images/ImgJson20.webp",
+                    estilo: "display: block; margin: 0 auto; width: 60%;",
+                    alt: "Fórmula Retorno Inversión",
+                    
+                    
                 },
                 {
                     tipo: "texto",
@@ -676,7 +680,8 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson20-1.png",
+                    src: "images/ImgJson20-1.webp",
+                    estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Ahorro Anual"
                 },
                 {
@@ -703,6 +708,8 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "Estimación de alturas edificadas y número de pisos por predio",
                     contenido: `
+                        <p>Una vez finalizado el proceso de cálculos los resultados se ha procesado la información de manera sistemática para presentar los resultados de manera gráfica e interactiva. La visualización de estos resultados ha llevado el siguiente proceso:</p>
+                        
                         <p>La estimación de alturas edificadas y número de pisos se realizó a partir de la integración de modelos digitales derivados de fotogrametría y análisis espacial sobre la cartografía catastral. El procedimiento se desarrolló en cuatro etapas principales: generación del modelo de alturas (nDSM), cálculo de estadísticas zonales por predio, definición del criterio de conversión de altura a número de pisos, y vinculación de los resultados a la capa de predios.</p>
                         
                         <h3>Generación del Modelo Digital de Alturas (nDSM)</h3>
@@ -771,6 +778,7 @@ const DATA_METODOLOGIA = {
                     tipo: "imagen",
                     tituloCaja: "",
                     src: "images/ImgJson22.png",
+                    estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Pisos"
                 },
                 {
@@ -784,6 +792,7 @@ const DATA_METODOLOGIA = {
                     tipo: "imagen",
                     tituloCaja: "",
                     src: "images/ImgJson22-1.png",
+                    estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Percentil"
                 },
                 {
@@ -827,6 +836,7 @@ const DATA_METODOLOGIA = {
                     tipo: "imagen",
                     tituloCaja: "",
                     src: "images/ImgJson23.png",
+                    estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Potencial Máximo"
                 },
                 {
@@ -885,12 +895,14 @@ const DATA_METODOLOGIA = {
                                 <ul>
                                     <li>Energía consumida</li>
                                     <li>Energía recomendada a instalar</li>
-                                    <li>Energía máxima a instar</li>
+                                    <li>Energía máxima a instalar</li>
                                 </ul>
                             </li>
                         </ul>
 
-                        <p>Para acceder al mapa fotovoltaico visita nuestra página de inicio o da clic en el siguiente link. </p>
+                        <p>Para acceder al mapa fotovoltaico visita nuestra página de inicio o da clic en el siguiente link. <a href="Index.html">Cuenca Solar</a> </p>
+                        
+
                     `
                 }
             ],

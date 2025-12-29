@@ -221,7 +221,14 @@ body {
 .site-footer h2 {
     color: var(--color-secundario);
 }
-
+.qs-text {
+        flex: 1; 
+        text-align: justify; 
+        padding-right: var(--spacing-lg);
+        /* Opcional: Si quieres quitar la línea en móvil, descomenta abajo */
+        /* border-right: none; */
+        /* border-bottom: 2px solid var(--color-primario); */
+    }
 /* ========================================
    RESPONSIVE
    ======================================== */
@@ -231,14 +238,7 @@ body {
         gap: var(--spacing-md);
     }
 
-    .qs-text {
-        flex: 1; 
-        text-align: justify; 
-        padding-right: var(--spacing-lg);
-        /* Opcional: Si quieres quitar la línea en móvil, descomenta abajo */
-        /* border-right: none; */
-        /* border-bottom: 2px solid var(--color-primario); */
-    }
+    
     
     .qs-logo-container {
         flex: auto;
