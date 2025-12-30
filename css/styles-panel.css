@@ -188,7 +188,7 @@ body {
     right: 12px;
     background: transparent;
     border: 0;
-    font-size: 22px;   
+    font-size: 2rem;   
     cursor: pointer;
     color: inherit;     
 }
@@ -226,7 +226,8 @@ body {
 
 .section summary::-webkit-details-marker { display: none; }
 
-.section .chev { transition: transform .2s ease; }
+.section .chev { transition: transform 0.45s ease; 
+font-size: 2rem;}
 .section[open] .chev { transform: rotate(180deg); }
 
 .section-body { padding: 10px 14px 14px; }

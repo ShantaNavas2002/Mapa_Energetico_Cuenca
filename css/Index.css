@@ -15,7 +15,8 @@
 .contenedor-principal {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 100vw;
+    
     padding: var(--spacing-md) var(--spacing-sm);
 }
 
@@ -26,10 +27,10 @@
     position: relative; 
     display: flex;      
     justify-content: flex-end; /* Alinea la barra de info a la derecha */
-    width: 100%;
-    max-width: 90%;
+    width: 100vw;
+    max-width: 80vw;
     margin: 0 auto;
-    min-height: 800px; 
+    min-height: 80vh; 
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -63,11 +64,11 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(8px);
     
-    padding: 60px;
+    padding: 3.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 25px;
+    gap: 0.1rem;
     
     text-decoration: none;
     color: var(--color-titulos);
@@ -93,6 +94,11 @@
     height: auto;
 }
 
+.inf h3 {
+    
+    margin-top: 0rem;
+    color: var(--color-titulos);
+}
 .inf h2 {
     font-size: 2.2rem;
     line-height: 1.1;

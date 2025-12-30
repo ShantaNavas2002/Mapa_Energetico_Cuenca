@@ -23,11 +23,13 @@
     --bp-wide: 1440px;
     
     /* Otros */
-    --border-radius: 30px;
+    --border-radius: 2rem;
     --transition-speed: 0.3s;
     --menu-width-mobile: 250px;
     --menu-width-desktop: 300px;
 }
+
+
 
 /* ========================================
    BASE
@@ -109,13 +111,13 @@ input, button, textarea, select {
 
 /* Logos */
 .Logo-cuencasolar {
-    height: 80px;
+    height: 15vh;
     width: auto;
     justify-self: center;
 }
 
 .Logo-consiso {
-    height: 60px;
+    height: 8vh;
     width: auto;
     justify-self: center;
 }
@@ -230,9 +232,7 @@ input, button, textarea, select {
         padding: var(--spacing-md) var(--spacing-xl);
     }
     
-    .Logo-cuencasolar {
-        height: 150px;
-    }
+    
     
     .footer-content {
         grid-template-columns: repeat(3, 1fr);

@@ -767,8 +767,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "texto",
                     tituloCaja: "Integración de alturas por predio y cálculo del número de pisos",
-                    contenido: `
-                        <h3>Integración de alturas por predio y cálculo del número de pisos</h3>
+                    contenido: `              
                         <p>La tabla de estadísticas se unió a la capa de predios mediante un Join utilizando el campo de identificación común. Una vez integrada la información, se procedió a calcular la altura representativa y el número de pisos por predio.</p>
                         
                         <p>Para definir el número de pisos se empleó inicialmente una altura promedio por piso de 3.20 m, estimada mediante la revisión manual de predios con alturas conocidas. El cálculo se realizó según:</p>

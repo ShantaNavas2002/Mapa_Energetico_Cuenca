@@ -1,3 +1,5 @@
+
+
 /* ========================================
    VARIABLES Y CONFIGURACIÓN BASE
    ======================================== */
@@ -21,9 +23,9 @@
    LAYOUT PRINCIPAL (TARJETA Y GRILLA)
    ======================================== */
 .tarjeta-img-metodo {
-    width: 100%;
-    max-width: 1400px;
-    height: 80vh; 
+    width: 90%;
+    max-width: 90vw;
+    height: 90vh; 
     background-color: rgba(98, 119, 112, 0.8);
     border-radius: 30px;
     position: relative;
@@ -51,7 +53,7 @@
     position: relative;
     z-index: 2;
     height: 100%;
-    padding: 40px 50px;
+    padding: 2.5rem 3.125rem;
     display: grid;
     grid-template-areas: 
         "cabecera cabecera"
@@ -59,8 +61,8 @@
         "nav nav";
     grid-template-columns: 1fr 1fr; 
     grid-template-rows: auto 1fr auto; 
-    column-gap: 40px;
-    row-gap: 50px; 
+    column-gap: 2.5rem;
+    row-gap: 3.125rem; 
 }
 
 /* ========================================
@@ -104,9 +106,10 @@
     box-shadow: none !important;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    min-height: 0;
+    height: 100%; /* Esto hace que ambos ocupen el 100% del contenedor grid */
+    min-height: 45vh;
 }
+
 
 .titulo-externo-recuadro {
     position: absolute;
@@ -127,9 +130,9 @@
    ======================================== */
 .caja-contenido-estilo {
     border-radius: 20px;
-    padding: 30px;
-    height: 100%;
+    padding: 2rem;
     width: 100%;
+    height: 100%; /* Agregar esto para que ocupe todo el espacio disponible */
     overflow-y: auto; 
     overscroll-behavior-y: contain; 
     line-height: 1.5;
@@ -182,13 +185,13 @@
    ======================================== */
 #barra-nav.item-e {
     grid-area: nav;
-    width: 90%;
-    margin: 30px auto 0 auto;
+    width: 100%;
+    margin: 2rem auto 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding-top: 10px;
-    padding-bottom: 20px;
+    padding-top: 0.625rem;
+    padding-bottom: 1.2rem;
     position: relative;
 }
 
@@ -206,7 +209,7 @@
     color: var(--met-txt-light);
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     opacity: 0.5;
     transition: opacity 0.3s;
     white-space: normal;
@@ -427,3 +430,5 @@ img.sin-sombra {
 
 .btn-prev { left: 10px; }
 .btn-next { right: 10px; }
+
+
