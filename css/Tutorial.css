@@ -1,0 +1,44 @@
+/* Animación de latido del corazón para el botón del menú */
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(1.1);
+    }
+    20% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.15);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* Aplicar animación al botón */
+.btn-menu.animated {
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Resplandor sutil en el botón durante el latido */
+.btn-menu.animated::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    
+    animation: heartbeat 1.5s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* Transición suave cuando se remueve la animación */
+.btn-menu {
+    transition: transform 0.3s ease;
+    position: relative;
+}

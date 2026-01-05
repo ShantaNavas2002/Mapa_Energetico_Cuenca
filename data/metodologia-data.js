@@ -899,7 +899,7 @@ const DATA_METODOLOGIA = {
                             </li>
                         </ul>
 
-                        <p>Para acceder al mapa fotovoltaico visita nuestra página de inicio o da clic en el siguiente link. <a href="Index.html">Cuenca Solar</a> </p>
+                        <p>Para acceder al mapa fotovoltaico visita nuestra página de inicio o da clic en el siguiente link. <a href="Mapa_Georeferenciado.html">Cuenca Solar</a> </p>
                         
 
                     `

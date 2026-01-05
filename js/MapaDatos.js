@@ -463,4 +463,340 @@ document.addEventListener('DOMContentLoaded', function () {
         if (DOM.searchBtn) DOM.searchBtn.addEventListener('click', () => goToClave(DOM.searchInput.value));
         DOM.searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') goToClave(DOM.searchInput.value); });
     }
+
+
+// =============================================================================
+// 10. TOUR GUIADO CON DRIVER.JS
+// =============================================================================
+
+function initTutorial() {
+    const driver = window.driver.js.driver;
+    
+    // Paso 1: Mostrar el buscador CON botón siguiente
+    const step1Driver = driver({
+        showProgress: true,
+        showButtons: ['next'], // Solo botón siguiente, sin cerrar
+        nextBtnText: 'Siguiente',
+        progressText: 'Paso 1 de 8', // Contador manual fijo
+        allowClose: false, // No se puede cerrar con ESC o click fuera
+        disableActiveInteraction: true, // No se puede interactuar con el elemento
+        steps: [
+            {
+                element: '.Buscador-Predio',
+                popover: {
+                    title: 'Buscador de Predios',
+                    description: 'Aquí puedes buscar cualquier predio escribiendo su clave catastral. El sistema te sugerirá opciones mientras escribes.',
+                    side: 'bottom',
+                    align: 'center'
+                }
+            }
+        ],
+        onNextClick: () => {
+            step1Driver.destroy();
+            setTimeout(() => showPredioStep(), 300);
+        }
+    });
+
+    step1Driver.drive();
+}
+
+function showPredioStep() {
+    const driver = window.driver.js.driver;
+    
+    // Buscar el predio específico 0703010002000
+    const targetClave = '0703010002000';
+    const targetLayer = State.claveIndex.get(targetClave);
+    
+    if (!targetLayer) {
+        alert('No se encontró el predio de ejemplo para el tutorial');
+        return;
+    }
+
+    // Hacer zoom al predio
+    const bounds = targetLayer.getBounds();
+    if (bounds && bounds.isValid()) {
+        map.fitBounds(bounds, {
+            maxZoom: 17,
+            padding: [100, 100],
+            animate: true,
+            duration: 1
+        });
+    }
+
+    // Resaltar el predio de ejemplo
+    targetLayer.setStyle({
+        color: '#ffff00',
+        weight: 4,
+        fillOpacity: 0.7
+    });
+
+    // Esperar a que termine la animación del zoom
+    setTimeout(() => {
+        // Obtener el elemento SVG del predio
+        const predioElement = targetLayer.getElement();
+        
+        const step2Driver = driver({
+            showProgress: true,
+            showButtons: ['previous', 'next'], // Anterior y Siguiente
+            nextBtnText: 'Siguiente',
+            prevBtnText: 'Anterior',
+            progressText: 'Paso 2 de 8', // Contador manual fijo
+            allowClose: false,
+            disableActiveInteraction: false, // Permitir click en el predio
+            steps: [
+                {
+                    element: predioElement,
+                    popover: {
+                        title: 'Predio de Ejemplo',
+                        description: `Este es un predio (polígono). Cada predio representa una propiedad o edificación. El color indica el número de pisos. <br><br><strong>Haz clic en este predio para continuar con el tutorial.</strong>`,
+                        side: 'right',
+                        align: 'center'
+                    }
+                }
+            ],
+            onPrevClick: () => {
+                // Restaurar estilo y volver al buscador
+                for (const i in targetLayer._eventParents) {
+                    if (typeof targetLayer._eventParents[i].resetStyle === 'function') {
+                        targetLayer._eventParents[i].resetStyle(targetLayer);
+                    }
+                }
+                step2Driver.destroy();
+                State.waitingForTutorialClick = false;
+                State.tutorialTargetLayer = null;
+                setTimeout(() => initTutorial(), 300);
+            },
+            onNextClick: () => {
+                // Forzar click en el predio
+                step2Driver.destroy();
+                State.waitingForTutorialClick = true;
+                State.tutorialTargetLayer = targetLayer;
+                targetLayer.fire('click');
+            }
+        });
+
+        step2Driver.drive();
+
+        // Marcar que estamos esperando el click del tutorial
+        State.waitingForTutorialClick = true;
+        State.tutorialTargetLayer = targetLayer;
+
+    }, 1000);
+}
+
+function showPanelSteps() {
+    const driver = window.driver.js.driver;
+    
+    setTimeout(() => {
+        // Variable para el contador manual
+        let currentStep = 3; // Empieza en 3 porque ya pasamos buscador (1) y predio (2)
+        
+        const panelDriver = driver({
+            showProgress: true,
+            showButtons: ['previous', 'next'],
+            nextBtnText: 'Siguiente',
+            prevBtnText: 'Anterior',
+            doneBtnText: 'Finalizar',
+            progressText: 'Paso 3 de 8', // Inicial
+            allowClose: false,
+            disableActiveInteraction: true,
+            steps: [
+                {
+                    element: '#featurePanel',
+                    popover: {
+                        title: 'Panel de Información del Predio',
+                        description: 'Este panel muestra toda la información detallada del predio seleccionado: clave catastral, número de pisos, medidores y recomendaciones solares.',
+                        side: 'left',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '.popup-title',
+                    popover: {
+                        title: 'Identificación del Predio',
+                        description: 'Aquí se muestra la clave catastral única del predio, el número de medidores eléctricos y el número de pisos de la edificación.',
+                        side: 'left',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '.section:first-of-type',
+                    popover: {
+                        title: 'Sistemas On-Grid (Sin baterías)',
+                        description: 'Recomendaciones para sistemas solares conectados a la red eléctrica. Incluye: número de paneles necesarios, inversión inicial, tiempo de recuperación y ahorro anual estimado.',
+                        side: 'left',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '.section:nth-of-type(2)',
+                    popover: {
+                        title: 'Sistemas Off-Grid (Con baterías)',
+                        description: 'Información sobre sistemas solares autónomos con almacenamiento en baterías. Ideal para mayor independencia energética.',
+                        side: 'left',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '.section:last-of-type',
+                    popover: {
+                        title: 'Análisis Energético Mensual',
+                        description: 'Gráfico interactivo que muestra el consumo mensual comparado con la energía recomendada y máxima. Usa las flechas ◄ ► para navegar entre los meses del año.',
+                        side: 'left',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '.map-legend',
+                    popover: {
+                        title: 'Leyenda del Mapa',
+                        description: 'Los colores del mapa representan el número de pisos de cada edificación. Desde gris (0 pisos) hasta verde oscuro (más de 16 pisos).',
+                        side: 'left',
+                        align: 'start'
+                    }
+                }
+            ],
+            onNextClick: (element, step) => {
+                currentStep++;
+                updateProgressText(currentStep);
+                
+                if (step.index === 5) {
+                    // Último paso - Finalizar
+                    panelDriver.destroy();
+                    State.waitingForTutorialClick = false;
+                    State.tutorialTargetLayer = null;
+                    localStorage.setItem('cuencaSolarTutorialCompleted', 'true');
+                } else {
+                    panelDriver.moveNext();
+                }
+            },
+            onPrevClick: (element, step) => {
+                if (step.index === 0) {
+                    // Si está en el primer paso del panel, volver al predio
+                    panelDriver.destroy();
+                    State.waitingForTutorialClick = false;
+                    State.tutorialTargetLayer = null;
+                    closePanel();
+                    setTimeout(() => showPredioStep(), 300);
+                } else {
+                    currentStep--;
+                    updateProgressText(currentStep);
+                    panelDriver.movePrevious();
+                }
+            }
+        });
+
+        // Función para actualizar el texto del progreso
+        function updateProgressText(step) {
+            const progressElement = document.querySelector('.driver-popover-progress-text');
+            if (progressElement) {
+                progressElement.textContent = `Paso ${step} de 8`;
+            }
+        }
+
+        // Actualizar el texto del botón según el paso
+        function updateButtonText() {
+            const interval = setInterval(() => {
+                const activeIndex = panelDriver.getActiveIndex();
+                const nextBtn = document.querySelector('.driver-popover-next-btn');
+                
+                if (nextBtn) {
+                    if (activeIndex === 5) {
+                        nextBtn.textContent = 'Finalizar';
+                    } else {
+                        nextBtn.textContent = 'Siguiente';
+                    }
+                }
+                
+                // Actualizar contador
+                updateProgressText(3 + activeIndex);
+            }, 100);
+
+            // Limpiar intervalo cuando se destruya el driver
+            setTimeout(() => clearInterval(interval), 100000);
+        }
+
+        panelDriver.drive();
+        updateButtonText();
+
+    }, 500);
+}
+
+// Modificar la función selectLayer original para detectar el click del tutorial
+const originalSelectLayer = selectLayer;
+selectLayer = function(layer, feature, tituloSector) {
+    // Llamar a la función original
+    originalSelectLayer(layer, feature, tituloSector);
+    
+    // Si estamos esperando el click del tutorial y es el layer correcto
+    if (State.waitingForTutorialClick && State.tutorialTargetLayer === layer) {
+        State.waitingForTutorialClick = false;
+        showPanelSteps();
+    }
+};
+
+// Botón para reiniciar el tutorial
+function addTutorialButton() {
+    const tutorialBtn = document.createElement('button');
+    tutorialBtn.className = 'tutorial-btn';
+    tutorialBtn.innerHTML = '<i class="fa-solid fa-question-circle"></i> Tutorial';
+    tutorialBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        padding: 12px 20px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        transition: all 0.3s ease;
+    `;
+    
+    tutorialBtn.addEventListener('mouseenter', () => {
+        tutorialBtn.style.background = '#1d4ed8';
+        tutorialBtn.style.transform = 'translateY(-2px)';
+        tutorialBtn.style.boxShadow = '0 6px 16px rgba(37, 99, 235, 0.4)';
+    });
+    
+    tutorialBtn.addEventListener('mouseleave', () => {
+        tutorialBtn.style.background = '#2563eb';
+        tutorialBtn.style.transform = 'translateY(0)';
+        tutorialBtn.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)';
+    });
+    
+    tutorialBtn.addEventListener('click', () => {
+        // Cerrar panel si está abierto
+        if (DOM.panel && !DOM.panel.classList.contains('hidden')) {
+            closePanel();
+        }
+        // Iniciar tutorial desde el principio
+        setTimeout(() => initTutorial(), 300);
+    });
+    
+    document.body.appendChild(tutorialBtn);
+}
+
+// Verificar si es la primera visita y mostrar tutorial automáticamente
+function checkFirstVisit() {
+    const hasCompletedTutorial = localStorage.getItem('cuencaSolarTutorialCompleted');
+    
+    // Solo mostrar si NO ha completado el tutorial
+    if (!hasCompletedTutorial) {
+        setTimeout(() => {
+            initTutorial();
+        }, 1500);
+    }
+}
+
+// Inicializar
+addTutorialButton();
+checkFirstVisit();
 });
