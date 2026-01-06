@@ -431,4 +431,108 @@ img.sin-sombra {
 .btn-prev { left: 10px; }
 .btn-next { right: 10px; }
 
+/* ========================================
+   RESPONSIVE FINAL: RECUADROS FIJOS (BLOQUES SÓLIDOS)
+   ======================================== */
+@media (max-width: 768px) {
 
+    /* 1. TARJETA PRINCIPAL: Crece lo necesario */
+    .tarjeta-img-metodo {
+        height: auto !important;
+        min-height: 90vh;
+        overflow: visible !important;
+        padding-bottom: 20px;
+    }
+
+    /* 2. CONTENEDOR: Flujo vertical */
+    .contenedor-metodo {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+        gap: 0; /* Sin huecos entre elementos */
+        height: auto !important;
+        
+        grid-template-areas: none;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    /* 3. CABECERA */
+    .header-superior.item-a {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        flex-shrink: 0;
+    }
+
+    #seccion-pill { font-size: 0.8rem; padding: 5px 15px; white-space: nowrap; }
+    #fase-txt { font-size: 1.1rem; text-align: right; }
+
+    /* 4. CONTENIDO: Estructura */
+    .item-c, .item-d {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* TÍTULOS EXTERNOS: Pegados a su caja */
+    .titulo-externo-recuadro {
+        position: relative !important;
+        bottom: auto !important; left: auto !important;
+        width: 100%;
+        margin-bottom: 5px; /* Mínima separación con la caja */
+        margin-top: 15px;
+        font-size: 0.95rem;
+        color: var(--met-bg-light);
+        font-weight: bold;
+    }
+    .item-c .titulo-externo-recuadro { margin-top: 0; }
+
+    /* === AQUÍ ESTÁ EL CAMBIO IMPORTANTE === */
+    .caja-contenido-estilo {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 1.2rem;
+        border-radius: 15px;
+        
+        /* ALTURA FIJA Y OBLIGATORIA */
+        height: 38vh !important;  /* Tamaño fijo siempre (aprox 1/3 de pantalla) */
+        min-height: 38vh !important; /* Asegura que no se encoja */
+        max-height: 38vh !important; /* Asegura que no crezca */
+        
+        /* Si el texto sobra, aparece scroll dentro de este bloque fijo */
+        overflow-y: auto; 
+    }
+
+    /* 5. NAVEGACIÓN: Pegada y continua */
+    #barra-nav.item-e {
+        width: 100%;
+        margin-top: 15px;
+        padding: 0;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 0;
+    }
+
+    .titulo-fase-nav { display: none; }
+    .btn-nav-flotante { width: 30px; padding: 0; text-align: center; z-index: 10; }
+    .grupo-nav { margin: 0 !important; padding: 0 !important; flex-grow: 1; }
+
+    .barra-progreso-fase {
+        border-radius: 0 !important;
+        background-color: rgba(255, 255, 255, 0.2);
+        height: 6px;
+        width: 100%;
+    }
+
+    .grupo-nav:first-of-type .barra-progreso-fase {
+        border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;
+    }
+    .grupo-nav:last-of-type .barra-progreso-fase {
+        border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;
+    }
+}

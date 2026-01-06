@@ -114,3 +114,43 @@
     text-align: justify;
     color: var(--color-texto-blanco);
 }
+
+@media (max-width: 768px) {
+    .tarjeta-img {
+        max-width: 95vw;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .inf {
+        width: 100%;
+        height: auto;
+        min-height: 40%;
+        padding: 1.5rem;
+        background-color: rgba(98, 119, 112, 0.55);
+    }
+
+    .encabezado-card {
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+
+    .icono-mapa img {
+        width: 40px;
+    }
+
+    .inf h2 {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .inf h3 {
+        font-size: 1rem;
+    }
+
+    .inf p {
+        font-size: 1rem;
+        line-height: 1.4;
+        text-align: left;
+    }
+}

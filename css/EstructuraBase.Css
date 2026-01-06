@@ -235,13 +235,25 @@ input, button, textarea, select {
         padding: var(--spacing-xs);
     }
 
+    .link-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
     .Logo-cuencasolar {
+        display: block;
+        width: auto;
         height: auto;
         max-height: 50px;
+        object-fit: contain;
+        margin: 0 auto;
     }
 
     .Logo-consiso {
         height: 40px;
+        width: auto;
     }
 
     .btn-menu, 

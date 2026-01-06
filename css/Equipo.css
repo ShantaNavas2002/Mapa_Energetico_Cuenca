@@ -14,18 +14,20 @@ body {
    ======================================== */
 .carousel-container {
     width: 100%;
-    padding: var(--spacing-xl) 0;
+    /* Padding vertical relativo al alto de la pantalla (vh) */
+    padding: 5vh 0; 
     overflow: hidden;
     position: relative;
 }
 
 .carousel-viewport {
-    width: 100%;
-    max-width: 1400px;
+    width: 95%; /* Ocupa casi todo el ancho disponible */
+    /* Tope máximo en rem para pantallas ultra-wide (aprox 1400px) */
+    max-width: 90rem; 
     margin: 0 auto;
     perspective: 1200px;
     overflow: visible;
-    padding: 40px 0;
+    padding: 3rem 0;
 }
 
 .carousel-track {
@@ -46,12 +48,8 @@ body {
 }
 
 @keyframes scroll-infinite {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* ========================================
@@ -59,8 +57,16 @@ body {
    ======================================== */
 .team-card {
     position: relative;
-    flex: 0 0 280px;
-    height: 380px;
+    /* MAGIA RESPONSIVE: clamp(min, ideal, max)
+       - Mínimo: 260px (para que no sean muy flacas)
+       - Ideal: 20vw (20% del ancho de la pantalla)
+       - Máximo: 320px (para que no se vean gigantes)
+    */
+    flex: 0 0 clamp(260px, 20vw, 320px);
+    
+    /* Altura también dinámica: crece un poco en pantallas altas */
+    height: clamp(380px, 45vh, 450px);
+    
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -79,7 +85,7 @@ body {
 }
 
 .team-card:hover {
-    transform: translateY(-20px) scale(1.05) rotateY(0deg) rotateX(0deg) !important;
+    transform: translateY(-1.5rem) scale(1.05) rotateY(0deg) rotateX(0deg) !important;
     box-shadow: 0 25px 50px rgba(0,0,0,0.3);
     z-index: 10;
 }
@@ -112,7 +118,7 @@ body {
     color: #fff;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0.3rem;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     transform: translateY(10px);
     opacity: 0.9;
@@ -132,25 +138,25 @@ body {
 
 .card-nombre {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.25rem; /* Relativo a la fuente base */
     font-weight: 700;
 }
 
 .card-cargo {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 300;
     opacity: 0.9;
 }
 
 .card-email {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--color-secundario);
     text-decoration: none;
     margin-top: var(--spacing-xs);
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 0.4rem;
     transition: color var(--transition-speed) ease;
 }
 
@@ -163,8 +169,8 @@ body {
    SECCIÓN QUIÉNES SOMOS
    ======================================== */
 .quienes-somos-section {
-    width: 100%;
-    max-width: 1200px;
+    width: 90%; 
+    max-width: 80rem; 
     margin: 0 auto;
     padding: var(--spacing-xl) var(--spacing-md);
     background: transparent; 
@@ -188,7 +194,7 @@ body {
 
 .qs-text h2 {
     color: var(--color-primario);
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem); 
     margin-bottom: var(--spacing-md);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -199,13 +205,21 @@ body {
     line-height: 1.6;
     color: #444;
     margin-bottom: var(--spacing-sm);
+    text-align: justify; 
 }
 
 .qs-logo-container {
-    flex: 0 0 300px;
+    
+    flex: 0 0 clamp(200px, 30%, 350px);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.qs-logo-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 /* ========================================
@@ -219,16 +233,24 @@ body {
 }
 
 .site-footer h2 {
-    color: var(--color-secundario);
+    color: var(--color-secundario) !important;
 }
-.qs-text {
-        flex: 1; 
-        text-align: justify; 
-        padding-right: var(--spacing-lg);
-        /* Opcional: Si quieres quitar la línea en móvil, descomenta abajo */
-        /* border-right: none; */
-        /* border-bottom: 2px solid var(--color-primario); */
-    }
+
+
+.site-footer .footer-content,
+.site-footer span,
+.site-footer p,
+.site-footer .copyright,
+.site-footer .link-item,
+.site-footer .link-item i {
+    color: #ffffff !important;
+}
+
+.site-footer .link-item:hover,
+.site-footer .link-item:hover i {
+    color: var(--color-secundario) !important;
+}
+
 /* ========================================
    RESPONSIVE
    ======================================== */
@@ -238,10 +260,28 @@ body {
         gap: var(--spacing-md);
     }
 
-    
-    
+    .qs-text {
+        text-align: justify;
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 2px solid var(--color-primario);
+        padding-bottom: var(--spacing-md);
+    }
+
+    .qs-text h2 {
+        text-align: center;
+    }
+
     .qs-logo-container {
         flex: auto;
-        width: 150px;
+        width: 100%; 
+        max-width: 180px; 
+        margin-bottom: 1rem;
+    }
+    
+   
+    .team-card {
+        flex: 0 0 260px; 
+        height: 360px;
     }
 }
