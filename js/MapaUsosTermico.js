@@ -4,12 +4,12 @@
 
 // Mapeo de categorías a colores e imágenes
 const CATEGORY_CONFIG = [
-    { keywords: ['servicio'], color: '#F2AB1F', img: 'images/Servicio.webp' },
-    { keywords: ['comercio'], color: '#ED7D31', img: 'images/Comercio.webp' },
-    { keywords: ['desuso', 'vacante'], color: '#7F7F7F', img: 'images/Desuso-Vacantes.webp' },
-    { keywords: ['espacio', 'abierto', 'parque', 'plaza'], color: '#668A4C', img: 'images/Parques-Plaza.webp' },
-    { keywords: ['equipamiento'], color: '#C00000', img: 'images/Equipamiento-Publico.webp' },
-    { keywords: ['vivienda', 'residencia'], color: '#104358', img: 'images/Vivienda-Residencia.webp' }
+    { keywords: ['servicio'], color: '#F2AB1F', img: '../images/Servicio.webp' },
+    { keywords: ['comercio'], color: '#ED7D31', img: '../images/Comercio.webp' },
+    { keywords: ['desuso', 'vacante'], color: '#7F7F7F', img: '../images/Desuso-Vacantes.webp' },
+    { keywords: ['espacio', 'abierto', 'parque', 'plaza'], color: '#668A4C', img: '../images/Parques-Plaza.webp' },
+    { keywords: ['equipamiento'], color: '#C00000', img: '../images/Equipamiento-Publico.webp' },
+    { keywords: ['vivienda', 'residencia'], color: '#104358', img: '../images/Vivienda-Residencia.webp' }
 ];
 
 const DEFAULT_STYLE = { color: '#CCCCCC', img: 'images/default.jpg' };
@@ -340,7 +340,7 @@ function initTutorial() {
                 element: '#claveSearch',
                 popover: {
                     title: 'Buscador de Predios',
-                    description: 'Escribe la clave catastral aquí. El mapa te llevará automáticamente al predio y mostrará su uso de suelo.',
+                    description: 'Aquí puedes buscar cualquier predio de los tres sectores (Primero de mayo, Totoracocha y Ordoñez Lasso ) escribiendo su clave catastral.',
                     side: 'bottom',
                     align: 'center'
                 }
@@ -390,8 +390,8 @@ function showFeatureStep() {
                 {
                     element: element,
                     popover: {
-                        title: 'Predio Identificado',
-                        description: 'El color del predio indica su categoría (Vivienda, Comercio, Equipamiento, etc.). Haz clic en "Ver Información" para abrir su ficha.',
+                        title: 'Predio',
+                        description: 'Este polígono respresenta un predio de la zona respectiva.',
                         side: 'top',
                         align: 'center'
                     }
@@ -423,7 +423,7 @@ function showPopupStep(layer) {
                 element: '.leaflet-popup-content-wrapper',
                 popover: {
                     title: 'Ficha de Actividad',
-                    description: 'Aquí encontrarás la foto referencial, la categoría general y la actividad específica del predio (Ej. Tienda, Casa, Parque).',
+                    description: 'Aquí encontrarás una ilustración referencial, la categoría general y la actividad específica del predio (Ej. Tienda, Casa, Parque, etc.).',
                     side: 'right',
                     align: 'center'
                 }
@@ -465,11 +465,11 @@ function showLegendStep() {
         progressText: 'Paso 4 de 4',
         steps: [
             {
-                element: legendSelector, // Selector de la leyenda
+                element: legendSelector, 
                 popover: {
                     title: 'Leyenda del Mapa',
-                    description: 'Aquí puedes consultar qué significa cada color en el mapa (Comercio, Vivienda, Equipamiento, etc.).',
-                    side: 'left', // Intentamos mostrarlo a la izquierda de la leyenda
+                    description: 'En este cuadro puedes consultar qué significa cada color de los predios repartidos a lo largo del mapa (Comercio, Vivienda, Equipamiento, etc.).',
+                    side: 'left', 
                     align: 'center'
                 }
             }

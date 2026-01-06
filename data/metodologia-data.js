@@ -20,7 +20,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "", // <--- TÍTULO FLOTANTE DERECHA
-                    src: "images/ImgJson1.webp",
+                    src: "../images/ImgJson1.webp",
                     alt: "Fotografia"
                 }
             ]
@@ -83,7 +83,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson3.png",
+                    src: "../images/ImgJson3.png",
                     alt: "Análisis solar"
                 }
             ]
@@ -117,7 +117,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson4.webp",
+                    src: "../images/ImgJson4.webp",
                     alt: "Mapa Ordoñez Lasso",
                     sinSombra: true
                 }
@@ -151,7 +151,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson5.webp",
+                    src: "../images/ImgJson5.webp",
                     alt: "Primero de Mayo",
                     sinSombra: true
                 }
@@ -185,7 +185,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson6.webp",
+                    src: "../images/ImgJson6.webp",
                     alt: "Mapa Totoracocha",
                     sinSombra: true
                 }
@@ -213,11 +213,11 @@ const DATA_METODOLOGIA = {
                     tituloCaja: "Galería de Mapas", // Título opcional
                         imagenes: 
                         [
-                            { src: "images/ImgJson7.webp", alt: "Mapa 1" },
-                            { src: "images/ImgJson7.1.webp", alt: "Mapa 2" },
-                            { src: "images/ImgJson7.2.webp", alt: "Mapa 3" },
-                            { src: "images/ImgJson7.3.webp", alt: "Mapa 4" },
-                            { src: "images/ImgJson7.4.webp", alt: "Mapa 5" }
+                            { src: "../images/ImgJson7.webp", alt: "Mapa 1" },
+                            { src: "../images/ImgJson7.1.webp", alt: "Mapa 2" },
+                            { src: "../images/ImgJson7.2.webp", alt: "Mapa 3" },
+                            { src: "../images/ImgJson7.3.webp", alt: "Mapa 4" },
+                            { src: "../images/ImgJson7.4.webp", alt: "Mapa 5" }
                         ]
                 }
             ]
@@ -254,7 +254,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson8.png",
+                    src: "../images/ImgJson8.png",
                     alt: "Dron DJI"
                 }
             ]
@@ -289,7 +289,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson9.webp",
+                    src: "../images/ImgJson9.webp",
                     alt: "Software Metashape"
                 }
             ]
@@ -318,7 +318,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson10.webp",
+                    src: "../images/ImgJson10.webp",
                     alt: "Logo DesignBuilder"
                 }
             ]
@@ -393,7 +393,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson12.webp",
+                    src: "../images/ImgJson12.webp",
                     alt: "Ilustración Simulación"
                 }
             ]
@@ -481,7 +481,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson15.webp",
+                    src: "../images/ImgJson15.webp",
                     alt: "Ilustración ISF",
                     estilo: "width: 50%; margin: 0 auto; display: block;"
                 }
@@ -570,7 +570,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson17.webp",
+                    src: "../images/ImgJson17.webp",
                     alt: "Esquema de conexión Sistema"
                 }
             ]
@@ -597,7 +597,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson18.webp",
+                    src: "../images/ImgJson18.webp",
                     alt: "Análisis solar Off-Grid"
                 }
             ]
@@ -624,7 +624,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson18.webp",
+                    src: "../images/ImgJson18.webp",
                     alt: "Esquema Off grid"
                 }
             ]
@@ -648,7 +648,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson20.webp",
+                    src: "../images/ImgJson20.webp",
                     estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Retorno Inversión",
                     
@@ -680,7 +680,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson20-1.webp",
+                    src: "../images/ImgJson20-1.webp",
                     estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Ahorro Anual"
                 },
@@ -731,7 +731,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson21.webp",
+                    src: "../images/ImgJson21.webp",
                     alt: "Ilustración nDSM"
                 }
             ]
@@ -776,7 +776,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson22.png",
+                    src: "../images/ImgJson22.png",
                     estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Pisos"
                 },
@@ -834,7 +834,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson23.png",
+                    src: "../images/ImgJson23.png",
                     estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Potencial Máximo"
                 },
@@ -909,7 +909,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson24.webp",
+                    src: "../images/ImgJson24.webp",
                     alt: "GeoVisor"
                 }
             ]

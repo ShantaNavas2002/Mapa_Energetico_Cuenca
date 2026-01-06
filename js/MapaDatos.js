@@ -198,8 +198,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 labels: slice.map(d => d.label),
                 datasets: [
                     { label: 'Consumo', data: slice.map(d => d.sum), backgroundColor: '#D9D9D9', borderColor: '#585859', borderWidth: 1 },
-                    { label: 'E. Recomendada', data: slice.map(d => d.erec), backgroundColor: '#BCD1AC', borderColor: '#B0CC66', borderWidth: 1 },
-                    { label: 'E. Máxima', data: slice.map(d => d.emax), backgroundColor: '#FDAA76', borderColor: '#FF9C60', borderWidth: 1 }
+                    { label: 'Energía Recomendada', data: slice.map(d => d.erec), backgroundColor: '#BCD1AC', borderColor: '#B0CC66', borderWidth: 1 },
+                    { label: 'Energía Máxima', data: slice.map(d => d.emax), backgroundColor: '#FDAA76', borderColor: '#FF9C60', borderWidth: 1 }
                 ]
             },
             options: {
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
             htmlContent = `
             <div class="popup-card">
                 <div class="popup-title"><span class="key mono">Clave Catastral:</span><strong>${val('CLAVE')}</strong></div>
-                <div class="alert-panel"><div class="panel1"><h3>El predio no cuenta con un consumo actual</h3><img class="icono-alerta" src="images/IconoAlerta.png"></div></div>
+                <div class="alert-panel"><div class="panel1"><h3>El predio no cuenta con un consumo actual</h3><img class="icono-alerta" src="../images/IconoAlerta.png"></div></div>
             </div>`;
         } 
         // CASO 2: PANEL NORMAL
@@ -296,27 +296,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
                 <details class="section" open>
-                    <summary><div class="summary-content"><span>Sistemas On-Grid (Sin baterías)</span><img src="images/UI_Pestaña2.svg" class="header-img"></div><span class="chev">▾</span></summary>
+                    <summary><div class="summary-content"><span>Sistemas On-Grid (Sin baterías)</span><img src="../images/UI_Pestaña2.svg" class="header-img"></div><span class="chev">▾</span></summary>
                     <div class="section-body"><div class="solar-grid">
-                        ${solarCard('images/UI_panel1.svg', 'Paneles recomendados:', 'RES_01')}
-                        ${solarCard('images/UI_Inversion2.svg', 'Inversión:', 'RES_02', '$')}
-                        ${solarCard('images/UI_RecuInversion3.svg', 'Recuperación inversión:', 'RES_03')}
-                        ${solarCard('images/UI_Ahorro4.svg', 'Ahorro anual:', 'RES_04', '$')}
+                        ${solarCard('../images/UI_panel1.svg', 'Paneles recomendados:', 'RES_01')}
+                        ${solarCard('../images/UI_Inversion2.svg', 'Inversión:', 'RES_02', '$')}
+                        ${solarCard('../images/UI_RecuInversion3.svg', 'Recuperación inversión:', 'RES_03')}
+                        ${solarCard('../images/UI_Ahorro4.svg', 'Ahorro anual:', 'RES_04', '$')}
                     </div></div>
                 </details>
 
                 <details class="section">
-                    <summary><div class="summary-content"><span>Sistemas Off-Grid (Con baterías)</span><img src="images/UI_Pestaña1.svg" class="header-img"></div><span class="chev">▾</span></summary>
+                    <summary><div class="summary-content"><span>Sistemas Off-Grid (Con baterías)</span><img src="../images/UI_Pestaña1.svg" class="header-img"></div><span class="chev">▾</span></summary>
                     <div class="section-body"><div class="solar-grid">
-                        ${solarCard('images/UI_panel1.svg', 'Paneles recomendados:', 'RES_05')}
-                        ${solarCard('images/UI_Inversion2.svg', 'Inversión:', 'RES_06', '$')}
-                        ${solarCard('images/UI_RecuInversion3.svg', 'Recuperación inversión:', 'RES_07')}
-                        ${solarCard('images/UI_Ahorro4.svg', 'Ahorro anual:', 'RES_08', '$')}
+                        ${solarCard('../images/UI_panel1.svg', 'Paneles recomendados:', 'RES_05')}
+                        ${solarCard('../images/UI_Inversion2.svg', 'Inversión:', 'RES_06', '$')}
+                        ${solarCard('../images/UI_RecuInversion3.svg', 'Recuperación inversión:', 'RES_07')}
+                        ${solarCard('../images/UI_Ahorro4.svg', 'Ahorro anual:', 'RES_08', '$')}
                     </div></div>
                 </details>
 
                 <details class="section" open>
-                    <summary><div class="summary-content"><span>Análisis energético mensual</span><img src="images/UI_Pestaña3.svg" class="header-img"></div><span class="chev">▾</span></summary>
+                    <summary><div class="summary-content"><span>Análisis energético mensual</span><img src="../images/UI_Pestaña3.svg" class="header-img"></div><span class="chev">▾</span></summary>
                     <div class="section-body">
                         <div id="chartControls" style="display:flex;justify-content:center;gap:10px;margin-bottom:8px">
                             <button id="chartPrev">◄</button><div id="chartRangeLabel" class="mono">...</div><button id="chartNext">►</button>
@@ -532,10 +532,10 @@ function initTutorial() {
         disableActiveInteraction: true,
         steps: [
             {
-                element: '.Buscador-Predio',
+                element: '.Buscador de Predios',
                 popover: {
                     title: 'Buscador de Predios',
-                    description: 'Aquí puedes buscar cualquier predio escribiendo su clave catastral. El sistema te sugerirá opciones mientras escribes.',
+                    description: 'Aquí puedes buscar cualquier predio de los tres sectores (Primero de mayo, Totoracocha y Ordoñez Lasso ) escribiendo su clave catastral.',
                     side: 'bottom',
                     align: 'center'
                 }
@@ -602,8 +602,8 @@ function showPredioStep() {
                 {
                     element: predioElement,
                     popover: {
-                        title: 'Predio de Ejemplo',
-                        description: `Este es un predio (polígono). Cada predio representa una propiedad o edificación. El color indica el número de pisos. <br><br><strong>Haz clic en este predio para continuar con el tutorial.</strong>`,
+                        title: 'Predio',
+                        description: `Este polígono respresenta un predio de la zona respectiva.</strong>`,
                         side: 'right',
                         align: 'center'
                     }
@@ -675,8 +675,8 @@ function showPanelSteps() {
                 {
                     element: '#featurePanel',
                     popover: {
-                        title: 'Panel de Información del Predio',
-                        description: 'Este panel muestra toda la información detallada del predio seleccionado: clave catastral, número de pisos, medidores y recomendaciones solares.',
+                        title: 'Información del Predio',
+                        description: 'Este panel muestra toda la información detallada del predio seleccionado',
                         side: 'left',
                         align: 'start'
                     }
@@ -712,7 +712,7 @@ function showPanelSteps() {
                     element: '.section:last-of-type',
                     popover: {
                         title: 'Análisis Energético Mensual',
-                        description: 'Gráfico interactivo que muestra el consumo mensual comparado con la energía recomendada y máxima. Usa las flechas ◄ ► para navegar entre los meses del año.',
+                        description: 'Gráfico interactivo que muestra el consumo mensual comparado con la energía recomendada y máxima.',
                         side: 'left',
                         align: 'start'
                     }
