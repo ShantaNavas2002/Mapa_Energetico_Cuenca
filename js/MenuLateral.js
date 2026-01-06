@@ -1,7 +1,7 @@
 // Función para cargar el menú
 async function cargarMenu() {
     try {
-        const response = await fetch('../legend/menu.html');
+        const response = await fetch('legend/menu.html');
         const html = await response.text();
         document.getElementById('menu-container').innerHTML = html;
         
