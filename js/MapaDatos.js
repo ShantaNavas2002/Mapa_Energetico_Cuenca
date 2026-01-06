@@ -398,7 +398,8 @@ document.addEventListener('DOMContentLoaded', function () {
         map.fitBounds(boundsGroup.getBounds(), { padding: [50, 50] });
     }
 
-    // =============================================================================
+    
+   // =============================================================================
     // 8. BUSCADOR Y UI GLOBALES
     // =============================================================================
 
@@ -415,17 +416,63 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
     // Autocomplete y Búsqueda
-    const keysArray = Array.from(State.claveIndex.keys()); // Cache de claves para búsqueda rápida
+    const keysArray = Array.from(State.claveIndex.keys()); 
 
     if (DOM.searchInput) {
+        
+        // --- NUEVA FUNCIONALIDAD: Bloquear Mapa al usar el buscador ---
+        
+        // Función para congelar/descongelar el mapa
+        const toggleMapInteraction = (enable) => {
+            if (enable) {
+                map.dragging.enable();
+                map.touchZoom.enable();
+                map.doubleClickZoom.enable();
+                map.scrollWheelZoom.enable();
+                map.boxZoom.enable();
+                map.keyboard.enable();
+                if (map.tap) map.tap.enable();
+                DOM.searchInput.parentElement.classList.remove('search-focused'); // Opcional: para estilo CSS
+            } else {
+                map.dragging.disable();
+                map.touchZoom.disable();
+                map.doubleClickZoom.disable();
+                map.scrollWheelZoom.disable();
+                map.boxZoom.disable();
+                map.keyboard.disable();
+                if (map.tap) map.tap.disable();
+                DOM.searchInput.parentElement.classList.add('search-focused'); // Opcional
+            }
+        };
+
+        // 1. Evento FOCUS: Cuando entras al input -> Congela el mapa
+        DOM.searchInput.addEventListener('focus', () => {
+            toggleMapInteraction(false);
+        });
+
+        // 2. Evento BLUR: Cuando sales del input (click afuera) -> Reactiva el mapa
+        DOM.searchInput.addEventListener('blur', () => {
+            // Un pequeño timeout ayuda a que si clickeas una opción del autocompletado, 
+            // el evento click se registre antes de reactivar todo
+            setTimeout(() => toggleMapInteraction(true), 200); 
+        });
+
+        // --- FIN NUEVA FUNCIONALIDAD ---
+
         DOM.searchInput.addEventListener('input', function() {
-            const val = this.value.trim().toUpperCase();
+            // 3. RESTRICCIÓN: Solo Números
+            // Reemplaza cualquier caracter que NO sea 0-9 por vacío
+            this.value = this.value.replace(/[^0-9]/g, '');
+
+            const val = this.value.trim(); // Ya no necesitamos toUpperCase() porque son números
             DOM.searchOptions.innerHTML = '';
+            
             if (!val) return;
 
-            // Filtrado optimizado: solo busca hasta encontrar 5 coincidencias
+            // Filtrado optimizado
             let count = 0;
             for (let i = 0; i < keysArray.length; i++) {
+                // Como keysArray puede tener formato string, aseguramos la comparación
                 if (keysArray[i].includes(val)) {
                     const op = document.createElement('option');
                     op.value = keysArray[i];
@@ -438,7 +485,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const goToClave = (val) => {
             if (!val) return;
-            const key = val.trim().toUpperCase();
+            const key = val.trim(); // Quitamos toUpperCase innecesario si las claves son numéricas
+            // Nota: Si tus claves en el mapa ("0703...") están guardadas como string, esto funciona.
+            // Si en el mapa tienen letras, avísame, pero pediste "solo números".
+            
             const layer = State.claveIndex.get(key);
             
             if (!layer) {
@@ -465,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-// =============================================================================
+    // =============================================================================
 // 10. TOUR GUIADO CON DRIVER.JS
 // =============================================================================
 
@@ -475,11 +525,11 @@ function initTutorial() {
     // Paso 1: Mostrar el buscador CON botón siguiente
     const step1Driver = driver({
         showProgress: true,
-        showButtons: ['next'], // Solo botón siguiente, sin cerrar
+        showButtons: ['next'],
         nextBtnText: 'Siguiente',
-        progressText: 'Paso 1 de 8', // Contador manual fijo
-        allowClose: false, // No se puede cerrar con ESC o click fuera
-        disableActiveInteraction: true, // No se puede interactuar con el elemento
+        progressText: 'Paso 1 de 8',
+        allowClose: false,
+        disableActiveInteraction: true,
         steps: [
             {
                 element: '.Buscador-Predio',
@@ -494,6 +544,11 @@ function initTutorial() {
         onNextClick: () => {
             step1Driver.destroy();
             setTimeout(() => showPredioStep(), 300);
+        },
+        onDestroyed: () => {
+            // Limpiar estado si se cierra inesperadamente
+            State.waitingForTutorialClick = false;
+            State.tutorialTargetLayer = null;
         }
     });
 
@@ -537,12 +592,12 @@ function showPredioStep() {
         
         const step2Driver = driver({
             showProgress: true,
-            showButtons: ['previous', 'next'], // Anterior y Siguiente
+            showButtons: ['previous', 'next'],
             nextBtnText: 'Siguiente',
             prevBtnText: 'Anterior',
-            progressText: 'Paso 2 de 8', // Contador manual fijo
+            progressText: 'Paso 2 de 8',
             allowClose: false,
-            disableActiveInteraction: false, // Permitir click en el predio
+            disableActiveInteraction: false,
             steps: [
                 {
                     element: predioElement,
@@ -564,6 +619,12 @@ function showPredioStep() {
                 step2Driver.destroy();
                 State.waitingForTutorialClick = false;
                 State.tutorialTargetLayer = null;
+                
+                // Hacer zoom out
+                if (boundsGroup.getLayers().length > 0) {
+                    map.fitBounds(boundsGroup.getBounds(), { padding: [50, 50], animate: true });
+                }
+                
                 setTimeout(() => initTutorial(), 300);
             },
             onNextClick: () => {
@@ -572,6 +633,16 @@ function showPredioStep() {
                 State.waitingForTutorialClick = true;
                 State.tutorialTargetLayer = targetLayer;
                 targetLayer.fire('click');
+            },
+            onDestroyed: () => {
+                // Restaurar estilo si se cierra inesperadamente
+                if (!State.waitingForTutorialClick) {
+                    for (const i in targetLayer._eventParents) {
+                        if (typeof targetLayer._eventParents[i].resetStyle === 'function') {
+                            targetLayer._eventParents[i].resetStyle(targetLayer);
+                        }
+                    }
+                }
             }
         });
 
@@ -589,7 +660,7 @@ function showPanelSteps() {
     
     setTimeout(() => {
         // Variable para el contador manual
-        let currentStep = 3; // Empieza en 3 porque ya pasamos buscador (1) y predio (2)
+        let currentStep = 3;
         
         const panelDriver = driver({
             showProgress: true,
@@ -597,7 +668,7 @@ function showPanelSteps() {
             nextBtnText: 'Siguiente',
             prevBtnText: 'Anterior',
             doneBtnText: 'Finalizar',
-            progressText: 'Paso 3 de 8', // Inicial
+            progressText: 'Paso 3 de 8',
             allowClose: false,
             disableActiveInteraction: true,
             steps: [
@@ -665,7 +736,18 @@ function showPanelSteps() {
                     panelDriver.destroy();
                     State.waitingForTutorialClick = false;
                     State.tutorialTargetLayer = null;
+                    
+                    // GUARDAR EN LOCALSTORAGE
                     localStorage.setItem('cuencaSolarTutorialCompleted', 'true');
+                    
+                    // Restaurar estilo del predio si existe
+                    if (State.tutorialTargetLayer) {
+                        for (const i in State.tutorialTargetLayer._eventParents) {
+                            if (typeof State.tutorialTargetLayer._eventParents[i].resetStyle === 'function') {
+                                State.tutorialTargetLayer._eventParents[i].resetStyle(State.tutorialTargetLayer);
+                            }
+                        }
+                    }
                 } else {
                     panelDriver.moveNext();
                 }
@@ -674,14 +756,32 @@ function showPanelSteps() {
                 if (step.index === 0) {
                     // Si está en el primer paso del panel, volver al predio
                     panelDriver.destroy();
-                    State.waitingForTutorialClick = false;
-                    State.tutorialTargetLayer = null;
+                    
+                    // Cerrar el panel primero
                     closePanel();
-                    setTimeout(() => showPredioStep(), 300);
+                    
+                    // Esperar a que se cierre el panel y luego volver al predio
+                    setTimeout(() => {
+                        State.waitingForTutorialClick = false;
+                        showPredioStep();
+                    }, 400);
                 } else {
                     currentStep--;
                     updateProgressText(currentStep);
                     panelDriver.movePrevious();
+                }
+            },
+            onDestroyed: () => {
+                // Limpiar estado cuando se destruye el driver
+                const targetClave = '0703010002000';
+                const targetLayer = State.claveIndex.get(targetClave);
+                
+                if (targetLayer) {
+                    for (const i in targetLayer._eventParents) {
+                        if (typeof targetLayer._eventParents[i].resetStyle === 'function') {
+                            targetLayer._eventParents[i].resetStyle(targetLayer);
+                        }
+                    }
                 }
             }
         });
@@ -700,7 +800,7 @@ function showPanelSteps() {
                 const activeIndex = panelDriver.getActiveIndex();
                 const nextBtn = document.querySelector('.driver-popover-next-btn');
                 
-                if (nextBtn) {
+                if (nextBtn && activeIndex !== null) {
                     if (activeIndex === 5) {
                         nextBtn.textContent = 'Finalizar';
                     } else {
@@ -709,7 +809,9 @@ function showPanelSteps() {
                 }
                 
                 // Actualizar contador
-                updateProgressText(3 + activeIndex);
+                if (activeIndex !== null) {
+                    updateProgressText(3 + activeIndex);
+                }
             }, 100);
 
             // Limpiar intervalo cuando se destruya el driver
@@ -739,64 +841,51 @@ selectLayer = function(layer, feature, tituloSector) {
 function addTutorialButton() {
     const tutorialBtn = document.createElement('button');
     tutorialBtn.className = 'tutorial-btn';
-    tutorialBtn.innerHTML = '<i class="fa-solid fa-question-circle"></i> Tutorial';
+    tutorialBtn.innerHTML = '<i class="fa-solid fa-question-circle"></i> Guia';
     tutorialBtn.style.cssText = `
         position: fixed;
-        bottom: 20px;
-        left: 20px;
-        padding: 12px 20px;
-        background: #2563eb;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        z-index: 10000;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        transition: all 0.3s ease;
+            bottom: 20px;
+            right: 20px;
+            z-index: 800;
+            background: #4A8F37;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
     `;
     
-    tutorialBtn.addEventListener('mouseenter', () => {
-        tutorialBtn.style.background = '#1d4ed8';
-        tutorialBtn.style.transform = 'translateY(-2px)';
-        tutorialBtn.style.boxShadow = '0 6px 16px rgba(37, 99, 235, 0.4)';
-    });
-    
-    tutorialBtn.addEventListener('mouseleave', () => {
-        tutorialBtn.style.background = '#2563eb';
-        tutorialBtn.style.transform = 'translateY(0)';
-        tutorialBtn.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)';
-    });
+   
     
     tutorialBtn.addEventListener('click', () => {
         // Cerrar panel si está abierto
         if (DOM.panel && !DOM.panel.classList.contains('hidden')) {
             closePanel();
         }
+        
+        // Limpiar estado del tutorial
+        State.waitingForTutorialClick = false;
+        State.tutorialTargetLayer = null;
+        
+        // Hacer zoom out al área completa
+        if (boundsGroup.getLayers().length > 0) {
+            map.fitBounds(boundsGroup.getBounds(), { padding: [50, 50], animate: true });
+        }
+        
         // Iniciar tutorial desde el principio
         setTimeout(() => initTutorial(), 300);
     });
     
     document.body.appendChild(tutorialBtn);
 }
-
-// Verificar si es la primera visita y mostrar tutorial automáticamente
-function checkFirstVisit() {
-    const hasCompletedTutorial = localStorage.getItem('cuencaSolarTutorialCompleted');
-    
-    // Solo mostrar si NO ha completado el tutorial
-    if (!hasCompletedTutorial) {
-        setTimeout(() => {
-            initTutorial();
-        }, 1500);
-    }
-}
-
 // Inicializar
 addTutorialButton();
-checkFirstVisit();
+
 });

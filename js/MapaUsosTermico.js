@@ -213,9 +213,14 @@ if (bounds.isValid()) map.fitBounds(bounds, { padding: [20, 20] });
 // SISTEMA DE BÚSQUEDA (INDEX & AUTOCOMPLETE)
 // =============================================================================
 
+// =============================================================================
+// SISTEMA DE BÚSQUEDA (INDEX & AUTOCOMPLETE)
+// =============================================================================
+
 var __claveIndex = new Map();
 
-// Indexación de capas por CLAVE
+// 1. Indexación de capas por CLAVE
+// IMPORTANTE: Esto define las variables que usa el buscador después
 if (typeof layer_CATEGORIAS_4 !== 'undefined' && layer_CATEGORIAS_4) {
     layer_CATEGORIAS_4.eachLayer(function (layer) {
         try {
@@ -225,9 +230,10 @@ if (typeof layer_CATEGORIAS_4 !== 'undefined' && layer_CATEGORIAS_4) {
     });
 }
 
+// ESTA ES LA VARIABLE QUE FALTABA:
 var __claveKeys = Array.from(__claveIndex.keys());
 
-// Configuración UI del buscador
+// 2. Configuración UI del buscador
 (function initSearchUI() {
     var input = document.getElementById('claveSearch');
     var dl = document.getElementById('claveOptions');
@@ -235,20 +241,51 @@ var __claveKeys = Array.from(__claveIndex.keys());
 
     if (!input || !dl || !btn) return;
 
-    // Autocompletado
+    // --- FUNCIONALIDAD: Bloquear Mapa ---
+    const toggleMapInteraction = (enable) => {
+        if (enable) {
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.boxZoom.enable();
+            map.keyboard.enable();
+            if (map.tap) map.tap.enable();
+            if(input.parentElement) input.parentElement.classList.remove('search-focused');
+        } else {
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable();
+            if (map.tap) map.tap.disable();
+            if(input.parentElement) input.parentElement.classList.add('search-focused');
+        }
+    };
+
+    // Eventos para bloquear/desbloquear
+    input.addEventListener('focus', () => toggleMapInteraction(false));
+    input.addEventListener('blur', () => setTimeout(() => toggleMapInteraction(true), 200));
+
+    // Autocompletado y Validación
     input.addEventListener('input', function () {
+        // Restricción: Solo Números
+        this.value = this.value.replace(/[^0-9]/g, '');
+
         var texto = this.value.trim().toUpperCase();
         dl.innerHTML = '';
         if (!texto) return;
 
         var matches = 0;
+        // Ahora __claveKeys ya está definida arriba y funcionará
         for (var i = 0; i < __claveKeys.length; i++) {
             if (__claveKeys[i].indexOf(texto) !== -1) {
                 var op = document.createElement('option');
                 op.value = __claveKeys[i];
                 dl.appendChild(op);
                 matches++;
-                if (matches >= 5) break; // Límite de resultados
+                if (matches >= 5) break; 
             }
         }
     });
@@ -278,4 +315,201 @@ var __claveKeys = Array.from(__claveIndex.keys());
 
     btn.addEventListener('click', executeSearch);
     input.addEventListener('keydown', e => { if (e.key === 'Enter') executeSearch(); });
+
 })();
+// =============================================================================
+// 10. TOUR GUIADO CON DRIVER.JS (CON LEYENDA)
+// =============================================================================
+
+function initTutorial() {
+    if (!window.driver || !window.driver.js) {
+        console.warn('Driver.js no está cargado');
+        return;
+    }
+
+    const driver = window.driver.js.driver;
+    
+    // --- PASO 1: EL BUSCADOR ---
+    const step1Driver = driver({
+        showProgress: true,
+        showButtons: ['next'],
+        nextBtnText: 'Siguiente',
+        progressText: 'Paso 1 de 4', // Aumentamos a 4 pasos
+        steps: [
+            {
+                element: '#claveSearch',
+                popover: {
+                    title: 'Buscador de Predios',
+                    description: 'Escribe la clave catastral aquí. El mapa te llevará automáticamente al predio y mostrará su uso de suelo.',
+                    side: 'bottom',
+                    align: 'center'
+                }
+            }
+        ],
+        onNextClick: () => {
+            step1Driver.destroy();
+            setTimeout(() => showFeatureStep(), 300);
+        }
+    });
+
+    step1Driver.drive();
+}
+
+function showFeatureStep() {
+    const driver = window.driver.js.driver;
+    
+    // Usamos la primera clave disponible para el ejemplo
+    if (!__claveKeys || __claveKeys.length === 0) {
+        alert('No hay datos cargados para el tutorial.');
+        return;
+    }
+    
+    const targetClave = '0703010002000'; 
+    const targetLayer = __claveIndex.get(targetClave);
+
+    if (!targetLayer) return;
+
+    // Zoom al predio
+    const bounds = targetLayer.getBounds();
+    if (bounds && bounds.isValid()) {
+        map.fitBounds(bounds, { maxZoom: 17, padding: [100, 100], animate: true });
+    }
+
+    // Resaltar
+    targetLayer.setStyle({ color: '#ffff00', weight: 4, fillOpacity: 0.9 });
+
+    setTimeout(() => {
+        const element = (typeof targetLayer.getElement === 'function') ? targetLayer.getElement() : null;
+
+        const step2Driver = driver({
+            showProgress: true,
+            showButtons: ['next'],
+            nextBtnText: 'Ver Información',
+            progressText: 'Paso 2 de 4',
+            steps: [
+                {
+                    element: element,
+                    popover: {
+                        title: 'Predio Identificado',
+                        description: 'El color del predio indica su categoría (Vivienda, Comercio, Equipamiento, etc.). Haz clic en "Ver Información" para abrir su ficha.',
+                        side: 'top',
+                        align: 'center'
+                    }
+                }
+            ],
+            onNextClick: () => {
+                step2Driver.destroy();
+                targetLayer.fire('click'); 
+                targetLayer.openPopup();
+                setTimeout(() => showPopupStep(targetLayer), 500);
+            }
+        });
+
+        step2Driver.drive();
+
+    }, 1000);
+}
+
+function showPopupStep(layer) {
+    const driver = window.driver.js.driver;
+
+    const step3Driver = driver({
+        showProgress: true,
+        showButtons: ['next'],
+        nextBtnText: 'Siguiente', // Cambiamos a Siguiente
+        progressText: 'Paso 3 de 4',
+        steps: [
+            {
+                element: '.leaflet-popup-content-wrapper',
+                popover: {
+                    title: 'Ficha de Actividad',
+                    description: 'Aquí encontrarás la foto referencial, la categoría general y la actividad específica del predio (Ej. Tienda, Casa, Parque).',
+                    side: 'right',
+                    align: 'center'
+                }
+            }
+        ],
+        onNextClick: () => {
+            step3Driver.destroy();
+            // Cerramos el popup para despejar la vista hacia la leyenda
+            map.closePopup();
+            
+            // Restaurar estilo del predio
+            if (layer && layer._eventParents) {
+                Object.values(layer._eventParents).forEach(p => {
+                    if (typeof p.resetStyle === 'function') p.resetStyle(layer);
+                });
+            }
+
+            // Hacemos un pequeño zoom out para ver el mapa general
+            map.fitBounds(layer_CATEGORIAS_4.getBounds(), { animate: true });
+
+            setTimeout(() => showLegendStep(), 800);
+        }
+    });
+
+    step3Driver.drive();
+}
+
+function showLegendStep() {
+    const driver = window.driver.js.driver;
+
+    // IMPORTANTE: Intenta detectar la leyenda. 
+    // Si tu leyenda tiene otra clase (ej: .map-legend), cambia el selector abajo.
+    const legendSelector = document.querySelector('.map-legend-usos') ? '.map-legend-usos' : '.map-legend-usos';
+
+    const step4Driver = driver({
+        showProgress: true,
+        showButtons: ['next'],
+        nextBtnText: 'Finalizar',
+        progressText: 'Paso 4 de 4',
+        steps: [
+            {
+                element: legendSelector, // Selector de la leyenda
+                popover: {
+                    title: 'Leyenda del Mapa',
+                    description: 'Aquí puedes consultar qué significa cada color en el mapa (Comercio, Vivienda, Equipamiento, etc.).',
+                    side: 'left', // Intentamos mostrarlo a la izquierda de la leyenda
+                    align: 'center'
+                }
+            }
+        ],
+        onNextClick: () => {
+            step4Driver.destroy();
+            localStorage.setItem('tutorialUsosVisto', 'true');
+        }
+    });
+
+    step4Driver.drive();
+}
+
+// --- BOTÓN FLOTANTE ---
+function addTutorialButton() {
+    // Evitamos duplicar botones si se llama varias veces
+    if (document.getElementById('tutorial-btn-usos')) return;
+
+    const btn = document.createElement('button');
+    btn.id = 'tutorial-btn-usos';
+    btn.innerHTML = '<i class="fa-solid fa-question-circle"></i> Guía';
+    btn.style.cssText = `
+        position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+        background: #089427ff; color: white; border: none; border-radius: 50px;
+        padding: 12px 20px; font-family: sans-serif; font-weight: bold;
+        cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        transition: transform 0.2s;
+    `;
+    btn.onmouseover = () => btn.style.transform = 'scale(1.05)';
+    btn.onmouseout = () => btn.style.transform = 'scale(1)';
+    
+    btn.onclick = () => {
+        map.closePopup();
+        initTutorial();
+    };
+    
+    document.body.appendChild(btn);
+}
+
+// Iniciar botón
+addTutorialButton();
+
+

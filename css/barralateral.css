@@ -214,6 +214,15 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+
+/* Estilo para el enlace de la página actual */
+#menuLateral a.pagina-actual {
+    background-color: rgba(255, 255, 255, 0.1); /* Un fondo sutil */
+    color: #EED3A8; /* Color dorado o el que prefieras */
+    font-weight: bold;
+    border-left: 7px solid #EED3A8; /* Una barrita lateral indicadora */
+    padding-left: 10px; /* Ajuste para que no se pegue el texto */
+}
 /* ========================================
    RESPONSIVE / MEDIA QUERIES
    Fuente: EstructuraBase.Css

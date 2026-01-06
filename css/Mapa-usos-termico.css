@@ -4,7 +4,7 @@
 .map-legend-usos {
     position: absolute;
     bottom: 30px;
-    right: 20px;
+    left: 10px;
     background: #ffffff;
     padding: 15px;
     border-radius: 8px;
@@ -68,30 +68,22 @@
 }
 
 /* ========================================
-   RESPONSIVE
+   SWITCH FLOTANTE
    ======================================== */
-@media (max-width: 768px) {
-    .map-legend-usos {
-        bottom: 15px;
-        right: 10px;
-        padding: 12px;
-        min-width: 180px;
-    }
-  
-    .legend-usos-header h3 {
-        font-size: 12px;
-    }
-  
-    .legend-usos-items {
-        gap: 6px;
-    }
-  
-    .legend-usos-color {
-        width: 20px;
-        height: 20px;
-    }
-  
-    .legend-usos-label {
-        font-size: 11px;
-    }
+.switch-container {
+    position: fixed; 
+    top: 50%;      
+    left: 1%;     
+    z-index: 850;   
+    background: var(--color-primario);
+    padding: 10px 15px;
+    border-radius: 50px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
 }

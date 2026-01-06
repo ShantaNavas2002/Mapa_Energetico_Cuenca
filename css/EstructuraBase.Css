@@ -56,7 +56,7 @@ input, button, textarea, select {
    ======================================== */
 .mi-grid-3 {
     display: grid;
-    grid-template-columns: 60px 1fr 60px;
+    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     gap: var(--spacing-sm);
     width: 100%;
@@ -144,6 +144,7 @@ input, button, textarea, select {
     gap: var(--spacing-lg);
     text-align: center;
     justify-self: center;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .footer-col {
@@ -224,19 +225,45 @@ input, button, textarea, select {
 }
 
 /* ========================================
-   RESPONSIVE
+   RESPONSIVE (MEDIA QUERIES)
    ======================================== */
-@media (min-width: 1024px) {
+
+@media (max-width: 768px) {
     .mi-grid-3 {
-        grid-template-columns: 1fr 2fr 1fr;
-        padding: var(--spacing-md) var(--spacing-xl);
+        grid-template-columns: auto 1fr auto;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-xs);
     }
-    
-    
-    
+
+    .Logo-cuencasolar {
+        height: auto;
+        max-height: 50px;
+    }
+
+    .Logo-consiso {
+        height: 40px;
+    }
+
+    .btn-menu, 
+    .btn-lateral {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        font-size: 1.5rem;
+    }
+
     .footer-content {
-        grid-template-columns: repeat(3, 1fr);
-        padding: var(--spacing-xl) var(--spacing-lg);
-        gap: var(--spacing-xl);
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-md);
+    }
+
+    .footer-col {
+        align-items: center;
+        width: 100%;
+    }
+
+    .link-item {
+        align-self: center;
     }
 }
