@@ -1,11 +1,30 @@
-// Función para cargar el menú
+
+
 async function cargarMenu() {
     try {
-        const response = await fetch('../legend/menu.html');
-        const html = await response.text();
+        
+        const isPagesFolder = window.location.pathname.includes('/pages/');
+
+       
+        const menuPath = isPagesFolder ? '../legend/menu.html' : 'legend/menu.html';
+
+        const response = await fetch(menuPath);
+        
+        if (!response.ok) {
+            throw new Error(`No se pudo cargar el menú desde: ${menuPath}`);
+        }
+
+        let html = await response.text();
+
+        if (!isPagesFolder) {
+            
+            html = html.replace(/\.\.\/pages\//g, 'pages/');
+            
+            html = html.replace(/\.\.\/index\.html/g, 'index.html');
+        }
+
         document.getElementById('menu-container').innerHTML = html;
         
-        // NUEVO: Llamamos a la función de marcado justo después de insertar el HTML
         marcarPaginaActiva();
 
     } catch (error) {
@@ -13,32 +32,21 @@ async function cargarMenu() {
     }
 }
 
-// NUEVA FUNCIÓN: Detecta la URL y marca el link correspondiente
+
 function marcarPaginaActiva() {
-    // 1. Obtener la URL actual (sin parámetros como ?id=1)
+
     const currentUrl = window.location.href.split(/[?#]/)[0];
-    
-    // 2. Obtener todos los links del menú
-    // Nota: Asegúrate de que tu fetch carga el menú dentro de un elemento con ID o clase conocida
     const links = document.querySelectorAll('#menu-container a');
 
     links.forEach(link => {
-        // Comparamos la propiedad 'href' completa del link con la URL actual
         if (link.href === currentUrl) {
             
-            // A. Agregar clase visual al link
             link.classList.add('pagina-actual');
-
-            // B. Lógica para Sub-menús (Opcional pero recomendado)
-            // Si el link está dentro de un sub-menú, hay que abrirlo automáticamente
-            const parentSubMenu = link.closest('ul'); // Busca el UL padre
+            const parentSubMenu = link.closest('ul'); 
             
-            // Verificamos si ese UL es un submenú (asumiendo que tiene un ID o clase específica)
-            // Si usas la estructura de tu toggleSubMenu, el UL probablemente está oculto.
             if (parentSubMenu && parentSubMenu.id !== 'menuLateral') {
-                const parentLi = parentSubMenu.parentNode; // El LI que contiene el submenú
+                const parentLi = parentSubMenu.parentNode;
                 
-                // Abrimos el menú usando la lógica de altura y clases
                 parentLi.classList.add('abierto');
                 parentSubMenu.style.maxHeight = parentSubMenu.scrollHeight + "px";
             }
@@ -46,9 +54,6 @@ function marcarPaginaActiva() {
     });
 }
 
-// ... (Resto de tus funciones toggleMenu, toggleSubMenu igual que antes) ...
-
-// FUNCIÓN CONSOLIDADA: Toggle del menú lateral principal
 function toggleMenu() {
     const menu = document.getElementById('menuLateral');
     const overlay = document.getElementById('overlay');
