@@ -60,7 +60,7 @@
     height: 100%;       
     
     /* Glassmorphism */
-    background-color: rgba(98, 119, 112, 0.75); 
+    background-color: rgba(98, 119, 112, 0.55); 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(8px);
     
@@ -78,6 +78,54 @@
 .inf:hover {
     background-color: rgba(98, 119, 112, 0.95);
 }
+
+
+.btn-mapa {
+    margin-top: 10%;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #e4ab50;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    
+    /* Animación constante */
+    animation: pulso-solar 2s infinite;
+  }
+
+  /* Efecto Hover */
+  .btn-mapa:hover {
+    
+    background-color: #eea631;
+    transform: translateY(-3px); /* Se eleva un poco */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: none; /* Se detiene el pulso al interactuar */
+  }
+
+  /* Efecto Active (al hacer clic) */
+  .btn-mapa:active {
+    transform: translateY(-1px);
+  }
+
+  /* Definición de la animación de pulso */
+  @keyframes pulso-solar {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 15px rgba(243, 156, 18, 0);
+    }
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
+    }
+  }
 
 /* ========================================
    ELEMENTOS INTERNOS
