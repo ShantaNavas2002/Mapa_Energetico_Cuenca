@@ -932,17 +932,6 @@ const DATA_METODOLOGIA = {
                             <li>ANEXO 4: FICHAS NORMATIVAS - GAD Municipal de Cuenca, accessed November 30, 2025</li>
                             <li>Method for Estimating Solar Energy Potential Based on Photogrammetry from Unmanned Aerial Vehicles - MDPI, accessed November 30, 2025</li>
                             <li>Estimate solar power potential | Documentation - Learn ArcGIS, accessed November 30, 2025</li>
-                            <li>What Are the Differences Between On-Grid and Off-Grid Solar? - EcoFlow, accessed November 30, 2025</li>
-                            <li>Anexo 3.1 Estructurante c Urbanistico 0 Cuenca | PDF | Planificación - Scribd, accessed November 30, 2025</li>
-                            <li>Plan Operativo Bicicletas | PDF | Ecuador | Transporte - Scribd, accessed November 30, 2025</li>
-                            <li>De la ciudad densificada a la ciudad paisaje. Tramo parcial de la Avenida Ordóñez Lasso de Cuenca, Ecuador - ucuenca, accessed November 30, 2025</li>
-                            <li>Análisis, diagnóstico y valoración del paisaje en el proyecto de ampliación de la avenida, accessed November 30, 2025</li>
-                            <li>VENTA DE CASA SECTOR PRIMERO DE MAYO EN CUENCA, accessed November 30, 2025</li>
-                            <li>17 Bienes raíces y propiedades cuenca primero mayo en venta en Ecuador - Plusvalía, accessed November 30, 2025</li>
-                            <li>Análisis de Sitio en Totoracocha - Prezi, accessed November 30, 2025</li>
-                            <li>Totoracocha (parroquia de Cuenca) - Wikipedia, accessed November 30, 2025</li>
-                            <li>Universidad del Azuay, accessed November 30, 2025</li>
-                            
                         </ol>
                     `
                 }
@@ -952,25 +941,12 @@ const DATA_METODOLOGIA = {
                     tipo: "texto",
                     tituloCaja: "",
                     contenido: `
-                        <ol start="18">
-                            <li>Fotogrametría - Instituto Geográfico Nacional, accessed November 30, 2025</li>
-                            <li>¿Qué es la fotogrametría?—ArcGIS Pro | Documentación, accessed November 30, 2025</li>
-                            <li>Fotogrametría Con Drones: Todo Lo Que Debes Saber | DRONING, accessed November 30, 2025</li>
-                            <li>Fotografía: Explicación sencilla de la medición digital de edificios - autarc.energy, accessed November 30, 2025</li>
-                            <li>Tecnología de drones en la revolución de la energía solar - Volatus Drones, accessed November 30, 2025</li>
-                            <li>Curso Gratuito de Fotogrametría (Parte 1) - YouTube, accessed November 30, 2025</li>
-                            <li>Analysis and Precision of Light Detection and Ranging Sensors Integrated in Mobile Phones - MDPI, accessed November 30, 2025</li>
-                            <li>Captura de realidad 3D para la construcción de edificios - FlyPix AI, accessed November 30, 2025</li>
-                            <li>validación de modelos digitales del terreno de precisión a partir de datos láser escáner aerotransportado, accessed November 30, 2025</li>
-                            <li>Is My Roof Suitable for Solar Panels?, accessed November 30, 2025</li>
-                            <li>Assess solar potential home - Enphase, accessed November 30, 2025</li>
-                            <li>A beginner's guide to solar potential and its estimation, accessed November 30, 2025</li>
-                            <li>Methodology - Global Solar Atlas, accessed November 30, 2025</li>
-                            <li>Resúmenes por Área - XXV Verano de la Investigación Científica, accessed November 30, 2025</li>
-                            <li>Dot Density Map | Data Viz Project, accessed November 30, 2025</li>
-                            <li>Vigente el mecanismo para subsidio eléctrico - Celec EP, accessed November 30, 2025</li>
-                            <li>Homeowner's Guide to Solar - Department of Energy, accessed November 30, 2025</li>
-                            <li>Jenks Natural Breaks Explained, accessed November 30, 2025</li>
+                        <ol start="8">
+                            <li>What Are the Differences Between On-Grid and Off-Grid Solar? - EcoFlow, accessed November 30, 2025</li>
+                            <li>Anexo 3.1 Estructurante c Urbanistico 0 Cuenca | PDF | Planificación - Scribd, accessed November 30, 2025</li>
+                            <li>Plan Operativo Bicicletas | PDF | Ecuador | Transporte - Scribd, accessed November 30, 2025</li>
+                            <li>De la ciudad densificada a la ciudad paisaje. Tramo parcial de la Avenida Ordóñez Lasso de Cuenca, Ecuador - ucuenca, accessed November 30, 2025</li>
+                            <li>Análisis, diagnóstico y valoración del paisaje en el proyecto de ampliación de la avenida, accessed November 30, 2025</li>
                         </ol>
                     `
                 }

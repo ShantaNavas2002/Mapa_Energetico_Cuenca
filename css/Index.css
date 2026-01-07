@@ -81,12 +81,12 @@
 
 
 .btn-mapa {
-    margin-top: 10%;
-    padding: 15px 30px;
+    margin-top: 5%;
+    padding: 5% 10%;
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: #e4ab50;
+    background-color: #e2b46b;
     border: none;
     border-radius: 30px;
     cursor: pointer;
@@ -100,7 +100,7 @@
   /* Efecto Hover */
   .btn-mapa:hover {
     
-    background-color: #eea631;
+    background-color: #e7af53;
     transform: translateY(-3px); /* Se eleva un poco */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     animation: none; /* Se detiene el pulso al interactuar */
