@@ -1,0 +1,143 @@
+/* ========================================
+   VARIABLES (Sincronizadas)
+   ======================================== */
+:root {
+    /* Colores principales */
+    --color-primario: rgba(98, 119, 112, 1);
+    --color-primario-light: rgba(98, 119, 112, 0.8);
+    --color-secundario: rgb(238, 211, 168);
+    
+    /* Espaciados */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Breakpoints */
+    --bp-mobile: 480px;
+    --bp-tablet: 768px;
+    --bp-desktop: 1024px;
+    --bp-wide: 1440px;
+    
+    /* Configuración */
+    --border-radius: 30px;
+    --transition-speed: 0.3s;
+    --menu-width-mobile: 250px;
+    --menu-width-desktop: 300px;
+}
+
+/* ========================================
+   CONFIGURACIÓN BASE (Layout Mapa)
+   ======================================== */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Configuración Flex para pantalla completa sin scroll */
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    overflow: hidden;
+}
+
+/* Ajuste Header Grid */
+.mi-grid-3 {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-sm);
+}
+
+/* ========================================
+   ELEMENTOS DE UI (Botones y Logos)
+   ======================================== */
+.position-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-menu {
+    background-color: transparent; 
+    border: none;
+    padding: 1px; 
+    font-size: 1.7rem; 
+    color: var(--color-primario); 
+    cursor: pointer; 
+    border-radius: 8px; 
+    transition: all var(--transition-speed) ease; 
+    width: 50px; 
+    height: 50px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-menu:hover {
+    color: var(--color-primario-light); 
+    transform: scale(1.05);
+}
+
+.Logo-cuencasolar,
+.Logo-consiso {
+    height: 40px;
+    width: auto;
+    justify-self: center;
+}
+
+.link-logo {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.link-logo .Logo-cuencasolar {
+    display: block; 
+}
+
+/* ========================================
+   BUSCADOR (Izquierda)
+   ======================================== */
+.Buscador-Predio {
+    position: absolute;
+    z-index: 800; 
+    top: 12px; 
+    left: 12px; 
+    display: flex; 
+    gap: 6px; 
+    align-items: center; 
+    background: rgba(255,255,255,0.95); 
+    padding: 8px 10px; 
+    border-radius: 10px; 
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.336);
+    width: auto;
+}
+
+#claveSearch {
+    width: 220px; 
+    padding: 6px 10px; 
+    border-radius: 8px; 
+    border: 1px solid #d1d5db;
+    outline: none;
+}
+
+#claveGo {
+    padding: 6px 10px; 
+    border-radius: 8px; 
+    border: 0; 
+    background: var(--color-primario);
+    color: white; 
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#claveGo:hover { 
+    background: var(--color-secundario); 
+    color: black;
+}
