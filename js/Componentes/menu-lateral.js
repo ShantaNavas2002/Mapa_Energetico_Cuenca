@@ -6,7 +6,7 @@ async function cargarMenu() {
         const isPagesFolder = window.location.pathname.includes('/pages/');
 
        
-        const menuPath = isPagesFolder ? '../legend/menu.html' : '../legend/menu.html';
+        const menuPath = isPagesFolder ? '/legend/menu.html' : '../legend/menu.html';
 
         const response = await fetch(menuPath);
         
