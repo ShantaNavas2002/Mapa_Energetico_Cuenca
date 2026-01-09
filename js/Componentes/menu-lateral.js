@@ -3,7 +3,7 @@
 async function cargarMenu() {
     try {
         
-        const menuPath = '/legend/menu.html';
+        const menuPath = 'legend/menu.html';
 
 
         const response = await fetch(menuPath);
