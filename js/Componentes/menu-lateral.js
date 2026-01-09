@@ -1,9 +1,42 @@
 // Función para cargar el menú
 async function cargarMenu() {
     try {
-        const response = await fetch('legend/menu.html');
+        // 1. Detectar si estamos dentro de la carpeta 'pages' o cualquier subnivel
+        // Verificamos si la URL actual contiene '/pages/'
+        const enSubcarpeta = window.location.pathname.includes('/pages/');
+        
+        // 2. Definir el prefijo: si estamos en subcarpeta subimos un nivel (../), si no, nada ('')
+        const prefijo = enSubcarpeta ? '../' : '';
+
+        // 3. Cargar el menú con la ruta correcta
+        // Si estás en index es: 'legend/menu.html'
+        // Si estás en pages es: '../legend/menu.html'
+        const response = await fetch(prefijo + 'legend/menu.html');
+        
+        if (!response.ok) throw new Error('No se pudo cargar el menú');
+        
         const html = await response.text();
-        document.getElementById('menu-container').innerHTML = html;
+        const container = document.getElementById('menu-container');
+        container.innerHTML = html;
+
+        // 4. CORRECCIÓN DE ENLACES
+        // Buscamos todos los links cargados dentro del menú
+        const links = container.querySelectorAll('a');
+        
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            // Solo modificamos si:
+            // - Tiene href
+            // - No es un ancla interna (#)
+            // - No es un enlace externo (http/https)
+            // - No es un enlace a javascript
+            if (href && !href.startsWith('#') && !href.startsWith('http') && !href.includes('javascript')) {
+                // Le agregamos el prefijo (../) a todos los enlaces
+                link.setAttribute('href', prefijo + href);
+            }
+        });
+
     } catch (error) {
         console.error('Error al cargar el menú:', error);
     }
