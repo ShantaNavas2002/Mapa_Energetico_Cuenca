@@ -399,10 +399,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     
-   // =============================================================================
-    // 8. BUSCADOR Y UI GLOBALES
-    // =============================================================================
+  
 
+    // =============================================================================
+    // 8. IMPLEMENTACIÓN DEL BUSCADOR CENTRALIZADO
+    // =============================================================================
+    
+    // Asumiendo que search-utils.js ya está cargado en el HTML
+    initSearchSystem(map, State.claveIndex, {
+        onFound: (layer) => {
+            // Lógica específica del Fotovoltaico: Padding para el panel lateral
+            const b = (typeof layer.getBounds === 'function') ? layer.getBounds() : null;
+            
+            if (b && b.isValid()) {
+                const panelWidth = DOM.panel ? DOM.panel.offsetWidth : 420;
+                map.fitBounds(b, {
+                    maxZoom: 18, 
+                    animate: true,
+                    // Aquí está la magia específica de este mapa (espacio a la derecha)
+                    paddingTopLeft: [20, 20],
+                    paddingBottomRight: [panelWidth + 20, 20]
+                });
+                // Pequeño delay para dar tiempo al zoom antes de abrir el panel
+                setTimeout(() => layer.fire('click'), 250);
+            } else {
+                layer.fire('click');
+            }
+        }
+    });
+
+    // Eventos del panel (Cerrar) - Esto se mantiene aquí porque es UI específica
     function closePanel() {
         DOM.panel.classList.add('hidden');
         if (State.selectedLayer) {
@@ -410,110 +436,8 @@ document.addEventListener('DOMContentLoaded', function () {
             State.selectedLayer = null;
         }
     }
-
-    // Cerrar panel events
     if (DOM.closeBtn) DOM.closeBtn.addEventListener('click', closePanel);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
-    // Autocomplete y Búsqueda
-    const keysArray = Array.from(State.claveIndex.keys()); 
+}); 
 
-    if (DOM.searchInput) {
-        
-        // --- NUEVA FUNCIONALIDAD: Bloquear Mapa al usar el buscador ---
-        
-        // Función para congelar/descongelar el mapa
-        const toggleMapInteraction = (enable) => {
-            if (enable) {
-                map.dragging.enable();
-                map.touchZoom.enable();
-                map.doubleClickZoom.enable();
-                map.scrollWheelZoom.enable();
-                map.boxZoom.enable();
-                map.keyboard.enable();
-                if (map.tap) map.tap.enable();
-                DOM.searchInput.parentElement.classList.remove('search-focused'); // Opcional: para estilo CSS
-            } else {
-                map.dragging.disable();
-                map.touchZoom.disable();
-                map.doubleClickZoom.disable();
-                map.scrollWheelZoom.disable();
-                map.boxZoom.disable();
-                map.keyboard.disable();
-                if (map.tap) map.tap.disable();
-                DOM.searchInput.parentElement.classList.add('search-focused'); // Opcional
-            }
-        };
-
-        // 1. Evento FOCUS: Cuando entras al input -> Congela el mapa
-        DOM.searchInput.addEventListener('focus', () => {
-            toggleMapInteraction(false);
-        });
-
-        // 2. Evento BLUR: Cuando sales del input (click afuera) -> Reactiva el mapa
-        DOM.searchInput.addEventListener('blur', () => {
-            // Un pequeño timeout ayuda a que si clickeas una opción del autocompletado, 
-            // el evento click se registre antes de reactivar todo
-            setTimeout(() => toggleMapInteraction(true), 200); 
-        });
-
-        // --- FIN NUEVA FUNCIONALIDAD ---
-
-        DOM.searchInput.addEventListener('input', function() {
-            // 3. RESTRICCIÓN: Solo Números
-            // Reemplaza cualquier caracter que NO sea 0-9 por vacío
-            this.value = this.value.replace(/[^0-9]/g, '');
-
-            const val = this.value.trim(); // Ya no necesitamos toUpperCase() porque son números
-            DOM.searchOptions.innerHTML = '';
-            
-            if (!val) return;
-
-            // Filtrado optimizado
-            let count = 0;
-            for (let i = 0; i < keysArray.length; i++) {
-                // Como keysArray puede tener formato string, aseguramos la comparación
-                if (keysArray[i].includes(val)) {
-                    const op = document.createElement('option');
-                    op.value = keysArray[i];
-                    DOM.searchOptions.appendChild(op);
-                    count++;
-                    if (count >= 5) break;
-                }
-            }
-        });
-
-        const goToClave = (val) => {
-            if (!val) return;
-            const key = val.trim(); // Quitamos toUpperCase innecesario si las claves son numéricas
-            // Nota: Si tus claves en el mapa ("0703...") están guardadas como string, esto funciona.
-            // Si en el mapa tienen letras, avísame, pero pediste "solo números".
-            
-            const layer = State.claveIndex.get(key);
-            
-            if (!layer) {
-                alert('No se encontró la CLAVE: ' + val);
-                return;
-            }
-
-            const b = (typeof layer.getBounds === 'function') ? layer.getBounds() : null;
-            if (b && b.isValid()) {
-                const panelWidth = DOM.panel ? DOM.panel.offsetWidth : 420;
-                map.fitBounds(b, {
-                    maxZoom: 18, animate: true,
-                    paddingTopLeft: [20, 20],
-                    paddingBottomRight: [panelWidth + 20, 20]
-                });
-                setTimeout(() => layer.fire('click'), 250);
-            } else {
-                layer.fire('click');
-            }
-        };
-
-        if (DOM.searchBtn) DOM.searchBtn.addEventListener('click', () => goToClave(DOM.searchInput.value));
-        DOM.searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') goToClave(DOM.searchInput.value); });
-    }
-
-
-
-});

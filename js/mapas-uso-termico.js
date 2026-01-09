@@ -75,7 +75,7 @@ function getLayerElements(layer) {
 function markSelected(layer) {
     if (typeof layer.bringToFront === 'function') layer.bringToFront();
     if (typeof layer.setStyle === 'function') {
-        layer.setStyle({ weight: 3, color: '#2563eb', fillOpacity: 0.85 });
+        layer.setStyle({ weight: 3, color: '#ff0000ff', fillOpacity: 0.85 });
     }
     getLayerElements(layer).forEach(p => { if (p) p.classList.add('feature-selected'); });
 }
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // LÓGICA DE ESTILOS Y POPUPS
 // =============================================================================
 
-// Retorna la configuración (color/imagen) basada en la categoría
+
 function getCategorySettings(categoria) {
     if (!categoria) return DEFAULT_STYLE;
     const cat = String(categoria).toLowerCase().trim();
@@ -180,11 +180,26 @@ function createPopupContent(props) {
 map.createPane('pane_CATEGORIAS_4');
 map.getPane('pane_CATEGORIAS_4').style.zIndex = 404;
 
+// ... (código anterior) ...
+
+map.createPane('pane_CATEGORIAS_4');
+map.getPane('pane_CATEGORIAS_4').style.zIndex = 404;
+
+// --- AGREGAR ESTA LÍNEA ---
+const __claveIndex = new Map(); 
+// --------------------------
+
+// ...
+
 var layer_CATEGORIAS_4 = new L.geoJson(json_Usos, {
     interactive: true,
     pane: 'pane_CATEGORIAS_4',
     style: style_CATEGORIAS_4,
     onEachFeature: function (feature, layer) {
+        if (feature.properties && feature.properties.CLAVE) {
+            // Guardamos: "12345" -> CapaLeaflet
+            __claveIndex.set(String(feature.properties.CLAVE).trim(), layer);
+        }
         layer.bindPopup(createPopupContent(feature.properties));
 
         layer.on({
@@ -209,114 +224,39 @@ map.addLayer(layer_CATEGORIAS_4);
 var bounds = layer_CATEGORIAS_4.getBounds();
 if (bounds.isValid()) map.fitBounds(bounds, { padding: [20, 20] });
 
-// =============================================================================
-// SISTEMA DE BÚSQUEDA (INDEX & AUTOCOMPLETE)
-// =============================================================================
+// ... (Código anterior igual hasta antes del sistema de búsqueda) ...
 
 // =============================================================================
-// SISTEMA DE BÚSQUEDA (INDEX & AUTOCOMPLETE)
+// SISTEMA DE BÚSQUEDA CENTRALIZADO
 // =============================================================================
 
-var __claveIndex = new Map();
-
-// 1. Indexación de capas por CLAVE
-// IMPORTANTE: Esto define las variables que usa el buscador después
-if (typeof layer_CATEGORIAS_4 !== 'undefined' && layer_CATEGORIAS_4) {
-    layer_CATEGORIAS_4.eachLayer(function (layer) {
-        try {
-            var clave = layer.feature?.properties?.CLAVE;
-            if (clave) __claveIndex.set(String(clave).trim().toUpperCase(), layer);
-        } catch (e) { /* Silencio en errores de indexado */ }
-    });
-}
-
-// ESTA ES LA VARIABLE QUE FALTABA:
-var __claveKeys = Array.from(__claveIndex.keys());
-
-// 2. Configuración UI del buscador
-(function initSearchUI() {
-    var input = document.getElementById('claveSearch');
-    var dl = document.getElementById('claveOptions');
-    var btn = document.getElementById('claveGo');
-
-    if (!input || !dl || !btn) return;
-
-    // --- FUNCIONALIDAD: Bloquear Mapa ---
-    const toggleMapInteraction = (enable) => {
-        if (enable) {
-            map.dragging.enable();
-            map.touchZoom.enable();
-            map.doubleClickZoom.enable();
-            map.scrollWheelZoom.enable();
-            map.boxZoom.enable();
-            map.keyboard.enable();
-            if (map.tap) map.tap.enable();
-            if(input.parentElement) input.parentElement.classList.remove('search-focused');
-        } else {
-            map.dragging.disable();
-            map.touchZoom.disable();
-            map.doubleClickZoom.disable();
-            map.scrollWheelZoom.disable();
-            map.boxZoom.disable();
-            map.keyboard.disable();
-            if (map.tap) map.tap.disable();
-            if(input.parentElement) input.parentElement.classList.add('search-focused');
-        }
-    };
-
-    // Eventos para bloquear/desbloquear
-    input.addEventListener('focus', () => toggleMapInteraction(false));
-    input.addEventListener('blur', () => setTimeout(() => toggleMapInteraction(true), 200));
-
-    // Autocompletado y Validación
-    input.addEventListener('input', function () {
-        // Restricción: Solo Números
-        this.value = this.value.replace(/[^0-9]/g, '');
-
-        var texto = this.value.trim().toUpperCase();
-        dl.innerHTML = '';
-        if (!texto) return;
-
-        var matches = 0;
-        // Ahora __claveKeys ya está definida arriba y funcionará
-        for (var i = 0; i < __claveKeys.length; i++) {
-            if (__claveKeys[i].indexOf(texto) !== -1) {
-                var op = document.createElement('option');
-                op.value = __claveKeys[i];
-                dl.appendChild(op);
-                matches++;
-                if (matches >= 5) break; 
+// Esperamos a que el DOM esté listo para buscar los inputs
+document.addEventListener('DOMContentLoaded', function() {
+    
+    initSearchSystem(map, __claveIndex, {
+        onFound: (layer) => {
+            // Lógica específica del Térmico: Padding normal y abrir Popup
+            const b = (typeof layer.getBounds === 'function') ? layer.getBounds() : null;
+            
+            if (b && b.isValid()) {
+                map.fitBounds(b, { 
+                    maxZoom: 18, 
+                    animate: true, 
+                    padding: [50, 50] // Padding simétrico
+                });
+                
+                setTimeout(() => {
+                    layer.fire('click');
+                    layer.openPopup(); // Este mapa usa Popups
+                }, 300);
+            } else {
+                layer.fire('click');
+                layer.openPopup();
             }
         }
     });
 
-    // Acción de búsqueda
-    function executeSearch() {
-        var key = input.value.trim().toUpperCase();
-        var layer = __claveIndex.get(key);
-
-        if (!layer) {
-            alert('No se encontró la CLAVE: ' + input.value);
-            return;
-        }
-
-        var b = (typeof layer.getBounds === 'function') ? layer.getBounds() : null;
-        if (b && b.isValid && b.isValid()) {
-            map.fitBounds(b, { maxZoom: 18, animate: true, padding: [50, 50] });
-            setTimeout(() => {
-                layer.fire('click');
-                layer.openPopup();
-            }, 300);
-        } else {
-            layer.fire('click');
-            layer.openPopup();
-        }
-    }
-
-    btn.addEventListener('click', executeSearch);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') executeSearch(); });
-
-})();
+});
 
 
 

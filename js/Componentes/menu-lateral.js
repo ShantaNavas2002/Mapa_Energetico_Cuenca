@@ -1,66 +1,28 @@
-
-
+// Función para cargar el menú
 async function cargarMenu() {
     try {
-        
-        const menuPath = 'legend/menu.html';
-
-
-        const response = await fetch(menuPath);
-        
-        if (!response.ok) {
-            throw new Error(`No se pudo cargar el menú desde: ${menuPath}`);
-        }
-
-        let html = await response.text();
-
-        if (!isPagesFolder) {
-            
-            html = html.replace(/\.\.\/pages\//g, 'pages/');
-            
-            html = html.replace(/\.\.\/index\.html/g, 'index.html');
-        }
-
+        const response = await fetch('/legend/menu.html');
+        const html = await response.text();
         document.getElementById('menu-container').innerHTML = html;
-        
-        marcarPaginaActiva();
-
     } catch (error) {
         console.error('Error al cargar el menú:', error);
     }
 }
 
-
-function marcarPaginaActiva() {
-
-    const currentUrl = window.location.href.split(/[?#]/)[0];
-    const links = document.querySelectorAll('#menu-container a');
-
-    links.forEach(link => {
-        if (link.href === currentUrl) {
-            
-            link.classList.add('pagina-actual');
-            const parentSubMenu = link.closest('ul'); 
-            
-            if (parentSubMenu && parentSubMenu.id !== 'menuLateral') {
-                const parentLi = parentSubMenu.parentNode;
-                
-                parentLi.classList.add('abierto');
-                parentSubMenu.style.maxHeight = parentSubMenu.scrollHeight + "px";
-            }
-        }
-    });
-}
-
+// FUNCIÓN CONSOLIDADA: Toggle del menú lateral principal, incluyendo el cambio de ícono
 function toggleMenu() {
     const menu = document.getElementById('menuLateral');
     const overlay = document.getElementById('overlay');
+    
+    // Selector corregido para encontrar el ícono dentro de .btn-menu
     const icono = document.querySelector('.btn-menu i'); 
 
+    // 1. Toggle de las clases 'activo'
     menu.classList.toggle('activo');
     overlay.classList.toggle('activo');
 
-    if (icono) {
+    // 2. Lógica para cambiar el ícono
+    if (icono) { // Asegura que el ícono exista antes de intentar cambiarlo
         if (menu.classList.contains('activo')) {
             icono.classList.remove('fa-bars');
             icono.classList.add('fa-times'); 
@@ -71,29 +33,34 @@ function toggleMenu() {
     }
 }
 
-// Toggle para sub-menús
+// NUEVA FUNCIÓN: Toggle para el sub-menú de "Otros Proyectos"
 function toggleSubMenu(event, subMenuId) {
+    // Evita que el enlace # navegue la página
     event.preventDefault(); 
-    const subMenu = document.getElementById(subMenuId);
-    const item = subMenu.parentNode; 
     
+    const subMenu = document.getElementById(subMenuId);
+    const item = subMenu.parentNode; // El <li> padre
+    
+    // 1. Alterna la clase 'abierto' en el <li> padre
     item.classList.toggle('abierto');
     
+    // 2. Alterna la visibilidad con 'max-height' para CSS
     if (subMenu.style.maxHeight) {
-        subMenu.style.maxHeight = null; 
+        subMenu.style.maxHeight = null; // Cierra el menú
     } else {
+        // Abre el menú, ajustando la altura al contenido
         subMenu.style.maxHeight = subMenu.scrollHeight + "px"; 
     }
 }
 
-// Listeners iniciales
+// Cargar el menú cuando la página esté lista
 document.addEventListener('DOMContentLoaded', cargarMenu);
 
+// Cerrar menú si se hace click en el fondo oscuro (overlay)
+// Se necesita que el overlay esté cargado en el DOM para poder adjuntar el listener
 document.addEventListener('DOMContentLoaded', function() {
     const overlayElement = document.getElementById('overlay');
     if (overlayElement) {
         overlayElement.addEventListener('click', toggleMenu);
     }
-
-    
 });

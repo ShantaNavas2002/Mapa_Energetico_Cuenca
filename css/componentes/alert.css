@@ -1,0 +1,128 @@
+
+
+
+.alerta-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+
+.alerta-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.alerta-contenedor {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    width: 32rem;
+    padding: 2rem;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.alerta-overlay.active .alerta-contenedor {
+    transform: scale(1);
+}
+
+/* Título */
+.alerta-titulo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0 0 1rem 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Texto descriptivo */
+.alerta-texto {
+    
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555555;
+    margin: 0 0 1.5rem 0;
+    text-align: justify;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Contenedor del botón */
+.alerta-acciones {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* Botón "Entendido" */
+.alerta-btn-entendido {
+    background-color: rgba(98, 119, 112);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+.alerta-btn-entendido:hover {
+    background-color: #337F1D;
+    transform: translateY(-0.125rem);
+}
+
+.alerta-btn-entendido:active {
+    transform: translateY(0);
+}
+
+/* Responsive - Tablets y móviles */
+@media (max-width: 48rem) {
+    .alerta-contenedor {
+        width: 85%;
+        padding: 1.5rem;
+    }
+
+    .alerta-titulo {
+        font-size: 1.25rem;
+    }
+
+    .alerta-texto {
+        font-size: 0.9375rem;
+    }
+
+    .alerta-btn-entendido {
+        padding: 0.625rem 1.5rem;
+        font-size: 0.9375rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    .alerta-contenedor {
+        width: 90%;
+        padding: 1.25rem;
+    }
+
+    .alerta-titulo {
+        font-size: 1.125rem;
+    }
+
+    .alerta-texto {
+        font-size: 0.875rem;
+    }
+}
