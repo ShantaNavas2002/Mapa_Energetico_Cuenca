@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Mapa Térmico - Ordóñez Lasso | Cuenca Solar</title>
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="../css/leaflet.css">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="../css/componentes/head-busca-maps.css">
+    <link rel="stylesheet" href="../css/componentes/barra-lateral.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Botón de alternancia flotante */
+        .toggle-btn-container {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #toggleMapBtn {
+            background: linear-gradient(135deg, #627770 0%, #4a5d57 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #toggleMapBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #4a5d57 0%, #627770 100%);
+        }
+
+        #toggleMapBtn:active {
+            transform: translateY(0);
+        }
+
+        #toggleMapBtn i {
+            font-size: 16px;
+        }
+
+        /* Leyenda del mapa térmico */
+        .thermal-legend {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            max-width: 250px;
+        }
+
+        .thermal-legend h4 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .thermal-legend-gradient {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, 
+                #0000FF 0%,    /* Azul - Frío */
+                #00FFFF 25%,   /* Cyan */
+                #00FF00 50%,   /* Verde */
+                #FFFF00 75%,   /* Amarillo */
+                #FF0000 100%   /* Rojo - Caliente */
+            );
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .thermal-legend-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* Overlay para carga */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #627770;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 16px;
+            color: #627770;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay de carga -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Cargando mapa...</div>
+        </div>
+    </div>
+
+    <!-- Overlay general -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Header -->
+    <header class="mi-grid-3">
+        <div class="position-btn">
+            <div id="menu-container"></div>
+            <button class="btn-menu" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <button class="btn-menu">
+                <a class="fa-solid fa-house" href="../index.html"></a>
+            </button>
+        </div>
+        <a href="../index.html" class="link-logo">
+            <img class="Logo-cuencasolar" src="../images/UI_LogoCuencaSolar.svg" alt="Logo Cuenca Solar">
+        </a>
+        <img class="Logo-consiso" src="../images/logoConsiso.svg" alt="logo de Consiso">
+    </header>
+
+    <!-- Mapa -->
+    <div id="map">
+        <!-- Botón de alternancia -->
+        <div class="toggle-btn-container">
+            <button id="toggleMapBtn">
+                <i class="fas fa-fire"></i>
+                <span>Mostrar Mapa Térmico</span>
+            </button>
+        </div>
+
+        <!-- Leyenda térmica (oculta por defecto) -->
+        <div class="thermal-legend" id="thermalLegend" style="display: none;">
+            <h4>Intensidad Térmica</h4>
+            <div class="thermal-legend-gradient"></div>
+            <div class="thermal-legend-labels">
+                <span>Baja</span>
+                <span>Media</span>
+                <span>Alta</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/Componentes/menu-lateral.js"></script>
+    <script src="../js/leaflet.js"></script>
+    <script src="../js/leaflet-hash.js"></script>
+    <script src="../js/Autolinker.min.js"></script>
+    
+    <!-- Script principal del mapa térmico -->
+    <script>
+        // =============================================================================
+        // CONFIGURACIÓN Y CONSTANTES
+        // =============================================================================
+        const CONFIG = {
+            // Coordenadas de los predios de referencia (Ordóñez Lasso)
+            bounds: {
+                claveSuperiorIzq: '0703029025000',
+                claveInferiorDer: '0703005026000'
+            },
+            // Dimensiones de la imagen térmica
+            image: {
+                width: 14999,  // píxeles
+                height: 9439,  // píxeles
+                aspectRatio: 14999 / 9439  // ~1.59
+            },
+            // Coordenadas base para Ordóñez Lasso
+            // Estas se ajustarán automáticamente según el aspect ratio
+            baseImageBounds: [
+                [-2.9050, -79.0300], // Suroeste [lat, lng]
+                [-2.8900, -79.0150]  // Noreste [lat, lng]
+            ],
+            imageUrl: '../images/O-LASSO.png',
+            mapCenter: [-2.8975, -79.0225],
+            zoom: {
+                min: 14,
+                max: 20,
+                initial: 16
+            }
+        };
+
+        // =============================================================================
+        // VARIABLES GLOBALES
+        // =============================================================================
+        let map;
+        let baseLayer;
+        let thermalOverlay;
+        let isThermalActive = false;
+        let adjustedImageBounds;
+
+        // =============================================================================
+        // FUNCIONES DE UTILIDAD
+        // =============================================================================
+        
+        /**
+         * Ajusta los bounds para mantener la relación de aspecto de la imagen
+         * sin distorsión
+         */
+        function calculateAdjustedBounds(baseBounds, imageAspectRatio) {
+            const [[latSur, lngOeste], [latNorte, lngEste]] = baseBounds;
+            
+            // Dimensiones actuales en grados
+            const latHeight = latNorte - latSur;
+            const lngWidth = lngEste - lngOeste;
+            
+            // Relación de aspecto actual del bounds
+            const boundsAspectRatio = lngWidth / latHeight;
+            
+            console.log('Aspect Ratios:', {
+                imagen: imageAspectRatio.toFixed(3),
+                boundsActual: boundsAspectRatio.toFixed(3)
+            });
+            
+            let newBounds;
+            
+            if (boundsAspectRatio > imageAspectRatio) {
+                // El bounds es más ancho de lo necesario, ajustar el ancho
+                const newLngWidth = latHeight * imageAspectRatio;
+                const lngCenter = (lngOeste + lngEste) / 2;
+                newBounds = [
+                    [latSur, lngCenter - newLngWidth / 2],
+                    [latNorte, lngCenter + newLngWidth / 2]
+                ];
+                console.log('→ Ajustando ANCHO (bounds muy ancho)');
+            } else {
+                // El bounds es más alto de lo necesario, ajustar la altura
+                const newLatHeight = lngWidth / imageAspectRatio;
+                const latCenter = (latSur + latNorte) / 2;
+                newBounds = [
+                    [latCenter - newLatHeight / 2, lngOeste],
+                    [latCenter + newLatHeight / 2, lngEste]
+                ];
+                console.log('→ Ajustando ALTURA (bounds muy alto)');
+            }
+            
+            console.log('Bounds ajustados:', newBounds);
+            return newBounds;
+        }
+
+        // =============================================================================
+        // INICIALIZACIÓN DEL MAPA
+        // =============================================================================
+        function initMap() {
+            // Calcular bounds ajustados según aspect ratio de la imagen
+            adjustedImageBounds = calculateAdjustedBounds(
+                CONFIG.baseImageBounds,
+                CONFIG.image.aspectRatio
+            );
+
+            // Crear mapa
+            map = L.map('map', {
+                zoomControl: false,
+                maxZoom: CONFIG.zoom.max,
+                minZoom: CONFIG.zoom.min,
+                center: CONFIG.mapCenter,
+                zoom: CONFIG.zoom.initial
+            });
+
+            // Hash para URL
+            new L.Hash(map);
+
+            // Control de zoom personalizado
+            L.control.zoom({ position: 'topleft' }).addTo(map);
+
+            // Attribution
+            map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+
+            // Capa base (CartoDB Light)
+            map.createPane('pane_BaseMap');
+            map.getPane('pane_BaseMap').style.zIndex = 400;
+            
+            baseLayer = L.tileLayer('https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+                pane: 'pane_BaseMap',
+                opacity: 1.0,
+                attribution: 'Map tiles by CartoDB, Data by OSM',
+                minZoom: 1,
+                maxZoom: 28,
+                minNativeZoom: 5,
+                maxNativeZoom: 20
+            }).addTo(map);
+
+            // Crear pane para la imagen térmica con z-index alto
+            map.createPane('pane_ThermalOverlay');
+            map.getPane('pane_ThermalOverlay').style.zIndex = 405;
+            
+            // Optimizaciones de rendimiento
+            const thermalPane = map.getPane('pane_ThermalOverlay');
+            thermalPane.style.willChange = 'transform';
+            thermalPane.style.imageRendering = 'high-quality';
+
+            // Crear overlay térmico con bounds ajustados
+            thermalOverlay = L.imageOverlay(CONFIG.imageUrl, adjustedImageBounds, {
+                opacity: 0.7,
+                interactive: false,
+                pane: 'pane_ThermalOverlay',
+                alt: 'Mapa Térmico Ordóñez Lasso',
+                className: 'thermal-overlay'
+            });
+
+            // Eventos de carga de imagen
+            thermalOverlay.on('load', function() {
+                console.log('✓ Mapa térmico cargado correctamente');
+                console.log('✓ Sin distorsión - Aspect ratio respetado');
+                hideLoading();
+            });
+
+            thermalOverlay.on('error', function() {
+                console.error('✗ Error al cargar el mapa térmico');
+                alert('Error: No se pudo cargar la imagen térmica.\nVerifica que el archivo O-LASSO.png esté en ../images/');
+                hideLoading();
+            });
+
+            // Ajustar vista inicial a los bounds ajustados
+            map.fitBounds(adjustedImageBounds, { 
+                padding: [50, 50],
+                animate: false
+            });
+
+            console.log('✓ Mapa inicializado con aspect ratio 1.59:1');
+            
+            // Ocultar loading después de un momento
+            setTimeout(hideLoading, 500);
+        }
+
+        // =============================================================================
+        // FUNCIONES DE ALTERNANCIA
+        // =============================================================================
+        function toggleThermalLayer() {
+            const btn = document.getElementById('toggleMapBtn');
+            const legend = document.getElementById('thermalLegend');
+            const btnText = btn.querySelector('span');
+            const btnIcon = btn.querySelector('i');
+
+            if (isThermalActive) {
+                // Ocultar mapa térmico, mostrar base
+                map.removeLayer(thermalOverlay);
+                legend.style.display = 'none';
+                btnText.textContent = 'Mostrar Mapa Térmico';
+                btnIcon.className = 'fas fa-fire';
+                
+                // Volver a la vista general
+                map.fitBounds(adjustedImageBounds, { 
+                    padding: [50, 50],
+                    animate: true,
+                    duration: 0.5
+                });
+                
+                console.log('→ Mapa base activado');
+            } else {
+                // Mostrar mapa térmico
+                thermalOverlay.addTo(map);
+                legend.style.display = 'block';
+                btnText.textContent = 'Ocultar Mapa Térmico';
+                btnIcon.className = 'fas fa-eye-slash';
+                
+                // Zoom a la zona térmica
+                map.fitBounds(adjustedImageBounds, { 
+                    padding: [50, 50],
+                    animate: true,
+                    duration: 0.5
+                });
+                
+                console.log('→ Mapa térmico activado');
+            }
+
+            isThermalActive = !isThermalActive;
+        }
+
+        // =============================================================================
+        // FUNCIONES AUXILIARES
+        // =============================================================================
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+                setTimeout(() => overlay.remove(), 300);
+            }
+        }
+
+        // =============================================================================
+        // INICIALIZACIÓN
+        // =============================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar mapa
+            initMap();
+
+            // Event listener del botón
+            const toggleBtn = document.getElementById('toggleMapBtn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleThermalLayer);
+            }
+
+            console.log('✓ Aplicación lista');
+        });
+    </script>
+</body>
+</html>

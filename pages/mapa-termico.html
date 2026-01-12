@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Cuenca Solar</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/leaflet.css">
+    <link rel="stylesheet" href="../css/mapa-fotovoltaico.css">
+    <link rel="stylesheet" href="../css/componentes/head-busca-maps.css">
+    <link rel="stylesheet" href="../css/componentes/barra-lateral.css">
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.0/dist/driver.js.iife.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.0/dist/driver.css">
+
+
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <header class="mi-grid-3">
+        <div class="position-btn">
+            <div id="menu-container"></div>
+            <button class="btn-menu" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <button class="btn-menu" >
+                <a class="fa-solid fa-house" href="../index.html"></a>
+            </button>
+        </div>
+        <a href="../index.html" class="link-logo">
+            <img class="Logo-cuencasolar" src="../images/UI_LogoCuencaSolar.svg" alt="Logo Cuenca Solar">
+        </a>
+        <img class="Logo-consiso" src="../images/logoConsiso.svg" alt="logo de Consiso">
+    </header>
+
+    <div id="map"></div>
+
+
+
+    <script src="../js/Componentes/menu-lateral.js"></script>
+    <script src="../js/leaflet.js"></script>
+    <script src="../js/leaflet-hash.js"></script>
+    <script src="../js/Autolinker.min.js"></script>
+    <script src="../data/TOTORACOCHA_1.js"></script>
+    <script src="../data/PRIMERODEMAYO_2.js"></script>
+    <script src="../data/ORDOEZLASO_3.js"></script>
+    <script src="../data/Usos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="../js/mapa-fotovoltaico.js"></script>
+    
+    
+    
+    
+</body>
+</html>

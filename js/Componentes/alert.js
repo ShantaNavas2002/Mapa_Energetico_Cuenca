@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <br>
                     Para ver esta información, da click dentro de los predios disponibles o introduce tu clave catastral en el buscador de predios en la parte superior izquierda.  
                     <br>
-                    Para más información de como navegar en el visor utiliza el tutorial interactivo al dar click sobre la pestaña <strong>GUÍA</strong> ubicada en la parte inferior derecha. 
+                    Para más información de como navegar en el visor utiliza el tutorial interactivo al dar click sobre el botón <strong>Guía</strong> ubicado en la parte inferior derecha. 
                     <br>
                     Si no encuentras tu predio ahora, vuelve a consultar esta página más adelante, continuamos actualizando la información regularmente. 
                     <br>

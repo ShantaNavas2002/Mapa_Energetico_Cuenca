@@ -254,7 +254,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "../images/ImgJson8.png",
+                    src: "../images/ImgJson8.webp",
                     alt: "Dron DJI"
                 }
             ]

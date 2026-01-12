@@ -1,0 +1,47 @@
+/* El contenedor define el tamaño y el fondo base */
+.image-container {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 16 / 9; /* Evita que el diseño salte al cargar */
+  overflow: hidden;
+  position: relative;
+  background-color: #e2e2e2;
+  border-radius: 8px;
+}
+
+/* La animación del Skeleton */
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Ocultar la imagen mientras carga para que no se vea el "progresivo" feo */
+.image-container.skeleton img {
+  opacity: 0;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease-in-out;
+}

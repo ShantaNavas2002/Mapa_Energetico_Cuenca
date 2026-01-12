@@ -386,6 +386,12 @@ document.addEventListener('DOMContentLoaded', function () {
         map.addLayer(layer);
         return layer;
     }
+    // Exponer estado para el Tour (Agregar esto dentro del DOMContentLoaded de tu JS principal)
+window.AppSolar = {
+    map: map,
+    claveIndex: State.claveIndex, // Necesario para buscar el predio 0703010002000
+    selectLayer: selectLayer // Necesario para abrir el panel
+};
 
     // Cargar las capas dinámicamente
     // Asegúrate de que las variables json_TOTORACOCHA_1, etc. estén cargadas antes de este script

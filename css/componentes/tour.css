@@ -1,0 +1,60 @@
+/* Botón flotante */
+.tour-start-btn {
+    position: fixed;
+    /* Posición relativa a la ventana */
+    bottom: 3vh; 
+    right: 3vw;
+    
+    /* Tamaño relativo a la fuente base (aprox 60px) */
+    width: 3.75rem; 
+    height: 3.75rem;
+    
+    border-radius: 50%;
+    background-color: rgba(98, 119, 112, 1);
+    color: white;
+    border: none;
+    
+    /* Sombra relativa */
+    box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.3);
+    
+    cursor: pointer;
+    z-index: 750;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tour-start-btn:hover {
+    background-color: rgba(98, 119, 112, 0.55);
+    transform: scale(1.1);
+}
+
+/* Estilo del Popover */
+.driver-popover.solar-theme {
+    font-family: 'Roboto', sans-serif;
+    border-radius: 0.5rem; /* ~8px */
+    padding: 1rem;       /* ~16px */
+    
+    /* Responsive: Ocupa el 90% en móvil, tope de 20rem (~320px) en PC */
+    width: 90vw;
+    max-width: 20rem; 
+    
+    background-color: white;
+    color: #333;
+}
+
+.driver-popover-title {
+    color: #2563eb;
+    font-size: 1.125rem; /* ~18px */
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* ~8px */
+}
+
+.driver-popover-description {
+    font-size: 0.875rem; /* ~14px */
+    line-height: 1.5;
+}
+
+
+
