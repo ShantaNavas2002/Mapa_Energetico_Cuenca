@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const TARGET_CLAVE = "0703010002000";
 
-    // --- 0. INYECCIÓN DE ESTILOS CSS (Para bloquear polígonos durante el tour) ---
+   
     const style = document.createElement('style');
     style.innerHTML = `
         /* Clase para deshabilitar interacción solo en los polígonos del mapa */
@@ -23,12 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         doneBtnText: 'Finalizar',
         progressText: 'Paso {{current}} de {{total}}',
 
-        // Configuración visual
+       
         allowClose: true,
         overlayColor: '#000000cc',
         stageRadius: 10,
 
-        // HOOK PRINCIPAL: Abrir acordeones automáticamente
+        
         onHighlightStarted: (element, step) => {
             if (element && element.tagName === 'DETAILS') {
                 element.open = true;
@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
-        // HOOK DE LIMPIEZA: Reactivar interacción al cerrar/terminar
+       
         onDestroyed: () => {
-            togglePolygonInteraction(true); // Reactiva los clics en el mapa
+            togglePolygonInteraction(true); 
         }
     });
 
@@ -57,20 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // --- PASO NUEVO: CERRAR PANEL SI ESTÁ ABIERTO ---
+       
         const closeBtn = document.getElementById('panelCloseBtn');
         const panel = document.getElementById('featurePanel');
         
-        // Si el panel existe y NO está oculto, simulamos clic en cerrar
-        // Esto activa tu lógica existente en mapa-fotovoltaico.js (unmarkSelected)
+        
         if (closeBtn && panel && !panel.classList.contains('hidden')) {
             closeBtn.click();
         }
 
-        // A) BLOQUEAMOS LA INTERACCIÓN AL INICIAR
+        
         togglePolygonInteraction(false);
 
-        // Funciones Helper
+       
         function getPolygonElement() {
             const layer = window.AppSolar.claveIndex.get(TARGET_CLAVE);
             return (layer && typeof layer.getElement === 'function') ? layer.getElement() : null;
@@ -79,14 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
         function prepareMapFeature() {
             const layer = window.AppSolar.claveIndex.get(TARGET_CLAVE);
             if (layer) {
-                // Ajustamos zoom con espacio para el panel a la derecha
+                
                 window.AppSolar.map.fitBounds(layer.getBounds(), { paddingBottomRight: [450, 50], maxZoom: 19 });
-                // Simulamos clic para abrir el panel del predio objetivo
+                
                 layer.fire('click');
             }
         }
 
-        // Definición de Pasos
+       
         driver.setSteps([
             {
                 element: '#claveSearch',
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 4. FUNCIONES DE UTILIDAD ---
 
-    // Función que activa/desactiva el bloqueo de clics
+    
     function togglePolygonInteraction(enable) {
         const mapContainer = document.getElementById('map');
         if (!mapContainer) return;
