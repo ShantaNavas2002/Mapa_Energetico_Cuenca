@@ -1,56 +1,51 @@
+
 // =============================================================================
 // 1. CONFIGURACIÓN DE ZONAS (AQUÍ EDITAS TÚ)
 // =============================================================================
 const ZONAS = [
     {
-        id: 0, // No cambiar
+        id: 0,
         nombre: "Ordóñez Lasso",
-        imagenUrl: '../images/O-LASSO.webp', // Tu primera imagen
-        // TUS COORDENADAS EXACTAS DE LA PRIMERA IMAGEN
+        imagenUrl: '../images/O-LASSO.webp',
         bounds: [
             [-2.887742, -79.035163], 
             [-2.893486, -79.025961]
         ],
-        // TU LEYENDA PERSONALIZADA PARA ESTA IMAGEN
         leyenda: {
             titulo: "Temp. Ordóñez Lasso",
-            min: "15°C",
-            mid: "22°C",
-            max: "35°C"
+            min: "0°C",
+            mid: "24°C",
+            max: "48°C"
         }
     },
     {
-        id: 1, // No cambiar
+        id: 1,
         nombre: "Totoracocha",
-        imagenUrl: '../images/TOTORACOCHA.webp', // CAMBIA ESTO por tu segunda imagen
-        // PON AQUÍ LAS COORDENADAS DE LA SEGUNDA IMAGEN
+        imagenUrl: '../images/TOTORACOCHA.webp',
         bounds: [
-            [-2.89067, -78.979451],
-            [-2.893225, -78.975818]  // Esquina Inferior Derecha
+            [-2.889611, -78.979463], // Esquina Superior Izquierda
+            [-2.893870, -78.975874]  // Esquina Inferior Derecha
         ],
-        // LEYENDA DISTINTA PARA LA ZONA 2
         leyenda: {
-            titulo: "Temp. Zona Centro",
-            min: "10°C",
-            mid: "20°C",
-            max: "30°C"
+            titulo: "Temp. Totoracocha",
+            min: "0°C",
+            mid: "20.5°C",
+            max: "41°C"
         }
     },
     {
-        id: 2, // No cambiar
-        nombre: "Primero de Mayo)",
-        imagenUrl: '../images/PRIMERO-DE-MAYO.webp', // CAMBIA ESTO por tu tercera imagen
-        // PON AQUÍ LAS COORDENADAS DE LA TERCERA IMAGEN
+        id: 2,
+        nombre: "Primero de Mayo",
+        imagenUrl: '../images/PRIMERO-DE-MAYO.webp',
         bounds: [
-            [-2.905087, -79.040625], // Esquina Superior Izquierda
-            [-2.909185, -79.035558]  // Esquina Inferior Derecha
+            [-2.904853, -79.041181], // Esquina Superior Izquierda
+            [-2.909150, -79.034282]  // Esquina Inferior Derecha
         ],
-        // LEYENDA DISTINTA PARA LA ZONA 3
         leyenda: {
-            titulo: "Temp. Industrial",
-            min: "20°C",
-            mid: "40°C",
-            max: "60°C"
+            titulo: "Temp. Primero de Mayo",
+            min: "0°C",
+            mid: "27.5°C",
+            max: "55°C"
         }
     }
 ];
@@ -75,7 +70,9 @@ function initMap() {
     map = L.map('map', {
         zoomControl: false,
         center: [-2.8975, -79.0225], // Centro general
-        zoom: 13
+        zoom: 15,
+        minzoom: 12,
+        maxzoom: 28
     });
 
     // 2. Controles de Zoom y Hash
@@ -144,7 +141,7 @@ window.toggleZone = function(zoneIndex) {
     // 2. Crear la nueva imagen
     // Usamos las coordenadas (bounds) que TÚ configuras en el array ZONAS
     activeOverlay = L.imageOverlay(config.imagenUrl, config.bounds, {
-        opacity: 0.8,
+        opacity: 1,
         pane: 'pane_ThermalOverlay',
         interactive: false
     });

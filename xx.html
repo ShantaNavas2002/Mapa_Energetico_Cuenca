@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calibrador de Mapas Térmicos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        #map {
+            flex: 1;
+            height: 100vh;
+            position: relative;
+        }
+
+        .control-panel {
+            width: 380px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            overflow-y: auto;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+        }
+
+        .control-panel h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .zone-selector {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .zone-selector h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .zone-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid transparent;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .zone-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(5px);
+        }
+
+        .zone-btn.active {
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            border-color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .controls-section {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .controls-section h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.3);
+            outline: none;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .control-group input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            font-size: 13px;
+        }
+
+        .value-display {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .coordinates-output {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            max-height: 200px;
+            overflow-y: auto;
+            word-break: break-all;
+        }
+
+        .alert {
+            background: rgba(255,255,255,0.2);
+            border-left: 4px solid #ffd700;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .image-info {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .image-info div {
+            margin: 4px 0;
+        }
+
+        .leaflet-control-attribution {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div class="control-panel">
+        <h1>🗺️ Calibrador de Mapas Térmicos</h1>
+        
+        <div class="alert">
+            💡 <strong>Instrucciones:</strong> Selecciona una zona, ajusta la posición con los controles o arrastra los marcadores en el mapa. Las coordenadas se calcularán automáticamente respetando el aspect ratio.
+        </div>
+
+        <div class="zone-selector">
+            <h3>Seleccionar Zona</h3>
+            <button class="zone-btn" onclick="selectZone(0)">📍 Ordóñez Lasso</button>
+            <button class="zone-btn" onclick="selectZone(1)">🏢 Totoracocha</button>
+            <button class="zone-btn" onclick="selectZone(2)">🏭 Primero de Mayo</button>
+        </div>
+
+        <div class="controls-section">
+            <h3>⚙️ Ajustes de Posición</h3>
+            
+            <div class="control-group">
+                <label>Latitud Centro: <span class="value-display" id="latDisplay">-2.8975</span></label>
+                <input type="number" id="centerLat" step="0.000001" value="-2.8975" oninput="updatePosition()">
+            </div>
+
+            <div class="control-group">
+                <label>Longitud Centro: <span class="value-display" id="lngDisplay">-79.0225</span></label>
+                <input type="number" id="centerLng" step="0.000001" value="-79.0225" oninput="updatePosition()">
+            </div>
+
+            <div class="control-group">
+                <label>Escala (Tamaño): <span class="value-display" id="scaleDisplay">1.0x</span></label>
+                <input type="range" id="scaleSlider" min="0.5" max="3" step="0.05" value="1" oninput="updateScale()">
+            </div>
+
+            <div class="control-group">
+                <label>Rotación: <span class="value-display" id="rotationDisplay">0°</span></label>
+                <input type="range" id="rotationSlider" min="0" max="360" step="1" value="0" oninput="updateRotation()">
+            </div>
+
+            <div class="control-group">
+                <label>Opacidad: <span class="value-display" id="opacityDisplay">70%</span></label>
+                <input type="range" id="opacitySlider" min="0" max="100" step="5" value="70" oninput="updateOpacity()">
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <h3>📊 Información de la Imagen</h3>
+            <div class="image-info" id="imageInfo">
+                Selecciona una zona para ver información
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="generateCoordinates()">✨ Generar Coordenadas Finales</button>
+        <button class="btn btn-secondary" onclick="copyToClipboard()">📋 Copiar al Portapapeles</button>
+        <button class="btn btn-secondary" onclick="resetCalibration()">🔄 Resetear Calibración</button>
+
+        <div class="coordinates-output" id="coordsOutput">
+            Las coordenadas aparecerán aquí...
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script>
+        // Configuración de zonas
+        const ZONES = [
+            {
+                id: 0,
+                name: "Ordóñez Lasso",
+                imageUrl: '../images/O-LASSO.webp',
+                centerLat: -2.890614,
+                centerLng: -79.030562,
+                initialScale: 1.0,
+                imageWidth: 1920,
+                imageHeight: 1080
+            },
+            {
+                id: 1,
+                name: "Totoracocha",
+                imageUrl: '../images/TOTORACOCHA.webp',
+                centerLat: -2.891948,
+                centerLng: -78.977635,
+                initialScale: 1.0,
+                imageWidth: 1920,
+                imageHeight: 1080
+            },
+            {
+                id: 2,
+                name: "Primero de Mayo",
+                imageUrl: '../images/PRIMERO-DE-MAYO.webp',
+                centerLat: -2.907136,
+                centerLng: -79.038092,
+                initialScale: 1.0,
+                imageWidth: 1920,
+                imageHeight: 1080
+            }
+        ];
+
+        let map;
+        let currentZone = null;
+        let imageOverlay = null;
+        let topLeftMarker = null;
+        let bottomRightMarker = null;
+        let bounds = null;
+
+        // Inicializar mapa
+        function initMap() {
+            map = L.map('map').setView([-2.8975, -79.0225], 14);
+            
+            L.tileLayer('https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+        }
+
+        // Seleccionar zona
+        function selectZone(index) {
+            currentZone = ZONES[index];
+            
+            // Actualizar UI
+            document.querySelectorAll('.zone-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            // Actualizar controles
+            document.getElementById('centerLat').value = currentZone.centerLat;
+            document.getElementById('centerLng').value = currentZone.centerLng;
+            document.getElementById('scaleSlider').value = currentZone.initialScale;
+            document.getElementById('latDisplay').textContent = currentZone.centerLat.toFixed(6);
+            document.getElementById('lngDisplay').textContent = currentZone.centerLng.toFixed(6);
+            document.getElementById('scaleDisplay').textContent = currentZone.initialScale.toFixed(2) + 'x';
+
+            // Mostrar info de imagen
+            document.getElementById('imageInfo').innerHTML = `
+                <div><strong>Zona:</strong> ${currentZone.name}</div>
+                <div><strong>Dimensiones:</strong> ${currentZone.imageWidth}x${currentZone.imageHeight}px</div>
+                <div><strong>Aspect Ratio:</strong> ${(currentZone.imageWidth / currentZone.imageHeight).toFixed(3)}</div>
+            `;
+
+            // Calcular y mostrar overlay
+            calculateBounds();
+            updateOverlay();
+        }
+
+        // Calcular bounds respetando aspect ratio
+        function calculateBounds() {
+            if (!currentZone) return;
+
+            const centerLat = parseFloat(document.getElementById('centerLat').value);
+            const centerLng = parseFloat(document.getElementById('centerLng').value);
+            const scale = parseFloat(document.getElementById('scaleSlider').value);
+
+            // Calcular aspect ratio de la imagen
+            const aspectRatio = currentZone.imageWidth / currentZone.imageHeight;
+
+            // Tamaño base en grados (ajustable según necesidad)
+            const baseHeightDeg = 0.005 * scale;
+            const baseWidthDeg = baseHeightDeg * aspectRatio;
+
+            // Calcular esquinas
+            const topLeftLat = centerLat + (baseHeightDeg / 2);
+            const topLeftLng = centerLng - (baseWidthDeg / 2);
+            const bottomRightLat = centerLat - (baseHeightDeg / 2);
+            const bottomRightLng = centerLng + (baseWidthDeg / 2);
+
+            bounds = [
+                [topLeftLat, topLeftLng],
+                [bottomRightLat, bottomRightLng]
+            ];
+
+            return bounds;
+        }
+
+        // Actualizar overlay en el mapa
+        function updateOverlay() {
+            if (!currentZone || !bounds) return;
+
+            // Remover overlay anterior
+            if (imageOverlay) {
+                map.removeLayer(imageOverlay);
+            }
+
+            // Remover marcadores anteriores
+            if (topLeftMarker) map.removeLayer(topLeftMarker);
+            if (bottomRightMarker) map.removeLayer(bottomRightMarker);
+
+            // Crear nuevo overlay
+            const opacity = parseFloat(document.getElementById('opacitySlider').value) / 100;
+            imageOverlay = L.imageOverlay(currentZone.imageUrl, bounds, {
+                opacity: opacity,
+                interactive: false
+            }).addTo(map);
+
+            // Crear marcadores arrastrables
+            topLeftMarker = L.marker(bounds[0], {
+                draggable: true,
+                icon: L.divIcon({
+                    className: 'custom-marker',
+                    html: '<div style="background: #ff4444; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.4);"></div>',
+                    iconSize: [20, 20]
+                })
+            }).addTo(map);
+
+            bottomRightMarker = L.marker(bounds[1], {
+                draggable: true,
+                icon: L.divIcon({
+                    className: 'custom-marker',
+                    html: '<div style="background: #4444ff; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.4);"></div>',
+                    iconSize: [20, 20]
+                })
+            }).addTo(map);
+
+            // Event listeners para arrastre
+            topLeftMarker.on('drag', onMarkerDrag);
+            bottomRightMarker.on('drag', onMarkerDrag);
+
+            // Hacer zoom a bounds
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+
+        // Manejar arrastre de marcadores
+        function onMarkerDrag() {
+            const topLeft = topLeftMarker.getLatLng();
+            const bottomRight = bottomRightMarker.getLatLng();
+            
+            bounds = [
+                [topLeft.lat, topLeft.lng],
+                [bottomRight.lat, bottomRight.lng]
+            ];
+
+            if (imageOverlay) {
+                imageOverlay.setBounds(bounds);
+            }
+
+            // Actualizar centro en controles
+            const centerLat = (topLeft.lat + bottomRight.lat) / 2;
+            const centerLng = (topLeft.lng + bottomRight.lng) / 2;
+            document.getElementById('centerLat').value = centerLat.toFixed(6);
+            document.getElementById('centerLng').value = centerLng.toFixed(6);
+            document.getElementById('latDisplay').textContent = centerLat.toFixed(6);
+            document.getElementById('lngDisplay').textContent = centerLng.toFixed(6);
+        }
+
+        // Actualizar posición desde controles
+        function updatePosition() {
+            calculateBounds();
+            updateOverlay();
+        }
+
+        function updateScale() {
+            const scale = parseFloat(document.getElementById('scaleSlider').value);
+            document.getElementById('scaleDisplay').textContent = scale.toFixed(2) + 'x';
+            calculateBounds();
+            updateOverlay();
+        }
+
+        function updateRotation() {
+            const rotation = document.getElementById('rotationSlider').value;
+            document.getElementById('rotationDisplay').textContent = rotation + '°';
+            // La rotación requeriría una implementación más compleja con canvas
+        }
+
+        function updateOpacity() {
+            const opacity = document.getElementById('opacitySlider').value;
+            document.getElementById('opacityDisplay').textContent = opacity + '%';
+            if (imageOverlay) {
+                imageOverlay.setOpacity(opacity / 100);
+            }
+        }
+
+        // Generar coordenadas finales
+        function generateCoordinates() {
+            if (!currentZone || !bounds) {
+                alert('Selecciona una zona primero');
+                return;
+            }
+
+            const code = `{
+    id: ${currentZone.id},
+    nombre: "${currentZone.name}",
+    imagenUrl: '${currentZone.imageUrl}',
+    bounds: [
+        [${bounds[0][0].toFixed(6)}, ${bounds[0][1].toFixed(6)}], // Esquina Superior Izquierda
+        [${bounds[1][0].toFixed(6)}, ${bounds[1][1].toFixed(6)}]  // Esquina Inferior Derecha
+    ],
+    leyenda: {
+        titulo: "Temp. ${currentZone.name}",
+        min: "15°C",
+        mid: "22°C",
+        max: "35°C"
+    }
+}`;
+
+            document.getElementById('coordsOutput').textContent = code;
+        }
+
+        // Copiar al portapapeles
+        function copyToClipboard() {
+            const text = document.getElementById('coordsOutput').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Coordenadas copiadas al portapapeles');
+            });
+        }
+
+        // Resetear calibración
+        function resetCalibration() {
+            if (currentZone) {
+                selectZone(currentZone.id);
+            }
+        }
+
+        // Inicializar
+        initMap();
+    </script>
+</body>
+</html>
