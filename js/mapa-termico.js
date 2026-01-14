@@ -1,184 +1,198 @@
-
 // =============================================================================
-// 1. CONFIGURACIÓN DE ZONAS (AQUÍ EDITAS TÚ)
+// 1. CONFIGURACIÓN DE ZONAS
 // =============================================================================
 const ZONAS = [
     {
         id: 0,
         nombre: "Ordóñez Lasso",
         imagenUrl: '../images/O-LASSO.webp',
-        bounds: [
-            [-2.887742, -79.035163], 
-            [-2.893486, -79.025961]
-        ],
-        leyenda: {
-            titulo: "Temp. Ordóñez Lasso",
-            min: "0°C",
-            mid: "24°C",
-            max: "48°C"
-        }
+        bounds: [[-2.887742, -79.035163], [-2.893486, -79.025961]],
+        leyenda: { titulo: "Temp. Ordóñez Lasso", min: "0°C", mid: "24°C", max: "48°C" }
     },
     {
         id: 1,
         nombre: "Totoracocha",
         imagenUrl: '../images/TOTORACOCHA.webp',
-        bounds: [
-            [-2.889611, -78.979463], // Esquina Superior Izquierda
-            [-2.893870, -78.975874]  // Esquina Inferior Derecha
-        ],
-        leyenda: {
-            titulo: "Temp. Totoracocha",
-            min: "0°C",
-            mid: "20.5°C",
-            max: "41°C"
-        }
+        bounds: [[-2.889611, -78.979463], [-2.893870, -78.975874]],
+        leyenda: { titulo: "Temp. Totoracocha", min: "0°C", mid: "20.5°C", max: "41°C" }
     },
     {
         id: 2,
         nombre: "Primero de Mayo",
         imagenUrl: '../images/PRIMERO-DE-MAYO.webp',
-        bounds: [
-            [-2.904853, -79.041181], // Esquina Superior Izquierda
-            [-2.909150, -79.034282]  // Esquina Inferior Derecha
-        ],
-        leyenda: {
-            titulo: "Temp. Primero de Mayo",
-            min: "0°C",
-            mid: "27.5°C",
-            max: "55°C"
-        }
+        bounds: [[-2.904853, -79.041181], [-2.909150, -79.034282]],
+        leyenda: { titulo: "Temp. Primero de Mayo", min: "0°C", mid: "27.5°C", max: "55°C" }
     }
 ];
 
 // =============================================================================
-// 2. VARIABLES GLOBALES
+// 2. GESTIÓN DE ESTADO Y DOM
 // =============================================================================
-let map;
-let baseLayer;
-let activeOverlay = null; // Guardará la capa de imagen actual
-let activeZoneId = null;  // Guardará qué ID está activo (0, 1 o 2)
+const state = {
+    map: null,
+    baseLayer: null,
+    activeOverlay: null,
+    activeZoneId: null
+};
+
+const DOM = {
+    loadingOverlay: null,
+    loadingText: null,
+    legend: {
+        container: null, title: null, min: null, mid: null, max: null
+    }
+};
 
 // =============================================================================
 // 3. INICIALIZACIÓN
 // =============================================================================
-document.addEventListener('DOMContentLoaded', function() {
-    initMap();
+document.addEventListener('DOMContentLoaded', () => {
+    DOM.loadingOverlay = document.getElementById('loadingOverlay');
+    DOM.loadingText = document.querySelector('.loading-text');
+    DOM.legend.container = document.getElementById('thermalLegend');
+    DOM.legend.title = document.getElementById('legendTitle');
+    DOM.legend.min = document.getElementById('legendMin');
+    DOM.legend.mid = document.getElementById('legendMid');
+    DOM.legend.max = document.getElementById('legendMax');
+
+    initMapAndPreload();
 });
 
-function initMap() {
-    // 1. Crear el mapa base centrado en Cuenca general
-    map = L.map('map', {
+async function initMapAndPreload() {
+    // Inicializar Mapa
+    state.map = L.map('map', {
         zoomControl: false,
-        center: [-2.8975, -79.0225], // Centro general
+        center: [-2.8975, -79.0225],
         zoom: 15,
-        minzoom: 12,
-        maxzoom: 28
+        minZoom: 12,
+        maxZoom: 28,
+        preferCanvas: true // MEJORA RENDIMIENTO
     });
 
-    // 2. Controles de Zoom y Hash
-    L.control.zoom({ position: 'topleft' }).addTo(map);
-    new L.Hash(map);
+    L.control.zoom({ position: 'topleft' }).addTo(state.map);
+    new L.Hash(state.map);
 
-    // 3. Capa Base (CartoDB)
-    map.createPane('pane_BaseMap');
-    map.getPane('pane_BaseMap').style.zIndex = 400;
-    
-    baseLayer = L.tileLayer('https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+    state.map.createPane('pane_BaseMap').style.zIndex = 400;
+    state.map.createPane('pane_ThermalOverlay').style.zIndex = 405;
+
+    state.baseLayer = L.tileLayer('https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
         pane: 'pane_BaseMap',
         opacity: 1.0,
         attribution: '&copy; Cuenca Solar'
-    }).addTo(map);
+    }).addTo(state.map);
 
-    // 4. Configurar pane para las térmicas
-    map.createPane('pane_ThermalOverlay');
-    map.getPane('pane_ThermalOverlay').style.zIndex = 405;
+    if(DOM.loadingText) DOM.loadingText.textContent = "Preparando visualización...";
 
-    // Ocultar overlay de carga inicial
-    setTimeout(() => {
-        document.getElementById('loadingOverlay').classList.add('hidden');
-    }, 800);
+    try {
+        const baseMapPromise = new Promise((resolve) => {
+            state.baseLayer.on('load', resolve);
+            setTimeout(resolve, 3000); 
+        });
 
-    console.log("✓ Sistema Multi-Zona Inicializado");
+        const imagePromises = ZONAS.map(zona => preloadImageAndDecode(zona.imagenUrl));
+
+        await Promise.all([baseMapPromise, ...imagePromises]);
+        console.log("✓ Imágenes decodificadas y listas.");
+        
+    } catch (error) {
+        console.warn("Iniciando con advertencias:", error);
+    } finally {
+        hideLoading(); // ¡AHORA SÍ FUNCIONARÁ!
+    }
+}
+
+function preloadImageAndDecode(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        
+        img.onload = () => resolve(url);
+        img.onerror = () => {
+            console.warn(`⚠️ No se pudo cargar la imagen: ${url}`);
+            resolve(null);
+        };
+
+        img.src = url;
+
+        // Optimización INP (Intento de decodificación anticipada)
+        if (img.decode) {
+            img.decode()
+                .then(() => resolve(url))
+                .catch(() => {
+                    // Si falla decode, dejamos que onload resuelva silenciosamente
+                });
+        }
+    });
+}
+
+// === FUNCIÓN QUE FALTABA ===
+function hideLoading() {
+    if (DOM.loadingOverlay) {
+        DOM.loadingOverlay.classList.add('hidden');
+        // Esperamos la transición CSS antes de quitarlo del layout
+        setTimeout(() => DOM.loadingOverlay.style.display = 'none', 500);
+    }
 }
 
 // =============================================================================
-// 4. LÓGICA DE CONTROL DE ZONAS (EL CEREBRO)
+// 4. LÓGICA DE CONTROL (OPTIMIZADA PARA RESPUESTA INMEDIATA)
 // =============================================================================
 
-// Esta función se llama cuando haces clic en un botón
 window.toggleZone = function(zoneIndex) {
     const config = ZONAS[zoneIndex];
-    const legendDiv = document.getElementById('thermalLegend');
-    
-    // CASO A: Si hacemos clic en la zona que ya está activa -> La apagamos
-    if (activeZoneId === zoneIndex) {
-        console.log("Desactivando zona actual...");
-        
-        // Quitar capa del mapa
-        if (activeOverlay) {
-            map.removeLayer(activeOverlay);
-            activeOverlay = null;
-        }
-        
-        // Ocultar leyenda
-        legendDiv.style.display = 'none';
-        
-        // Quitar estilo activo de los botones
-        updateButtonStyles(null);
-        
-        activeZoneId = null;
-        return; // Terminamos aquí
+    if (!config) return;
+
+    // 1. Feedback visual inmediato (Prioridad INP)
+    updateButtonStyles(zoneIndex);
+
+    // 2. Ceder control al navegador para pintar el botón
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            performHeavyMapUpdate(zoneIndex, config);
+        });
+    });
+};
+
+function performHeavyMapUpdate(zoneIndex, config) {
+    if (state.activeZoneId === zoneIndex) {
+        removeActiveLayer();
+        DOM.legend.container.style.display = 'none';
+        updateButtonStyles(null); 
+        state.activeZoneId = null;
+        return;
     }
 
-    // CASO B: Si seleccionamos una zona nueva (o no había ninguna)
-    console.log(`Activando Zona ${zoneIndex}: ${config.nombre}`);
+    removeActiveLayer();
 
-    // 1. Si ya había otra capa puesta, la quitamos primero
-    if (activeOverlay) {
-        map.removeLayer(activeOverlay);
-    }
-
-    // 2. Crear la nueva imagen
-    // Usamos las coordenadas (bounds) que TÚ configuras en el array ZONAS
-    activeOverlay = L.imageOverlay(config.imagenUrl, config.bounds, {
+    state.activeOverlay = L.imageOverlay(config.imagenUrl, config.bounds, {
         opacity: 1,
         pane: 'pane_ThermalOverlay',
         interactive: false
     });
 
-    // 3. Añadir al mapa y hacer zoom
-    activeOverlay.addTo(map);
-    map.fitBounds(config.bounds, { padding: [50, 50], animate: true, duration: 1 });
+    state.activeOverlay.addTo(state.map);
+    state.map.fitBounds(config.bounds, { padding: [50, 50], animate: true, duration: 0.8 });
 
-    // 4. Actualizar la Leyenda con los datos de esta zona específica
-    document.getElementById('legendTitle').textContent = config.leyenda.titulo;
-    document.getElementById('legendMin').textContent = config.leyenda.min;
-    document.getElementById('legendMid').textContent = config.leyenda.mid;
-    document.getElementById('legendMax').textContent = config.leyenda.max;
-    legendDiv.style.display = 'block';
+    DOM.legend.title.textContent = config.leyenda.titulo;
+    DOM.legend.min.textContent = config.leyenda.min;
+    DOM.legend.mid.textContent = config.leyenda.mid;
+    DOM.legend.max.textContent = config.leyenda.max;
+    DOM.legend.container.style.display = 'block';
 
-    // 5. Actualizar estilos de los botones
-    updateButtonStyles(zoneIndex);
+    state.activeZoneId = zoneIndex;
+}
 
-    // 6. Manejo de errores de imagen
-    activeOverlay.on('error', function() {
-        alert(`Error: No se encuentra la imagen: ${config.imagenUrl}`);
-    });
+function removeActiveLayer() {
+    if (state.activeOverlay) {
+        state.map.removeLayer(state.activeOverlay);
+        state.activeOverlay = null;
+    }
+}
 
-    // Guardar el estado
-    activeZoneId = zoneIndex;
-};
-
-// Función cosmética para iluminar el botón seleccionado
 function updateButtonStyles(activeIndex) {
-    // Recorrer todos los botones y limpiar clase 'active'
-    ZONAS.forEach(zona => {
-        const btn = document.getElementById(`btn-zone-${zona.id}`);
-        if (btn) btn.classList.remove('active');
-    });
+    const allButtons = document.querySelectorAll('.zone-btn');
+    allButtons.forEach(btn => btn.classList.remove('active'));
 
-    // Si hay uno activo, ponerle la clase
-    if (activeIndex !== null) {
+    if (activeIndex !== null && activeIndex !== state.activeZoneId) {
         const activeBtn = document.getElementById(`btn-zone-${activeIndex}`);
         if (activeBtn) activeBtn.classList.add('active');
     }

@@ -1,47 +1,57 @@
-/* El contenedor define el tamaño y el fondo base */
-.image-container {
-  width: 100%;
-  max-width: 500px;
-  aspect-ratio: 16 / 9; /* Evita que el diseño salte al cargar */
-  overflow: hidden;
-  position: relative;
-  background-color: #e2e2e2;
-  border-radius: 8px;
+/* ========================================
+   SKELETON LOADING - EQUIPO
+   ======================================== */
+
+/* Animación de brillo (Shimmer) */
+@keyframes skeleton-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
 }
 
-/* La animación del Skeleton */
-.skeleton::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform: translateX(-100%);
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0,
-    rgba(255, 255, 255, 0.2) 20%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0)
-  );
-  animation: shimmer 2s infinite;
+/* Tarjeta Fantasma (Copia exacta de las medidas de .team-card para evitar saltos) */
+.skeleton-card {
+    flex: 0 0 clamp(260px, 20vw, 320px);
+    height: clamp(380px, 45vh, 450px);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
+/* Fondo animado gris */
+.sk-anim {
+    background: #e0e0e0;
+    background: linear-gradient(90deg, #e0e0e0 8%, #f5f5f5 18%, #e0e0e0 33%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite linear;
 }
 
-/* Ocultar la imagen mientras carga para que no se vea el "progresivo" feo */
-.image-container.skeleton img {
-  opacity: 0;
+/* Simulación de imagen (ocupa todo el fondo) */
+.sk-image-placeholder {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
 }
 
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.4s ease-in-out;
+/* Simulación del Overlay de texto */
+.sk-info-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 20px 15px;
+    background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
+
+/* Líneas de texto falsas */
+.sk-line { height: 12px; border-radius: 6px; }
+.sk-title { width: 70%; height: 20px; background: #c4c4c4; }
+.sk-subtitle { width: 50%; background: #d1d5db; }
+.sk-email { width: 80%; margin-top: 5px; opacity: 0.6; background: #d1d5db; }

@@ -34,18 +34,12 @@ body {
     display: flex;
     gap: var(--spacing-md);
     width: max-content;
-    transform-style: preserve-3d;
-    cursor: grab;
-    will-change: transform;
+    
 }
 
-.carousel-track.grabbing {
-    cursor: grabbing;
-}
 
-.carousel-track:hover {
-    animation-play-state: paused;
-}
+
+
 
 @keyframes scroll-infinite {
     0% { transform: translateX(0); }

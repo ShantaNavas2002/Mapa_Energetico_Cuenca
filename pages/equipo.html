@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuenca Solar</title>
+    <title>Cuenca Solar | Equipo</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <link rel="stylesheet" href="../css/componentes/head-footer.Css">
     <link rel="stylesheet" href="../css/componentes/barra-lateral.css">
+    
     <link rel="stylesheet" href="../css/Equipo.css">
+    <link rel="stylesheet" href="../css/skeleton.css">
     
     <script src="../js/Componentes/menu-lateral.js"></script>
 </head>
@@ -23,7 +27,6 @@
             <button class="btn-menu" onclick="toggleMenu()">
                 <i class="fa-solid fa-bars"></i>
             </button>
-            
         </div>
         <a href="../index.html" class="link-logo">
             <img class="Logo-cuencasolar" src="../images/UI_LogoCuencaSolar.svg" alt="Logo Cuenca Solar">
@@ -33,7 +36,50 @@
 
     <div class="carousel-container">
         <div class="carousel-viewport">
-            <div class="carousel-track" id="carouselTrack"></div>
+            <div class="carousel-track" id="carouselTrack">
+                
+                <div class="skeleton-card">
+                    <div class="sk-image-placeholder sk-anim"></div>
+                    <div class="sk-info-overlay">
+                        <div class="sk-line sk-title sk-anim"></div>
+                        <div class="sk-line sk-subtitle sk-anim"></div>
+                        <div class="sk-line sk-email sk-anim"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="sk-image-placeholder sk-anim"></div>
+                    <div class="sk-info-overlay">
+                        <div class="sk-line sk-title sk-anim"></div>
+                        <div class="sk-line sk-subtitle sk-anim"></div>
+                        <div class="sk-line sk-email sk-anim"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="sk-image-placeholder sk-anim"></div>
+                    <div class="sk-info-overlay">
+                        <div class="sk-line sk-title sk-anim"></div>
+                        <div class="sk-line sk-subtitle sk-anim"></div>
+                        <div class="sk-line sk-email sk-anim"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="sk-image-placeholder sk-anim"></div>
+                    <div class="sk-info-overlay">
+                        <div class="sk-line sk-title sk-anim"></div>
+                        <div class="sk-line sk-subtitle sk-anim"></div>
+                        <div class="sk-line sk-email sk-anim"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="sk-image-placeholder sk-anim"></div>
+                    <div class="sk-info-overlay">
+                        <div class="sk-line sk-title sk-anim"></div>
+                        <div class="sk-line sk-subtitle sk-anim"></div>
+                        <div class="sk-line sk-email sk-anim"></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -113,27 +159,51 @@
         }
 
         const track = document.getElementById('carouselTrack');
-        const autoPlaySpeed = 0.8;
+        const autoPlaySpeed = 0.4;
         
         let isDragging = false;
         let isHovering = false;
         let startPos = 0;
         let currentTranslate = 0;
         let prevTranslate = 0;
-        let animationID;
         let itemWidth = 0;
         let totalWidth = 0;
+        let animationID;
 
-        function initCarousel() {
+        // --- FUNCIÓN OPTIMIZADA CON PRE-LOAD ---
+        async function initCarousel() {
+            // 1. Antes de renderizar, precargamos las imágenes
+            // Esto asegura que cuando quitemos el skeleton, las fotos ya estén ahí.
+            const imagePromises = teamMembers.map(member => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = member.image;
+                    // Resolvemos tanto si carga bien como si hay error para no bloquear
+                    img.onload = resolve;
+                    img.onerror = resolve; 
+                });
+            });
+
+            // Esperamos a que todas las imágenes estén listas
+            // (Opcional: puedes poner un Promise.race con un timeout si temes que tarde mucho)
+            await Promise.all(imagePromises);
+
+            // 2. Generamos el HTML Real
             const cardsHTML = teamMembers.map(createTeamCard).join('');
+            
+            // 3. Reemplazamos los Skeletons por el contenido Real
+            // Multiplicamos x3 para el efecto infinito
             track.innerHTML = cardsHTML + cardsHTML + cardsHTML;
 
+            // 4. Iniciamos la lógica del carrusel
+            // Pequeño timeout para asegurar que el DOM se pintó
             setTimeout(() => {
                 calculateDimensions();
+                // Ajustamos posición inicial para que no empiece en el borde
                 currentTranslate = -totalWidth;
                 prevTranslate = -totalWidth;
                 requestAnimationFrame(animate);
-            }, 100);
+            }, 50);
         }
 
         function calculateDimensions() {
@@ -146,6 +216,7 @@
             }
         }
 
+        // Event Listeners
         track.addEventListener('mouseenter', () => isHovering = true);
         track.addEventListener('mouseleave', () => { 
             isHovering = false; 
@@ -153,16 +224,17 @@
         });
 
         track.addEventListener('mousedown', touchStart);
-        track.addEventListener('touchstart', touchStart);
+        track.addEventListener('touchstart', touchStart, {passive: true});
         track.addEventListener('mouseup', touchEnd);
         track.addEventListener('touchend', touchEnd);
         track.addEventListener('mousemove', touchMove);
-        track.addEventListener('touchmove', touchMove);
+        track.addEventListener('touchmove', touchMove, {passive: true});
 
         track.addEventListener('wheel', (e) => {
+            // Solo prevenir default si estamos sobre el track
             e.preventDefault();
             isHovering = true;
-            const scrollSpeed = 0.2; 
+            const scrollSpeed = 0.5; 
             currentTranslate -= e.deltaY * scrollSpeed;
             
             clearTimeout(window.scrollTimeout);
@@ -174,12 +246,16 @@
             track.classList.add('grabbing');
             startPos = getPositionX(event);
             prevTranslate = currentTranslate; 
+            // Cancelamos animación automática mientras se arrastra
+            cancelAnimationFrame(animationID);
         }
 
         function touchEnd() {
             isDragging = false;
             track.classList.remove('grabbing');
             prevTranslate = currentTranslate;
+            // Reactivamos loop
+            requestAnimationFrame(animate);
         }
 
         function touchMove(event) {
@@ -201,22 +277,20 @@
 
             checkInfiniteLoop();
             setSliderPosition();
-            requestAnimationFrame(animate);
+            animationID = requestAnimationFrame(animate);
         }
 
         function checkInfiniteLoop() {
-            if (currentTranslate <= -(totalWidth * 2)) {
-                const offset = totalWidth;
-                currentTranslate += offset;
-                prevTranslate += offset;
-                startPos += offset; 
+            // Lógica de scroll infinito
+            // Si nos pasamos mucho a la izquierda
+            if (Math.abs(currentTranslate) >= (totalWidth * 2)) {
+                currentTranslate += totalWidth;
+                prevTranslate += totalWidth;
             }
-            
-            if (currentTranslate >= -100) { 
-                const offset = totalWidth;
-                currentTranslate -= offset;
-                prevTranslate -= offset;
-                startPos -= offset;
+            // Si nos pasamos mucho a la derecha (scroll manual inverso)
+            else if (currentTranslate > -50) { // Un pequeño buffer cerca del 0
+                currentTranslate -= totalWidth;
+                prevTranslate -= totalWidth;
             }
         }
 
@@ -224,7 +298,9 @@
             track.style.transform = `translateX(${currentTranslate}px)`;
         }
 
+        // Inicializar cuando el DOM esté listo
         window.addEventListener('DOMContentLoaded', initCarousel);
+        
         window.addEventListener('resize', () => {
             calculateDimensions();
         });

@@ -1,96 +1,102 @@
-/* Reseteo básico */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 html, body { width: 100%; height: 100%; font-family: 'Roboto', sans-serif; overflow: hidden; }
 
-/* Mapa */
 #map { width: 100%; height: 100%; position: relative; z-index: 1; }
 
-/* --- CONTENEDOR DE BOTONES DE ZONA --- */
 .zones-control-container {
     position: absolute;
-    top: 90px; /* Debajo del header */
-    right: 20px;
+    top: 2vh; 
+    left: 1vw; 
+    right: auto; 
     z-index: 1000;
     display: flex;
-    flex-direction: column; /* Uno debajo del otro */
-    gap: 10px; /* Espacio entre botones */
+    flex-direction: row; 
+    align-items: center;
+    gap: 0.5vw; 
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(0.5vh);
+    padding: 0.8vh;
+    border-radius: 5vh; 
+    box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.15);
 }
 
-/* Estilo de cada botón */
 .zone-btn {
-    background: linear-gradient(135deg, #627770 0%, #4a5d57 100%);
-    color: white;
+    background: transparent; 
+    color: #555; 
     border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-size: 13px;
+    padding: 1.2vh 1.5vw;
+    border-radius: 4vh; 
+    font-size: 1.6vh;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: none; 
     transition: all 0.3s ease;
-    text-align: left;
+    text-align: center;
     display: flex;
     align-items: center;
-    gap: 10px;
-    min-width: 160px;
+    gap: 0.5vw;
+    min-width: auto; 
+    white-space: nowrap; 
 }
 
 .zone-btn:hover {
-    transform: translateX(-5px); /* Efecto de moverse a la izquierda */
-    background: linear-gradient(135deg, #4a5d57 0%, #627770 100%);
+    transform: translateY(-0.3vh); 
+    background: rgba(98, 119, 112, 0.1); 
+    color: #333;
 }
 
-/* Estilo para botón activo */
 .zone-btn.active {
-    background: #e74c3c; /* Color rojo o destacado cuando está seleccionado */
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-    border-left: 4px solid white;
+    background: linear-gradient(135deg, #627770 0%, #4a5d57 100%);
+    color: white;
+    box-shadow: 0 0.3vh 1vh rgba(74, 93, 87, 0.4);
+    border-left: none; 
 }
 
-.zone-btn i { width: 20px; text-align: center; }
+.zone-btn i { 
+    width: auto; 
+    font-size: 1.8vh;
+}
 
-/* --- LEYENDA --- */
 .thermal-legend {
     position: absolute;
-    bottom: 30px;
-    right: 20px;
+    bottom: 4vh;
+    right: 2vw;
     background: rgba(255, 255, 255, 0.95);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 2vh;
+    border-radius: 1vh;
+    box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.2);
     z-index: 999;
-    width: 260px;
-    backdrop-filter: blur(5px);
+    width: 20vw;
+    min-width: 220px; 
+    backdrop-filter: blur(0.5vh);
 }
 
 .thermal-legend h4 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
+    margin: 0 0 1.5vh 0;
+    font-size: 1.8vh;
     color: #333;
     font-weight: 700;
     text-align: center;
 }
 
-/* La barra de colores (Gradiente) */
 .thermal-legend-gradient {
     width: 100%;
-    height: 15px;
-    
+    height: 1.8vh;
     background: linear-gradient(to right, #8400ff, #00FFFF, #00FF00, #FFFF00, #FF0000);
-    border-radius: 20px;
-    margin-bottom: 8px;
+    border-radius: 2vh;
+    margin-bottom: 1vh;
     border: 1px solid rgba(0,0,0,0.1);
 }
 
 .thermal-legend-labels {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 1.4vh;
     font-weight: 500;
     color: #555;
 }
 
-/* --- OVERLAY DE CARGA (Loading) --- */
 .loading-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -100,11 +106,15 @@ html, body { width: 100%; height: 100%; font-family: 'Roboto', sans-serif; overf
     z-index: 9999;
     transition: opacity 0.3s ease;
 }
+
 .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
 .spinner {
-    border: 4px solid #f3f3f3; border-top: 4px solid #627770;
-    border-radius: 50%; width: 40px; height: 40px;
-    animation: spin 1s linear infinite; margin: 0 auto 10px;
+    border: 0.5vh solid #f3f3f3; border-top: 0.5vh solid #627770;
+    border-radius: 50%; width: 5vh; height: 5vh;
+    animation: spin 1s linear infinite; margin: 0 auto 1.5vh;
 }
+
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-.loading-text { color: #627770; font-weight: bold; }
+
+.loading-text { color: #627770; font-weight: bold; font-size: 1.6vh; }
