@@ -90,6 +90,31 @@
 .alerta-btn-entendido:active {
     transform: translateY(0);
 }
+/* Agrega esto al final de alert.css */
+.alerta-opciones {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: #555555a4;
+}
+
+.alerta-opciones label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.alerta-opciones input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    accent-color: #337F1D; /* Usa el color verde de tus botones */
+}
 
 /* Responsive - Tablets y móviles */
 @media (max-width: 48rem) {

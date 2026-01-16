@@ -62,11 +62,12 @@ async function initMapAndPreload() {
     // Inicializar Mapa
     state.map = L.map('map', {
         zoomControl: false,
-        center: [-2.8975, -79.0225],
-        zoom: 15,
-        minZoom: 12,
-        maxZoom: 28,
-        preferCanvas: true // MEJORA RENDIMIENTO
+        center: [-2.898, -79.03], // Centro aproximado de Cuenca
+        zoom: 14,                // Zoom inicial ajustado
+        minZoom: 14,             // RESTRICCIÓN: Nivel barrio/ciudad (Igual al otro mapa)
+        maxZoom: 20,
+        maxBounds: [[-2.95, -79.10], [-2.80, -78.90]], // Opcional: Limita la navegación a Cuenca
+        preferCanvas: true
     });
 
     L.control.zoom({ position: 'topleft' }).addTo(state.map);

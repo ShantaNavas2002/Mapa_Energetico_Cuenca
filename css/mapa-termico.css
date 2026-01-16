@@ -106,6 +106,19 @@ html, body { width: 100%; height: 100%; font-family: 'Roboto', sans-serif; overf
     z-index: 9999;
     transition: opacity 0.3s ease;
 }
+.zone-btn i {
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    font-size: 1.8vh;
+}
+
+.zone-btn.active i {
+    opacity: 1;
+    max-width: 50px; /* Un valor suficiente para el icono */
+    margin-right: 0.5vw;
+}
 
 .loading-overlay.hidden { opacity: 0; pointer-events: none; }
 

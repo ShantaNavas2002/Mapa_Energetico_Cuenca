@@ -1,10 +1,16 @@
 /* =============================================================================
-   ALERTA DE BIENVENIDA - JAVASCRIPT
+   ALERTA DE BIENVENIDA - JAVASCRIPT (CON OPCIÓN "NO MOLESTAR")
    ============================================================================= */
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Crear estructura HTML de la alerta
+    // 1. VERIFICACIÓN DE SESIÓN
+    // Si la variable 'alerta_visto' existe en la sesión, detenemos el script aquí.
+    if (sessionStorage.getItem('alerta_visto') === 'true') {
+        return; 
+    }
+
+    // Crear estructura HTML de la alerta (Se agregó el bloque div.alerta-opciones)
     const alertaHTML = `
         <div class="alerta-overlay" id="alertaInicio">
             <div class="alerta-contenedor">
@@ -21,6 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     <br>
                     Última actualización febrero 2026.
                 </p>
+
+                <div class="alerta-opciones">
+                    <label>
+                        <input type="checkbox" id="chkNoMolestar">
+                        No volver a mostrar.
+                    </label>
+                </div>
+
                 <div class="alerta-acciones">
                     <button class="alerta-btn-entendido" id="btnEntendido">
                         Entendido
@@ -36,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Referencias
     const overlay = document.getElementById('alertaInicio');
     const btnEntendido = document.getElementById('btnEntendido');
+    const chkNoMolestar = document.getElementById('chkNoMolestar'); // Referencia al checkbox
     
     // Mostrar la alerta después de un pequeño delay para la transición
     setTimeout(() => {
@@ -44,6 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para cerrar la alerta
     function cerrarAlerta() {
+        // 2. LÓGICA DE GUARDADO
+        // Si el usuario marcó el checkbox, guardamos la marca en sessionStorage
+        if (chkNoMolestar && chkNoMolestar.checked) {
+            sessionStorage.setItem('alerta_visto', 'true');
+        }
+
         overlay.classList.remove('active');
         
         // Remover del DOM después de la transición
@@ -57,18 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Prevenir que se cierre clickeando el overlay (solo con el botón)
     overlay.addEventListener('click', function(e) {
-        // Si el click es directamente en el overlay (no en el contenedor)
         if (e.target === overlay) {
-            // No hacer nada - la alerta solo se cierra con el botón
             e.stopPropagation();
         }
     });
-    
-    // Prevenir cierre con tecla Escape (opcional - puedes comentar esto si lo prefieres)
-    // document.addEventListener('keydown', function(e) {
-    //     if (e.key === 'Escape' && overlay.classList.contains('active')) {
-    //         cerrarAlerta();
-    //     }
-    // });
-    
 });
