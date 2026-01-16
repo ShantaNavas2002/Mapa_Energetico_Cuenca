@@ -1,8 +1,3 @@
-
-
-/* ========================================
-   VARIABLES Y CONFIGURACIÓN BASE
-   ======================================== */
 .contenedor-principal-metodo {
     --met-bg-card: #8CA69E;
     --met-bg-dark: #657974;
@@ -19,9 +14,6 @@
     background-color: transparent;
 }
 
-/* ========================================
-   LAYOUT PRINCIPAL (TARJETA Y GRILLA)
-   ======================================== */
 .tarjeta-img-metodo {
     width: 90%;
     max-width: 90vw;
@@ -65,9 +57,6 @@
     row-gap: 3.125rem; 
 }
 
-/* ========================================
-   CABECERA (ITEM A)
-   ======================================== */
 .header-superior.item-a {
     grid-area: cabecera;
     display: flex;
@@ -92,9 +81,6 @@
     font-weight: 300;
 }
 
-/* ========================================
-   CONTENEDORES DE CONTENIDO (ITEM C & D)
-   ======================================== */
 .item-c { grid-area: izq; }
 .item-d { grid-area: der; }
 
@@ -106,10 +92,9 @@
     box-shadow: none !important;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Esto hace que ambos ocupen el 100% del contenedor grid */
+    height: 100%;
     min-height: 45vh;
 }
-
 
 .titulo-externo-recuadro {
     position: absolute;
@@ -125,14 +110,11 @@
     overflow: visible;
 }
 
-/* ========================================
-   CAJAS INTERNAS Y SCROLLBAR
-   ======================================== */
 .caja-contenido-estilo {
     border-radius: 20px;
     padding: 2rem;
     width: 100%;
-    height: 100%; /* Agregar esto para que ocupe todo el espacio disponible */
+    height: 100%;
     overflow-y: auto; 
     overscroll-behavior-y: contain; 
     line-height: 1.5;
@@ -167,7 +149,6 @@
     display: block;
 }
 
-/* Estilos Específicos Izquierda/Derecha */
 #izq-imgOtxt .caja-contenido-estilo {
     background-color: var(--met-bg-dark);
     color: var(--met-txt-light);
@@ -180,9 +161,6 @@
     font-size: 0.95rem;
 }
 
-/* ========================================
-   BARRA DE NAVEGACIÓN (ITEM E)
-   ======================================== */
 #barra-nav.item-e {
     grid-area: nav;
     width: 100%;
@@ -245,7 +223,6 @@
     border-right: none;
 }
 
-/* Estados Activos */
 .grupo-nav.fase-activa .titulo-fase-nav {
     opacity: 1;
     font-weight: bold;
@@ -269,10 +246,6 @@
     padding: 0 15px;
 }
 
-/* ========================================
-   UTILIDADES: MODOS ESPECIALES
-   ======================================== */
-/* Modo Solo Imagen (Sin Scroll) */
 .caja-contenido-estilo.modo-solo-imagen {
     display: flex;
     justify-content: center;
@@ -291,7 +264,6 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Modo Centrado Total (Texto) */
 .contenido-texto.centrado-total {
     display: flex;
     flex-direction: column;
@@ -308,9 +280,6 @@ img.sin-sombra {
     filter: none !important;
 }
 
-/* ========================================
-   ESTILOS DE TABLAS
-   ======================================== */
 .contenido-tabla {
     width: 100%;
     overflow-x: auto;
@@ -351,9 +320,6 @@ img.sin-sombra {
     font-size: 0.7em;
 }
 
-/* ========================================
-   CARRUSEL STACK (MAZO DE CARTAS)
-   ======================================== */
 .carrusel-stack-wrapper {
     position: relative;
     width: 100%;
@@ -378,7 +344,6 @@ img.sin-sombra {
     cursor: pointer;
 }
 
-/* Estados de Posición */
 .carrusel-carta.pos-activa {
     z-index: 10;
     transform: translateX(0) scale(1);
@@ -405,7 +370,6 @@ img.sin-sombra {
     opacity: 0;
 }
 
-/* Controles */
 .carrusel-btn {
     position: absolute;
     top: 50%;
@@ -431,12 +395,8 @@ img.sin-sombra {
 .btn-prev { left: 10px; }
 .btn-next { right: 10px; }
 
-/* ========================================
-   RESPONSIVE FINAL: RECUADROS FIJOS (BLOQUES SÓLIDOS)
-   ======================================== */
 @media (max-width: 768px) {
 
-    /* 1. TARJETA PRINCIPAL: Crece lo necesario */
     .tarjeta-img-metodo {
         height: auto !important;
         min-height: 90vh;
@@ -444,12 +404,11 @@ img.sin-sombra {
         padding-bottom: 20px;
     }
 
-    /* 2. CONTENEDOR: Flujo vertical */
     .contenedor-metodo {
         display: flex;
         flex-direction: column;
         padding: 1.5rem 1rem;
-        gap: 0; /* Sin huecos entre elementos */
+        gap: 0;
         height: auto !important;
         
         grid-template-areas: none;
@@ -457,7 +416,6 @@ img.sin-sombra {
         grid-template-rows: auto;
     }
 
-    /* 3. CABECERA */
     .header-superior.item-a {
         width: 100%;
         display: flex;
@@ -470,7 +428,6 @@ img.sin-sombra {
     #seccion-pill { font-size: 0.8rem; padding: 5px 15px; white-space: nowrap; }
     #fase-txt { font-size: 1.1rem; text-align: right; }
 
-    /* 4. CONTENIDO: Estructura */
     .item-c, .item-d {
         width: 100%;
         display: flex;
@@ -479,12 +436,11 @@ img.sin-sombra {
         padding: 0;
     }
 
-    /* TÍTULOS EXTERNOS: Pegados a su caja */
     .titulo-externo-recuadro {
         position: relative !important;
         bottom: auto !important; left: auto !important;
         width: 100%;
-        margin-bottom: 5px; /* Mínima separación con la caja */
+        margin-bottom: 5px;
         margin-top: 15px;
         font-size: 0.95rem;
         color: var(--met-bg-light);
@@ -492,22 +448,16 @@ img.sin-sombra {
     }
     .item-c .titulo-externo-recuadro { margin-top: 0; }
 
-    /* === AQUÍ ESTÁ EL CAMBIO IMPORTANTE === */
     .caja-contenido-estilo {
         background-color: rgba(255, 255, 255, 0.1);
         padding: 1.2rem;
         border-radius: 15px;
-        
-        /* ALTURA FIJA Y OBLIGATORIA */
-        height: 38vh !important;  /* Tamaño fijo siempre (aprox 1/3 de pantalla) */
-        min-height: 38vh !important; /* Asegura que no se encoja */
-        max-height: 38vh !important; /* Asegura que no crezca */
-        
-        /* Si el texto sobra, aparece scroll dentro de este bloque fijo */
+        height: 38vh !important;
+        min-height: 38vh !important;
+        max-height: 38vh !important;
         overflow-y: auto; 
     }
 
-    /* 5. NAVEGACIÓN: Pegada y continua */
     #barra-nav.item-e {
         width: 100%;
         margin-top: 15px;

@@ -790,7 +790,7 @@ const DATA_METODOLOGIA = {
                 {
                     tipo: "imagen",
                     tituloCaja: "",
-                    src: "images/ImgJson22-1.png",
+                    src: "../images/ImgJson22-1.png",
                     estilo: "display: block; margin: 0 auto; width: 60%;",
                     alt: "Fórmula Percentil"
                 },

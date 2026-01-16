@@ -1,38 +1,29 @@
-// Script para controlar la animación de latido del botón del menú
 (function() {
-    // Esperar a que el DOM esté cargado
     document.addEventListener('DOMContentLoaded', function() {
         const menuBtn = document.querySelector('.btn-menu');
-        const hasInteracted = localStorage.getItem('menuBtnInteracted');
+        
+        // sessionStorage se limpia automáticamente cuando el usuario cierra la pestaña o el navegador
+        const hasInteracted = sessionStorage.getItem('menuBtnInteracted');
         
         if (!menuBtn) return;
         
-        // Si el usuario NO ha interactuado antes, agregar la animación
+        // Si no hay registro de interacción en esta sesión, activamos las ondas
         if (!hasInteracted) {
             menuBtn.classList.add('animated');
         }
         
-        // Función para detener la animación
         function stopAnimation() {
+            // Quitamos la clase de las ondas inmediatamente
             menuBtn.classList.remove('animated');
             
-            // Guardar en localStorage que ya interactuó
-            localStorage.setItem('menuBtnInteracted', 'true');
+            // Guardamos el estado para que no vuelva a aparecer MIENTRAS la pestaña esté abierta
+            sessionStorage.setItem('menuBtnInteracted', 'true');
             
-            // Remover el event listener
+            // Removemos el listener para optimizar recursos
             menuBtn.removeEventListener('click', stopAnimation);
         }
         
-        // Detener animación al hacer click
+        // Escuchamos el clic para marcar el botón como "visto"
         menuBtn.addEventListener('click', stopAnimation);
     });
-    
-    // Función para reiniciar la animación (útil para testing)
-    window.resetMenuAnimation = function() {
-        localStorage.removeItem('menuBtnInteracted');
-        location.reload();
-        console.log('Animación del menú reiniciada.');
-    };
 })();
-
-

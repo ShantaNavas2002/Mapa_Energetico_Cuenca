@@ -1,6 +1,4 @@
-/* ========================================
-   VARIABLES (Sincronizadas)
-   ======================================== */
+
 :root {
     /* Colores principales */
     --color-primario: rgba(98, 119, 112, 1);
@@ -27,23 +25,20 @@
     --menu-width-desktop: 300px;
 }
 
-/* ========================================
-   CONFIGURACIÓN BASE (Layout Mapa)
-   ======================================== */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Configuración Flex para pantalla completa sin scroll */
+
     display: flex;
     flex-direction: column;
     height: 100vh; 
     overflow: hidden;
 }
 
-/* Ajuste Header Grid */
+
 .mi-grid-3 {
     display: grid;
     grid-template-columns: 60px 1fr 60px;
@@ -53,16 +48,14 @@ body {
     padding: var(--spacing-sm);
 }
 
-/* ========================================
-   ELEMENTOS DE UI (Botones y Logos)
-   ======================================== */
+
 .position-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 25%;
 }
-/* Esto fuerza al enlace dentro del botón a heredar el color */
+
 .btn-menu a {
     color: inherit; 
     text-decoration: none;
@@ -106,9 +99,6 @@ body {
     display: block; 
 }
 
-/* ========================================
-   BUSCADOR (Izquierda)
-   ======================================== */
 .Buscador-Predio {
     position: absolute;
     z-index: 800; 

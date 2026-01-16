@@ -1,30 +1,48 @@
-/* Animación de latido del corazón para el botón del menú */
-@keyframes heartbeat {
-    0%, 100% {
-        transform: scale(1);
-    }
-    10% {
-        transform: scale(1.25);
+:root {
+    --wave-color: #25660780;
+    --wave-duration: 2.5s;
+    --wave-scale-max: 1.5;
+}
+
+.btn-menu {
+    position: relative;
+    z-index: 10;
+}
+
+.btn-menu.animated::before,
+.btn-menu.animated::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: var(--wave-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.btn-menu.animated::before {
+    animation: ripple-out var(--wave-duration) ease-out infinite;
+}
+
+.btn-menu.animated::after {
+    animation: ripple-out var(--wave-duration) ease-out infinite calc(var(--wave-duration) / 2);
+}
+
+@keyframes ripple-out {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
     }
     20% {
-        transform: scale(1);
+        opacity: 0.3;
     }
-    30% {
-        transform: scale(1.40);
+    100% {
+        transform: translate(-50%, -50%) scale(var(--wave-scale-max));
+        opacity: 0;
     }
-    40% {
-        transform: scale(1);
-    }
-}
-
-/* Aplicar animación al botón */
-.btn-menu.animated {
-    animation: heartbeat 3s ease-in-out infinite;
-}
-
-
-/* Transición suave cuando se remueve la animación */
-.btn-menu {
-    transition: transform 0.3s ease;
-    position: relative;
 }

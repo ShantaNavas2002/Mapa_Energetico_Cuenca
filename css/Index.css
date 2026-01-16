@@ -1,6 +1,4 @@
-/* ========================================
-   INDEX - ESTILOS ESPECÍFICOS
-   ======================================== */
+
 :root {
     --color-primario-tarjeta: rgba(98, 119, 112, 0.8);
     --color-titulos: #EED3A8;
@@ -9,9 +7,7 @@
     --color-texto-blanco: #ffffff;
 }
 
-/* ========================================
-   LAYOUT PRINCIPAL
-   ======================================== */
+
 .contenedor-principal {
     display: flex;
     justify-content: center;
@@ -20,13 +16,11 @@
     padding: var(--spacing-md) var(--spacing-sm);
 }
 
-/* ========================================
-   TARJETA (IMAGEN + BARRA LATERAL)
-   ======================================== */
+
 .tarjeta-img {
     position: relative; 
     display: flex;      
-    justify-content: flex-end; /* Alinea la barra de info a la derecha */
+    justify-content: flex-end; 
     width: 100vw;
     max-width: 80vw;
     margin: 0 auto;
@@ -36,7 +30,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Capa de fondo (Imagen) */
+
 .imagen-contenedor {
     position: absolute; 
     top: 0;
@@ -52,14 +46,13 @@
     object-fit: cover; 
 }
 
-/* Capa de información (Barra lateral) */
+
 .inf {
     position: relative; 
     z-index: 2;        
     width: 45%;       
     height: 100%;       
     
-    /* Glassmorphism */
     background-color: rgba(98, 119, 112, 0.55); 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(8px);
@@ -93,25 +86,21 @@
     transition: all 0.3s ease;
     outline: none;
     
-    /* Animación constante */
     animation: pulso-solar 2s infinite;
   }
 
-  /* Efecto Hover */
   .btn-mapa:hover {
     
     background-color: #e7af53;
-    transform: translateY(-3px); /* Se eleva un poco */
+    transform: translateY(-3px); 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    animation: none; /* Se detiene el pulso al interactuar */
+    animation: none; 
   }
 
-  /* Efecto Active (al hacer clic) */
   .btn-mapa:active {
     transform: translateY(-1px);
   }
 
-  /* Definición de la animación de pulso */
   @keyframes pulso-solar {
     0% {
       transform: scale(0.95);
@@ -127,9 +116,6 @@
     }
   }
 
-/* ========================================
-   ELEMENTOS INTERNOS
-   ======================================== */
 .encabezado-card {
     display: flex;
     align-items: center;

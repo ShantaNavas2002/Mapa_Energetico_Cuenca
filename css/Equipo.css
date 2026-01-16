@@ -1,7 +1,4 @@
-/* ========================================
-   CONFIGURACIÓN PAGINA ESPECÍFICA
-   (Las variables se heredan de EstructuraBase.css)
-   ======================================== */
+
 
 body {
     background: white;
@@ -9,20 +6,17 @@ body {
     overflow-x: hidden;
 }
 
-/* ========================================
-   CARRUSEL INFINITO
-   ======================================== */
+
 .carousel-container {
     width: 100%;
-    /* Padding vertical relativo al alto de la pantalla (vh) */
+    
     padding: 5vh 0; 
     overflow: hidden;
     position: relative;
 }
 
 .carousel-viewport {
-    width: 95%; /* Ocupa casi todo el ancho disponible */
-    /* Tope máximo en rem para pantallas ultra-wide (aprox 1400px) */
+    width: 95%; 
     max-width: 90rem; 
     margin: 0 auto;
     perspective: 1200px;
@@ -46,19 +40,11 @@ body {
     100% { transform: translateX(-50%); }
 }
 
-/* ========================================
-   TARJETAS DEL EQUIPO
-   ======================================== */
 .team-card {
     position: relative;
-    /* MAGIA RESPONSIVE: clamp(min, ideal, max)
-       - Mínimo: 260px (para que no sean muy flacas)
-       - Ideal: 20vw (20% del ancho de la pantalla)
-       - Máximo: 320px (para que no se vean gigantes)
-    */
     flex: 0 0 clamp(260px, 20vw, 320px);
     
-    /* Altura también dinámica: crece un poco en pantallas altas */
+
     height: clamp(380px, 45vh, 450px);
     
     border-radius: 20px;
@@ -69,7 +55,6 @@ body {
     transform-style: preserve-3d;
 }
 
-/* Efecto curvo alternado */
 .team-card:nth-child(odd) {
     transform: rotateY(-2deg) rotateX(1deg);
 }
@@ -132,7 +117,7 @@ body {
 
 .card-nombre {
     margin: 0;
-    font-size: 1.25rem; /* Relativo a la fuente base */
+    font-size: 1.25rem; 
     font-weight: 700;
 }
 
@@ -159,9 +144,7 @@ body {
     color: #fff;
 }
 
-/* ========================================
-   SECCIÓN QUIÉNES SOMOS
-   ======================================== */
+
 .quienes-somos-section {
     width: 90%; 
     max-width: 80rem; 
@@ -216,9 +199,7 @@ body {
     object-fit: contain;
 }
 
-/* ========================================
-   FOOTER (Overrides específicos)
-   ======================================== */
+
 .site-footer {
     background-color: rgba(98, 119, 112, 0.8);
     color: #fff;
@@ -245,9 +226,7 @@ body {
     color: var(--color-secundario) !important;
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
+
 @media (max-width: 768px) {
     .qs-container {
         flex-direction: column-reverse;

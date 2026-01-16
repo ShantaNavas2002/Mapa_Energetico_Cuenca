@@ -1,14 +1,9 @@
-/* ========================================
-   SKELETON LOADING - EQUIPO
-   ======================================== */
 
-/* Animación de brillo (Shimmer) */
 @keyframes skeleton-shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
 
-/* Tarjeta Fantasma (Copia exacta de las medidas de .team-card para evitar saltos) */
 .skeleton-card {
     flex: 0 0 clamp(260px, 20vw, 320px);
     height: clamp(380px, 45vh, 450px);
@@ -22,7 +17,7 @@
     justify-content: flex-end;
 }
 
-/* Fondo animado gris */
+
 .sk-anim {
     background: #e0e0e0;
     background: linear-gradient(90deg, #e0e0e0 8%, #f5f5f5 18%, #e0e0e0 33%);
@@ -30,7 +25,7 @@
     animation: skeleton-shimmer 1.5s infinite linear;
 }
 
-/* Simulación de imagen (ocupa todo el fondo) */
+
 .sk-image-placeholder {
     position: absolute;
     top: 0; left: 0;
@@ -38,7 +33,7 @@
     z-index: 0;
 }
 
-/* Simulación del Overlay de texto */
+
 .sk-info-overlay {
     position: relative;
     z-index: 2;

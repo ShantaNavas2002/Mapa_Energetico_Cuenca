@@ -55,9 +55,7 @@
     white-space: nowrap;
 }
 
-/* ========================================
-   PANEL FLOTANTE (Derecha)
-   ======================================== */
+
 .ui-panel {
     position: absolute;
     top: 10vh; 
@@ -68,7 +66,7 @@
     min-width: 22rem;       
     max-height: 85vh; 
     
-    overflow-y: auto; /* Scroll vertical solo si es necesario */
+    overflow-y: auto; 
     overflow-x: hidden;
     
     border-radius: 1.5rem;     
@@ -80,30 +78,28 @@
     padding: 1rem; 
     color: #0f172a;
 
-    /* --- SCROLLBAR PERSONALIZADO (Firefox) --- */
     scrollbar-width: thin;
     scrollbar-color: rgba(254, 255, 255, 0.781) rgba(255, 255, 255, 0.1);
 }
 
-/* --- SCROLLBAR PERSONALIZADO (Chrome, Edge, Safari) --- */
 .ui-panel::-webkit-scrollbar {
-    width: 8px; /* Delgado pero usable */
+    width: 8px; 
 }
 
 .ui-panel::-webkit-scrollbar-track {
-    background: transparent; /* Fondo transparente */
-    margin: 1rem 0; /* Margen para que no toque los bordes redondeados */
+    background: transparent; 
+    margin: 1rem 0; 
 }
 
 .ui-panel::-webkit-scrollbar-thumb {
-    background-color: rgba(98, 119, 112, 0.6); /* Color base semi-transparente */
-    border-radius: 20px; /* Redondeado tipo cápsula */
-    border: 2px solid transparent; /* Truco para dar espacio interno si se desea */
+    background-color: rgba(98, 119, 112, 0.6); 
+    border-radius: 20px; 
+    border: 2px solid transparent;
     background-clip: content-box;
 }
 
 .ui-panel::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(98, 119, 112, 0.9); /* Más oscuro al pasar el mouse */
+    background-color: rgba(98, 119, 112, 0.9); 
 }
 
 .ui-panel.hidden { display: none; }
@@ -119,7 +115,6 @@
     color: inherit;     
 }
 
-/* Componentes internos del panel */
 .ui-panel .popup-card { 
     width: 100%;
     padding: 0.6rem 0.4rem;
@@ -130,8 +125,6 @@
     margin: 0.4rem 0.4rem 0.8rem;
     text-align: center;
 }
-
-/* Acordeones */
 .section {
     background: #f3f4f6;           
     border-radius: 0.9rem;
@@ -184,9 +177,7 @@
     filter: drop-shadow(0 0 0.4rem rgba(37,99,235,0.25));
 }
 
-/* ========================================
-   TARJETAS SOLARES
-   ======================================== */
+
 .solar-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; 
@@ -242,9 +233,7 @@
     margin: 0 auto; 
 }
 
-/* ========================================
-   ALERTAS Y PANELES INFORMATIVOS
-   ======================================== */
+
 .icono-alerta {
     width: 15%; 
     height: auto;
@@ -265,9 +254,7 @@
     font-size: 0.9rem;
 }
 
-/* ========================================
-   ANIMACIONES (Header Image)
-   ======================================== */
+
 .summary-content {
     display: flex;
     align-items: center;
@@ -295,9 +282,7 @@
     to { opacity: 1; transform: translateX(0); }
 }
 
-/* ========================================
-   RESPONSIVE (Ajustes Móviles)
-   ======================================== */
+
 
 /* Tabletas y móviles grandes */
 @media (max-width: 768px) {
@@ -319,7 +304,6 @@
     }
 }
 
-/* MÓVILES PEQUEÑOS */
 @media (max-width: 480px) {
     .ui-panel {
         width: 95vw;
